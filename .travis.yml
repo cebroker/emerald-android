@@ -53,6 +53,5 @@ before_script:
   - mkdir -p "$ANDROID_HOME/licenses"
 
 script:
-- ./gradlew --no-daemon --parallel data:clean data:testDebugUnitTest --stacktrace
-- ./gradlew --no-daemon --parallel domain:clean domain:testDebugUnitTest --stacktrace
+- ./gradlew --no-daemon --parallel connectedAndroidTest--stacktrace
 
