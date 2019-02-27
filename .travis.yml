@@ -11,7 +11,8 @@ android:
   - extra-google-m2repository
   - extra-android-m2repository
   - addon-google_apis-google-27
-  - sys-img-armeabi-v7a-google_apis-27
+  - android-22
+  - sys-img-armeabi-v7a-android-22
 
   licenses:
   - 'android-sdk-preview-license-52d11cd2'
@@ -33,8 +34,8 @@ cache:
   - $HOME/.android/build-cache
 
 before_install:
-  - echo y | android update sdk -a -u -t sys-img-armeabi-v7a-android-27
-  - yes | sdkmanager "platforms;android-27"
+  - yes | android update sdk -a -u -t sys-img-armeabi-v7a-android-22
+  - yes | sdkmanager "platforms;android-22"
   - android list targets
 
 install:
@@ -45,6 +46,7 @@ install:
 - echo y | $HOME/android-sdk/tools/bin/sdkmanager 'platform-tools' > /dev/null
 - echo y | $HOME/android-sdk/tools/bin/sdkmanager 'build-tools;28.0.3' > /dev/null
 - echo y | $HOME/android-sdk/tools/bin/sdkmanager 'platforms;android-28' > /dev/null
+- echo y | $HOME/android-sdk/tools/bin/sdkmanager 'platforms;android-22' > /dev/null
 - echo y | $HOME/android-sdk/tools/bin/sdkmanager 'extras;google;m2repository' > /dev/null
 
 env:
@@ -52,7 +54,7 @@ env:
 
 before_script:
   - android list targets
-  - echo no | android create avd --force -n test -t android-27 --abi armeabi-v7a --tag google_apis
+  - echo no | android create avd --force -n test -t android-22 --abi armeabi-v7a
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
