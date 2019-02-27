@@ -8,6 +8,8 @@ branches:
 android:
   components:
   - sys-img-armeabi-v7a-android-27
+  - sys-img-armeabi-v7a-android-21
+
   licenses:
   - 'android-sdk-preview-license-52d11cd2'
   - 'android-sdk-license-.+'
