@@ -52,7 +52,7 @@ abstract class EditTextFormField constructor(context: Context, attrs: AttributeS
         return when {
             mEditText?.text.toString().isEmpty() && mIsRequired -> ValidationResult(
                 false,
-                VALIDATE_EMPTY_ERROR
+                String.format(VALIDATE_EMPTY_ERROR, mHint)
             )
             mIsRequired && mRegex != null && !Pattern.compile(mRegex).matcher(mEditText?.text.toString()).matches() -> getErrorValidateResult()
             else -> ValidationResult(true, EMPTY)
