@@ -9,10 +9,7 @@ import android.widget.TextView
 import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.helper.DEFAULT_STYLE_ATTR
-import co.condorlabs.customcomponents.helper.DEFAULT_STYLE_RES
-import co.condorlabs.customcomponents.helper.EMPTY
-import co.condorlabs.customcomponents.helper.VALIDATE_CHECKBOX_NO_SELECTION_ERROR
+import co.condorlabs.customcomponents.helper.*
 
 abstract class BaseCheckboxFormField(context: Context, private val mAttrs: AttributeSet) : TextInputLayout(context, mAttrs),
         FormField {
@@ -66,7 +63,7 @@ abstract class BaseCheckboxFormField(context: Context, private val mAttrs: Attri
         when {
             mIsRequired -> {
                 if (mCountOptions == countIfIsChecked()) {
-                    return ValidationResult(false, VALIDATE_CHECKBOX_NO_SELECTION_ERROR)
+                    return ValidationResult(false, String.format(MESSAGE_FORMAT_ERROR, labelText))
                 }
             }
         }

@@ -10,10 +10,7 @@ import android.widget.TextView
 import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.helper.DEFAULT_STYLE_ATTR
-import co.condorlabs.customcomponents.helper.DEFAULT_STYLE_RES
-import co.condorlabs.customcomponents.helper.EMPTY
-import co.condorlabs.customcomponents.helper.VALIDATE_SPINNER_NO_SELECTION_ERROR
+import co.condorlabs.customcomponents.helper.*
 
 /**
  * @author Oscar Gallon on 2/26/19.
@@ -63,7 +60,7 @@ abstract class BaseSpinnerFormField(context: Context, private val mAttrs: Attrib
     override fun isValid(): ValidationResult {
         mSpinner?.let {
             if (it.selectedItemPosition == AdapterView.INVALID_POSITION) {
-                return ValidationResult(false, String.format(VALIDATE_SPINNER_NO_SELECTION_ERROR, mLabelText))
+                return ValidationResult(false, String.format(MESSAGE_FORMAT_ERROR, mLabelText))
             }
         }
 

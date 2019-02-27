@@ -7,7 +7,7 @@ import android.support.test.espresso.matcher.ViewMatchers
 import co.condorlabs.customcomponents.customcheckbox.CheckboxFormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.EMPTY
-import co.condorlabs.customcomponents.helper.VALIDATE_CHECKBOX_NO_SELECTION_ERROR
+import co.condorlabs.customcomponents.helper.MESSAGE_FORMAT_ERROR
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -33,7 +33,7 @@ class CheckBoxFieldTest : MockActivityTest() {
 
         //Then
         Assert.assertEquals(
-                ValidationResult(false, VALIDATE_CHECKBOX_NO_SELECTION_ERROR), result
+                ValidationResult(false, String.format(MESSAGE_FORMAT_ERROR, "Custom check")), result
         )
     }
 
@@ -51,7 +51,7 @@ class CheckBoxFieldTest : MockActivityTest() {
         }
 
         //Then
-        ViewMatchers.hasErrorText(VALIDATE_CHECKBOX_NO_SELECTION_ERROR).matches(formField.getChildAt(0))
+        ViewMatchers.hasErrorText(String.format(MESSAGE_FORMAT_ERROR, "Custom check")).matches(formField.getChildAt(0))
     }
 
     @Test

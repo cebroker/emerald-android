@@ -9,7 +9,7 @@ import android.widget.Spinner
 import co.condorlabs.customcomponents.customspinner.StateListener
 import co.condorlabs.customcomponents.customspinner.StateSpinnerFormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.helper.VALIDATE_SPINNER_NO_SELECTION_ERROR
+import co.condorlabs.customcomponents.helper.MESSAGE_FORMAT_ERROR
 import org.hamcrest.CoreMatchers.*
 import org.junit.Assert
 import org.junit.Before
@@ -115,7 +115,7 @@ class StateSpinnerFormFieldTest : MockActivityTest() {
 
         //Given
         val formField = ruleActivity.activity.findViewById<StateSpinnerFormField>(R.id.tlState)
-        val error = String.format(VALIDATE_SPINNER_NO_SELECTION_ERROR, "State")
+        val error = String.format(MESSAGE_FORMAT_ERROR, "State")
 
         //When
         ruleActivity.runOnUiThread {
