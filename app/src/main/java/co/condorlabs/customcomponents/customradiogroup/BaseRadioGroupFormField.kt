@@ -26,10 +26,7 @@ import android.widget.TextView
 import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.customedittext.TextFormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.helper.DEFAULT_STYLE_ATTR
-import co.condorlabs.customcomponents.helper.DEFAULT_STYLE_RES
-import co.condorlabs.customcomponents.helper.EMPTY
-import co.condorlabs.customcomponents.helper.VALIDATE_RADIOGROUP_NO_SELECTION_ERROR
+import co.condorlabs.customcomponents.helper.*
 
 abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: AttributeSet) :
     TextInputLayout(context, mAttrs), TextFormField {
@@ -76,7 +73,7 @@ abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: Att
         when {
             mIsRequired -> {
                 if (mCountOptions == countIfIsChecked()) {
-                    return ValidationResult(false, VALIDATE_RADIOGROUP_NO_SELECTION_ERROR)
+                    return ValidationResult(false, String.format(MESSAGE_FORMAT_ERROR, mLabelText))
                 }
             }
         }
