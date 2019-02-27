@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <declare-styleable name="EditTextFormField">
+        <attr name="regex" format="string"/>
+        <attr name="is_required" format="boolean"/>
+    </declare-styleable>
+
+    <declare-styleable name="EditTextDateField">
+        <attr name="picker_icon" format="integer"/>
+    </declare-styleable>
+
+    <declare-styleable name="BaseEditTextFormField">
+        <attr name="hint" format="string"/>
+        <attr name="input_type" format="string"/>
+    </declare-styleable>
+    
+    <declare-styleable name="StateSpinnerFormField">
+        <attr name="label" format="string"/>
+    </declare-styleable>
+
+    <declare-styleable name="BaseRadioGroupFormField">
+        <attr name="count_options" format="integer"/>
+        <attr name="values" format="reference"/>
+        <attr name="title" format="string"/>
+    </declare-styleable>
+
+</resources>

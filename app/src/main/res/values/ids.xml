@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="id" name="etCity"/>
+    <item type="id" name="etCurrency"/>
+    <item type="id" name="etDate"/>
+    <item type="id" name="etEmail"/>
+    <item type="id" name="etPhone"/>
+    <item type="id" name="etBase"/>
+    <item type="id" name="spState"/>
+    <item type="id" name="tvLabel"/>
+    <item type="id" name="tvLabelRadioGroup"/>
+</resources>
