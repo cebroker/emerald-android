@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <attr name="count_options" format="integer"/>
+    <attr name="values" format="reference"/>
+    <attr name="title" format="string"/>
+
     <declare-styleable name="EditTextFormField">
         <attr name="regex" format="string"/>
         <attr name="is_required" format="boolean"/>
@@ -20,9 +24,15 @@
     </declare-styleable>
 
     <declare-styleable name="BaseRadioGroupFormField">
-        <attr name="count_options" format="integer"/>
-        <attr name="values" format="reference"/>
-        <attr name="title" format="string"/>
+        <attr name="count_options" />
+        <attr name="values" />
+        <attr name="title" />
+    </declare-styleable>
+
+    <declare-styleable name="BaseCheckboxFormField">
+        <attr name="count_options"/>
+        <attr name="values" />
+        <attr name="title" />
     </declare-styleable>
 
 </resources>
