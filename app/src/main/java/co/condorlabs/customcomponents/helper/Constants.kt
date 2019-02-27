@@ -16,15 +16,14 @@
 
 package co.condorlabs.customcomponents.helper
 
-const val VALIDATE_EMPTY_ERROR = "Field %s must not be empty"
-const val VALIDATE_NUMERIC_ERROR = "This field must be numeric"
+const val VALIDATE_EMPTY_ERROR = "Field %s must not be empty."
+const val VALIDATE_NUMERIC_ERROR = "This field must be numeric."
 const val VALIDATE_LENGTH_ERROR = "This field must have ten digits."
 const val VALIDATE_EMAIL_ERROR = "Email incorrect."
 const val VALIDATE_DATE_ERROR = "Date incorrect."
 const val VALIDATE_CURRENCY_ERROR = "Currency incorrect."
 const val VALIDATE_CITY_ERROR = "City must belong to the state "
-const val VALIDATE_SPINNER_NO_SELECTION_ERROR = "Field %s must have an element selected"
-const val VALIDATE_RADIOGROUP_NO_SELECTION_ERROR = "Field must have an element selected"
+const val MESSAGE_FORMAT_ERROR = "Field %s must have an element selected."
 
 const val EMPTY = ""
 const val MAX_LENGHT = 12
