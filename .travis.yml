@@ -32,7 +32,8 @@ cache:
   - $HOME/.android/build-cache
 
 before_install:
-  - echo y | android update sdk --no-ui --all --filter sys-img-armeabi-v7a-android-27,sys-img-x86_64-android-27,build-tools-27.0.3
+  - echo y | android update sdk -a -u -t sys-img-x86-android-27
+  - echo y | android update sdk -a -u -t sys-img-x86-android-28
   - yes | sdkmanager "platforms;android-27"
   - yes | sdkmanager "platforms;android-28"
   - android list targets
@@ -52,11 +53,11 @@ env:
 
 before_script:
   - android list targets
-  - echo no | android create avd --force -n test -t android-27 
+  - echo no | android create avd --force -n test -t android-27
   - emulator -avd test -no-skin -no-audio -no-window &
   - android-wait-for-emulator
   - adb shell input keyevent 82 &
   - mkdir -p "$ANDROID_HOME/licenses"
 
 script:
-- ./gradlew --no-daemon --parallel connectedAndroidTest--stacktrace
+- ./gradlew --no-daemon --parallel connectedAndroidTest --stacktrace
