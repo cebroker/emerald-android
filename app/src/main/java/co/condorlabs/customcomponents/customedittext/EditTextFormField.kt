@@ -33,6 +33,7 @@ abstract class EditTextFormField constructor(context: Context, attrs: AttributeS
 
     protected var mRegex: String? = null
     protected var mEditText: EditText? = null
+    protected var mHint: String = context.getString(R.string.default_base_hint)
 
     override var mIsRequired: Boolean = false
 
