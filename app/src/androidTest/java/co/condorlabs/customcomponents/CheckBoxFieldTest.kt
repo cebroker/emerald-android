@@ -4,27 +4,28 @@ import android.support.test.espresso.Espresso
 import android.support.test.espresso.action.ViewActions
 import android.support.test.espresso.assertion.ViewAssertions
 import android.support.test.espresso.matcher.ViewMatchers
-import co.condorlabs.customcomponents.customradiogroup.RadioGroupFormField
+import co.condorlabs.customcomponents.customcheckbox.CheckboxFormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.EMPTY
-import co.condorlabs.customcomponents.helper.VALIDATE_RADIOGROUP_NO_SELECTION_ERROR
+import co.condorlabs.customcomponents.helper.VALIDATE_CHECKBOX_NO_SELECTION_ERROR
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 
-class RadioGroupFieldTest : MockActivityTest(){
+class CheckBoxFieldTest : MockActivityTest() {
 
     @Before
     fun setup() {
-        MockActivity.layout = R.layout.activity_baseradiogroup_test
+        MockActivity.layout = R.layout.activity_basechecbox_test
     }
 
+
     @Test
-    fun shouldShowMessageIfNoSelected() {
+    fun shouldShowMessageIfNoSelectedWhenIsRequired() {
         restartActivity()
 
         //Given
-        val formField = ruleActivity.activity.findViewById<RadioGroupFormField>(R.id.tlRadioGroup)
+        val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilChecbox)
 
         formField.setIsRequired(true)
         //When
@@ -32,17 +33,16 @@ class RadioGroupFieldTest : MockActivityTest(){
 
         //Then
         Assert.assertEquals(
-            ValidationResult(false, VALIDATE_RADIOGROUP_NO_SELECTION_ERROR), result
+                ValidationResult(false, VALIDATE_CHECKBOX_NO_SELECTION_ERROR), result
         )
     }
-
 
     @Test
     fun shouldShowMessageInLabelIfNoSelected() {
         restartActivity()
 
         //Given
-        val formField = ruleActivity.activity.findViewById<RadioGroupFormField>(R.id.tlRadioGroup)
+        val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilChecbox)
 
         formField.setIsRequired(true)
         //When
@@ -51,7 +51,7 @@ class RadioGroupFieldTest : MockActivityTest(){
         }
 
         //Then
-        ViewMatchers.hasErrorText(VALIDATE_RADIOGROUP_NO_SELECTION_ERROR).matches(formField.getChildAt(0))
+        ViewMatchers.hasErrorText(VALIDATE_CHECKBOX_NO_SELECTION_ERROR).matches(formField.getChildAt(0))
     }
 
     @Test
@@ -59,17 +59,35 @@ class RadioGroupFieldTest : MockActivityTest(){
         restartActivity()
 
         //Given
-        val formField = ruleActivity.activity.findViewById<RadioGroupFormField>(R.id.tlRadioGroup)
+        val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilChecbox)
 
         formField.setIsRequired(true)
         //When
-        Espresso.onView(ViewMatchers.withSubstring("Item 3"))
-            .perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withSubstring("Item 1"))
+                .perform(ViewActions.click())
         val result = formField.isValid()
 
         //Then
         Assert.assertEquals(
-            ValidationResult(true, EMPTY), result
+                ValidationResult(true, EMPTY), result
+        )
+    }
+
+
+    @Test
+    fun shouldReturnTrueIfNoSelected() {
+        restartActivity()
+
+        //Given
+        val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilChecbox)
+
+        formField.setIsRequired(false)
+        //When
+        val result = formField.isValid()
+
+        //Then
+        Assert.assertEquals(
+                ValidationResult(true, EMPTY), result
         )
     }
 
@@ -78,7 +96,7 @@ class RadioGroupFieldTest : MockActivityTest(){
         restartActivity()
 
         //Given
-        val view = Espresso.onView(ViewMatchers.withText("Custom radio group"))
+        val view = Espresso.onView(ViewMatchers.withText("Custom check"))
 
         //When
         view.perform(ViewActions.click())
