@@ -33,6 +33,7 @@ abstract class EditTextFormField constructor(context: Context, attrs: AttributeS
 
     protected var mRegex: String? = null
     protected var mEditText: EditText? = null
+    protected var mHint: String = context.getString(R.string.default_base_hint)
 
     override var mIsRequired: Boolean = false
 
@@ -51,7 +52,7 @@ abstract class EditTextFormField constructor(context: Context, attrs: AttributeS
         return when {
             mEditText?.text.toString().isEmpty() && mIsRequired -> ValidationResult(
                 false,
-                VALIDATE_EMPTY_ERROR
+                String.format(VALIDATE_EMPTY_ERROR, mHint)
             )
             mIsRequired && mRegex != null && !Pattern.compile(mRegex).matcher(mEditText?.text.toString()).matches() -> getErrorValidateResult()
             else -> ValidationResult(true, EMPTY)
