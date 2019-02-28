@@ -187,7 +187,6 @@ class BaseEditTextFieldTest : MockActivityTest() {
         formField.setMaxLength(9)
         view.perform(typeText("12345678901"))
         val result = formField.isValid()
-        Thread.sleep(2000)
 
         //Then
         Espresso.onView(ViewMatchers.withText("123456789")).check(matches(isDisplayed()))

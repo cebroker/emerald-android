@@ -9,8 +9,6 @@
         android:id="@+id/tilChecbox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:count_options="2"
-        app:title="Custom check"
-        app:values="@array/values"/>
+        app:title="Custom check"/>
 
 </LinearLayout>

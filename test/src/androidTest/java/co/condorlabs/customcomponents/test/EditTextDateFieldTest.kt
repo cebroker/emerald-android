@@ -20,9 +20,7 @@ import android.support.test.espresso.Espresso
 import android.support.test.espresso.action.ViewActions
 import android.support.test.espresso.matcher.ViewMatchers
 import android.view.View
-import co.condorlabs.customcomponents.test.R
 import co.condorlabs.customcomponents.customedittext.EditTextDateField
-import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.VALIDATE_DATE_ERROR
 import co.condorlabs.customcomponents.helper.VALIDATE_EMPTY_ERROR

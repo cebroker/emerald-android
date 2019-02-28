@@ -31,7 +31,6 @@ import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.*
 import co.condorlabs.customcomponents.helper.masks.DateTextWatcherMask
-import java.lang.RuntimeException
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*

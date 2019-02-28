@@ -24,7 +24,6 @@ import android.widget.ArrayAdapter
 import android.widget.TextView
 import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.helper.STATE_SPINNER_HINT_POSITION
-import co.condorlabs.customcomponents.helper.ZERO
 
 /**
  * @author Oscar Gallon on 2/26/19.

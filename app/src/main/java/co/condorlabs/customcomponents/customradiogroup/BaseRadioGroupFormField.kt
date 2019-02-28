@@ -32,7 +32,6 @@ import co.condorlabs.customcomponents.helper.*
 abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: AttributeSet) :
     TextInputLayout(context, mAttrs), FormField<String> {
 
-
     private var mSelectables: List<Selectable>? = null
     private var mRadioGroup: RadioGroup? = null
     private var mLabelText = EMPTY

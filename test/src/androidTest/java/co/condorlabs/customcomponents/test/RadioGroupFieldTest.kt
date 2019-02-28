@@ -20,7 +20,6 @@ import android.support.test.espresso.Espresso
 import android.support.test.espresso.action.ViewActions
 import android.support.test.espresso.assertion.ViewAssertions
 import android.support.test.espresso.matcher.ViewMatchers
-import co.condorlabs.customcomponents.test.R
 import co.condorlabs.customcomponents.customradiogroup.RadioGroupFormField
 import co.condorlabs.customcomponents.formfield.Selectable
 import co.condorlabs.customcomponents.formfield.ValidationResult

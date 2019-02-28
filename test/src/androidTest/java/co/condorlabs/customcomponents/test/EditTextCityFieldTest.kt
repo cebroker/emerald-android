@@ -23,7 +23,6 @@ import android.support.test.espresso.action.ViewActions.typeText
 import android.support.test.espresso.matcher.ViewMatchers
 import android.support.test.runner.AndroidJUnit4
 import android.view.View
-import co.condorlabs.customcomponents.test.R
 import co.condorlabs.customcomponents.customedittext.EditTextCityField
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.VALIDATE_CITY_ERROR

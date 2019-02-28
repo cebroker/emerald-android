@@ -17,8 +17,6 @@
 
 <resources>
 
-    <attr name="count_options" format="integer"/>
-    <attr name="values" format="reference"/>
     <attr name="title" format="string"/>
     <attr name="is_required" format="boolean"/>
     <attr name="hint" format="string"/>
@@ -46,8 +44,6 @@
     </declare-styleable>
 
     <declare-styleable name="BaseCheckboxFormField">
-        <attr name="count_options"/>
-        <attr name="values"/>
         <attr name="title"/>
         <attr name="is_required"/>
     </declare-styleable>
