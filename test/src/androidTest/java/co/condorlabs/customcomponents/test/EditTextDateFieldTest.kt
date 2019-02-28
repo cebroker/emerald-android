@@ -20,9 +20,7 @@ import android.support.test.espresso.Espresso
 import android.support.test.espresso.action.ViewActions
 import android.support.test.espresso.matcher.ViewMatchers
 import android.view.View
-import co.condorlabs.customcomponents.test.R
 import co.condorlabs.customcomponents.customedittext.EditTextDateField
-import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.VALIDATE_DATE_ERROR
 import co.condorlabs.customcomponents.helper.VALIDATE_EMPTY_ERROR
@@ -59,7 +57,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         //then
         Assert.assertEquals(
             ValidationResult(false, VALIDATE_DATE_ERROR),
-            (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? FormField)?.isValid()
+            (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)?.isValid()
         )
     }
 
@@ -77,7 +75,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         //Then
         Assert.assertEquals(
             ValidationResult(false, VALIDATE_DATE_ERROR),
-            (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? FormField)?.isValid()
+            (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)?.isValid()
         )
     }
 
@@ -95,7 +93,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         //Then
         Assert.assertEquals(
             ValidationResult(false, VALIDATE_DATE_ERROR),
-            (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? FormField)?.isValid()
+            (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)?.isValid()
         )
     }
 
@@ -114,7 +112,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         //Then
         Assert.assertEquals(
             ValidationResult(false, VALIDATE_DATE_ERROR),
-            (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? FormField)?.isValid()
+            (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)?.isValid()
         )
     }
 
@@ -207,7 +205,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         //Then
         Assert.assertEquals(
             ValidationResult(false, String.format(VALIDATE_EMPTY_ERROR,"Enter some text")),
-            (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? FormField)?.isValid()
+            (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)?.isValid()
         )
     }
 

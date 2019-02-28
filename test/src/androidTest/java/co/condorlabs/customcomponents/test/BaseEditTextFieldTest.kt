@@ -24,7 +24,6 @@ import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
 import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.runner.AndroidJUnit4
 import co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
-import co.condorlabs.customcomponents.customedittext.EditTextFormField
 import co.condorlabs.customcomponents.helper.VALIDATE_EMPTY_ERROR
 import org.junit.Assert
 import org.junit.Test
@@ -48,7 +47,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
 
 
         //Then
-        Assert.assertEquals("Enter some text",(formField as? EditTextFormField)?.hint)
+        Assert.assertEquals("Enter some text", formField?.hint)
     }
 
     @Test
@@ -63,8 +62,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
 
 
         //Then
-
-        Assert.assertEquals("Zip",(formField as? EditTextFormField)?.hint)
+        Assert.assertEquals("Zip", formField?.hint)
     }
 
     @Test
@@ -87,6 +85,37 @@ class BaseEditTextFieldTest : MockActivityTest() {
     }
 
     @Test
+    fun shouldReturnEmptyIfNothingIsType(){
+        MockActivity.layout = R.layout.activity_baseedittext_no_required_test
+        restartActivity()
+
+        //Given
+        val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
+
+        //When
+        val result = formField.getValue()
+
+        //Then
+        Assert.assertEquals("", result)
+    }
+
+    @Test
+    fun shouldReturnValueTyped(){
+        MockActivity.layout = R.layout.activity_baseedittext_no_required_test
+        restartActivity()
+
+        //Given
+        val editText = Espresso.onView(withId(R.id.etBase))
+        val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
+
+        //When
+        editText.perform(typeText("156"))
+
+        //Then
+        Assert.assertEquals("156", formField.getValue())
+    }
+
+    @Test
     fun shouldHaveRegexAndHint() {
         MockActivity.layout = R.layout.activity_baseedittext_with_hint_and_regex_test
         restartActivity()
@@ -104,7 +133,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
 
         //Then
         Espresso.onView(ViewMatchers.withText("12345")).check(matches(isDisplayed()))
-        Assert.assertEquals("Zip",(formField as? EditTextFormField)?.hint)
+        Assert.assertEquals("Zip",(formField)?.hint)
         Assert.assertTrue(result.isValid)
     }
 
@@ -133,7 +162,6 @@ class BaseEditTextFieldTest : MockActivityTest() {
         ruleActivity.runOnUiThread {
             formField.setMaxLength(5)
         }
-
         val view = Espresso.onView(withId(R.id.etBase))
 
         //When
@@ -157,7 +185,6 @@ class BaseEditTextFieldTest : MockActivityTest() {
         formField.setMaxLength(9)
         view.perform(typeText("12345678901"))
         val result = formField.isValid()
-        Thread.sleep(2000)
 
         //Then
         Espresso.onView(ViewMatchers.withText("123456789")).check(matches(isDisplayed()))
@@ -200,5 +227,4 @@ class BaseEditTextFieldTest : MockActivityTest() {
         Assert.assertFalse(result.isValid)
         Assert.assertEquals(String.format(VALIDATE_EMPTY_ERROR, "Zip"), result.error)
     }
-
 }

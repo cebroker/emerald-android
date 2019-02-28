@@ -14,8 +14,12 @@
  * limitations under the License.
  */
 
-package co.condorlabs.customcomponents.customedittext
+package co.condorlabs.customcomponents.formfield
 
-import co.condorlabs.customcomponents.formfield.FormField
-
-interface TextFormField: FormField
+/**
+ * @author Oscar Gallon on 2/28/19.
+ */
+data class Selectable(
+    val label: String,
+    var value: Boolean
+)

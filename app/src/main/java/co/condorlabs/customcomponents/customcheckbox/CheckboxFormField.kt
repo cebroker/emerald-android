@@ -7,12 +7,7 @@ class CheckboxFormField(context: Context, mAttrs: AttributeSet) : BaseCheckboxFo
 
     override var mIsRequired: Boolean = false
 
-    fun setArrayTextOption(options: Array<CharSequence>){
-        textOptions = options
-    }
-
-    fun setIsRequired(isRequired: Boolean){
+    fun setIsRequired(isRequired: Boolean) {
         mIsRequired = isRequired
     }
-
 }

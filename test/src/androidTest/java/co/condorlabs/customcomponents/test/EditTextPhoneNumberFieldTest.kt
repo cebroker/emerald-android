@@ -21,7 +21,6 @@ import android.support.test.espresso.action.ViewActions
 import android.support.test.espresso.assertion.ViewAssertions
 import android.support.test.espresso.matcher.ViewMatchers
 import android.view.View
-import co.condorlabs.customcomponents.test.R
 import co.condorlabs.customcomponents.customedittext.EditTextPhoneField
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.PHONE_NUMBER_REGEX

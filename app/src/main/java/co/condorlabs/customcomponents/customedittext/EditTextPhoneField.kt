@@ -28,9 +28,7 @@ import co.condorlabs.customcomponents.helper.MAX_LENGHT
 import co.condorlabs.customcomponents.helper.VALIDATE_LENGTH_ERROR
 import co.condorlabs.customcomponents.helper.masks.PhoneNumberTextWatcherMask
 
-
 class EditTextPhoneField(context: Context, attrs: AttributeSet) : BaseEditTextFormField(context, attrs) {
-
 
     override fun setup() {
         super.setup()

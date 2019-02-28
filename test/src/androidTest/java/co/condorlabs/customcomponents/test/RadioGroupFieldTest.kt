@@ -20,8 +20,8 @@ import android.support.test.espresso.Espresso
 import android.support.test.espresso.action.ViewActions
 import android.support.test.espresso.assertion.ViewAssertions
 import android.support.test.espresso.matcher.ViewMatchers
-import co.condorlabs.customcomponents.test.R
 import co.condorlabs.customcomponents.customradiogroup.RadioGroupFormField
+import co.condorlabs.customcomponents.formfield.Selectable
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.EMPTY
 import co.condorlabs.customcomponents.helper.MESSAGE_FORMAT_ERROR
@@ -29,7 +29,7 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 
-class RadioGroupFieldTest : MockActivityTest(){
+class RadioGroupFieldTest : MockActivityTest() {
 
     @Before
     fun setup() {
@@ -42,8 +42,18 @@ class RadioGroupFieldTest : MockActivityTest(){
 
         //Given
         val formField = ruleActivity.activity.findViewById<RadioGroupFormField>(R.id.tlRadioGroup)
-
         formField.setIsRequired(true)
+        ruleActivity.runOnUiThread {
+            formField.setSelectables(
+                arrayListOf(
+                    Selectable("Item 1", false),
+                    Selectable("Item 2", false),
+                    Selectable("Item 3", false),
+                    Selectable("Item 4", false)
+                )
+            )
+        }
+
         //When
         val result = formField.isValid()
 
@@ -60,8 +70,18 @@ class RadioGroupFieldTest : MockActivityTest(){
 
         //Given
         val formField = ruleActivity.activity.findViewById<RadioGroupFormField>(R.id.tlRadioGroup)
-
         formField.setIsRequired(true)
+        ruleActivity.runOnUiThread {
+            formField.setSelectables(
+                arrayListOf(
+                    Selectable("Item 1", false),
+                    Selectable("Item 2", false),
+                    Selectable("Item 3", false),
+                    Selectable("Item 4", false)
+                )
+            )
+        }
+
         //When
         formField?.let {
             showErrorInInputLayout(it, it.isValid().error)
@@ -69,7 +89,8 @@ class RadioGroupFieldTest : MockActivityTest(){
 
         //Then
 
-        ViewMatchers.hasErrorText(String.format(MESSAGE_FORMAT_ERROR, "Custom radio group")).matches(formField.getChildAt(0))
+        ViewMatchers.hasErrorText(String.format(MESSAGE_FORMAT_ERROR, "Custom radio group"))
+            .matches(formField.getChildAt(0))
     }
 
     @Test
@@ -78,8 +99,18 @@ class RadioGroupFieldTest : MockActivityTest(){
 
         //Given
         val formField = ruleActivity.activity.findViewById<RadioGroupFormField>(R.id.tlRadioGroup)
-
+        ruleActivity.runOnUiThread {
+            formField.setSelectables(
+                arrayListOf(
+                    Selectable("Item 1", false),
+                    Selectable("Item 2", false),
+                    Selectable("Item 3", false),
+                    Selectable("Item 4", false)
+                )
+            )
+        }
         formField.setIsRequired(true)
+
         //When
         Espresso.onView(ViewMatchers.withSubstring("Item 3"))
             .perform(ViewActions.click())
@@ -105,4 +136,84 @@ class RadioGroupFieldTest : MockActivityTest(){
         view.check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
+    @Test
+    fun shouldBeInitWithSelectableOption() {
+        restartActivity()
+
+        //Given
+        val formField = ruleActivity.activity.findViewById<RadioGroupFormField>(R.id.tlRadioGroup)
+        ruleActivity.runOnUiThread {
+            formField.setSelectables(
+                arrayListOf(
+                    Selectable("Item 1", false),
+                    Selectable("Item 2", false),
+                    Selectable("Item 3", false),
+                    Selectable("Item 4", true)
+                )
+            )
+        }
+        formField.setIsRequired(true)
+
+        //When
+        val result = formField.isValid()
+
+        //Then
+        Assert.assertEquals(
+            ValidationResult(true, EMPTY), result
+        )
+    }
+
+    @Test
+    fun shouldReturnEmptyWithoutSelection() {
+        restartActivity()
+
+        //Given
+        val formField = ruleActivity.activity.findViewById<RadioGroupFormField>(R.id.tlRadioGroup)
+        ruleActivity.runOnUiThread {
+            formField.setSelectables(
+                arrayListOf(
+                    Selectable("Item 1", false),
+                    Selectable("Item 2", false),
+                    Selectable("Item 3", false),
+                    Selectable("Item 4", false)
+                )
+            )
+        }
+
+        //When
+        val result = formField.getValue()
+
+        //Then
+        Assert.assertEquals(
+            "", result
+        )
+    }
+
+    @Test
+    fun shouldReturnValueSelected() {
+        restartActivity()
+
+        //Given
+        val formField = ruleActivity.activity.findViewById<RadioGroupFormField>(R.id.tlRadioGroup)
+        ruleActivity.runOnUiThread {
+            formField.setSelectables(
+                arrayListOf(
+                    Selectable("Item 1", false),
+                    Selectable("Item 2", false),
+                    Selectable("Item 3", false),
+                    Selectable("Item 4", false)
+                )
+            )
+        }
+
+        //When
+        Espresso.onView(ViewMatchers.withSubstring("Item 2"))
+            .perform(ViewActions.click())
+        val result = formField.getValue()
+
+        //Then
+        Assert.assertEquals(
+            "Item 2", result
+        )
+    }
 }

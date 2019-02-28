@@ -17,6 +17,7 @@
 package co.condorlabs.customcomponents.customedittext
 
 import android.content.Context
+import android.support.design.widget.TextInputLayout
 import android.text.InputFilter
 import android.text.InputType
 import android.util.AttributeSet
@@ -24,21 +25,27 @@ import android.util.TypedValue
 import android.widget.EditText
 import android.widget.LinearLayout
 import co.condorlabs.customcomponents.R
+import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.DEFAULT_STYLE_ATTR
 import co.condorlabs.customcomponents.helper.DEFAULT_STYLE_RES
+import co.condorlabs.customcomponents.helper.EMPTY
 import co.condorlabs.customcomponents.helper.VALIDATE_EMPTY_ERROR
+import java.util.regex.Pattern
 
 /**
  * @author Oscar Gallon on 2/26/19.
  */
 open class BaseEditTextFormField(context: Context, private val mAttrs: AttributeSet) :
-    EditTextFormField(context, mAttrs) {
+    TextInputLayout(context, mAttrs), FormField<String> {
 
     override var mIsRequired: Boolean = false
 
-    private var mInputType: Int = InputType.TYPE_CLASS_TEXT
+    protected var mRegex: String? = null
+    protected var mEditText: EditText? = null
+    protected var mHint: String = context.getString(R.string.default_base_hint)
 
+    private var mInputType: Int = InputType.TYPE_CLASS_TEXT
     private val mLayoutParams = LinearLayout.LayoutParams(
         LinearLayout.LayoutParams.MATCH_PARENT,
         LinearLayout.LayoutParams.WRAP_CONTENT
@@ -53,7 +60,8 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
 
         mHint = typedArray.getString(R.styleable.BaseEditTextFormField_hint)
             ?: context.getString(R.string.default_base_hint)
-
+        mRegex = typedArray.getString(R.styleable.BaseEditTextFormField_regex)
+        mIsRequired = typedArray.getBoolean(R.styleable.BaseCheckboxFormField_is_required, false)
         mInputType = when (typedArray.getString(R.styleable.BaseEditTextFormField_input_type)) {
             "number" -> InputType.TYPE_CLASS_NUMBER
             "phone" -> InputType.TYPE_CLASS_PHONE
@@ -62,7 +70,6 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
 
         typedArray.recycle()
     }
-
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
@@ -86,6 +93,31 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
         }
 
         addView(_editText, mLayoutParams)
+    }
+
+    override fun getValue(): String {
+        return mEditText?.text?.toString() ?: EMPTY
+    }
+
+    override fun isValid(): ValidationResult {
+        return when {
+            mEditText?.text.toString().isEmpty() && mIsRequired -> ValidationResult(
+                false,
+                String.format(VALIDATE_EMPTY_ERROR, mHint)
+            )
+            mIsRequired && mRegex != null && !Pattern.compile(mRegex).matcher(mEditText?.text.toString()).matches() -> getErrorValidateResult()
+            else -> ValidationResult(true, EMPTY)
+        }
+    }
+
+    override fun showError(message: String) {
+        this.isErrorEnabled = true
+        this.error = message
+    }
+
+    override fun clearError() {
+        this.isErrorEnabled = false
+        this.error = EMPTY
     }
 
     fun setMaxLength(length: Int) {

@@ -20,8 +20,8 @@ import android.support.test.espresso.Espresso
 import android.support.test.espresso.action.ViewActions
 import android.support.test.espresso.assertion.ViewAssertions
 import android.support.test.espresso.matcher.ViewMatchers
-import co.condorlabs.customcomponents.test.R
 import co.condorlabs.customcomponents.customcheckbox.CheckboxFormField
+import co.condorlabs.customcomponents.formfield.Selectable
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.EMPTY
 import co.condorlabs.customcomponents.helper.MESSAGE_FORMAT_ERROR
@@ -36,32 +36,31 @@ class CheckBoxFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_basechecbox_test
     }
 
-
     @Test
     fun shouldShowMessageIfNoSelectedWhenIsRequired() {
         restartActivity()
 
         //Given
         val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilChecbox)
-
         formField.setIsRequired(true)
+
         //When
         val result = formField.isValid()
 
         //Then
         Assert.assertEquals(
-                ValidationResult(false, String.format(MESSAGE_FORMAT_ERROR, "Custom check")), result
+            ValidationResult(false, String.format(MESSAGE_FORMAT_ERROR, "Custom check")), result
         )
     }
 
     @Test
-    fun shouldShowMessageInLabelIfNoSelected() {
+    fun shouldShowErrorMessageInLabelIfNoSelected() {
         restartActivity()
 
         //Given
         val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilChecbox)
-
         formField.setIsRequired(true)
+
         //When
         formField?.let {
             showErrorInInputLayout(it, it.isValid().error)
@@ -72,27 +71,35 @@ class CheckBoxFieldTest : MockActivityTest() {
     }
 
     @Test
-    fun shouldValidateIfSelected() {
+    fun shouldShowErrorMessageIfNothingIsSelected() {
         restartActivity()
 
         //Given
         val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilChecbox)
-
         formField.setIsRequired(true)
+        ruleActivity.runOnUiThread {
+            formField.setSelectables(
+                arrayListOf(
+                    Selectable("Item 1", false),
+                    Selectable("Item 2", false),
+                    Selectable("Item 3", false),
+                    Selectable("Item 4", false)
+                )
+            )
+        }
+
         //When
-        Espresso.onView(ViewMatchers.withSubstring("Item 1"))
-                .perform(ViewActions.click())
         val result = formField.isValid()
 
         //Then
         Assert.assertEquals(
-                ValidationResult(true, EMPTY), result
+            ValidationResult(false, String.format(MESSAGE_FORMAT_ERROR, "Custom check")), result
         )
     }
 
 
     @Test
-    fun shouldReturnTrueIfNoSelected() {
+    fun shouldBeValidIfItsNotRequired() {
         restartActivity()
 
         //Given
@@ -104,7 +111,7 @@ class CheckBoxFieldTest : MockActivityTest() {
 
         //Then
         Assert.assertEquals(
-                ValidationResult(true, EMPTY), result
+            ValidationResult(true, EMPTY), result
         )
     }
 
@@ -121,5 +128,58 @@ class CheckBoxFieldTest : MockActivityTest() {
         //Then
         view.check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
+
+    @Test
+    fun shouldBeInitFromValues() {
+        restartActivity()
+
+        //Given
+        val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilChecbox)
+        ruleActivity.runOnUiThread {
+            formField.setSelectables(arrayListOf(
+                    Selectable("Item 1", true),
+            Selectable("Item 2", false),
+            Selectable("Item 3", true),
+            Selectable("Item 4", false)
+            ))
+        }
+
+        formField.setIsRequired(false)
+
+        //When
+        val result = formField.getValue()
+        Espresso.onView(ViewMatchers.withSubstring("Item 2"))
+            .perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withSubstring("Item 3"))
+            .perform(ViewActions.click())
+
+        //Then
+        Assert.assertEquals(
+            arrayListOf(
+                Selectable("Item 1", true),
+                Selectable("Item 2", true),
+                Selectable("Item 3", false),
+                Selectable("Item 4", false)
+            ), result
+        )
+    }
+
+    @Test
+    fun shouldReturnEmptyListWithNoSelectables() {
+        restartActivity()
+
+        //Given
+        val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilChecbox)
+
+        formField.setIsRequired(false)
+        //When
+        val result = formField.getValue()
+
+        //Then
+        Assert.assertEquals(
+            ArrayList<Selectable>(), result
+        )
+    }
+
 
 }
