@@ -5,6 +5,9 @@ branches:
   only:
   - master
 
+notifications:
+    slack: cebroker:bpRviKaWRDVUEHU7yPJk2ucw
+
 android:
   components:
   - extra-google-google_play_services
