@@ -36,7 +36,6 @@ class CheckBoxFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_basechecbox_test
     }
 
-
     @Test
     fun shouldShowMessageIfNoSelectedWhenIsRequired() {
         restartActivity()

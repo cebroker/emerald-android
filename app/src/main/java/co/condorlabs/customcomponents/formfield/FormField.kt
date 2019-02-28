@@ -16,7 +16,7 @@
 
 package co.condorlabs.customcomponents.formfield
 
-interface FormField {
+interface FormField<ReturnValueType> {
 
     var mIsRequired: Boolean
 
@@ -27,4 +27,9 @@ interface FormField {
     fun clearError()
 
     fun setup()
+
+    fun getValue(): ReturnValueType
+
+    fun getErrorValidateResult(): ValidationResult
+
 }

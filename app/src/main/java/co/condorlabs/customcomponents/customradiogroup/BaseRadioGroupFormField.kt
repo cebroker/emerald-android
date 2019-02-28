@@ -24,21 +24,28 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import co.condorlabs.customcomponents.R
-import co.condorlabs.customcomponents.customedittext.TextFormField
+import co.condorlabs.customcomponents.formfield.FormField
+import co.condorlabs.customcomponents.formfield.Selectable
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.*
 
 abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: AttributeSet) :
-    TextInputLayout(context, mAttrs), TextFormField {
+    TextInputLayout(context, mAttrs), FormField<String> {
 
-    private var mCountOptions = 0
-    protected var textOptions: Array<CharSequence>? = null
+
+    private var mSelectables: List<Selectable>? = null
     private var mRadioGroup: RadioGroup? = null
     private var mLabelText = EMPTY
 
-    protected val mTVLabel = TextView(context, mAttrs)?.apply {
+    private val mLayoutParams = LinearLayout.LayoutParams(
+        LinearLayout.LayoutParams.MATCH_PARENT,
+        LinearLayout.LayoutParams.WRAP_CONTENT
+    )
+
+    private val mTVLabel = TextView(context, mAttrs).apply {
         id = R.id.tvLabelRadioGroup
     }
+
 
     init {
         val typedArray = context.obtainStyledAttributes(
@@ -46,9 +53,8 @@ abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: Att
             R.styleable.BaseRadioGroupFormField,
             DEFAULT_STYLE_ATTR, DEFAULT_STYLE_RES
         )
-        mCountOptions = typedArray.getInt(R.styleable.BaseRadioGroupFormField_count_options, 0)
-        textOptions = typedArray.getTextArray(R.styleable.BaseRadioGroupFormField_values)
-        mLabelText = typedArray.getString(R.styleable.BaseRadioGroupFormField_title)
+
+        mLabelText = typedArray.getString(R.styleable.BaseRadioGroupFormField_title) ?: EMPTY
 
         typedArray.recycle()
     }
@@ -58,22 +64,15 @@ abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: Att
         setup()
     }
 
-    private fun countIfIsChecked(): Int {
-        var count = 0
-        for (i in 0 until mCountOptions) {
-            if (!(mRadioGroup?.getChildAt(i) as RadioButton).isChecked) {
-                count++
-            }
-        }
-        return count
+    override fun getErrorValidateResult(): ValidationResult {
+        return ValidationResult(false, String.format(MESSAGE_FORMAT_ERROR, mLabelText))
     }
 
     override fun isValid(): ValidationResult {
-
         when {
             mIsRequired -> {
-                if (mCountOptions == countIfIsChecked()) {
-                    return ValidationResult(false, String.format(MESSAGE_FORMAT_ERROR, mLabelText))
+                if (mRadioGroup?.checkedRadioButtonId == NO_RADIO_GROUP_SELECTED_VALUE_FOUND_RETURNED_VALUE) {
+                    return getErrorValidateResult()
                 }
             }
         }
@@ -94,18 +93,36 @@ abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: Att
         mTVLabel.text = mLabelText
         addView(mTVLabel, mLayoutParams)
         mRadioGroup = RadioGroup(context, mAttrs)
-        for (i in 0 until mCountOptions) {
-            mRadioGroup?.addView(RadioButton(context).apply {
-                id = i
-                text = textOptions?.get(i) ?: i.toString()
-            }, mLayoutParams)
+
+
+        mRadioGroup?.setOnCheckedChangeListener { _, checkedId ->
+
+            mSelectables?.forEach { it.value = false }
+            mSelectables?.get(checkedId)?.value = true
+
         }
+
         addView(mRadioGroup, mLayoutParams)
     }
 
-    private val mLayoutParams = LinearLayout.LayoutParams(
-        LinearLayout.LayoutParams.MATCH_PARENT,
-        LinearLayout.LayoutParams.WRAP_CONTENT
-    )
+    override fun getValue(): String {
+        return mSelectables?.firstOrNull { it.value }?.label ?: EMPTY
+    }
 
+    fun setSelectables(selectables: List<Selectable>) {
+        mSelectables = selectables
+        addRadioButtons()
+    }
+
+    private fun addRadioButtons() {
+        mRadioGroup?.removeAllViews()
+
+        mSelectables?.forEachIndexed { index, selectable ->
+            mRadioGroup?.addView(RadioButton(context).apply {
+                id = index
+                text = selectable.label
+                isChecked = selectable.value
+            }, mLayoutParams)
+        }
+    }
 }

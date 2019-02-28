@@ -22,7 +22,6 @@ import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.*
 import android.widget.Spinner
-import co.condorlabs.customcomponents.test.R
 import co.condorlabs.customcomponents.customspinner.StateListener
 import co.condorlabs.customcomponents.customspinner.StateSpinnerFormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
@@ -86,6 +85,27 @@ class StateSpinnerFormFieldTest : MockActivityTest() {
     }
 
     @Test
+    fun shouldDisplayHint() {
+        MockActivity.layout = R.layout.activity_spinner_with_hint
+        restartActivity()
+
+        //Given
+        val formField = ruleActivity.activity.findViewById<StateSpinnerFormField>(R.id.tlState)
+        val view = Espresso.onView(withId(R.id.spState))
+
+        //When
+        ruleActivity.runOnUiThread {
+            formField.setStates(arrayListOf("Antioquia", "Cundinamarca", "Atlantico"))
+        }
+        view.perform(click())
+        onData(allOf(`is`(instanceOf(String::class.java)), `is`("Select an State"))).perform(click())
+
+        //Then
+
+        Espresso.onView(withText("Cundinamarca")).check(matches(isDisplayed()))
+    }
+
+    @Test
     fun shouldShowStatesOnSpinner() {
         restartActivity()
 
@@ -123,7 +143,7 @@ class StateSpinnerFormFieldTest : MockActivityTest() {
 
         //Then
         Espresso.onView(withText("Cundinamarca")).check(matches(isDisplayed()))
-        Assert.assertEquals(2, spinner.selectedItemPosition)
+        Assert.assertEquals(3, spinner.selectedItemPosition)
     }
 
     @Test
@@ -151,6 +171,49 @@ class StateSpinnerFormFieldTest : MockActivityTest() {
     }
 
     @Test
+    fun shouldGetEmptyValueWithOutSelection() {
+        restartActivity()
+
+        //Given
+        val formField = ruleActivity.activity.findViewById<StateSpinnerFormField>(R.id.tlState)
+
+        //When
+        ruleActivity.runOnUiThread {
+            formField.setStates(arrayListOf("Antioquia", "Cundinamarca", "Atlantico"))
+        }
+        val result = formField.getValue()
+
+        //Then
+        Assert.assertEquals(
+            "",
+            result
+        )
+    }
+
+    @Test
+    fun shouldGetValueWithSelection() {
+        restartActivity()
+
+        //Given
+        val formField = ruleActivity.activity.findViewById<StateSpinnerFormField>(R.id.tlState)
+        val view = Espresso.onView(withId(R.id.spState))
+
+        //When
+        ruleActivity.runOnUiThread {
+            formField.setStates(arrayListOf("Antioquia", "Cundinamarca", "Atlantico"))
+        }
+        view.perform(click())
+        onData(allOf(`is`(instanceOf(String::class.java)), `is`("Atlantico"))).perform(click())
+        val result = formField.getValue()
+
+        //Then
+        Assert.assertEquals(
+            "Atlantico",
+            result
+        )
+    }
+
+    @Test
     fun shouldCallListenerOnItemSelected() {
         restartActivity()
 
@@ -172,6 +235,8 @@ class StateSpinnerFormFieldTest : MockActivityTest() {
         formField.setOnStateSetListener(listener)
         view.perform(click())
         onData(allOf(`is`(instanceOf(String::class.java)), `is`("Atlantico"))).perform(click())
+
+        //Then
         Assert.assertEquals("Atlantico", selectedState)
     }
 }

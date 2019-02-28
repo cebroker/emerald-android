@@ -24,49 +24,38 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.formfield.FormField
+import co.condorlabs.customcomponents.formfield.Selectable
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.*
 
-abstract class BaseCheckboxFormField(context: Context, private val mAttrs: AttributeSet) : TextInputLayout(context, mAttrs),
-        FormField {
+abstract class BaseCheckboxFormField(context: Context, private val mAttrs: AttributeSet) :
+    TextInputLayout(context, mAttrs), FormField<List<Selectable>> {
 
-    private var mCountOptions = 0
     protected var textOptions: Array<CharSequence>? = null
-    private var mRadioGroup: CheckBox? = null
-    protected var labelText: String? = EMPTY
+    private var mOptionsCount = 0
+    private var mLabelText: String? = EMPTY
+
     private val mTVLabel = TextView(context, mAttrs).apply {
         id = R.id.tvLabel
     }
 
     private val mLayoutParams = LinearLayout.LayoutParams(
-            LinearLayout.LayoutParams.MATCH_PARENT,
-            LinearLayout.LayoutParams.WRAP_CONTENT
+        LinearLayout.LayoutParams.MATCH_PARENT,
+        LinearLayout.LayoutParams.WRAP_CONTENT
     )
 
 
     init {
         val typedArray = context.obtainStyledAttributes(
-                mAttrs,
-                R.styleable.BaseCheckboxFormField,
-                DEFAULT_STYLE_ATTR, DEFAULT_STYLE_RES
+            mAttrs,
+            R.styleable.BaseCheckboxFormField,
+            DEFAULT_STYLE_ATTR, DEFAULT_STYLE_RES
         )
-        mCountOptions = typedArray.getInt(R.styleable.BaseCheckboxFormField_count_options, 0)
+        mOptionsCount = typedArray.getInt(R.styleable.BaseCheckboxFormField_count_options, 0)
         textOptions = typedArray.getTextArray(R.styleable.BaseCheckboxFormField_values)
-        labelText = typedArray.getString(R.styleable.BaseCheckboxFormField_title)
+        mLabelText = typedArray.getString(R.styleable.BaseCheckboxFormField_title)
 
         typedArray.recycle()
-    }
-
-    private fun countIfIsChecked(): Int {
-        var count = 0
-        (0 until childCount).forEach { i ->
-            (getChildAt(i) as? CheckBox)?.let {
-                if (!it.isChecked) {
-                    count++
-                }
-            }
-        }
-        return count
     }
 
 
@@ -75,11 +64,15 @@ abstract class BaseCheckboxFormField(context: Context, private val mAttrs: Attri
         setup()
     }
 
+    override fun getErrorValidateResult(): ValidationResult {
+        return ValidationResult(false, String.format(MESSAGE_FORMAT_ERROR, mLabelText))
+    }
+
     override fun isValid(): ValidationResult {
         when {
             mIsRequired -> {
-                if (mCountOptions == countIfIsChecked()) {
-                    return ValidationResult(false, String.format(MESSAGE_FORMAT_ERROR, labelText))
+                if (mOptionsCount == countIfIsChecked()) {
+                    return getErrorValidateResult()
                 }
             }
         }
@@ -97,15 +90,30 @@ abstract class BaseCheckboxFormField(context: Context, private val mAttrs: Attri
     }
 
     override fun setup() {
-        labelText?.let {
+        mLabelText?.let {
             mTVLabel.text = it
             addView(mTVLabel, mLayoutParams)
         }
-        for (i in 0 until mCountOptions) {
+
+        for (i in VIEW_GROUP_FIRST_VIEW_POSITION until mOptionsCount) {
             addView(CheckBox(context).apply {
                 id = i
                 text = textOptions?.get(i) ?: i.toString()
             }, mLayoutParams)
         }
+    }
+
+
+    private fun countIfIsChecked(): Int {
+        var count = 0
+        (VIEW_GROUP_FIRST_VIEW_POSITION until childCount).forEach { i ->
+            (getChildAt(i) as? CheckBox)?.let {
+                if (!it.isChecked) {
+                    count++
+                }
+            }
+        }
+
+        return count
     }
 }

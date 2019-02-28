@@ -22,6 +22,7 @@ import android.support.test.espresso.action.ViewActions.*
 import android.support.test.espresso.matcher.ViewMatchers
 import android.support.test.runner.AndroidJUnit4
 import android.view.View
+import co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
 import co.condorlabs.customcomponents.test.R
 import co.condorlabs.customcomponents.customedittext.EditTextEmailField
 import co.condorlabs.customcomponents.formfield.FormField
@@ -66,7 +67,7 @@ class EditTextEmailFieldTest : MockActivityTest() {
         (ruleActivity.activity.findViewById<View>(R.id.tlEmail) as? EditTextEmailField)?.setIsRequired(true)
 
         //When
-        val result = (ruleActivity.activity.findViewById<View>(R.id.tlEmail) as? FormField)?.isValid()
+        val result = (ruleActivity.activity.findViewById<View>(R.id.tlEmail) as? BaseEditTextFormField)?.isValid()
 
         //Then
         Assert.assertEquals(

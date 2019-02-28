@@ -59,7 +59,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         //then
         Assert.assertEquals(
             ValidationResult(false, VALIDATE_DATE_ERROR),
-            (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? FormField)?.isValid()
+            (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)?.isValid()
         )
     }
 
@@ -77,7 +77,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         //Then
         Assert.assertEquals(
             ValidationResult(false, VALIDATE_DATE_ERROR),
-            (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? FormField)?.isValid()
+            (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)?.isValid()
         )
     }
 
@@ -95,7 +95,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         //Then
         Assert.assertEquals(
             ValidationResult(false, VALIDATE_DATE_ERROR),
-            (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? FormField)?.isValid()
+            (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)?.isValid()
         )
     }
 
@@ -114,7 +114,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         //Then
         Assert.assertEquals(
             ValidationResult(false, VALIDATE_DATE_ERROR),
-            (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? FormField)?.isValid()
+            (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)?.isValid()
         )
     }
 
@@ -207,7 +207,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         //Then
         Assert.assertEquals(
             ValidationResult(false, String.format(VALIDATE_EMPTY_ERROR,"Enter some text")),
-            (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? FormField)?.isValid()
+            (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)?.isValid()
         )
     }
 

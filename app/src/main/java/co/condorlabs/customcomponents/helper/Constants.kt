@@ -24,6 +24,8 @@ const val VALIDATE_DATE_ERROR = "Date incorrect."
 const val VALIDATE_CURRENCY_ERROR = "Currency incorrect."
 const val VALIDATE_CITY_ERROR = "City must belong to the state "
 const val MESSAGE_FORMAT_ERROR = "Field %s must have an element selected."
+const val NO_RADIO_GROUP_SELECTED_VALUE_FOUND_RETURNED_VALUE = -1
+const val STATE_SPINNER_HINT_POSITION = 0
 
 const val EMPTY = ""
 const val MAX_LENGHT = 12
@@ -62,6 +64,7 @@ const val PHONE_NUMBER_REGEX_SECOND_GROUP_REPLACEMENT_MATCHER = "$1-$2"
 const val PHONE_NUMBER_REGEX_THIRD_GROUP_REPLACEMENT_MATCHER = "$1-$2-$3"
 const val FIRST_EDITTEXT_SELECTION_CHARACTER = 0
 const val PHONE_NUMBER_SEPARATOR_TOKEN = "-"
+const val VIEW_GROUP_FIRST_VIEW_POSITION  = 0
 
 
 /**DATE FORMATS**/

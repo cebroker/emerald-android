@@ -18,6 +18,7 @@ package co.condorlabs.customcomponents.customedittext
 
 import android.app.DatePickerDialog
 import android.content.Context
+import android.graphics.drawable.Drawable
 import android.support.v4.content.ContextCompat
 import android.text.InputType
 import android.text.TextUtils
@@ -30,6 +31,7 @@ import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.*
 import co.condorlabs.customcomponents.helper.masks.DateTextWatcherMask
+import java.lang.RuntimeException
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -37,7 +39,7 @@ import java.util.*
 class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFormField(context, attrs),
     DatePickerDialog.OnDateSetListener {
 
-    private var mIconDrawableId = R.drawable.ic_date
+    private var mIconDrawable: Drawable? = null
     private var mDateTextWatcherMask: DateTextWatcherMask? = null
     private var mLowerLimit: Long? = null
     private var mUpperLimit: Long? = null
@@ -45,11 +47,11 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
     init {
         context.theme.obtainStyledAttributes(
             attrs,
-            R.styleable.EditTextFormField,
+            R.styleable.EditTextDateField,
             DEFAULT_STYLE_ATTR, DEFAULT_STYLE_RES
         ).apply {
             try {
-                mIconDrawableId = getInt(R.styleable.EditTextDateField_picker_icon, R.drawable.ic_date)
+                mIconDrawable = getDrawable(R.styleable.EditTextDateField_picker_icon)
             } finally {
                 recycle()
             }
@@ -131,10 +133,13 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
             receiver.addTextChangedListener(this)
         }
 
+        val drawable = mIconDrawable?.let { it } ?: ContextCompat.getDrawable(context, R.drawable.ic_date)?.let { it }
+        ?: throw RuntimeException(context.getString(R.string.dateformfield_no_icon_error_message))
+
         receiver.setCompoundDrawablesWithIntrinsicBounds(
             null,
             null,
-            ContextCompat.getDrawable(context, mIconDrawableId),
+            drawable,
             null
         )
 

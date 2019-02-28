@@ -21,6 +21,8 @@
     <string name="currency_default_hint">Currency</string>
     <string name="default_base_hint">Enter some text</string>
     <string name="zip_hint">Zip</string>
+    <string name="dateformfield_no_icon_error_message">Can not create the view without an icon</string>
+    <string name="spinner_default_hint">Select</string>
     <string-array name="values">
         <item>Item 1</item>
         <item>Item 2</item>

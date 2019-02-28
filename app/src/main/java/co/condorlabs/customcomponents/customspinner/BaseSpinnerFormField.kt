@@ -33,16 +33,17 @@ import co.condorlabs.customcomponents.helper.*
  */
 abstract class BaseSpinnerFormField(context: Context, private val mAttrs: AttributeSet) :
     TextInputLayout(context, mAttrs),
-    FormField {
+    FormField<String> {
 
     protected var mSpinner: Spinner? = null
+    protected var mAdapterHint: String
 
-    protected val mLayoutParams = LinearLayout.LayoutParams(
+    private val mLayoutParams = LinearLayout.LayoutParams(
         LinearLayout.LayoutParams.MATCH_PARENT,
         LinearLayout.LayoutParams.WRAP_CONTENT
     )
 
-    protected val mTVLabel = TextView(context, mAttrs)?.apply {
+    private val mTVLabel = TextView(context, mAttrs)?.apply {
         id = R.id.tvLabel
     }
 
@@ -57,6 +58,8 @@ abstract class BaseSpinnerFormField(context: Context, private val mAttrs: Attrib
 
         mLabelText = typedArray.getString(R.styleable.StateSpinnerFormField_label)
             ?: context.getString(R.string.default_base_hint)
+        mAdapterHint = typedArray.getString(R.styleable.StateSpinnerFormField_hint)
+            ?: context.getString(R.string.spinner_default_hint)
 
         typedArray.recycle()
     }
@@ -73,10 +76,14 @@ abstract class BaseSpinnerFormField(context: Context, private val mAttrs: Attrib
         addView(mSpinner)
     }
 
+    override fun getErrorValidateResult(): ValidationResult {
+        return ValidationResult(false, String.format(MESSAGE_FORMAT_ERROR, mLabelText))
+    }
+
     override fun isValid(): ValidationResult {
         mSpinner?.let {
             if (it.selectedItemPosition == AdapterView.INVALID_POSITION) {
-                return ValidationResult(false, String.format(MESSAGE_FORMAT_ERROR, mLabelText))
+                getErrorValidateResult()
             }
         }
 
