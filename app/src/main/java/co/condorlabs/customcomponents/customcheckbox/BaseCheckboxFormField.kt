@@ -35,7 +35,6 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
     private var mSelectables: List<Selectable>? = null
     private var mLabelText: String? = EMPTY
 
-
     private val mTVLabel = TextView(context, attrs).apply {
         id = R.id.tvLabel
     }
@@ -56,7 +55,6 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
 
         typedArray.recycle()
     }
-
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
@@ -105,7 +103,6 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
         val selectableChecked = mSelectables?.find {
             it.label == checkbox.text
         }?.let { it } ?: return
-
 
         selectableChecked.value = !selectableChecked.value
     }

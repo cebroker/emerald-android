@@ -32,7 +32,6 @@ class EditTextCityField(context: Context, attrs: AttributeSet) : BaseEditTextFor
     private var mStateName: String? = null
     private var mCities: List<String>? = null
 
-
     override fun getErrorValidateResult(): ValidationResult {
         return ValidationResult(false, "$VALIDATE_CITY_ERROR ${mStateName ?: EMPTY}")
     }
@@ -57,7 +56,6 @@ class EditTextCityField(context: Context, attrs: AttributeSet) : BaseEditTextFor
         super.setup()
         mEditText?.id = R.id.etCity
     }
-
 
     fun setCities(cities: List<String>) {
         mCities = cities

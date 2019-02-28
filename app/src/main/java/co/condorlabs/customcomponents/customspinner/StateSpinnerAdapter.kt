@@ -34,7 +34,6 @@ class StateSpinnerAdapter(
     private val mStates: ArrayList<String> = ArrayList()
 ) : ArrayAdapter<String>(context, resourceId, mStates) {
 
-
     fun replaceStates(states: List<String>) {
         mStates.clear()
         mStates.add(mHint)

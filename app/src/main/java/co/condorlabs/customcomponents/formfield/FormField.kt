@@ -31,5 +31,4 @@ interface FormField<ReturnValueType> {
     fun getValue(): ReturnValueType
 
     fun getErrorValidateResult(): ValidationResult
-
 }

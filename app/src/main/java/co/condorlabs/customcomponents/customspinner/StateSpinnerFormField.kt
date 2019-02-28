@@ -35,7 +35,6 @@ class StateSpinnerFormField(context: Context, attrs: AttributeSet) :
 
     private var mStateListener: StateListener? = null
 
-
     override fun setup() {
         super.setup()
         mSpinner?.id = R.id.spState

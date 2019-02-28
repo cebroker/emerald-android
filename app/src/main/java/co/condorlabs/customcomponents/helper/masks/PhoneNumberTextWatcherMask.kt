@@ -22,7 +22,6 @@ import co.condorlabs.customcomponents.helper.*
 
 class PhoneNumberTextWatcherMask(private val mReceiver: EditText) : TextWatcherAdapter() {
 
-
     override fun afterTextChanged(s: Editable?) {
         s?.let { text ->
             mReceiver.removeTextChangedListener(this)

@@ -36,7 +36,6 @@ class EditTextEmailField(context: Context, attrs: AttributeSet) : BaseEditTextFo
         mEditText?.inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
     }
 
-
     override fun getErrorValidateResult(): ValidationResult {
         return ValidationResult(false, VALIDATE_EMAIL_ERROR)
     }

@@ -31,7 +31,6 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 
-
 /**
  * @author Oscar Gallon on 2/26/19.
  */

@@ -71,7 +71,6 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
         typedArray.recycle()
     }
 
-
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         setup()

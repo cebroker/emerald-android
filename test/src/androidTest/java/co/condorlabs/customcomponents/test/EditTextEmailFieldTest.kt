@@ -58,7 +58,6 @@ class EditTextEmailFieldTest : MockActivityTest() {
         ViewMatchers.withHint("Email").matches(view)
     }
 
-
     @Test
     fun shouldShowAndErrorWithEmptyEmail() {
         restartActivity()
@@ -151,6 +150,7 @@ class EditTextEmailFieldTest : MockActivityTest() {
         )
     }
 
+    @Test
     fun shouldMatch() {
         restartActivity()
         //Given

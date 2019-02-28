@@ -62,7 +62,6 @@ class BaseEditTextFieldTest : MockActivityTest() {
 
 
         //Then
-
         Assert.assertEquals("Zip", formField?.hint)
     }
 
@@ -163,7 +162,6 @@ class BaseEditTextFieldTest : MockActivityTest() {
         ruleActivity.runOnUiThread {
             formField.setMaxLength(5)
         }
-
         val view = Espresso.onView(withId(R.id.etBase))
 
         //When
@@ -229,5 +227,4 @@ class BaseEditTextFieldTest : MockActivityTest() {
         Assert.assertFalse(result.isValid)
         Assert.assertEquals(String.format(VALIDATE_EMPTY_ERROR, "Zip"), result.error)
     }
-
 }
