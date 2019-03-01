@@ -22,8 +22,9 @@ import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers.*
 import android.widget.Spinner
-import co.condorlabs.customcomponents.customspinner.StateListener
-import co.condorlabs.customcomponents.customspinner.StateSpinnerFormField
+import co.condorlabs.customcomponents.customspinner.SpinnerData
+import co.condorlabs.customcomponents.customspinner.SpinnerFormFieldListener
+import co.condorlabs.customcomponents.customspinner.SpinnerFormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.MESSAGE_FORMAT_ERROR
 import org.hamcrest.CoreMatchers.*
@@ -34,7 +35,7 @@ import org.junit.Test
 /**
  * @author Oscar Gallon on 2/26/19.
  */
-class StateSpinnerFormFieldTest : MockActivityTest() {
+class SpinnerFormFieldTest : MockActivityTest() {
 
     @Before
     fun setup() {
@@ -89,15 +90,18 @@ class StateSpinnerFormFieldTest : MockActivityTest() {
         restartActivity()
 
         //Given
-        val formField = ruleActivity.activity.findViewById<StateSpinnerFormField>(R.id.tlState)
+        val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
         val view = Espresso.onView(withId(R.id.spState))
+        val data = SpinnerData("1", "Antioquia")
+        val data1 = SpinnerData("2", "Cundinamarca")
+        val data3 = SpinnerData("3", "Atlantico")
 
         //When
         ruleActivity.runOnUiThread {
-            formField.setStates(arrayListOf("Antioquia", "Cundinamarca", "Atlantico"))
+            formField.setData(arrayListOf(data, data1, data3))
         }
         view.perform(click())
-        onData(allOf(`is`(instanceOf(String::class.java)), `is`("Select an State"))).perform(click())
+        onData(allOf(`is`(instanceOf(SpinnerData::class.java)), `is`(SpinnerData("Select an State","Select an State")))).perform(click())
 
         //Then
 
@@ -109,15 +113,18 @@ class StateSpinnerFormFieldTest : MockActivityTest() {
         restartActivity()
 
         //Given
-        val formField = ruleActivity.activity.findViewById<StateSpinnerFormField>(R.id.tlState)
+        val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
         val view = Espresso.onView(withId(R.id.spState))
+        val data = SpinnerData("1", "Antioquia")
+        val data1 = SpinnerData("2", "Cundinamarca")
+        val data3 = SpinnerData("3", "Atlantico")
 
         //When
         ruleActivity.runOnUiThread {
-            formField.setStates(arrayListOf("Antioquia", "Cundinamarca", "Atlantico"))
+            formField.setData(arrayListOf(data, data1, data3))
         }
         view.perform(click())
-        onData(allOf(`is`(instanceOf(String::class.java)), `is`("Cundinamarca"))).perform(click())
+        onData(allOf(`is`(instanceOf(SpinnerData::class.java)), `is`(data1))).perform(click())
 
         //Then
 
@@ -129,16 +136,19 @@ class StateSpinnerFormFieldTest : MockActivityTest() {
         restartActivity()
 
         //Given
-        val formField = ruleActivity.activity.findViewById<StateSpinnerFormField>(R.id.tlState)
+        val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
         val spinner = ruleActivity.activity.findViewById<Spinner>(R.id.spState)
         val view = Espresso.onView(withId(R.id.spState))
+        val data = SpinnerData("1", "Antioquia")
+        val data1 = SpinnerData("2", "Cundinamarca")
+        val data2 = SpinnerData("3", "Atlantico")
 
         //When
         ruleActivity.runOnUiThread {
-            formField.setStates(arrayListOf("Antioquia", "Cundinamarca", "Atlantico"))
+            formField.setData(arrayListOf(data, data1, data2))
         }
         view.perform(click())
-        onData(allOf(`is`(instanceOf(String::class.java)), `is`("Cundinamarca"))).perform(click())
+        onData(allOf(`is`(instanceOf(SpinnerData::class.java)), `is`(data1))).perform(click())
 
         //Then
         Espresso.onView(withText("Cundinamarca")).check(matches(isDisplayed()))
@@ -150,12 +160,15 @@ class StateSpinnerFormFieldTest : MockActivityTest() {
         restartActivity()
 
         //Given
-        val formField = ruleActivity.activity.findViewById<StateSpinnerFormField>(R.id.tlState)
+        val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
         val error = String.format(MESSAGE_FORMAT_ERROR, "State")
+        val data = SpinnerData("1", "Antioquia")
+        val data1 = SpinnerData("2", "Cundinamarca")
+        val data2 = SpinnerData("3", "Atlantico")
 
         //When
         ruleActivity.runOnUiThread {
-            formField.setStates(arrayListOf("Antioquia", "Cundinamarca", "Atlantico"))
+            formField.setData(arrayListOf(data, data1, data2))
         }
         val result = formField.isValid()
         showErrorInInputLayout(formField, result.error)
@@ -174,17 +187,20 @@ class StateSpinnerFormFieldTest : MockActivityTest() {
         restartActivity()
 
         //Given
-        val formField = ruleActivity.activity.findViewById<StateSpinnerFormField>(R.id.tlState)
+        val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
+        val data = SpinnerData("1", "Antioquia")
+        val data1 = SpinnerData("2", "Cundinamarca")
+        val data2 = SpinnerData("3", "Atlantico")
 
         //When
         ruleActivity.runOnUiThread {
-            formField.setStates(arrayListOf("Antioquia", "Cundinamarca", "Atlantico"))
+            formField.setData(arrayListOf(data, data1, data2))
         }
         val result = formField.getValue()
 
         //Then
         Assert.assertEquals(
-            "",
+            null,
             result
         )
     }
@@ -194,20 +210,23 @@ class StateSpinnerFormFieldTest : MockActivityTest() {
         restartActivity()
 
         //Given
-        val formField = ruleActivity.activity.findViewById<StateSpinnerFormField>(R.id.tlState)
+        val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
         val view = Espresso.onView(withId(R.id.spState))
+        val data = SpinnerData("1", "Antioquia")
+        val data1 = SpinnerData("2", "Cundinamarca")
+        val data2 = SpinnerData("3", "Atlantico")
 
         //When
         ruleActivity.runOnUiThread {
-            formField.setStates(arrayListOf("Antioquia", "Cundinamarca", "Atlantico"))
+            formField.setData(arrayListOf(data, data1, data2))
         }
         view.perform(click())
-        onData(allOf(`is`(instanceOf(String::class.java)), `is`("Atlantico"))).perform(click())
+        onData(allOf(`is`(instanceOf(SpinnerData::class.java)), `is`(data2))).perform(click())
         val result = formField.getValue()
 
         //Then
         Assert.assertEquals(
-            "Atlantico",
+            data2,
             result
         )
     }
@@ -217,25 +236,28 @@ class StateSpinnerFormFieldTest : MockActivityTest() {
         restartActivity()
 
         //Given
-        var selectedState = ""
-        val formField = ruleActivity.activity.findViewById<StateSpinnerFormField>(R.id.tlState)
-        val listener = object : StateListener {
-            override fun onStateSetListener(state: String) {
-                selectedState = state
+        var selectedState : SpinnerData? = null
+        val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
+        val listener = object : SpinnerFormFieldListener {
+            override fun onDataSetListener(data: SpinnerData?) {
+                selectedState = data
 
             }
         }
         val view = Espresso.onView(withId(R.id.spState))
+        val data = SpinnerData("1", "Antioquia")
+        val data1 = SpinnerData("2", "Cundinamarca")
+        val data2 = SpinnerData("3", "Atlantico")
 
         //When
         ruleActivity.runOnUiThread {
-            formField.setStates(arrayListOf("Antioquia", "Cundinamarca", "Atlantico"))
+            formField.setData(arrayListOf(data, data1, data2))
         }
         formField.setOnStateSetListener(listener)
         view.perform(click())
-        onData(allOf(`is`(instanceOf(String::class.java)), `is`("Atlantico"))).perform(click())
+        onData(allOf(`is`(instanceOf(SpinnerData::class.java)), `is`(data2))).perform(click())
 
         //Then
-        Assert.assertEquals("Atlantico", selectedState)
+        Assert.assertEquals(data2.label, selectedState?.label)
     }
 }

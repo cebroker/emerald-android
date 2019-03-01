@@ -36,7 +36,7 @@ import co.condorlabs.customcomponents.helper.MESSAGE_FORMAT_ERROR
  */
 abstract class BaseSpinnerFormField(context: Context, private val mAttrs: AttributeSet) :
     TextInputLayout(context, mAttrs),
-    FormField<String> {
+    FormField<SpinnerData?> {
 
     protected var mSpinner: Spinner? = null
     protected var mAdapterHint: String
@@ -55,13 +55,13 @@ abstract class BaseSpinnerFormField(context: Context, private val mAttrs: Attrib
     init {
         val typedArray = context.obtainStyledAttributes(
             mAttrs,
-            R.styleable.StateSpinnerFormField,
+            R.styleable.SpinnerFormField,
             DEFAULT_STYLE_ATTR, DEFAULT_STYLE_RES
         )
 
-        mLabelText = typedArray.getString(R.styleable.StateSpinnerFormField_label)
+        mLabelText = typedArray.getString(R.styleable.SpinnerFormField_label)
             ?: context.getString(R.string.default_base_hint)
-        mAdapterHint = typedArray.getString(R.styleable.StateSpinnerFormField_hint)
+        mAdapterHint = typedArray.getString(R.styleable.SpinnerFormField_hint)
             ?: context.getString(R.string.spinner_default_hint)
 
         typedArray.recycle()

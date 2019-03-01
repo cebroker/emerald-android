@@ -32,7 +32,7 @@
         <attr name="hint"/>
     </declare-styleable>
 
-    <declare-styleable name="StateSpinnerFormField">
+    <declare-styleable name="SpinnerFormField">
         <attr name="label" format="string"/>
         <attr name="hint"/>
         <attr name="is_required"/>
