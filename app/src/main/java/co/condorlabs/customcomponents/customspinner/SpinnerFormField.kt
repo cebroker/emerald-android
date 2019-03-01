@@ -28,24 +28,24 @@ import co.condorlabs.customcomponents.helper.STATE_SPINNER_HINT_POSITION
 /**
  * @author Oscar Gallon on 2/26/19.
  */
-class StateSpinnerFormField(context: Context, attrs: AttributeSet) :
+class SpinnerFormField(context: Context, attrs: AttributeSet) :
     BaseSpinnerFormField(context, attrs), ItemSelectedListenerAdapter {
 
     override var mIsRequired: Boolean = false
 
-    private var mStateListener: StateListener? = null
+    private var mSpinnerFormFieldListener: SpinnerFormFieldListener? = null
 
     override fun setup() {
         super.setup()
         mSpinner?.id = R.id.spState
         mSpinner?.adapter =
-            StateSpinnerAdapter(context, android.R.layout.simple_spinner_dropdown_item, mHint = mAdapterHint)
+            SpinnerFormFieldAdapter(context, android.R.layout.simple_spinner_dropdown_item, mHint = mAdapterHint)
         mSpinner?.onItemSelectedListener = this
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         super.onItemSelected(parent, view, position, id)
-        mStateListener?.onStateSetListener((mSpinner?.getItemAtPosition(position) as? String) ?: EMPTY)
+        mSpinnerFormFieldListener?.onDataSetListener((mSpinner?.getItemAtPosition(position) as? SpinnerData))
     }
 
     override fun isValid(): ValidationResult {
@@ -58,21 +58,21 @@ class StateSpinnerFormField(context: Context, attrs: AttributeSet) :
         return ValidationResult(true, EMPTY)
     }
 
-    override fun getValue(): String {
-        val spinner = mSpinner?.let { it } ?: return EMPTY
+    override fun getValue(): SpinnerData? {
+        val spinner = mSpinner?.let { it } ?: return null
 
         return if (!isValid().isValid) {
-            EMPTY
+            null
         } else {
-            spinner.selectedItem as? String ?: EMPTY
+            spinner.selectedItem as? SpinnerData
         }
     }
 
-    fun setStates(states: List<String>) {
-        (mSpinner?.adapter as? StateSpinnerAdapter)?.replaceStates(states.sorted())
+    fun setData(data: List<SpinnerData>) {
+        (mSpinner?.adapter as? SpinnerFormFieldAdapter)?.replaceStates(data.sortedBy { it.label })
     }
 
-    fun setOnStateSetListener(stateListener: StateListener) {
-        mStateListener = stateListener
+    fun setOnStateSetListener(spinnerFormFieldListener: SpinnerFormFieldListener) {
+        mSpinnerFormFieldListener = spinnerFormFieldListener
     }
 }
