@@ -22,6 +22,7 @@ import android.support.test.espresso.matcher.ViewMatchers
 import android.view.View
 import co.condorlabs.customcomponents.customedittext.EditTextDateField
 import co.condorlabs.customcomponents.formfield.ValidationResult
+import co.condorlabs.customcomponents.helper.EMPTY
 import co.condorlabs.customcomponents.helper.VALIDATE_DATE_ERROR
 import co.condorlabs.customcomponents.helper.VALIDATE_EMPTY_ERROR
 import org.junit.Assert
@@ -110,6 +111,24 @@ class EditTextDateFieldTest : MockActivityTest() {
         //Then
         Assert.assertEquals(
             ValidationResult(false, VALIDATE_DATE_ERROR),
+            (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)?.isValid()
+        )
+    }
+
+
+    @Test
+    fun shouldReturnTrueWitheCorrectDate() {
+        restartActivity()
+
+        //Given
+        val view = Espresso.onView(ViewMatchers.withId(R.id.etDate))
+
+        //When
+        view.perform(ViewActions.typeText("12/01/2019"))
+
+        //Then
+        Assert.assertEquals(
+            ValidationResult(true, EMPTY),
             (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)?.isValid()
         )
     }
