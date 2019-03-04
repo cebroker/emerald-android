@@ -60,5 +60,7 @@ class SpinnerFormFieldAdapter(
         return optionTextView
     }
 
+    fun getData(): List<SpinnerData> = mData
+
     private fun isHintPosition(position: Int): Boolean = position == STATE_SPINNER_HINT_POSITION
 }
