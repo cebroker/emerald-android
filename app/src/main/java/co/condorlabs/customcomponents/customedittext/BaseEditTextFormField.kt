@@ -61,7 +61,7 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
         mHint = typedArray.getString(R.styleable.BaseEditTextFormField_hint)
             ?: context.getString(R.string.default_base_hint)
         mRegex = typedArray.getString(R.styleable.BaseEditTextFormField_regex)
-        mIsRequired = typedArray.getBoolean(R.styleable.BaseCheckboxFormField_is_required, false)
+        mIsRequired = typedArray.getBoolean(R.styleable.BaseEditTextFormField_is_required, false)
         mInputType = when (typedArray.getString(R.styleable.BaseEditTextFormField_input_type)) {
             "number" -> InputType.TYPE_CLASS_NUMBER
             "phone" -> InputType.TYPE_CLASS_PHONE

@@ -46,6 +46,7 @@ class EditTextDateFieldTest : MockActivityTest() {
     @Test
     fun shouldShowErrorWitheDateIncorrectPart1() {
         restartActivity()
+        MockActivity.layout = R.layout.activity_baseedittextdate_with_out_is_required
 
         //Given
         val view = Espresso.onView(ViewMatchers.withId(R.id.etDate))
@@ -67,7 +68,6 @@ class EditTextDateFieldTest : MockActivityTest() {
 
         //Given
         val view = Espresso.onView(ViewMatchers.withId(R.id.etDate))
-        (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)?.setIsRequired(true)
 
         //When
         view.perform(ViewActions.typeText("M1/01/2019"))
@@ -85,7 +85,6 @@ class EditTextDateFieldTest : MockActivityTest() {
 
         //Given
         val view = Espresso.onView(ViewMatchers.withId(R.id.etDate))
-        (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)?.setIsRequired(true)
 
         //When
         view.perform(ViewActions.typeText("12/01/2YY9"))
@@ -104,7 +103,6 @@ class EditTextDateFieldTest : MockActivityTest() {
         //Given
         val view =
             Espresso.onView(ViewMatchers.withId(R.id.etDate))
-        (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)?.setIsRequired(true)
 
         //When
         view.perform(ViewActions.replaceText(mDefaultDateFormat))
