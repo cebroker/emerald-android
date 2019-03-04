@@ -75,4 +75,10 @@ class SpinnerFormField(context: Context, attrs: AttributeSet) :
     fun setOnStateSetListener(spinnerFormFieldListener: SpinnerFormFieldListener) {
         mSpinnerFormFieldListener = spinnerFormFieldListener
     }
+
+    fun setItemSelectedById(id: String) {
+        val data = (mSpinner?.adapter as? SpinnerFormFieldAdapter)?.getData()?.let { it } ?: return
+        val item = data.find { it.id == id }?.let { it } ?: return
+        mSpinner?.setSelection(data.indexOf(item))
+    }
 }
