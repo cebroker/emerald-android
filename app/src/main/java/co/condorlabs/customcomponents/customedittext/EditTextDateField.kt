@@ -57,7 +57,7 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
         }
 
         if (mRegex == null) {
-            mRegex = context.getString(R.string.show_date_format)
+            mRegex = DATE_REGEX
         }
     }
 
