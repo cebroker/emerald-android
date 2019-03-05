@@ -20,6 +20,7 @@ import android.support.test.espresso.Espresso
 import android.support.test.espresso.action.ViewActions
 import android.support.test.espresso.assertion.ViewAssertions
 import android.support.test.espresso.matcher.ViewMatchers
+import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.customradiogroup.RadioGroupFormField
 import co.condorlabs.customcomponents.formfield.Selectable
 import co.condorlabs.customcomponents.formfield.ValidationResult
@@ -214,6 +215,42 @@ class RadioGroupFieldTest : MockActivityTest() {
         //Then
         Assert.assertEquals(
             "Item 2", result
+        )
+    }
+
+    @Test
+    fun shouldBeAbleToGetSelectedValues(){
+        restartActivity()
+
+        //Given
+        val formField = ruleActivity.activity.findViewById<RadioGroupFormField>(R.id.tlRadioGroup)
+        ruleActivity.runOnUiThread {
+            formField.setSelectables(
+                arrayListOf(
+                    Selectable("Item 1", false),
+                    Selectable("Item 2", false),
+                    Selectable("Item 3", false),
+                    Selectable("Item 4", false)
+                )
+            )
+        }
+
+        var result = ""
+
+        formField?.setValueChangeListener(object : ValueChangeListener<String>{
+            override fun onValueChange(value: String) {
+                result = value
+            }
+
+        })
+
+        //When
+        Espresso.onView(ViewMatchers.withSubstring("Item 3"))
+            .perform(ViewActions.click())
+
+        //Then
+        Assert.assertEquals(
+            "Item 3", result
         )
     }
 }

@@ -33,8 +33,6 @@ class SpinnerFormField(context: Context, attrs: AttributeSet) :
 
     override var mIsRequired: Boolean = false
 
-    private var mSpinnerFormFieldListener: SpinnerFormFieldListener? = null
-
     override fun setup() {
         super.setup()
         mSpinner?.id = R.id.spState
@@ -47,7 +45,6 @@ class SpinnerFormField(context: Context, attrs: AttributeSet) :
         super.onItemSelected(parent, view, position, id)
         val spinnerData = (mSpinner?.getItemAtPosition(position) as? SpinnerData)?.let { it } ?: return
         mValueChangeListener?.onValueChange(spinnerData)
-        mSpinnerFormFieldListener?.onDataSetListener(spinnerData)
     }
 
     override fun isValid(): ValidationResult {
@@ -72,10 +69,6 @@ class SpinnerFormField(context: Context, attrs: AttributeSet) :
 
     fun setData(data: List<SpinnerData>) {
         (mSpinner?.adapter as? SpinnerFormFieldAdapter)?.replaceStates(data.sortedBy { it.label })
-    }
-
-    fun setOnStateSetListener(spinnerFormFieldListener: SpinnerFormFieldListener) {
-        mSpinnerFormFieldListener = spinnerFormFieldListener
     }
 
     fun setItemSelectedById(id: String) {
