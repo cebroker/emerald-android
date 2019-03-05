@@ -83,6 +83,17 @@ class EditTextDateFieldTest : MockActivityTest() {
         )
     }
 
+    @Test
+    fun shouldReturnTrueIsNotRequired() {
+        MockActivity.layout = R.layout.activity_baseedittextdate_with_out_is_required
+        restartActivity()
+
+        //Then
+        Assert.assertEquals(
+            ValidationResult(true, EMPTY),
+            (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)?.isValid()
+        )
+    }
 
     @Test
     fun shouldReturnTrueWitheCorrectDate() {
@@ -98,6 +109,24 @@ class EditTextDateFieldTest : MockActivityTest() {
         //Then
         Assert.assertEquals(
             ValidationResult(true, EMPTY),
+            (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)?.isValid()
+        )
+    }
+
+    @Test
+    fun shouldShowErrorWithMask() {
+        MockActivity.layout = R.layout.activity_edittextdatefield_test
+        restartActivity()
+
+        //Given
+        val view = Espresso.onView(ViewMatchers.withId(R.id.etDate))
+
+        //When
+        view.perform(ViewActions.replaceText("MM/DD/YYYY"))
+
+        //Then
+        Assert.assertEquals(
+            ValidationResult(false, VALIDATE_DATE_ERROR),
             (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)?.isValid()
         )
     }
