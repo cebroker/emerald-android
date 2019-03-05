@@ -4,7 +4,6 @@ import android.view.ViewGroup
 
 interface IValidate {
 
-
     fun addCustomComponents(viewGroup: ViewGroup)
 
     fun validateCustomComponents(): Boolean
