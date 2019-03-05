@@ -24,6 +24,7 @@ import android.widget.CompoundButton
 import android.widget.LinearLayout
 import android.widget.TextView
 import co.condorlabs.customcomponents.R
+import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.Selectable
 import co.condorlabs.customcomponents.formfield.ValidationResult
@@ -31,6 +32,8 @@ import co.condorlabs.customcomponents.helper.*
 
 abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
     TextInputLayout(context, attrs), FormField<List<Selectable>>, CompoundButton.OnCheckedChangeListener {
+
+    protected var mValueChangeListener: ValueChangeListener<List<Selectable>>? = null
 
     private var mSelectables: List<Selectable>? = null
     private var mLabelText: String? = EMPTY
@@ -105,6 +108,14 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
         }?.let { it } ?: return
 
         selectableChecked.value = !selectableChecked.value
+
+        val selectables = mSelectables?.let { it } ?: return
+
+        mValueChangeListener?.onValueChange(selectables)
+    }
+
+    override fun setValueChangeListener(valueChangeListener: ValueChangeListener<List<Selectable>>) {
+        mValueChangeListener = valueChangeListener
     }
 
     fun setSelectables(selectables: List<Selectable>) {
@@ -118,6 +129,7 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
             addView(CheckBox(context).apply {
                 id = index
                 text = selectable.label
+                isChecked = selectable.value
                 setOnCheckedChangeListener(this@BaseCheckboxFormField)
             }, mLayoutParams)
         }

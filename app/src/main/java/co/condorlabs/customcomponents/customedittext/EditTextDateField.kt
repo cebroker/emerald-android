@@ -42,6 +42,8 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
     private var mDateTextWatcherMask: DateTextWatcherMask? = null
     private var mLowerLimit: Long? = null
     private var mUpperLimit: Long? = null
+    private var mSimpleDateFormat: SimpleDateFormat? = null
+    private var mDateFormat = DEFAULT_DATE_FORMAT
 
     init {
         context.theme.obtainStyledAttributes(
@@ -59,6 +61,8 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
         if (mRegex == null) {
             mRegex = DATE_REGEX
         }
+
+        mSimpleDateFormat = SimpleDateFormat(mDateFormat, Locale.getDefault())
     }
 
     override fun setup() {
@@ -88,6 +92,8 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
             ).format(calendar.time)
         )
 
+        mValueChangeListener?.onValueChange(getValue())
+
         receiver.addTextChangedListener(dateTextWatcherMask)
     }
 
@@ -115,9 +121,64 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
         }
     }
 
+    override fun isValid(): ValidationResult {
+        val result = super.isValid()
+
+        if (result.isValid) {
+            val actualDate = mSimpleDateFormat?.parse(getValue()) ?: return result
+
+            if (isDateBelowOtherOneInMilliseconds(actualDate, mLowerLimit)) {
+                return ValidationResult(
+                    false,
+                    String.format(
+                        VALIDATE_LOWER_LIMIT_DATE_ERROR,
+                        mHint,
+                        getFormatedDateFromMilliseconds(mLowerLimit ?: ZERO.toLong())
+                    )
+                )
+            }
+
+            if (isDateAfterOtherOneInMilliseconds(actualDate, mUpperLimit)) {
+                return ValidationResult(
+                    false,
+                    String.format(
+                        VALIDATE_UPPER_LIMIT_DATE_ERROR,
+                        mHint,
+                        getFormatedDateFromMilliseconds(mUpperLimit ?: ZERO.toLong())
+                    )
+                )
+            }
+
+        }
+
+        return result
+    }
+
     fun getLowerLimit(): Long? = mLowerLimit
 
     fun getUpperLimit(): Long? = mUpperLimit
+
+    private fun isDateBelowOtherOneInMilliseconds(actual: Date, otherOne: Long?): Boolean {
+        val lowerLimit = otherOne?.let { it } ?: return false
+        return actual.time < lowerLimit
+    }
+
+    private fun isDateAfterOtherOneInMilliseconds(actual: Date, otherOne: Long?): Boolean {
+        val upperLimit = otherOne?.let { it } ?: return false
+        return actual.time > otherOne
+    }
+
+    private fun getFormatedDateFromMilliseconds(milliseconds: Long): String {
+        return try {
+            mSimpleDateFormat?.format(Date().apply {
+                time = milliseconds
+            }) ?: EMPTY
+        } catch (e: Exception) {
+            e.printStackTrace()
+            EMPTY
+        }
+    }
+
 
     @Throws(ParseException::class)
     private fun parseDate(format: String, candidate: String): Long {

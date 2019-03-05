@@ -21,6 +21,7 @@ import android.support.test.espresso.action.ViewActions
 import android.support.test.espresso.assertion.ViewAssertions
 import android.support.test.espresso.matcher.ViewMatchers
 import co.condorlabs.customcomponents.customcheckbox.CheckboxFormField
+import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.formfield.Selectable
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.EMPTY
@@ -178,6 +179,42 @@ class CheckBoxFieldTest : MockActivityTest() {
         //Then
         Assert.assertEquals(
             ArrayList<Selectable>(), result
+        )
+    }
+
+    @Test
+    fun shouldBeAbleToGetSelectedValues(){
+        restartActivity()
+
+        //Given
+        val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilChecbox)
+        ruleActivity.runOnUiThread {
+            formField.setSelectables(arrayListOf(
+                Selectable("Item 1", true),
+                Selectable("Item 2", false),
+                Selectable("Item 3", true),
+                Selectable("Item 4", false)
+            ))
+        }
+        var result: List<Selectable> = arrayListOf()
+        formField?.setValueChangeListener(object: ValueChangeListener<List<Selectable>> {
+            override fun onValueChange(value: List<Selectable>) {
+                result= value
+            }
+
+        })
+
+        //When
+        Espresso.onView(ViewMatchers.withText("Item 1")).perform(ViewActions.click())
+
+        //Then
+        Assert.assertEquals(
+            arrayListOf(
+                Selectable("Item 1", false),
+                Selectable("Item 2", false),
+                Selectable("Item 3", true),
+                Selectable("Item 4", false)
+            ), result
         )
     }
 

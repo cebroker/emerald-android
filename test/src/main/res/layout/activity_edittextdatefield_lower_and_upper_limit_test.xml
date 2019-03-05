@@ -29,4 +29,21 @@
             app:is_required="true"
             app:picker_icon="@drawable/ic_date"/>
 
+
+    <co.condorlabs.customcomponents.customedittext.EditTextDateField
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tlDate2"
+            app:hint="Expiration 2"
+            app:is_required="true"
+            app:picker_icon="@drawable/ic_date"/>
+
+    <co.condorlabs.customcomponents.customedittext.EditTextDateField
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tlDate3"
+            app:hint="Expiration 3"
+            app:is_required="true"
+            app:picker_icon="@drawable/ic_date"/>
+
 </LinearLayout>

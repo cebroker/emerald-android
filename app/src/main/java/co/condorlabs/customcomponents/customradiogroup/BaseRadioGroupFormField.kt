@@ -24,6 +24,7 @@ import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import co.condorlabs.customcomponents.R
+import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.Selectable
 import co.condorlabs.customcomponents.formfield.ValidationResult
@@ -31,6 +32,8 @@ import co.condorlabs.customcomponents.helper.*
 
 abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: AttributeSet) :
     TextInputLayout(context, mAttrs), FormField<String> {
+
+    protected var mValueChangeListener: ValueChangeListener<String>? = null
 
     private var mSelectables: List<Selectable>? = null
     private var mRadioGroup: RadioGroup? = null
@@ -97,8 +100,10 @@ abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: Att
         mRadioGroup?.setOnCheckedChangeListener { _, checkedId ->
 
             mSelectables?.forEach { it.value = false }
-            mSelectables?.get(checkedId)?.value = true
+            val checkedItem = mSelectables?.get(checkedId)?.let { it } ?: return@setOnCheckedChangeListener
+            checkedItem.value = true
 
+            mValueChangeListener?.onValueChange(checkedItem.label)
         }
 
         addView(mRadioGroup, mLayoutParams)
@@ -106,6 +111,10 @@ abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: Att
 
     override fun getValue(): String {
         return mSelectables?.firstOrNull { it.value }?.label ?: EMPTY
+    }
+
+    override fun setValueChangeListener(valueChangeListener: ValueChangeListener<String>) {
+        mValueChangeListener = valueChangeListener
     }
 
     fun setSelectables(selectables: List<Selectable>) {

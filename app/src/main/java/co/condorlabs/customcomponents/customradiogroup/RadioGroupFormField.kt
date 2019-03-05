@@ -18,12 +18,13 @@ package co.condorlabs.customcomponents.customradiogroup
 
 import android.content.Context
 import android.util.AttributeSet
+import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 
 class RadioGroupFormField(context: Context, attrs: AttributeSet) : BaseRadioGroupFormField(context, attrs) {
 
     override var mIsRequired: Boolean = false
 
-    fun setIsRequired(isRequired: Boolean){
+    fun setIsRequired(isRequired: Boolean) {
         mIsRequired = isRequired
     }
 }

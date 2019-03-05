@@ -16,6 +16,8 @@
 
 package co.condorlabs.customcomponents.formfield
 
+import co.condorlabs.customcomponents.customedittext.ValueChangeListener
+
 interface FormField<ReturnValueType> {
 
     var mIsRequired: Boolean
@@ -31,4 +33,6 @@ interface FormField<ReturnValueType> {
     fun getValue(): ReturnValueType
 
     fun getErrorValidateResult(): ValidationResult
+
+    fun setValueChangeListener(valueChangeListener: ValueChangeListener<ReturnValueType>)
 }
