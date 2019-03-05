@@ -18,8 +18,10 @@ package co.condorlabs.customcomponents.customedittext
 
 import android.content.Context
 import android.support.design.widget.TextInputLayout
+import android.text.Editable
 import android.text.InputFilter
 import android.text.InputType
+import android.text.TextWatcher
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.widget.EditText
@@ -44,6 +46,8 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
     protected var mRegex: String? = null
     protected var mEditText: EditText? = null
     protected var mHint: String = context.getString(R.string.default_base_hint)
+    protected var mValueChangeListener: ValueChangeListener<String>? = null
+
 
     private var mInputType: Int = InputType.TYPE_CLASS_TEXT
     private val mLayoutParams = LinearLayout.LayoutParams(
@@ -92,6 +96,20 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
             setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.default_text_size))
         }
 
+        _editText.addTextChangedListener(object: TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                val newValue = s?.toString()?.let { it } ?: return
+                mValueChangeListener?.onValueChange(newValue)
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+        })
+
         addView(_editText, mLayoutParams)
     }
 
@@ -131,5 +149,9 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
 
     fun setIsRequired(required: Boolean) {
         mIsRequired = required
+    }
+
+    override fun setValueChangeListener(valueChangeListener: ValueChangeListener<String>) {
+        mValueChangeListener = valueChangeListener
     }
 }

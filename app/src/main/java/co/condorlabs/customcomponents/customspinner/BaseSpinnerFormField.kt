@@ -24,6 +24,7 @@ import android.widget.LinearLayout
 import android.widget.Spinner
 import android.widget.TextView
 import co.condorlabs.customcomponents.R
+import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.DEFAULT_STYLE_ATTR
@@ -40,6 +41,7 @@ abstract class BaseSpinnerFormField(context: Context, private val mAttrs: Attrib
 
     protected var mSpinner: Spinner? = null
     protected var mAdapterHint: String
+    protected var mValueChangeListener: ValueChangeListener<SpinnerData?>? = null
 
     private val mLayoutParams = LinearLayout.LayoutParams(
         LinearLayout.LayoutParams.MATCH_PARENT,
@@ -101,5 +103,9 @@ abstract class BaseSpinnerFormField(context: Context, private val mAttrs: Attrib
     override fun clearError() {
         this.isErrorEnabled = false
         this.error = EMPTY
+    }
+
+    override fun setValueChangeListener(valueChangeListener: ValueChangeListener<SpinnerData?>) {
+        mValueChangeListener = valueChangeListener
     }
 }

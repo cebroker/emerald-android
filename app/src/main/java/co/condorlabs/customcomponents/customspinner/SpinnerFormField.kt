@@ -45,7 +45,9 @@ class SpinnerFormField(context: Context, attrs: AttributeSet) :
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         super.onItemSelected(parent, view, position, id)
-        mSpinnerFormFieldListener?.onDataSetListener((mSpinner?.getItemAtPosition(position) as? SpinnerData))
+        val spinnerData = (mSpinner?.getItemAtPosition(position) as? SpinnerData)?.let { it } ?: return
+        mValueChangeListener?.onValueChange(spinnerData)
+        mSpinnerFormFieldListener?.onDataSetListener(spinnerData)
     }
 
     override fun isValid(): ValidationResult {
