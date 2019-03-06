@@ -33,6 +33,9 @@ import co.condorlabs.customcomponents.helper.DEFAULT_STYLE_ATTR
 import co.condorlabs.customcomponents.helper.DEFAULT_STYLE_RES
 import co.condorlabs.customcomponents.helper.EMPTY
 import co.condorlabs.customcomponents.helper.VALIDATE_EMPTY_ERROR
+import co.condorlabs.customcomponents.helper.DEFAULT_MAX_LINES
+import co.condorlabs.customcomponents.helper.DEFAULT_MIN_LINES
+import co.condorlabs.customcomponents.helper.DEFAULT_ALPHA
 import java.util.regex.Pattern
 
 /**
@@ -47,6 +50,9 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
     protected var mEditText: EditText? = null
     protected var mHint: String = context.getString(R.string.default_base_hint)
     protected var mValueChangeListener: ValueChangeListener<String>? = null
+    protected var mMaxLines: Int = DEFAULT_MAX_LINES
+    protected var mMinLines: Int = DEFAULT_MIN_LINES
+    protected var mBackgroundAlpha: Int = DEFAULT_ALPHA
 
 
     private var mInputType: Int = InputType.TYPE_CLASS_TEXT
@@ -71,6 +77,9 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
             "phone" -> InputType.TYPE_CLASS_PHONE
             else -> InputType.TYPE_CLASS_TEXT
         }
+        mMaxLines = typedArray.getString(R.styleable.BaseEditTextFormField_max_lines)?.let { it.toInt() } ?: DEFAULT_MAX_LINES
+        mMinLines = typedArray.getString(R.styleable.BaseEditTextFormField_min_lines)?.let { it.toInt() } ?: DEFAULT_MIN_LINES
+        mBackgroundAlpha = typedArray.getString(R.styleable.BaseEditTextFormField_background_alpha)?.let { it.toInt() } ?: DEFAULT_ALPHA
 
         typedArray.recycle()
     }
@@ -94,6 +103,9 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
             id = R.id.etBase
             hint = mHint
             setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.default_text_size))
+            maxLines = mMaxLines
+            minLines = mMinLines
+            background.alpha = mBackgroundAlpha
         }
 
         _editText.addTextChangedListener(object: TextWatcher {
@@ -154,5 +166,17 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
 
     override fun setValueChangeListener(valueChangeListener: ValueChangeListener<String>) {
         mValueChangeListener = valueChangeListener
+    }
+
+    fun setMinLines(minLines: Int) {
+        mEditText?.minLines = minLines
+    }
+
+    fun setMaxLines(maxLines: Int) {
+        mEditText?.maxLines = maxLines
+    }
+
+    fun setBackgroundAlpha(backgroundAlpha: Int) {
+        mEditText?.background?.alpha = backgroundAlpha
     }
 }
