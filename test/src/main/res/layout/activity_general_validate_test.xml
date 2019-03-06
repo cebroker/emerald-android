@@ -10,10 +10,15 @@
         tools:context=".GeneralValidateTest">
 
     <co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:is_required="true"
-        android:id="@+id/tlBase"
-        android:textSize="@dimen/default_text_size"/>
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:is_required="true"
+            android:id="@+id/tlBase"
+            android:textSize="@dimen/default_text_size"/>
+
+    <EditText
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="edit text normal"/>
 
 </LinearLayout>
