@@ -92,7 +92,6 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
     override fun setup() {
         mLabelText?.let {
             mTVLabel.text = it
-            addView(mTVLabel, mLayoutParams)
         }
     }
 
