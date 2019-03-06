@@ -17,8 +17,10 @@
 package co.condorlabs.customcomponents.customcheckbox
 
 import android.content.Context
+import android.graphics.Rect
 import android.support.design.widget.TextInputLayout
 import android.util.AttributeSet
+import android.view.View
 import android.widget.CheckBox
 import android.widget.CompoundButton
 import android.widget.LinearLayout
@@ -31,7 +33,7 @@ import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.*
 
 abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
-    TextInputLayout(context, attrs), FormField<List<Selectable>>, CompoundButton.OnCheckedChangeListener {
+    TextInputLayout(context, attrs), FormField<List<Selectable>>, CompoundButton.OnCheckedChangeListener, View.OnFocusChangeListener  {
 
     protected var mValueChangeListener: ValueChangeListener<List<Selectable>>? = null
 
@@ -94,6 +96,7 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
             mTVLabel.text = it
             addView(mTVLabel, mLayoutParams)
         }
+        onFocusChangeListener = this@BaseCheckboxFormField
     }
 
     override fun getValue(): List<Selectable> {
@@ -133,6 +136,9 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
                 setOnCheckedChangeListener(this@BaseCheckboxFormField)
             }, mLayoutParams)
         }
+    }
 
+    override fun onFocusChange(v: View?, hasFocus: Boolean) {
+        showError(isValid().error)
     }
 }

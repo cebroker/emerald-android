@@ -1,0 +1,22 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              android:layout_width="match_parent" android:layout_height="match_parent"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:orientation="vertical"
+              tools:context=".MockActivity">
+
+    <co.condorlabs.customcomponents.customedittext.EditTextCurrencyField
+            android:id="@+id/required"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hint=""
+            app:is_required="true"/>
+
+    <co.condorlabs.customcomponents.customedittext.EditTextCurrencyField
+            android:id="@+id/losefocus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hint=""
+            app:is_required="false"/>
+
+</LinearLayout>

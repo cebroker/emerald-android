@@ -17,6 +17,7 @@
 package co.condorlabs.customcomponents.customedittext
 
 import android.content.Context
+import android.graphics.Rect
 import android.support.design.widget.TextInputLayout
 import android.text.Editable
 import android.text.InputFilter
@@ -24,6 +25,7 @@ import android.text.InputType
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.util.TypedValue
+import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
 import co.condorlabs.customcomponents.R
@@ -39,7 +41,8 @@ import java.util.regex.Pattern
  * @author Oscar Gallon on 2/26/19.
  */
 open class BaseEditTextFormField(context: Context, private val mAttrs: AttributeSet) :
-    TextInputLayout(context, mAttrs), FormField<String> {
+    TextInputLayout(context, mAttrs), FormField<String>, View.OnFocusChangeListener {
+
 
     override var mIsRequired: Boolean = false
 
@@ -71,6 +74,15 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
             "phone" -> InputType.TYPE_CLASS_PHONE
             else -> InputType.TYPE_CLASS_TEXT
         }
+        mEditText?.isFocusableInTouchMode = true
+        mEditText?.setOnFocusChangeListener { v, hasFocus ->
+            if(!hasFocus){
+                mEditText?.setText("NO FOCUS INIT")
+            }
+            else{
+                mEditText?.setText("")
+            }
+        }
 
         typedArray.recycle()
     }
@@ -89,6 +101,7 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
         mEditText?.inputType = mInputType
 
         val _editText = mEditText?.let { it } ?: return
+        _editText.onFocusChangeListener = this
 
         _editText.apply {
             id = R.id.etBase
@@ -154,4 +167,9 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
     override fun setValueChangeListener(valueChangeListener: ValueChangeListener<String>) {
         mValueChangeListener = valueChangeListener
     }
+
+    override fun onFocusChange(v: View?, hasFocus: Boolean) {
+        showError(isValid().error)
+    }
+
 }

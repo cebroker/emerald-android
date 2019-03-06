@@ -19,6 +19,7 @@ package co.condorlabs.customcomponents.customradiogroup
 import android.content.Context
 import android.support.design.widget.TextInputLayout
 import android.util.AttributeSet
+import android.view.View
 import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
@@ -31,7 +32,7 @@ import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.*
 
 abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: AttributeSet) :
-    TextInputLayout(context, mAttrs), FormField<String> {
+    TextInputLayout(context, mAttrs), FormField<String>, View.OnFocusChangeListener {
 
     protected var mValueChangeListener: ValueChangeListener<String>? = null
 
@@ -131,6 +132,11 @@ abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: Att
                 text = selectable.label
                 isChecked = selectable.value
             }, mLayoutParams)
+            onFocusChangeListener = this@BaseRadioGroupFormField
         }
+    }
+
+    override fun onFocusChange(v: View?, hasFocus: Boolean) {
+        showError(isValid().error)
     }
 }
