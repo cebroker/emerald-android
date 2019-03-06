@@ -124,7 +124,6 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
     }
 
     private fun addCheckboxes() {
-        removeAllViews()
         mSelectables?.forEachIndexed { index, selectable ->
             addView(CheckBox(context).apply {
                 id = index

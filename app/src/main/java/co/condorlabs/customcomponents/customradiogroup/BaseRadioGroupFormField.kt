@@ -125,7 +125,6 @@ abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: Att
 
     private fun addRadioButtons() {
         mRadioGroup?.removeAllViews()
-
         mSelectables?.forEachIndexed { index, selectable ->
             mRadioGroup?.addView(RadioButton(context).apply {
                 id = index
