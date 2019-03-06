@@ -53,7 +53,7 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
             R.styleable.BaseCheckboxFormField,
             DEFAULT_STYLE_ATTR, DEFAULT_STYLE_RES
         )
-
+        mIsRequired = typedArray.getBoolean(R.styleable.BaseCheckboxFormField_is_required, false)
         mLabelText = typedArray.getString(R.styleable.BaseCheckboxFormField_title)
 
         typedArray.recycle()

@@ -38,7 +38,7 @@ class CheckBoxFieldTest : MockActivityTest() {
     }
 
     @Test
-    fun shouldShowMessageIfNoSelectedWhenIsRequired() {
+    fun shouldShowMessageIfNoSelectedWhenIsRequired1() {
         restartActivity()
 
         //Given
@@ -51,6 +51,23 @@ class CheckBoxFieldTest : MockActivityTest() {
         //Then
         Assert.assertEquals(
             ValidationResult(false, String.format(MESSAGE_FORMAT_ERROR, "Custom check")), result
+        )
+    }
+
+    @Test
+    fun shouldShowMessageIfNoSelectedWhenIsRequired2() {
+        MockActivity.layout = R.layout.activity_basechecbox_is_required_test
+        restartActivity()
+
+        //Given
+        val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.til1Checbox)
+
+        //When
+        val result = formField.isValid()
+
+        //Then
+        Assert.assertEquals(
+            ValidationResult(false, String.format(MESSAGE_FORMAT_ERROR, "Custom check1")), result
         )
     }
 

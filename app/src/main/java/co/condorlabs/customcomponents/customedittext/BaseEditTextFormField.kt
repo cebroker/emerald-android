@@ -136,6 +136,7 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
     override fun clearError() {
         this.isErrorEnabled = false
         this.error = EMPTY
+        this.requestFocus()
     }
 
     fun setMaxLength(length: Int) {
