@@ -64,6 +64,34 @@ class RadioGroupFieldTest : MockActivityTest() {
         )
     }
 
+    @Test
+    fun shouldShowMessageIfNoSelected1() {
+        MockActivity.layout = R.layout.activity_baseradiogroup_is_required_test
+        restartActivity()
+
+        //Given
+        val formField = ruleActivity.activity.findViewById<RadioGroupFormField>(R.id.tlRadioGroup1)
+        ruleActivity.runOnUiThread {
+            formField.setSelectables(
+                arrayListOf(
+                    Selectable("Item 1", false),
+                    Selectable("Item 2", false),
+                    Selectable("Item 3", false),
+                    Selectable("Item 4", false)
+                )
+            )
+        }
+
+        //When
+        val result = formField.isValid()
+
+        //Then
+        Assert.assertEquals(
+            ValidationResult(false, String.format(MESSAGE_FORMAT_ERROR, "Custom radio group1")), result
+        )
+    }
+
+
 
     @Test
     fun shouldShowMessageInLabelIfNoSelected() {

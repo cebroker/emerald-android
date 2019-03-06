@@ -56,6 +56,7 @@ abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: Att
             DEFAULT_STYLE_ATTR, DEFAULT_STYLE_RES
         )
 
+        mIsRequired = typedArray.getBoolean(R.styleable.BaseRadioGroupFormField_is_required, false)
         mLabelText = typedArray.getString(R.styleable.BaseRadioGroupFormField_title) ?: EMPTY
 
         typedArray.recycle()
@@ -124,7 +125,6 @@ abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: Att
 
     private fun addRadioButtons() {
         mRadioGroup?.removeAllViews()
-
         mSelectables?.forEachIndexed { index, selectable ->
             mRadioGroup?.addView(RadioButton(context).apply {
                 id = index
