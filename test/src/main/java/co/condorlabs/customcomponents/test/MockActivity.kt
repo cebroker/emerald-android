@@ -16,17 +16,17 @@
 
 package co.condorlabs.customcomponents.test
 
-/**
- * @author Oscar Gallon on 2/27/19.
- */
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import co.condorlabs.customcomponents.formfield.FormField
+import co.condorlabs.customcomponents.generalvalidator.ValidableView
 
 /**
  * @author Oscar Gallon on 2/21/19.
  */
+class MockActivity : AppCompatActivity(), ValidableView {
 
-class MockActivity : AppCompatActivity() {
+    override val mFormFields: ArrayList<FormField<*>> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
