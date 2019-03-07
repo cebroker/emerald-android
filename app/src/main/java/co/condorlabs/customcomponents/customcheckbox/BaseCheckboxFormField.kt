@@ -115,7 +115,6 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
             showError(isValid.error)
         }
 
-
         val selectables = mSelectables?.let { it } ?: return
 
         mValueChangeListener?.onValueChange(selectables)

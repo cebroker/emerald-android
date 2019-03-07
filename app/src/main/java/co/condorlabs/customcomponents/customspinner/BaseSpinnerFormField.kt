@@ -83,7 +83,6 @@ abstract class BaseSpinnerFormField(context: Context, private val mAttrs: Attrib
         addView(mSpinner)
         mSpinner?.onFocusChangeListener = this
         mSpinner?.isFocusableInTouchMode = true
-
         mSpinner?.setOnTouchListener(this)
 
     }

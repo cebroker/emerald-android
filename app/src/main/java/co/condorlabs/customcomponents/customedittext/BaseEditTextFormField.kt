@@ -42,7 +42,7 @@ import java.util.regex.Pattern
  * @author Oscar Gallon on 2/26/19.
  */
 open class BaseEditTextFormField(context: Context, private val mAttrs: AttributeSet) :
-    TextInputLayout(context, mAttrs), FormField<String>, View.OnFocusChangeListener{
+    TextInputLayout(context, mAttrs), FormField<String>, View.OnFocusChangeListener {
 
     override var mIsRequired: Boolean = false
 
@@ -106,7 +106,7 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
             setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.default_text_size))
             mMaxLines?.let { maxLines = it }
             mMinLines?.let { minLines = it }
-            mBackgroundAlpha?.let{ background.alpha = it }
+            mBackgroundAlpha?.let { background.alpha = it }
         }
 
         _editText.addTextChangedListener(object : TextWatcher {
@@ -179,12 +179,12 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
 
     fun setBackgroundAlpha(backgroundAlpha: Int) {
         mEditText?.background?.alpha = backgroundAlpha
-	}
+    }
 
     override fun onFocusChange(v: View?, hasFocus: Boolean) {
-        val isValid  = isValid()
+        val isValid = isValid()
 
-        if(isValid.error.isNotEmpty()){
+        if (isValid.error.isNotEmpty()) {
             showError(isValid.error)
         }
     }
