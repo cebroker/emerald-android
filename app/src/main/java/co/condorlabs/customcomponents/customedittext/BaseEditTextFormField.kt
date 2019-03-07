@@ -44,7 +44,6 @@ import java.util.regex.Pattern
 open class BaseEditTextFormField(context: Context, private val mAttrs: AttributeSet) :
     TextInputLayout(context, mAttrs), FormField<String>, View.OnFocusChangeListener{
 
-
     override var mIsRequired: Boolean = false
 
     protected var mRegex: String? = null
@@ -52,6 +51,9 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
     protected var mHint: String = context.getString(R.string.default_base_hint)
     protected var mValueChangeListener: ValueChangeListener<String>? = null
 
+    private var mMaxLines: Int? = null
+    private var mMinLines: Int? = null
+    private var mBackgroundAlpha: Int? = null
 
     private var mInputType: Int = InputType.TYPE_CLASS_TEXT
     private val mLayoutParams = LinearLayout.LayoutParams(
@@ -75,15 +77,9 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
             "phone" -> InputType.TYPE_CLASS_PHONE
             else -> InputType.TYPE_CLASS_TEXT
         }
-        mEditText?.isFocusableInTouchMode = true
-        mEditText?.setOnFocusChangeListener { v, hasFocus ->
-            if(!hasFocus){
-                mEditText?.setText("NO FOCUS INIT")
-            }
-            else{
-                mEditText?.setText("")
-            }
-        }
+        mMaxLines = typedArray.getString(R.styleable.BaseEditTextFormField_max_lines)?.let { it.toInt() }
+        mMinLines = typedArray.getString(R.styleable.BaseEditTextFormField_min_lines)?.let { it.toInt() }
+        mBackgroundAlpha = typedArray.getString(R.styleable.BaseEditTextFormField_background_alpha)?.let { it.toInt() }
 
         typedArray.recycle()
     }
@@ -108,6 +104,9 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
             id = R.id.etBase
             hint = mHint
             setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.default_text_size))
+            mMaxLines?.let { maxLines = it }
+            mMinLines?.let { minLines = it }
+            mBackgroundAlpha?.let{ background.alpha = it }
         }
 
         _editText.addTextChangedListener(object : TextWatcher {
@@ -170,7 +169,23 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
         mValueChangeListener = valueChangeListener
     }
 
+    fun setMinLines(minLines: Int) {
+        mEditText?.minLines = minLines
+    }
+
+    fun setMaxLines(maxLines: Int) {
+        mEditText?.maxLines = maxLines
+    }
+
+    fun setBackgroundAlpha(backgroundAlpha: Int) {
+        mEditText?.background?.alpha = backgroundAlpha
+	}
+
     override fun onFocusChange(v: View?, hasFocus: Boolean) {
-        showError(isValid().error)
+        val isValid  = isValid()
+
+        if(isValid.error.isNotEmpty()){
+            showError(isValid.error)
+        }
     }
 }

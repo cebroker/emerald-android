@@ -16,22 +16,15 @@
 
 package co.condorlabs.customcomponents.test
 
-import android.support.design.widget.TextInputLayout
 import android.support.test.espresso.Espresso
 import android.support.test.espresso.action.ViewActions.typeText
-import android.support.test.espresso.action.ViewActions.typeTextIntoFocusedView
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers
 import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
 import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.runner.AndroidJUnit4
-import android.view.View
 import co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
 import co.condorlabs.customcomponents.helper.VALIDATE_EMPTY_ERROR
-import org.hamcrest.CoreMatchers.allOf
-import org.hamcrest.Description
-import org.hamcrest.Matcher 
-import org.hamcrest.TypeSafeMatcher
 import co.condorlabs.customcomponents.helper.VALIDATE_INCORRECT_ERROR
 import org.junit.Assert
 import org.junit.Test
@@ -227,6 +220,28 @@ class BaseEditTextFieldTest : MockActivityTest() {
         //Given
         val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
         formField.setIsRequired(true)
+
+        //When
+        val result = formField.isValid()
+
+        //Then
+        Assert.assertFalse(result.isValid)
+        Assert.assertEquals(String.format(VALIDATE_EMPTY_ERROR, "Zip"), result.error)
+    }
+
+    @Test
+    fun shouldSetMaxLinesMinLinesAndAlpha() {
+        MockActivity.layout = R.layout.activity_baseedittextfield_with_hint_test
+        restartActivity()
+
+        //Given
+        val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
+        formField.setIsRequired(true)
+        ruleActivity.runOnUiThread {
+            formField.setMaxLines(10)
+            formField.setMinLines(7)
+            formField.setBackgroundAlpha(0)
+        }
 
         //When
         val result = formField.isValid()

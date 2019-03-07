@@ -171,6 +171,7 @@ class CheckBoxFieldTest : MockActivityTest() {
         Espresso.onView(ViewMatchers.withSubstring("Item 3"))
             .perform(ViewActions.click())
 
+
         //Then
         Assert.assertEquals(
             arrayListOf(
@@ -257,7 +258,7 @@ class CheckBoxFieldTest : MockActivityTest() {
         }
 
         //When
-        Espresso.onView(ViewMatchers.withText("Item 1")).perform(ViewActions.longClick())
+        Espresso.onView(ViewMatchers.withText("Item 1")).perform(ViewActions.click())
 
         //Then
         Espresso.onView(withId(R.id.tilChecbox))
