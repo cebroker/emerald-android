@@ -92,7 +92,6 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
     override fun setup() {
         mLabelText?.let {
             mTVLabel.text = it
-            addView(mTVLabel, mLayoutParams)
         }
     }
 
@@ -124,6 +123,8 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
     }
 
     private fun addCheckboxes() {
+        removeAllViews()
+        addView(mTVLabel, mLayoutParams)
         mSelectables?.forEachIndexed { index, selectable ->
             addView(CheckBox(context).apply {
                 id = index
