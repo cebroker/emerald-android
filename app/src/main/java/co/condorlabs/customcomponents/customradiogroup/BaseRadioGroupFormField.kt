@@ -19,6 +19,7 @@ package co.condorlabs.customcomponents.customradiogroup
 import android.content.Context
 import android.support.design.widget.TextInputLayout
 import android.util.AttributeSet
+import android.view.MotionEvent
 import android.view.View
 import android.widget.LinearLayout
 import android.widget.RadioButton
@@ -32,7 +33,7 @@ import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.*
 
 abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: AttributeSet) :
-    TextInputLayout(context, mAttrs), FormField<String>, View.OnFocusChangeListener {
+    TextInputLayout(context, mAttrs), FormField<String>, View.OnFocusChangeListener, View.OnTouchListener {
 
     protected var mValueChangeListener: ValueChangeListener<String>? = null
 
@@ -96,16 +97,19 @@ abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: Att
     override fun setup() {
         mTVLabel.text = mLabelText
         addView(mTVLabel, mLayoutParams)
-        mRadioGroup = RadioGroup(context, mAttrs)
+        mRadioGroup = RadioGroup(context, mAttrs).apply {
+            id = R.id.rgBase
+        }
 
 
         mRadioGroup?.setOnCheckedChangeListener { _, checkedId ->
-
             mSelectables?.forEach { it.value = false }
-            val checkedItem = mSelectables?.get(checkedId)?.let { it } ?: return@setOnCheckedChangeListener
-            checkedItem.value = true
 
-            mValueChangeListener?.onValueChange(checkedItem.label)
+            if (isValidRadioButtonId(checkedId)) {
+                val checkedItem = mSelectables?.get(checkedId)?.let { it } ?: return@setOnCheckedChangeListener
+                checkedItem.value = true
+                mValueChangeListener?.onValueChange(checkedItem.label)
+            }
         }
 
         addView(mRadioGroup, mLayoutParams)
@@ -117,6 +121,18 @@ abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: Att
 
     override fun setValueChangeListener(valueChangeListener: ValueChangeListener<String>) {
         mValueChangeListener = valueChangeListener
+    }
+
+    override fun onFocusChange(v: View?, hasFocus: Boolean) {
+        val isValid = isValid()
+
+        if (!isValid.isValid) {
+            showError(isValid.error)
+        }
+    }
+
+    override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+        return false
     }
 
     fun setSelectables(selectables: List<Selectable>) {
@@ -133,11 +149,13 @@ abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: Att
                 isChecked = selectable.value
                 isFocusableInTouchMode = true
                 onFocusChangeListener = this@BaseRadioGroupFormField
+                setOnTouchListener(this@BaseRadioGroupFormField)
             }, mLayoutParams)
         }
     }
 
-    override fun onFocusChange(v: View?, hasFocus: Boolean) {
-        showError(isValid().error)
+    private fun isValidRadioButtonId(index: Int): Boolean {
+        return index <= mSelectables?.size ?: ZERO && index >= ZERO
+                && mSelectables?.size ?: ZERO > ZERO
     }
 }

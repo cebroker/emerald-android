@@ -18,81 +18,6 @@ import org.junit.Test
 class SelfValidationTest : MockActivityTest() {
 
     @Test
-    fun shouldEvaluateItSelfWhenLoseFocusCheckBox() {
-        MockActivity.layout = R.layout.selft_validate_check_box_test
-        restartActivity()
-
-        //Given
-        val formFields = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilCheckbox)
-        formFields.setIsRequired(true)
-        ruleActivity.runOnUiThread {
-            formFields.setSelectables(
-                arrayListOf(
-                    Selectable("Item 1", false),
-                    Selectable("Item 2", false),
-                    Selectable("Item 3", false),
-                    Selectable("Item 4", false)
-                )
-            )
-        }
-
-        clickWithText("Item 1")
-        clickWithText("Item 2")
-        clickWithText("Item 3")
-        clickWithText("Item 3")
-        clickWithText("Item 2")
-        clickWithText("Item 1")
-
-        val etNextFocus = ruleActivity.activity.findViewById<EditText>(R.id.etNextFocus)
-        clickWithId(R.id.etNextFocus)
-       /* //When
-        ruleActivity.runOnUiThread {
-            etNextFocus.requestFocus()
-            formFields.requestFocus()
-            etNextFocus.requestFocus()
-        }*/
-
-        //Then
-        isTextDisplayed(formFields.isValid().error)
-
-    }
-
-    @Test
-    fun shouldEvaluateItSelfWhenLoseFocusRadioGroup() {
-        MockActivity.layout = R.layout.selft_validate_radio_group_test
-        restartActivity()
-
-        restartActivity()
-
-        //Given
-        val formFields = ruleActivity.activity.findViewById<RadioGroupFormField>(R.id.tilCheckbox)
-        formFields.setIsRequired(true)
-        ruleActivity.runOnUiThread {
-            formFields.setSelectables(
-                arrayListOf(
-                    Selectable("Item 1", false),
-                    Selectable("Item 2", false),
-                    Selectable("Item 3", false),
-                    Selectable("Item 4", false)
-                )
-            )
-        }
-
-        clickWithText("Item 1")
-        val etNextFocus = ruleActivity.activity.findViewById<EditText>(R.id.etNextFocus)
-
-        //When
-        etNextFocus.requestFocus()
-        formFields.requestFocus()
-        etNextFocus.requestFocus()
-
-        //Then
-        isTextDisplayed(formFields.isValid().error)
-
-    }
-
-
-    @Test
     fun shouldEvaluateItSelfWhenLoseFocusEditTextPhone() {
         MockActivity.layout = R.layout.selft_validate_edit_text_phone_test
         restartActivity()
@@ -203,7 +128,6 @@ class SelfValidationTest : MockActivityTest() {
         restartActivity()
 
         //Given
-        val etNextFocus = ruleActivity.activity.findViewById<EditText>(R.id.etNextFocus)
         val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
         val view = Espresso.onView(ViewMatchers.withId(R.id.spState))
         val data = SpinnerData("1", "Antioquia")
@@ -216,12 +140,6 @@ class SelfValidationTest : MockActivityTest() {
         }
 
         view.perform(ViewActions.click())
-        Espresso.pressBack()
-
-        ruleActivity.runOnUiThread {
-            formField.requestFocus()
-            etNextFocus.requestFocus()
-        }
 
         //Then
         isTextDisplayed(formField.isValid().error)

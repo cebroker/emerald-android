@@ -19,7 +19,9 @@ package co.condorlabs.customcomponents.test
 import android.support.test.espresso.Espresso
 import android.support.test.espresso.action.ViewActions
 import android.support.test.espresso.assertion.ViewAssertions
+import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers
+import android.support.test.espresso.matcher.ViewMatchers.withId
 import co.condorlabs.customcomponents.customcheckbox.CheckboxFormField
 import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.formfield.Selectable
@@ -85,7 +87,17 @@ class CheckBoxFieldTest : MockActivityTest() {
         }
 
         //Then
-        ViewMatchers.hasErrorText(String.format(MESSAGE_FORMAT_ERROR, "Custom check")).matches(formField.getChildAt(0))
+        Espresso.onView(withId(R.id.tilChecbox))
+            .check(
+                matches(
+                    hasTextInputLayoutErrorText(
+                        String.format(
+                            MESSAGE_FORMAT_ERROR,
+                            "Custom check"
+                        )
+                    )
+                )
+            )
     }
 
     @Test
@@ -140,12 +152,14 @@ class CheckBoxFieldTest : MockActivityTest() {
         //Given
         val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilChecbox)
         ruleActivity.runOnUiThread {
-            formField.setSelectables(arrayListOf(
+            formField.setSelectables(
+                arrayListOf(
                     Selectable("Item 1", true),
-            Selectable("Item 2", false),
-            Selectable("Item 3", true),
-            Selectable("Item 4", false)
-            ))
+                    Selectable("Item 2", false),
+                    Selectable("Item 3", true),
+                    Selectable("Item 4", false)
+                )
+            )
         }
 
         formField.setIsRequired(false)
@@ -186,23 +200,25 @@ class CheckBoxFieldTest : MockActivityTest() {
     }
 
     @Test
-    fun shouldBeAbleToGetSelectedValues(){
+    fun shouldBeAbleToGetSelectedValues() {
         restartActivity()
 
         //Given
         val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilChecbox)
         ruleActivity.runOnUiThread {
-            formField.setSelectables(arrayListOf(
-                Selectable("Item 1", true),
-                Selectable("Item 2", false),
-                Selectable("Item 3", true),
-                Selectable("Item 4", false)
-            ))
+            formField.setSelectables(
+                arrayListOf(
+                    Selectable("Item 1", true),
+                    Selectable("Item 2", false),
+                    Selectable("Item 3", true),
+                    Selectable("Item 4", false)
+                )
+            )
         }
         var result: List<Selectable> = arrayListOf()
-        formField?.setValueChangeListener(object: ValueChangeListener<List<Selectable>> {
+        formField?.setValueChangeListener(object : ValueChangeListener<List<Selectable>> {
             override fun onValueChange(value: List<Selectable>) {
-                result= value
+                result = value
             }
 
         })
@@ -222,37 +238,39 @@ class CheckBoxFieldTest : MockActivityTest() {
     }
 
     @Test
-    fun shouldBeValidatedInFocusChange(){
+    fun shouldBeValidatedOnValueChanged() {
         restartActivity()
 
         //Given
         val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilChecbox)
+        formField.setIsRequired(true)
 
         ruleActivity.runOnUiThread {
-            formField.setSelectables(arrayListOf(
-                Selectable("Item 1", true),
-                Selectable("Item 2", false),
-                Selectable("Item 3", false),
-                Selectable("Item 4", false)
-            ))
+            formField.setSelectables(
+                arrayListOf(
+                    Selectable("Item 1", true),
+                    Selectable("Item 2", false),
+                    Selectable("Item 3", false),
+                    Selectable("Item 4", false)
+                )
+            )
         }
-        var result: List<Selectable> = arrayListOf()
-        formField?.setValueChangeListener(object: ValueChangeListener<List<Selectable>> {
-            override fun onValueChange(value: List<Selectable>) {
-                result= value
-            }
-
-        })
 
         //When
-        Espresso.onView(ViewMatchers.withText("Item 1")).perform(ViewActions.click())
-        formField.getChildAt(0).requestFocus()
+        Espresso.onView(ViewMatchers.withText("Item 1")).perform(ViewActions.longClick())
 
         //Then
-       
+        Espresso.onView(withId(R.id.tilChecbox))
+            .check(
+                matches(
+                    hasTextInputLayoutErrorText(
+                        String.format(
+                            MESSAGE_FORMAT_ERROR,
+                            "Custom check"
+                        )
+                    )
+                )
+            )
     }
-
-
-
 
 }

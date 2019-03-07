@@ -19,6 +19,7 @@ package co.condorlabs.customcomponents.customspinner
 import android.content.Context
 import android.support.design.widget.TextInputLayout
 import android.util.AttributeSet
+import android.view.MotionEvent
 import android.view.View
 import android.widget.AdapterView
 import android.widget.LinearLayout
@@ -38,7 +39,7 @@ import co.condorlabs.customcomponents.helper.MESSAGE_FORMAT_ERROR
  */
 abstract class BaseSpinnerFormField(context: Context, private val mAttrs: AttributeSet) :
     TextInputLayout(context, mAttrs),
-    FormField<SpinnerData?> , View.OnFocusChangeListener{
+    FormField<SpinnerData?>, View.OnFocusChangeListener, View.OnTouchListener {
 
     protected var mSpinner: Spinner? = null
     protected var mAdapterHint: String
@@ -83,6 +84,8 @@ abstract class BaseSpinnerFormField(context: Context, private val mAttrs: Attrib
         mSpinner?.onFocusChangeListener = this
         mSpinner?.isFocusableInTouchMode = true
 
+        mSpinner?.setOnTouchListener(this)
+
     }
 
     override fun getErrorValidateResult(): ValidationResult {
@@ -115,5 +118,9 @@ abstract class BaseSpinnerFormField(context: Context, private val mAttrs: Attrib
 
     override fun onFocusChange(v: View?, hasFocus: Boolean) {
         showError(isValid().error)
+    }
+
+    override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+        return false
     }
 }

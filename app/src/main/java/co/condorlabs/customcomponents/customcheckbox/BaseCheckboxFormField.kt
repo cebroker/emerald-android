@@ -19,6 +19,7 @@ package co.condorlabs.customcomponents.customcheckbox
 import android.content.Context
 import android.support.design.widget.TextInputLayout
 import android.util.AttributeSet
+import android.view.MotionEvent
 import android.view.View
 import android.widget.CheckBox
 import android.widget.CompoundButton
@@ -33,7 +34,7 @@ import co.condorlabs.customcomponents.helper.*
 
 abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
     TextInputLayout(context, attrs), FormField<List<Selectable>>, CompoundButton.OnCheckedChangeListener,
-    View.OnFocusChangeListener {
+    View.OnFocusChangeListener, View.OnTouchListener {
 
     protected var mValueChangeListener: ValueChangeListener<List<Selectable>>? = null
 
@@ -95,7 +96,6 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
         mLabelText?.let {
             mTVLabel.text = it
         }
-        onFocusChangeListener = this
     }
 
     override fun getValue(): List<Selectable> {
@@ -111,6 +111,12 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
 
         selectableChecked.value = !selectableChecked.value
 
+        val isValid = isValid()
+
+        if (isValid.error.isNotEmpty()) {
+            showError(isValid.error)
+        }
+
         val selectables = mSelectables?.let { it } ?: return
 
         mValueChangeListener?.onValueChange(selectables)
@@ -121,7 +127,15 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
     }
 
     override fun onFocusChange(v: View?, hasFocus: Boolean) {
-        showError(isValid().error)
+        val isValid = isValid()
+
+        if (!isValid.isValid) {
+            showError(isValid.error)
+        }
+    }
+
+    override fun onTouch(v: View?, event: MotionEvent?): Boolean {
+        return false
     }
 
     fun setSelectables(selectables: List<Selectable>) {
@@ -129,20 +143,20 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
         addCheckboxes()
     }
 
+
     private fun addCheckboxes() {
         removeAllViews()
         addView(mTVLabel, mLayoutParams)
         mSelectables?.forEachIndexed { index, selectable ->
             addView(CheckBox(context).apply {
                 id = index
-                isFocusableInTouchMode = true
                 text = selectable.label
                 isChecked = selectable.value
-                setOnCheckedChangeListener(this@BaseCheckboxFormField)
+                isFocusableInTouchMode = true
                 onFocusChangeListener = this@BaseCheckboxFormField
+                setOnTouchListener(this@BaseCheckboxFormField)
+                setOnCheckedChangeListener(this@BaseCheckboxFormField)
             }, mLayoutParams)
-
-            onFocusChangeListener = this@BaseCheckboxFormField
         }
     }
 }
