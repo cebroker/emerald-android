@@ -8,6 +8,7 @@
             android:id="@+id/tilCheckbox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:is_required="true"
             app:title="Custom check">
     </co.condorlabs.customcomponents.customcheckbox.CheckboxFormField>
 

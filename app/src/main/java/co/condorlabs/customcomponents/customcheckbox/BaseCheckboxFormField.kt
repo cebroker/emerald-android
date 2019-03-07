@@ -131,7 +131,7 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
                 isChecked = selectable.value
                 setOnCheckedChangeListener(this@BaseCheckboxFormField)
             }, mLayoutParams)
-            onFocusChangeListener = this
+            onFocusChangeListener = this@BaseCheckboxFormField
         }
     }
 }
