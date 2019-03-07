@@ -78,7 +78,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
         formField.setMaxLength(5)
 
         //When
-        editText.perform(typeText("156"))
+        editText.perform(typeText("12345"))
         val result = formField.isValid()
 
         //Then
