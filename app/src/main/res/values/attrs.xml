@@ -30,6 +30,9 @@
         <attr name="regex" format="string"/>
         <attr name="is_required"/>
         <attr name="hint"/>
+        <attr name="max_lines" format="integer"/>
+        <attr name="min_lines" format="integer"/>
+        <attr name="background_alpha" format="integer"/>
     </declare-styleable>
 
     <declare-styleable name="SpinnerFormField">

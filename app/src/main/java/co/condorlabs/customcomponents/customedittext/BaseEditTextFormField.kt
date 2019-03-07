@@ -48,6 +48,9 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
     protected var mEditText: EditText? = null
     protected var mHint: String = context.getString(R.string.default_base_hint)
     protected var mValueChangeListener: ValueChangeListener<String>? = null
+    private var mMaxLines: Int? = null
+    private var mMinLines: Int? = null
+    private var mBackgroundAlpha: Int? = null
 
 
     private var mInputType: Int = InputType.TYPE_CLASS_TEXT
@@ -72,6 +75,9 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
             "phone" -> InputType.TYPE_CLASS_PHONE
             else -> InputType.TYPE_CLASS_TEXT
         }
+        mMaxLines = typedArray.getString(R.styleable.BaseEditTextFormField_max_lines)?.let { it.toInt() }
+        mMinLines = typedArray.getString(R.styleable.BaseEditTextFormField_min_lines)?.let { it.toInt() }
+        mBackgroundAlpha = typedArray.getString(R.styleable.BaseEditTextFormField_background_alpha)?.let { it.toInt() }
 
         typedArray.recycle()
     }
@@ -95,6 +101,9 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
             id = R.id.etBase
             hint = mHint
             setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.default_text_size))
+            mMaxLines?.let { maxLines = it }
+            mMinLines?.let { minLines = it }
+            mBackgroundAlpha?.let{ background.alpha = it }
         }
 
         _editText.addTextChangedListener(object: TextWatcher {
@@ -155,5 +164,17 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
 
     override fun setValueChangeListener(valueChangeListener: ValueChangeListener<String>) {
         mValueChangeListener = valueChangeListener
+    }
+
+    fun setMinLines(minLines: Int) {
+        mEditText?.minLines = minLines
+    }
+
+    fun setMaxLines(maxLines: Int) {
+        mEditText?.maxLines = maxLines
+    }
+
+    fun setBackgroundAlpha(backgroundAlpha: Int) {
+        mEditText?.background?.alpha = backgroundAlpha
     }
 }

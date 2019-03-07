@@ -228,4 +228,26 @@ class BaseEditTextFieldTest : MockActivityTest() {
         Assert.assertFalse(result.isValid)
         Assert.assertEquals(String.format(VALIDATE_EMPTY_ERROR, "Zip"), result.error)
     }
+
+    @Test
+    fun shouldSetMaxLinesMinLinesAndAlpha() {
+        MockActivity.layout = R.layout.activity_baseedittextfield_with_hint_test
+        restartActivity()
+
+        //Given
+        val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
+        formField.setIsRequired(true)
+        ruleActivity.runOnUiThread {
+            formField.setMaxLines(10)
+            formField.setMinLines(7)
+            formField.setBackgroundAlpha(0)
+        }
+
+        //When
+        val result = formField.isValid()
+
+        //Then
+        Assert.assertFalse(result.isValid)
+        Assert.assertEquals(String.format(VALIDATE_EMPTY_ERROR, "Zip"), result.error)
+    }
 }
