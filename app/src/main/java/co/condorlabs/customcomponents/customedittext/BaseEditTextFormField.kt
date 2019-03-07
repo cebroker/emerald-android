@@ -33,6 +33,7 @@ import co.condorlabs.customcomponents.helper.DEFAULT_STYLE_ATTR
 import co.condorlabs.customcomponents.helper.DEFAULT_STYLE_RES
 import co.condorlabs.customcomponents.helper.EMPTY
 import co.condorlabs.customcomponents.helper.VALIDATE_EMPTY_ERROR
+import co.condorlabs.customcomponents.helper.VALIDATE_INCORRECT_ERROR
 import java.util.regex.Pattern
 
 /**
@@ -81,7 +82,7 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
     }
 
     override fun getErrorValidateResult(): ValidationResult {
-        return ValidationResult(false, String.format(VALIDATE_EMPTY_ERROR, mHint))
+        return ValidationResult(false, String.format(VALIDATE_INCORRECT_ERROR, mHint))
     }
 
     override fun setup() {
