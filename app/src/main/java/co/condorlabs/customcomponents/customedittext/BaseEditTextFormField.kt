@@ -41,7 +41,7 @@ import java.util.regex.Pattern
  * @author Oscar Gallon on 2/26/19.
  */
 open class BaseEditTextFormField(context: Context, private val mAttrs: AttributeSet) :
-    TextInputLayout(context, mAttrs), FormField<String>, View.OnFocusChangeListener {
+    TextInputLayout(context, mAttrs), FormField<String>{
 
 
     override var mIsRequired: Boolean = false
@@ -166,10 +166,6 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
 
     override fun setValueChangeListener(valueChangeListener: ValueChangeListener<String>) {
         mValueChangeListener = valueChangeListener
-    }
-
-    override fun onFocusChange(v: View?, hasFocus: Boolean) {
-        showError(isValid().error)
     }
 
 }

@@ -15,7 +15,7 @@ import co.condorlabs.customcomponents.test.util.clickWithText
 import co.condorlabs.customcomponents.test.util.isTextDisplayed
 import org.junit.Test
 
-class SelftValidationTest : MockActivityTest() {
+class SelfValidationTest : MockActivityTest() {
 
     @Test
     fun shouldEvaluateItSelfWhenLoseFocusCheckBox() {
