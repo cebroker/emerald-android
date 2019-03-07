@@ -19,6 +19,7 @@ package co.condorlabs.customcomponents.customcheckbox
 import android.content.Context
 import android.support.design.widget.TextInputLayout
 import android.util.AttributeSet
+import android.view.View
 import android.widget.CheckBox
 import android.widget.CompoundButton
 import android.widget.LinearLayout
@@ -31,7 +32,8 @@ import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.*
 
 abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
-    TextInputLayout(context, attrs), FormField<List<Selectable>>, CompoundButton.OnCheckedChangeListener {
+    TextInputLayout(context, attrs), FormField<List<Selectable>>, CompoundButton.OnCheckedChangeListener,
+    View.OnFocusChangeListener {
 
     protected var mValueChangeListener: ValueChangeListener<List<Selectable>>? = null
 
@@ -118,6 +120,10 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
         mValueChangeListener = valueChangeListener
     }
 
+    override fun onFocusChange(v: View?, hasFocus: Boolean) {
+        showError(isValid().error)
+    }
+
     fun setSelectables(selectables: List<Selectable>) {
         mSelectables = selectables
         addCheckboxes()
@@ -129,10 +135,13 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
         mSelectables?.forEachIndexed { index, selectable ->
             addView(CheckBox(context).apply {
                 id = index
+                isFocusableInTouchMode = true
                 text = selectable.label
                 isChecked = selectable.value
                 setOnCheckedChangeListener(this@BaseCheckboxFormField)
+                onFocusChangeListener = this@BaseCheckboxFormField
             }, mLayoutParams)
+
             onFocusChangeListener = this@BaseCheckboxFormField
         }
     }

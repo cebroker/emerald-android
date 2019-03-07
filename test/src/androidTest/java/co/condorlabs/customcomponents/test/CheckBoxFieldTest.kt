@@ -221,6 +221,37 @@ class CheckBoxFieldTest : MockActivityTest() {
         )
     }
 
+    @Test
+    fun shouldBeValidatedInFocusChange(){
+        restartActivity()
+
+        //Given
+        val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilChecbox)
+
+        ruleActivity.runOnUiThread {
+            formField.setSelectables(arrayListOf(
+                Selectable("Item 1", true),
+                Selectable("Item 2", false),
+                Selectable("Item 3", false),
+                Selectable("Item 4", false)
+            ))
+        }
+        var result: List<Selectable> = arrayListOf()
+        formField?.setValueChangeListener(object: ValueChangeListener<List<Selectable>> {
+            override fun onValueChange(value: List<Selectable>) {
+                result= value
+            }
+
+        })
+
+        //When
+        Espresso.onView(ViewMatchers.withText("Item 1")).perform(ViewActions.click())
+        formField.getChildAt(0).requestFocus()
+
+        //Then
+       
+    }
+
 
 
 

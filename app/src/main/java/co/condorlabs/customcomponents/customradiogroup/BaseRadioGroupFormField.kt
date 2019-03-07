@@ -131,8 +131,9 @@ abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: Att
                 id = index
                 text = selectable.label
                 isChecked = selectable.value
+                isFocusableInTouchMode = true
+                onFocusChangeListener = this@BaseRadioGroupFormField
             }, mLayoutParams)
-            onFocusChangeListener = this@BaseRadioGroupFormField
         }
     }
 

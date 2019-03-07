@@ -19,7 +19,7 @@ package co.condorlabs.customcomponents.formfield
 import android.view.View
 import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 
-interface FormField<ReturnValueType>: View.OnFocusChangeListener {
+interface FormField<ReturnValueType> {
 
     var mIsRequired: Boolean
 
@@ -36,8 +36,4 @@ interface FormField<ReturnValueType>: View.OnFocusChangeListener {
     fun getErrorValidateResult(): ValidationResult
 
     fun setValueChangeListener(valueChangeListener: ValueChangeListener<ReturnValueType>)
-
-    override fun onFocusChange(v: View?, hasFocus: Boolean) {
-        showError(isValid().error)
-    }
 }

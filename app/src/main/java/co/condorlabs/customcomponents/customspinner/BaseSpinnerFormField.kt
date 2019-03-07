@@ -81,7 +81,8 @@ abstract class BaseSpinnerFormField(context: Context, private val mAttrs: Attrib
         mSpinner = Spinner(context, mAttrs)
         addView(mSpinner)
         mSpinner?.onFocusChangeListener = this
-        onFocusChangeListener = this
+        mSpinner?.isFocusableInTouchMode = true
+
     }
 
     override fun getErrorValidateResult(): ValidationResult {
