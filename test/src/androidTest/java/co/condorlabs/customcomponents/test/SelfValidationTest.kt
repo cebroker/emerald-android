@@ -44,16 +44,16 @@ class SelfValidationTest : MockActivityTest() {
         clickWithText("Item 1")
 
         val etNextFocus = ruleActivity.activity.findViewById<EditText>(R.id.etNextFocus)
-
-        //When
+        clickWithId(R.id.etNextFocus)
+       /* //When
         ruleActivity.runOnUiThread {
             etNextFocus.requestFocus()
             formFields.requestFocus()
             etNextFocus.requestFocus()
-        }
+        }*/
 
         //Then
-        //isTextDisplayed(formFields.isValid().error)
+        isTextDisplayed(formFields.isValid().error)
 
     }
 

@@ -93,6 +93,7 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
         mLabelText?.let {
             mTVLabel.text = it
         }
+        onFocusChangeListener = this
     }
 
     override fun getValue(): List<Selectable> {
