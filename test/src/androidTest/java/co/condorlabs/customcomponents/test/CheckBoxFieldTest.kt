@@ -134,20 +134,6 @@ class CheckBoxFieldTest : MockActivityTest() {
     }
 
     @Test
-    fun shouldDisplayTitle() {
-        restartActivity()
-
-        //Given
-        val view = Espresso.onView(ViewMatchers.withText("Custom check"))
-
-        //When
-        view.perform(ViewActions.click())
-
-        //Then
-        view.check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-    }
-
-    @Test
     fun shouldBeInitFromValues() {
         restartActivity()
 

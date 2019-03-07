@@ -25,6 +25,7 @@ import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.runner.AndroidJUnit4
 import co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
 import co.condorlabs.customcomponents.helper.VALIDATE_EMPTY_ERROR
+import co.condorlabs.customcomponents.helper.VALIDATE_INCORRECT_ERROR
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -208,7 +209,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
 
         //Then
         Assert.assertFalse(result.isValid)
-        Assert.assertEquals(String.format(VALIDATE_EMPTY_ERROR, "Zip"), result.error)
+        Assert.assertEquals(String.format(VALIDATE_INCORRECT_ERROR, "Zip"), result.error)
     }
 
     @Test

@@ -25,6 +25,7 @@ const val VALIDATE_EMAIL_ERROR = "Email incorrect."
 const val VALIDATE_DATE_ERROR = "Date incorrect."
 const val VALIDATE_CURRENCY_ERROR = "Currency incorrect."
 const val VALIDATE_CITY_ERROR = "City must belong to the state "
+const val VALIDATE_INCORRECT_ERROR = "Field %s is not valid."
 const val MESSAGE_FORMAT_ERROR = "Field %s must have an element selected."
 const val NO_RADIO_GROUP_SELECTED_VALUE_FOUND_RETURNED_VALUE = -1
 const val STATE_SPINNER_HINT_POSITION = 0
