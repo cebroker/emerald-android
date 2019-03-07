@@ -16,15 +16,22 @@
 
 package co.condorlabs.customcomponents.test
 
+import android.support.design.widget.TextInputLayout
 import android.support.test.espresso.Espresso
 import android.support.test.espresso.action.ViewActions.typeText
+import android.support.test.espresso.action.ViewActions.typeTextIntoFocusedView
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers
 import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
 import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.runner.AndroidJUnit4
+import android.view.View
 import co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
 import co.condorlabs.customcomponents.helper.VALIDATE_EMPTY_ERROR
+import org.hamcrest.CoreMatchers.allOf
+import org.hamcrest.Description
+import org.hamcrest.Matcher
+import org.hamcrest.TypeSafeMatcher
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -85,7 +92,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
     }
 
     @Test
-    fun shouldReturnEmptyIfNothingIsType(){
+    fun shouldReturnEmptyIfNothingIsType() {
         MockActivity.layout = R.layout.activity_baseedittext_no_required_test
         restartActivity()
 
@@ -100,7 +107,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
     }
 
     @Test
-    fun shouldReturnValueTyped(){
+    fun shouldReturnValueTyped() {
         MockActivity.layout = R.layout.activity_baseedittext_no_required_test
         restartActivity()
 
@@ -133,7 +140,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
 
         //Then
         Espresso.onView(ViewMatchers.withText("12345")).check(matches(isDisplayed()))
-        Assert.assertEquals("Zip",(formField)?.hint)
+        Assert.assertEquals("Zip", (formField)?.hint)
         Assert.assertTrue(result.isValid)
     }
 

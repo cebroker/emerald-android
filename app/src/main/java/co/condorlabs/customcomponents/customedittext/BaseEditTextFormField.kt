@@ -24,6 +24,7 @@ import android.text.InputType
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.util.TypedValue
+import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
 import co.condorlabs.customcomponents.R
@@ -96,7 +97,7 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
             setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.default_text_size))
         }
 
-        _editText.addTextChangedListener(object: TextWatcher {
+        _editText.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(s: Editable?) {
                 val newValue = s?.toString()?.let { it } ?: return
                 mValueChangeListener?.onValueChange(newValue)
