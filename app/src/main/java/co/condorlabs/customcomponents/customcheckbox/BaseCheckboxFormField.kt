@@ -19,6 +19,7 @@ package co.condorlabs.customcomponents.customcheckbox
 import android.content.Context
 import android.support.design.widget.TextInputLayout
 import android.util.AttributeSet
+import android.view.View
 import android.widget.CheckBox
 import android.widget.CompoundButton
 import android.widget.LinearLayout
@@ -108,6 +109,12 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
 
         selectableChecked.value = !selectableChecked.value
 
+        val isValid = isValid()
+
+        if (isValid.error.isNotEmpty()) {
+            showError(isValid.error)
+        }
+
         val selectables = mSelectables?.let { it } ?: return
 
         mValueChangeListener?.onValueChange(selectables)
@@ -133,6 +140,5 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
                 setOnCheckedChangeListener(this@BaseCheckboxFormField)
             }, mLayoutParams)
         }
-
     }
 }

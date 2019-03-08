@@ -19,7 +19,10 @@ package co.condorlabs.customcomponents.test
 import android.support.test.espresso.Espresso
 import android.support.test.espresso.action.ViewActions
 import android.support.test.espresso.assertion.ViewAssertions
+import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers
+import android.support.test.espresso.matcher.ViewMatchers.withId
+import android.widget.RadioGroup
 import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.customradiogroup.RadioGroupFormField
 import co.condorlabs.customcomponents.formfield.Selectable
@@ -280,5 +283,41 @@ class RadioGroupFieldTest : MockActivityTest() {
         Assert.assertEquals(
             "Item 3", result
         )
+    }
+
+    @Test
+    fun shouldBeValidatedOnValueChange(){
+        restartActivity()
+
+        //Given
+        val formField = ruleActivity.activity.findViewById<RadioGroupFormField>(R.id.tlRadioGroup)
+        val radioGroup = ruleActivity.activity.findViewById<RadioGroup>(R.id.rgBase)
+        formField.setIsRequired(true)
+        ruleActivity.runOnUiThread {
+            formField.setSelectables(
+                arrayListOf(
+                    Selectable("Item 1", false),
+                    Selectable("Item 2", true),
+                    Selectable("Item 3", false),
+                    Selectable("Item 4", false)
+                )
+            )
+        }
+
+
+        //When
+        ruleActivity.runOnUiThread {
+            radioGroup.clearCheck()
+        }
+
+        //Then
+        Espresso.onView(withId(R.id.tlRadioGroup))
+            .check(
+                matches(
+                    hasTextInputLayoutErrorText(
+                        String.format(MESSAGE_FORMAT_ERROR, "Custom radio group")
+                    )
+                )
+            )
     }
 }

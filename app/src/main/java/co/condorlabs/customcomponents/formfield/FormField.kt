@@ -16,6 +16,7 @@
 
 package co.condorlabs.customcomponents.formfield
 
+import android.view.View
 import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 
 interface FormField<ReturnValueType> {

@@ -19,6 +19,10 @@ package co.condorlabs.customcomponents.test
 import android.content.Intent
 import android.support.design.widget.TextInputLayout
 import android.support.test.rule.ActivityTestRule
+import android.view.View
+import org.hamcrest.Description
+import org.hamcrest.Matcher
+import org.hamcrest.TypeSafeMatcher
 import org.junit.Rule
 
 /**
@@ -40,6 +44,25 @@ abstract class MockActivityTest {
     fun showErrorInInputLayout(textInputLayout: TextInputLayout, error: String) {
         ruleActivity.runOnUiThread {
             textInputLayout.error = error
+        }
+    }
+
+    fun hasTextInputLayoutErrorText(expectedErrorText: String): Matcher<View> {
+        return object : TypeSafeMatcher<View>() {
+
+            override fun matchesSafely(view: View): Boolean {
+                if (view !is TextInputLayout) {
+                    return false
+                }
+
+                val error = view.error ?: return false
+
+                val hint = error.toString()
+
+                return expectedErrorText == hint
+            }
+
+            override fun describeTo(description: Description) {}
         }
     }
 }
