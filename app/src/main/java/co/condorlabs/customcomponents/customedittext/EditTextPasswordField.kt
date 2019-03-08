@@ -21,6 +21,7 @@ import android.text.method.PasswordTransformationMethod
 import android.util.AttributeSet
 import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.formfield.ValidationResult
+import co.condorlabs.customcomponents.helper.PASSWORD
 import co.condorlabs.customcomponents.helper.VALIDATE_EMPTY_ERROR
 
 /**
@@ -37,10 +38,5 @@ class EditTextPasswordField(context: Context, attrs: AttributeSet) : BaseEditTex
         mEditText?.id = R.id.etPassword
         mEditText?.transformationMethod = PasswordTransformationMethod.getInstance()
         isPasswordVisibilityToggleEnabled = true
-        mHint = "Password"
-    }
-
-    override fun getErrorValidateResult(): ValidationResult {
-        return ValidationResult(false, VALIDATE_EMPTY_ERROR)
     }
 }

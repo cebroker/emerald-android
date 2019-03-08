@@ -34,7 +34,6 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
 
     @Before
     fun setup() {
-
         MockActivity.layout = R.layout.activity_currencyedittextfield_test
     }
 

@@ -96,7 +96,6 @@ class EditTextPhoneNumberFieldTest : MockActivityTest() {
         val phone = "123456"
         val txtInputLayout = (ruleActivity.activity.findViewById<View>(R.id.tlPhone) as? EditTextPhoneField)
         txtInputLayout?.setIsRequired(true)
-        txtInputLayout?.editText
 
         //When
         txtInputLayout?.setRegex(PHONE_NUMBER_REGEX)
