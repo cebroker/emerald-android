@@ -17,24 +17,30 @@
 package co.condorlabs.customcomponents.customedittext
 
 import android.content.Context
-import android.text.InputType
+import android.text.method.PasswordTransformationMethod
 import android.util.AttributeSet
 import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.VALIDATE_EMPTY_ERROR
 
-class EditTextPasswordField(context: Context, attrs: AttributeSet) : BaseEditTextFormField(context, attrs) {
+/**
+ * @author Alexis Duque on 3/8/19.
+ * @company Condor Labs
+ * @email eduque@condorlabs.io
+ */
 
-    override fun getErrorValidateResult(): ValidationResult {
-        return ValidationResult(false, VALIDATE_EMPTY_ERROR)
-    }
+class EditTextPasswordField(context: Context, attrs: AttributeSet) : BaseEditTextFormField(context, attrs) {
 
     override fun setup() {
         super.setup()
-        mEditText?.id  = R.id.etPassword
-        setInputType()
+
+        mEditText?.id = R.id.etPassword
+        mEditText?.transformationMethod = PasswordTransformationMethod.getInstance()
+        isPasswordVisibilityToggleEnabled = true
+        mHint = "Password"
     }
-    private fun setInputType() {
-        mEditText?.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+
+    override fun getErrorValidateResult(): ValidationResult {
+        return ValidationResult(false, VALIDATE_EMPTY_ERROR)
     }
 }

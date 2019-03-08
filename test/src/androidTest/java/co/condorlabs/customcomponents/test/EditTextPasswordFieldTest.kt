@@ -18,10 +18,11 @@ package co.condorlabs.customcomponents.test
 
 import android.support.test.espresso.Espresso
 import android.support.test.espresso.action.ViewActions
-    import android.support.test.espresso.matcher.ViewMatchers
+import android.support.test.espresso.matcher.ViewMatchers
+import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.runner.AndroidJUnit4
 import android.view.View
-import co.condorlabs.customcomponents.customedittext.EditTextCurrencyField
+import co.condorlabs.customcomponents.customedittext.EditTextPasswordField
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.VALIDATE_EMPTY_ERROR
 import co.condorlabs.customcomponents.test.util.isTextDisplayed
@@ -44,7 +45,7 @@ class EditTextPasswordFieldTest : MockActivityTest() {
         restartActivity()
 
         //Given
-        val view = (ruleActivity.activity.findViewById<View>(R.id.tlPassword) as? EditTextCurrencyField)
+        val view = (ruleActivity.activity.findViewById<View>(R.id.tlPassword) as? EditTextPasswordField)
         view?.setIsRequired(true)
 
         //When
@@ -52,8 +53,27 @@ class EditTextPasswordFieldTest : MockActivityTest() {
 
         //Then
         Assert.assertEquals(
-            ValidationResult(false, String.format(VALIDATE_EMPTY_ERROR,"Password")),
+            ValidationResult(false, String.format(VALIDATE_EMPTY_ERROR, "Password")),
             result
+        )
+    }
+
+    @Test
+    fun shouldShowAndErrorWithEmptyText() {
+        restartActivity()
+
+        //Given
+        val txtInputLayout = (ruleActivity.activity.findViewById<View>(R.id.tlPassword) as? EditTextPasswordField)
+        val resultIsValid: ValidationResult?
+        txtInputLayout?.setIsRequired(true)
+
+        //When
+        resultIsValid = txtInputLayout?.isValid()
+
+        //Then
+        Assert.assertEquals(
+            ValidationResult(false, String.format(VALIDATE_EMPTY_ERROR, "Password")), resultIsValid
+
         )
     }
 
@@ -61,12 +81,34 @@ class EditTextPasswordFieldTest : MockActivityTest() {
     fun shouldNotSeePassword() {
         restartActivity()
 
-        val view = Espresso.onView(ViewMatchers.withId(R.id.tlPassword))
+        //Given
+        val view = Espresso.onView(ViewMatchers.withId(R.id.etPassword))
 
         //When
-        view.perform(ViewActions.typeText("22222"))
+        view.perform(ViewActions.typeText("1234567890"))
 
         //Then
-        not(isTextDisplayed("22222"))
+        not(isTextDisplayed("1234567890"))
     }
+
+    @Test
+    fun tapEyeToSeePassword() {
+        shouldNotSeePassword()
+        val checkableImageButton = Espresso.onView(withId(R.id.text_input_password_toggle))
+        checkableImageButton.perform(ViewActions.click())
+        isTextDisplayed("1234567890")
+
+    }
+
+    @Test
+    fun tapEyeToHidePassword() {
+        shouldNotSeePassword()
+        val checkableImageButton = Espresso.onView(withId(R.id.text_input_password_toggle))
+        checkableImageButton.perform(ViewActions.click())
+        checkableImageButton.perform(ViewActions.click())
+        not(isTextDisplayed("1234567890"))
+
+    }
+
+
 }

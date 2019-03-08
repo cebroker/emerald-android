@@ -35,6 +35,6 @@ class MockActivity : AppCompatActivity(), ValidableView {
     }
 
     companion object {
-        var layout: Int = R.layout.activity_mock
+        var layout: Int = R.layout.activity_passwordtestfield_test
     }
 }
