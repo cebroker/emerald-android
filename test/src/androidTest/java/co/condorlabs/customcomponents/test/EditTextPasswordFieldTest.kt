@@ -18,32 +18,33 @@ package co.condorlabs.customcomponents.test
 
 import android.support.test.espresso.Espresso
 import android.support.test.espresso.action.ViewActions
-import android.support.test.espresso.matcher.ViewMatchers
+    import android.support.test.espresso.matcher.ViewMatchers
 import android.support.test.runner.AndroidJUnit4
 import android.view.View
 import co.condorlabs.customcomponents.customedittext.EditTextCurrencyField
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.VALIDATE_EMPTY_ERROR
+import co.condorlabs.customcomponents.test.util.isTextDisplayed
+import org.hamcrest.Matchers.not
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 
 @RunWith(AndroidJUnit4::class)
-class EditTextCurrencyFieldTest : MockActivityTest() {
+class EditTextPasswordFieldTest : MockActivityTest() {
 
     @Before
     fun setup() {
-
-        MockActivity.layout = R.layout.activity_currencyedittextfield_test
+        MockActivity.layout = R.layout.activity_passwordtestfield_test
     }
 
     @Test
-    fun shouldShowAndErrorWithEmptyCurrency() {
+    fun shouldShowAndErrorWithEmptyPassword() {
         restartActivity()
 
         //Given
-        val view = (ruleActivity.activity.findViewById<View>(R.id.tlCurrency) as? EditTextCurrencyField)
+        val view = (ruleActivity.activity.findViewById<View>(R.id.tlPassword) as? EditTextCurrencyField)
         view?.setIsRequired(true)
 
         //When
@@ -51,21 +52,21 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
 
         //Then
         Assert.assertEquals(
-            ValidationResult(false, String.format(VALIDATE_EMPTY_ERROR,"Enter some text")),
+            ValidationResult(false, String.format(VALIDATE_EMPTY_ERROR,"Password")),
             result
         )
     }
 
     @Test
-    fun shouldFormatCurrency() {
+    fun shouldNotSeePassword() {
         restartActivity()
 
-        val view = Espresso.onView(ViewMatchers.withId(R.id.etCurrency))
+        val view = Espresso.onView(ViewMatchers.withId(R.id.tlPassword))
 
         //When
         view.perform(ViewActions.typeText("22222"))
 
         //Then
-        ViewMatchers.withText("$22,222").matches(view)
+        not(isTextDisplayed("22222"))
     }
 }
