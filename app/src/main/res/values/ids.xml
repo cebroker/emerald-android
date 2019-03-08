@@ -25,4 +25,5 @@
     <item type="id" name="spState"/>
     <item type="id" name="tvLabel"/>
     <item type="id" name="tvLabelRadioGroup"/>
+    <item type="id" name="rgBase"/>
 </resources>

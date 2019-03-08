@@ -17,6 +17,7 @@
 package co.condorlabs.customcomponents.customedittext
 
 import android.content.Context
+import android.graphics.Rect
 import android.text.InputFilter
 import android.text.InputType
 import android.text.method.DigitsKeyListener

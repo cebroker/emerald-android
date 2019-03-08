@@ -86,7 +86,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
     }
 
     @Test
-    fun shouldReturnEmptyIfNothingIsType(){
+    fun shouldReturnEmptyIfNothingIsType() {
         MockActivity.layout = R.layout.activity_baseedittext_no_required_test
         restartActivity()
 
@@ -101,7 +101,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
     }
 
     @Test
-    fun shouldReturnValueTyped(){
+    fun shouldReturnValueTyped() {
         MockActivity.layout = R.layout.activity_baseedittext_no_required_test
         restartActivity()
 
@@ -134,7 +134,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
 
         //Then
         Espresso.onView(ViewMatchers.withText("12345")).check(matches(isDisplayed()))
-        Assert.assertEquals("Zip",(formField)?.hint)
+        Assert.assertEquals("Zip", (formField)?.hint)
         Assert.assertTrue(result.isValid)
     }
 
