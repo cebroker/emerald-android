@@ -56,7 +56,7 @@ class EditTextPasswordFieldTest : MockActivityTest() {
 
         //Then
         Assert.assertEquals(
-            ValidationResult(false, String.format(VALIDATE_EMPTY_ERROR, "Password")),
+            ValidationResult(false, String.format(VALIDATE_EMPTY_ERROR, "Enter some text")),
             result
         )
     }

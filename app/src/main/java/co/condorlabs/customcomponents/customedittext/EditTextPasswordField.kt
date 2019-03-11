@@ -20,9 +20,6 @@ import android.content.Context
 import android.text.method.PasswordTransformationMethod
 import android.util.AttributeSet
 import co.condorlabs.customcomponents.R
-import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.helper.PASSWORD
-import co.condorlabs.customcomponents.helper.VALIDATE_EMPTY_ERROR
 
 /**
  * @author Alexis Duque on 3/8/19.
