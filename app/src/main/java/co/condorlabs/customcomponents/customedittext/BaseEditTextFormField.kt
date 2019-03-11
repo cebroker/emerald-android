@@ -136,7 +136,7 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
                 false,
                 String.format(VALIDATE_EMPTY_ERROR, mHint)
             )
-            mIsRequired && mRegex != null && !Pattern.compile(mRegex).matcher(mEditText?.text.toString()).matches() -> getErrorValidateResult()
+            !mEditText?.text.toString().isEmpty() && mRegex != null && !Pattern.compile(mRegex).matcher(mEditText?.text.toString()).matches() -> getErrorValidateResult()
             else -> ValidationResult(true, EMPTY)
         }
     }
