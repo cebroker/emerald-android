@@ -17,7 +17,6 @@
 package co.condorlabs.customcomponents.customedittext
 
 import android.content.Context
-import android.graphics.Rect
 import android.support.design.widget.TextInputLayout
 import android.text.Editable
 import android.text.InputFilter
@@ -31,11 +30,7 @@ import android.widget.LinearLayout
 import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.helper.DEFAULT_STYLE_ATTR
-import co.condorlabs.customcomponents.helper.DEFAULT_STYLE_RES
-import co.condorlabs.customcomponents.helper.EMPTY
-import co.condorlabs.customcomponents.helper.VALIDATE_EMPTY_ERROR
-import co.condorlabs.customcomponents.helper.VALIDATE_INCORRECT_ERROR
+import co.condorlabs.customcomponents.helper.*
 import java.util.regex.Pattern
 
 /**
@@ -75,6 +70,7 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
         mInputType = when (typedArray.getString(R.styleable.BaseEditTextFormField_input_type)) {
             "number" -> InputType.TYPE_CLASS_NUMBER
             "phone" -> InputType.TYPE_CLASS_PHONE
+            "password" -> InputType.TYPE_TEXT_VARIATION_PASSWORD
             else -> InputType.TYPE_CLASS_TEXT
         }
         mMaxLines = typedArray.getString(R.styleable.BaseEditTextFormField_max_lines)?.let { it.toInt() }
