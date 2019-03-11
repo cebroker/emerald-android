@@ -77,6 +77,8 @@ abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: Att
             mIsRequired -> {
                 if (mRadioGroup?.checkedRadioButtonId == NO_RADIO_GROUP_SELECTED_VALUE_FOUND_RETURNED_VALUE) {
                     return getErrorValidateResult()
+                } else {
+                    clearError()
                 }
             }
         }
