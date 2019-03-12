@@ -39,7 +39,7 @@ import co.condorlabs.customcomponents.helper.MESSAGE_FORMAT_ERROR
  */
 abstract class BaseSpinnerFormField(context: Context, private val mAttrs: AttributeSet) :
     TextInputLayout(context, mAttrs),
-    FormField<SpinnerData?>, View.OnFocusChangeListener, View.OnTouchListener {
+    FormField<SpinnerData?>, View.OnFocusChangeListener{
 
     protected var mSpinner: Spinner? = null
     protected var mAdapterHint: String
@@ -83,7 +83,6 @@ abstract class BaseSpinnerFormField(context: Context, private val mAttrs: Attrib
         addView(mSpinner)
         mSpinner?.onFocusChangeListener = this
         mSpinner?.isFocusableInTouchMode = true
-        mSpinner?.setOnTouchListener(this)
 
     }
 
@@ -116,10 +115,14 @@ abstract class BaseSpinnerFormField(context: Context, private val mAttrs: Attrib
     }
 
     override fun onFocusChange(v: View?, hasFocus: Boolean) {
-        showError(isValid().error)
-    }
+        if (!hasFocus) {
+            val isValid = isValid()
 
-    override fun onTouch(v: View?, event: MotionEvent?): Boolean {
-        return false
+            if (isValid.error.isNotEmpty()) {
+                showError(isValid.error)
+            } else {
+                clearError()
+            }
+        }
     }
 }

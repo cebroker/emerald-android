@@ -145,7 +145,6 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
     override fun clearError() {
         this.isErrorEnabled = false
         this.error = EMPTY
-        this.requestFocus()
     }
 
     fun setMaxLength(length: Int) {
@@ -178,10 +177,14 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
     }
 
     override fun onFocusChange(v: View?, hasFocus: Boolean) {
-        val isValid = isValid()
+        if (!hasFocus) {
+            val isValid = isValid()
 
-        if (isValid.error.isNotEmpty()) {
-            showError(isValid.error)
+            if (isValid.error.isNotEmpty()) {
+                showError(isValid.error)
+            } else {
+                clearError()
+            }
         }
     }
 }
