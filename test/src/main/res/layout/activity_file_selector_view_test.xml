@@ -27,7 +27,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:tap_button_subtitle="Edwin Duque"
-        app:tap_button_text="Sirve"
-        app:tap_button_title="Mi nombre" />
+        app:tap_button_subtitle="Select a photo or file from your device."
+        app:tap_button_title="Upload Documentation" />
 </android.support.constraint.ConstraintLayout>
