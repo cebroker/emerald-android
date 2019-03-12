@@ -70,6 +70,7 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
         mInputType = when (typedArray.getString(R.styleable.BaseEditTextFormField_input_type)) {
             "number" -> InputType.TYPE_CLASS_NUMBER
             "phone" -> InputType.TYPE_CLASS_PHONE
+            "password" -> InputType.TYPE_TEXT_VARIATION_PASSWORD
             else -> InputType.TYPE_CLASS_TEXT
         }
         mMaxLines = typedArray.getString(R.styleable.BaseEditTextFormField_max_lines)?.let { it.toInt() }
@@ -131,7 +132,7 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
                 false,
                 String.format(VALIDATE_EMPTY_ERROR, mHint)
             )
-            mIsRequired && mRegex != null && !Pattern.compile(mRegex).matcher(mEditText?.text.toString()).matches() -> getErrorValidateResult()
+            !mEditText?.text.toString().isEmpty() && mRegex != null && !Pattern.compile(mRegex).matcher(mEditText?.text.toString()).matches() -> getErrorValidateResult()
             else -> ValidationResult(true, EMPTY)
         }
     }

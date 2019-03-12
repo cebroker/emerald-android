@@ -107,4 +107,40 @@ class EditTextPhoneNumberFieldTest : MockActivityTest() {
             txtInputLayout?.isValid()
         )
     }
+
+    @Test
+    fun shouldNotBeValidIfNotRequiredAndRegexNotMatch() {
+        restartActivity()
+        //Given
+        val phone = "123"
+        val txtInputLayout = (ruleActivity.activity.findViewById<View>(R.id.tlPhone) as? EditTextPhoneField)
+        txtInputLayout?.setIsRequired(false)
+        txtInputLayout?.setRegex(PHONE_NUMBER_REGEX)
+
+        //When
+        Espresso.onView(ViewMatchers.withId(R.id.etPhone)).perform(ViewActions.typeText(phone))
+
+        //Then
+        Assert.assertEquals(
+            ValidationResult(false, VALIDATE_LENGTH_ERROR),
+            txtInputLayout?.isValid()
+        )
+    }
+
+    @Test
+    fun shouldBeValidIfNotRequiredAndRegexMatch() {
+        restartActivity()
+        //Given
+        val phone = "1234567890"
+        val txtInputLayout = (ruleActivity.activity.findViewById<View>(R.id.tlPhone) as EditTextPhoneField)
+        txtInputLayout.setIsRequired(false)
+        txtInputLayout.setRegex(PHONE_NUMBER_REGEX)
+
+        //When
+        Espresso.onView(ViewMatchers.withId(R.id.etPhone)).perform(ViewActions.typeText(phone))
+
+        //Then
+        Assert.assertTrue(txtInputLayout.isValid().isValid)
+        Assert.assertEquals("123-456-7890", txtInputLayout?.getValue())
+    }
 }
