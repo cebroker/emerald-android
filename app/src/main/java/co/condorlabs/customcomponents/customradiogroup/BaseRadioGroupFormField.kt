@@ -114,6 +114,8 @@ abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: Att
             } else {
                 if (mIsRequired) {
                     showError(getErrorValidateResult().error)
+                } else {
+                    clearError()
                 }
             }
         }

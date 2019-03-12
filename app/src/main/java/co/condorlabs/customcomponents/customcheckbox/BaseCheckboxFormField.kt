@@ -73,6 +73,8 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
             mIsRequired -> {
                 if (mSelectables?.filter { !it.value }?.size ?: ZERO == mSelectables?.size ?: ZERO) {
                     return getErrorValidateResult()
+                } else {
+                    clearError()
                 }
             }
         }

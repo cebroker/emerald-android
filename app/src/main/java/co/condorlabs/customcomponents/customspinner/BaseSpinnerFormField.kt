@@ -115,10 +115,14 @@ abstract class BaseSpinnerFormField(context: Context, private val mAttrs: Attrib
     }
 
     override fun onFocusChange(v: View?, hasFocus: Boolean) {
-        if (isValid().error.isNotEmpty()) {
-            showError(isValid().error)
-        } else {
-            clearError()
+        if (!hasFocus) {
+            val isValid = isValid()
+
+            if (isValid.error.isNotEmpty()) {
+                showError(isValid.error)
+            } else {
+                clearError()
+            }
         }
     }
 }
