@@ -3,21 +3,21 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:padding="26dp"
-    android:background="#F5F5F5">
+    android:background="#F5F5F5"
+    android:padding="26dp">
 
     <android.support.constraint.ConstraintLayout
         android:id="@+id/containerLayout"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:background="@drawable/background"
-        android:foreground="?attr/selectableItemBackground"
+        android:background="@drawable/ripple"
+        android:clickable="true"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
         <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/imgPhotho"
+            android:id="@+id/iconImageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -29,7 +29,7 @@
             app:layout_constraintTop_toTopOf="parent" />
 
         <android.support.v7.widget.AppCompatTextView
-            android:id="@+id/txtSubtitle"
+            android:id="@+id/textTapTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
@@ -38,34 +38,37 @@
             android:layout_marginBottom="8dp"
             android:text="@string/text_subtitle"
             android:textAlignment="center"
+            android:textColor="#5AD4A0"
+            android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/imgPhotho" />
+            app:layout_constraintTop_toBottomOf="@+id/iconImageView"
+            app:layout_constraintVertical_bias="1.0" />
     </android.support.constraint.ConstraintLayout>
 
     <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/txtUno"
+        android:id="@+id/titleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="8dp"
-        android:text="Upload Documentation"
         android:textColor="@android:color/black"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/containerLayout" />
 
     <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/txtDos"
+        android:id="@+id/subtitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="8dp"
-        android:text="Upload photo or file"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/txtUno" />
+        app:layout_constraintTop_toBottomOf="@+id/titleTextView" />
 </android.support.constraint.ConstraintLayout>
