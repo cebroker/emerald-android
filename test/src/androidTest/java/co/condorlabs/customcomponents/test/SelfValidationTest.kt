@@ -1,17 +1,10 @@
 package co.condorlabs.customcomponents.test
 
 import android.support.test.espresso.Espresso
-import android.support.test.espresso.action.ViewActions
 import android.support.test.espresso.matcher.ViewMatchers
-import android.widget.EditText
-import co.condorlabs.customcomponents.customcheckbox.CheckboxFormField
 import co.condorlabs.customcomponents.customedittext.*
-import co.condorlabs.customcomponents.customradiogroup.RadioGroupFormField
 import co.condorlabs.customcomponents.customspinner.SpinnerData
 import co.condorlabs.customcomponents.customspinner.SpinnerFormField
-import co.condorlabs.customcomponents.formfield.Selectable
-import co.condorlabs.customcomponents.test.util.clickWithId
-import co.condorlabs.customcomponents.test.util.clickWithText
 import co.condorlabs.customcomponents.test.util.isTextDisplayed
 import org.junit.Test
 
@@ -126,6 +119,7 @@ class SelfValidationTest : MockActivityTest() {
     fun shouldEvaluateItSelfWhenLoseFocusSpinner() {
         MockActivity.layout = R.layout.selft_validate_spinner_test
         restartActivity()
+        val etNextFocus = ruleActivity.activity.findViewById<EditTextCityField>(R.id.losefocus)
 
         //Given
         val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
@@ -137,11 +131,11 @@ class SelfValidationTest : MockActivityTest() {
         //When
         ruleActivity.runOnUiThread {
             formField.setData(arrayListOf(data, data1, data3))
+            etNextFocus.requestFocus()
+            formField.requestFocus()
+            etNextFocus.requestFocus()
         }
 
-        view.perform(ViewActions.click())
-
-        //Then
         isTextDisplayed(formField.isValid().error)
     }
 }
