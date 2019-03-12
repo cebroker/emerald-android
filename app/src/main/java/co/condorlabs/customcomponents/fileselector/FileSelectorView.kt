@@ -25,7 +25,7 @@ class FileSelectorView @JvmOverloads constructor(
     init {
         setContentView()
 
-        findViewsInLayoutresourceFile()
+        findViewsInLayoutResourceFile()
 
         attrs?.let { setupAttributeSet(it) }
 
@@ -38,7 +38,7 @@ class FileSelectorView @JvmOverloads constructor(
         LayoutInflater.from(context).inflate(R.layout.file_selector_view, this, true)
     }
 
-    private fun findViewsInLayoutresourceFile() {
+    private fun findViewsInLayoutResourceFile() {
         mConstraintLayoutTapButton = findViewById(R.id.containerLayout)
         mImageViewIcon = findViewById(R.id.iconImageView)
         mTextViewTitleTabButton = findViewById(R.id.titleTextView)
@@ -50,7 +50,7 @@ class FileSelectorView @JvmOverloads constructor(
         val attrsArray = context.obtainStyledAttributes(atributes, R.styleable.FileSelectorView)
 
         if (attrsArray.hasValue(R.styleable.FileSelectorView_src_tap_button)) {
-            attrsArray.getResourceId(R.styleable.FileSelectorView_src_tap_button, -1)?.let { imageResourceId ->
+            attrsArray.getResourceId(R.styleable.FileSelectorView_src_tap_button, -1).let { imageResourceId ->
                 mImageViewIcon?.setImageResource(imageResourceId)
             }
         }
