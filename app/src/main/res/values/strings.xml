@@ -33,6 +33,9 @@
     </string-array>
 
     <string name="text_subtitle">TAP TO ADD</string>
+    <string name="file_selector_default_error">You should attach a file</string>
+    <string name="gallery_string">Gallery</string>
+    <string name="photo_string">Photo</string>
 
     <string-array name="default_dialog_file_selector_options">
         <item>Open cam</item>

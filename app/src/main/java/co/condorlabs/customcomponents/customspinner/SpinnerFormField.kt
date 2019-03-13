@@ -67,6 +67,10 @@ class SpinnerFormField(context: Context, attrs: AttributeSet) :
         }
     }
 
+    override fun setIsRequired(required: Boolean) {
+        mIsRequired = required
+    }
+
     fun setData(data: List<SpinnerData>) {
         (mSpinner?.adapter as? SpinnerFormFieldAdapter)?.replaceStates(data.sortedBy { it.label })
     }

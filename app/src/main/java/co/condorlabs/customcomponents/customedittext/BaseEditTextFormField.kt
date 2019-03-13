@@ -157,7 +157,7 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
         mRegex = regex
     }
 
-    fun setIsRequired(required: Boolean) {
+    override fun setIsRequired(required: Boolean) {
         mIsRequired = required
     }
 

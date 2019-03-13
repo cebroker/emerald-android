@@ -9,7 +9,13 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import co.condorlabs.customcomponents.R
+import co.condorlabs.customcomponents.customedittext.ValueChangeListener
+import co.condorlabs.customcomponents.formfield.FormField
+import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.EMPTY
+import co.condorlabs.customcomponents.helper.FILE_SELECTOR_GALLERY_OPTION_INDEX
+import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.file_selector_view.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -19,51 +25,133 @@ import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
 class FileSelectorView @JvmOverloads constructor(
-        context: Context,
-        attrs: AttributeSet? = null,
-        defStyleAttr: Int = 0
-) : ConstraintLayout(context, attrs, defStyleAttr) {
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : ConstraintLayout(context, attrs, defStyleAttr),
+    FormField<FileSelectorValue?>, View.OnClickListener {
 
-    private var mConstraintLayoutTapButton: ConstraintLayout? = null
-    private var mImageViewIcon: AppCompatImageView? = null
-    private var mTextViewTitleTabButton: AppCompatTextView? = null
-    private var mTextViewSubtitleTabButton: AppCompatTextView? = null
-    private var mTextViewTextTabButton: AppCompatTextView? = null
+    override var mIsRequired: Boolean = false
 
-    private var mOnClickListener: OnClickListener? = null
+    private var mCLContent: ConstraintLayout? = null
+    private var mIVIcon: AppCompatImageView? = null
+    private var mTVTapAction: AppCompatTextView? = null
+    private var mTVTitle: AppCompatTextView? = null
+    private var mTVError: AppCompatTextView? = null
+
+    private var mIconResourceId: Int? = null
+    private var mTapButtonText: String? = null
+    private var mTitle: String? = null
+
+    private var mFileSelectorValue: FileSelectorValue? = null
+    private var mValueChangeListener: ValueChangeListener<FileSelectorValue?>? = null
     private var mDialogTitle: String? = null
-    private var mDialogOptionsResourceId: Int? = null
+    private var mFileSelectorClickListener: FileSelectorClickListener? = null
 
     init {
-        setContentView()
-
-        findViewsInLayoutResourceFile()
-
         attrs?.let { setupAttributeSet(it) }
-
-        mConstraintLayoutTapButton?.setOnClickListener {
-            showFileSelectorDialog()
-        }
     }
 
-    private fun showFileSelectorDialog() {
-        CoroutineScope(Dispatchers.Main + Job()).launch {
-            displayMyMultipleChoiceDialog().let {
-                mOnClickListener?.onClick(it)
+    override fun onAttachedToWindow() {
+        super.onAttachedToWindow()
+        setup()
+    }
+
+    override fun isValid(): ValidationResult {
+        if (mIsRequired && mFileSelectorValue == null) {
+            return ValidationResult(false, context.getString(R.string.file_selector_default_error))
+
+        }
+
+        return ValidationResult(true, EMPTY)
+    }
+
+    override fun showError(message: String) {
+        mTVError?.text = message
+        mTVError?.visibility = View.VISIBLE
+    }
+
+    override fun clearError() {
+        mTVError?.visibility = View.GONE
+    }
+
+    override fun setup() {
+        val view = LayoutInflater.from(context).inflate(R.layout.file_selector_view, this, false)
+        mCLContent = view.findViewById(R.id.clContent)
+        mIVIcon = view.findViewById(R.id.ivICon)
+        mTVTapAction = view.findViewById(R.id.tvTapAction)
+        mTVTitle = view.findViewById(R.id.tvTitle)
+        mTVError = view.findViewById(R.id.tvError)
+
+        mIconResourceId?.let {
+            mIVIcon?.setImageResource(it)
+        }
+
+        mTapButtonText?.let {
+            mTVTapAction?.text = it
+        }
+
+        mTitle?.let {
+            mTVTitle?.text = it
+        }
+
+        view.setOnClickListener(this)
+        mIVIcon?.setOnClickListener(this)
+        clContent?.setOnClickListener(this)
+        setOnClickListener(this)
+
+        addView(view)
+    }
+
+    override fun onClick(v: View?) {
+        showFileSelectorDialog()
+    }
+
+    override fun getValue(): FileSelectorValue? {
+        return mFileSelectorValue
+    }
+
+    override fun getErrorValidateResult(): ValidationResult {
+        return ValidationResult(false, "You should attach a file")
+    }
+
+    override fun setValueChangeListener(valueChangeListener: ValueChangeListener<FileSelectorValue?>) {
+        mValueChangeListener = valueChangeListener
+    }
+
+    override fun setIsRequired(required: Boolean) {
+        mIsRequired = required
+    }
+
+    fun setFileValue(fileSelectorValue: FileSelectorValue) {
+        mFileSelectorValue = fileSelectorValue
+
+        mIVIcon?.let { view ->
+            if (fileSelectorValue is FileSelectorValue.PathValue) {
+                Picasso.get()
+                    .load(fileSelectorValue.path)
+                    .into(view)
+            } else if (fileSelectorValue is FileSelectorValue.DrawableValue) {
+                view.setImageDrawable(fileSelectorValue.drawable)
             }
         }
     }
 
-    private fun setContentView() {
-        LayoutInflater.from(context).inflate(R.layout.file_selector_view, this, true)
+    fun setFileSelectorClickListener(fileSelectorClickListener: FileSelectorClickListener) {
+        mFileSelectorClickListener = fileSelectorClickListener
     }
 
-    private fun findViewsInLayoutResourceFile() {
-        mConstraintLayoutTapButton = findViewById(R.id.containerLayout)
-        mImageViewIcon = findViewById(R.id.iconImageView)
-        mTextViewTitleTabButton = findViewById(R.id.titleTextView)
-        mTextViewSubtitleTabButton = findViewById(R.id.subtitleTextView)
-        mTextViewTextTabButton = findViewById(R.id.textTapTextView)
+    private fun showFileSelectorDialog() {
+        CoroutineScope(Dispatchers.Main + Job()).launch {
+            displayMyMultipleChoiceDialog().let { optionSelected ->
+                mFileSelectorClickListener?.onOptionSelected(
+                    when (optionSelected) {
+                        FILE_SELECTOR_GALLERY_OPTION_INDEX -> FileSelectorOption.Gallery
+                        else -> FileSelectorOption.Photo
+                    }
+                )
+            }
+        }
     }
 
     private fun setupAttributeSet(attributes: AttributeSet) {
@@ -75,39 +163,21 @@ class FileSelectorView @JvmOverloads constructor(
             }
         }
 
-        if (attrsArray.hasValue(R.styleable.FileSelectorView_dialog_options)) {
-            attrsArray.getResourceId(R.styleable.FileSelectorView_dialog_options, -1).let { optionsArrayResourceId ->
-                mDialogOptionsResourceId = optionsArrayResourceId
-            }
-        }
-
         if (attrsArray.hasValue(R.styleable.FileSelectorView_src_tap_button)) {
             attrsArray.getResourceId(R.styleable.FileSelectorView_src_tap_button, -1).let { imageResourceId ->
-                mImageViewIcon?.setImageResource(imageResourceId)
+                mIconResourceId = imageResourceId
             }
         }
 
         if (attrsArray.hasValue(R.styleable.FileSelectorView_tap_button_text)) {
             attrsArray.getString(R.styleable.FileSelectorView_tap_button_text)?.let { text ->
-                mTextViewTextTabButton?.setText(text)
+                mTapButtonText = text
             }
         }
 
         if (attrsArray.hasValue(R.styleable.FileSelectorView_tap_button_title)) {
             attrsArray.getString(R.styleable.FileSelectorView_tap_button_title)?.let { title ->
-                mTextViewTitleTabButton?.apply {
-                    this.text = title
-                    visibility = View.VISIBLE
-                }
-            }
-        }
-
-        if (attrsArray.hasValue(R.styleable.FileSelectorView_tap_button_subtitle)) {
-            attrsArray.getString(R.styleable.FileSelectorView_tap_button_subtitle)?.let { subtitle ->
-                mTextViewSubtitleTabButton?.apply {
-                    this.text = subtitle
-                    visibility = View.VISIBLE
-                }
+                mTitle = title
             }
         }
 
@@ -116,37 +186,23 @@ class FileSelectorView @JvmOverloads constructor(
 
     private suspend fun displayMyMultipleChoiceDialog(): Int {
         lateinit var result: Continuation<Int>
-        mDialogOptionsResourceId?.let { optionsResourceId ->
-            AlertDialog
-                    .Builder(context)
-                    .setTitle(mDialogTitle ?: EMPTY)
-                    .setItems(optionsResourceId) { dialog, which ->
-                        dialog.dismiss()
-                        result.resume(which)
-                    }
-                    .create()
-                    .show()
-        }
+
+        AlertDialog
+            .Builder(context)
+            .setTitle(mDialogTitle ?: EMPTY)
+            .setItems(
+                arrayOf<CharSequence>(
+                    context.getString(R.string.gallery_string),
+                    context.getString(R.string.photo_string)
+                )
+            ) { dialog, which ->
+                dialog.dismiss()
+                result.resume(which)
+            }
+            .create()
+            .show()
+
 
         return suspendCoroutine { continuation -> result = continuation }
-    }
-
-    fun setOnClickListener(listener: OnClickListener) {
-        if (!isClickable) {
-            isClickable = true
-        }
-        mOnClickListener = listener
-    }
-
-    /**
-     * Interface definition for a callback to be invoked when an option of dialog is clicked.
-     */
-    interface OnClickListener {
-        /**
-         * Called when an option of dialog has been clicked.
-         *
-         * @param optionSelectedId The option position that was clicked.
-         */
-        fun onClick(optionSelectedId: Int)
     }
 }

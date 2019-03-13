@@ -36,4 +36,6 @@ interface FormField<ReturnValueType> {
     fun getErrorValidateResult(): ValidationResult
 
     fun setValueChangeListener(valueChangeListener: ValueChangeListener<ReturnValueType>)
+
+    fun setIsRequired(required: Boolean)
 }
