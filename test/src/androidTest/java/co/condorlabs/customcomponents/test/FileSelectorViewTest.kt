@@ -5,6 +5,7 @@ import android.support.test.espresso.action.ViewActions.click
 import android.support.test.espresso.matcher.ViewMatchers.withHint
 import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.runner.AndroidJUnit4
+import co.condorlabs.customcomponents.test.util.isTextDisplayed
 import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -19,7 +20,19 @@ class FileSelectorViewTest : MockActivityTest() {
     }
 
     @Test
-    fun shouldHaveDefaultHint() {
+    fun shouldHaveDefaultText() {
+        restartActivity()
+
+        //Given
+        val view = onView(withId(R.id.myCustomLayoutSelector))
+
+        //Then
+        isTextDisplayed("Upload Documentation")
+        isTextDisplayed("Select a photo or file")
+    }
+
+    @Test
+    fun shouldOpenFileSelectorDialog() {
         restartActivity()
 
         //Given
@@ -29,6 +42,8 @@ class FileSelectorViewTest : MockActivityTest() {
         view.perform(click())
 
         //Then
-        //withHint("Phone").matches(view)
+        isTextDisplayed("Options")
+        isTextDisplayed("Open cam")
+        isTextDisplayed("Select file from device")
     }
 }

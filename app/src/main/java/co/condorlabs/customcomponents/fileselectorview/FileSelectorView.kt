@@ -1,4 +1,4 @@
-package co.condorlabs.customcomponents.fileselector
+package co.condorlabs.customcomponents.fileselectorview
 
 import android.app.AlertDialog
 import android.content.Context
@@ -131,11 +131,11 @@ class FileSelectorView @JvmOverloads constructor(
         return suspendCoroutine { continuation -> result = continuation }
     }
 
-    fun setOnClickListener(l: OnClickListener) {
+    fun setOnClickListener(listener: OnClickListener) {
         if (!isClickable) {
             isClickable = true
         }
-        mOnClickListener = l
+        mOnClickListener = listener
     }
 
     /**

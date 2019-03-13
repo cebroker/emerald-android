@@ -19,7 +19,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <co.condorlabs.customcomponents.fileselector.FileSelectorView
+    <co.condorlabs.customcomponents.fileselectorview.FileSelectorView
         android:id="@+id/myCustomLayoutSelector"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -29,6 +29,6 @@
         app:layout_constraintTop_toTopOf="parent"
         app:tap_button_subtitle="Select a photo or file from your device."
         app:tap_button_title="Upload Documentation"
-        app:dialog_title="Mis datos sirven"
+        app:dialog_title="Options"
         app:dialog_options="@array/default_dialog_file_selector_options"/>
 </android.support.constraint.ConstraintLayout>
