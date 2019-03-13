@@ -35,4 +35,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 
+    <co.condorlabs.customcomponents.customedittext.EditTextCityField
+            android:id="@+id/losefocus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:hint=""
+            app:is_required="false"/>
+
 </LinearLayout>
