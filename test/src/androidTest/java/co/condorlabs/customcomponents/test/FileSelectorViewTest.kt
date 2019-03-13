@@ -175,8 +175,7 @@ class FileSelectorViewTest : MockActivityTest() {
 
         //Given
         val view = Espresso.onView(withText("This is the Title"))
-
-
+        
         //When
 
         //Then

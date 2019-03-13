@@ -14,6 +14,7 @@ import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.EMPTY
 import co.condorlabs.customcomponents.helper.FILE_SELECTOR_GALLERY_OPTION_INDEX
+import co.condorlabs.customcomponents.helper.NOT_DEFINED_ATTRIBUTE_DEFAULT_VALUE
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.file_selector_view.view.*
 import kotlinx.coroutines.CoroutineScope
@@ -60,7 +61,6 @@ class FileSelectorView @JvmOverloads constructor(
     override fun isValid(): ValidationResult {
         if (mIsRequired && mFileSelectorValue == null) {
             return ValidationResult(false, context.getString(R.string.file_selector_default_error))
-
         }
 
         return ValidationResult(true, EMPTY)
@@ -112,7 +112,7 @@ class FileSelectorView @JvmOverloads constructor(
     }
 
     override fun getErrorValidateResult(): ValidationResult {
-        return ValidationResult(false, "You should attach a file")
+        return ValidationResult(false, context.getString(R.string.file_selector_default_error))
     }
 
     override fun setValueChangeListener(valueChangeListener: ValueChangeListener<FileSelectorValue?>) {
@@ -164,9 +164,10 @@ class FileSelectorView @JvmOverloads constructor(
         }
 
         if (attrsArray.hasValue(R.styleable.FileSelectorView_src_tap_button)) {
-            attrsArray.getResourceId(R.styleable.FileSelectorView_src_tap_button, -1).let { imageResourceId ->
-                mIconResourceId = imageResourceId
-            }
+            attrsArray.getResourceId(R.styleable.FileSelectorView_src_tap_button, NOT_DEFINED_ATTRIBUTE_DEFAULT_VALUE)
+                .let { imageResourceId ->
+                    mIconResourceId = imageResourceId
+                }
         }
 
         if (attrsArray.hasValue(R.styleable.FileSelectorView_tap_button_text)) {
@@ -201,7 +202,6 @@ class FileSelectorView @JvmOverloads constructor(
             }
             .create()
             .show()
-
 
         return suspendCoroutine { continuation -> result = continuation }
     }
