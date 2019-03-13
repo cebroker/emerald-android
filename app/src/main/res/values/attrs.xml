@@ -52,6 +52,8 @@
     </declare-styleable>
 
     <declare-styleable name="FileSelectorView">
+        <attr name="dialog_title" format="string"/>
+        <attr name="dialog_options" format="reference"/>
         <attr name="tap_button_text" format="string"/>
         <attr name="tap_button_title" format="string"/>
         <attr name="tap_button_subtitle" format="string"/>

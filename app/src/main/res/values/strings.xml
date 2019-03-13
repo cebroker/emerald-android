@@ -33,4 +33,9 @@
     </string-array>
 
     <string name="text_subtitle">TAP TO ADD</string>
+
+    <string-array name="default_dialog_file_selector_options">
+        <item>Open cam</item>
+        <item>Select file from device</item>
+    </string-array>
 </resources>

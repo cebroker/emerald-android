@@ -28,5 +28,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:tap_button_subtitle="Select a photo or file from your device."
-        app:tap_button_title="Upload Documentation" />
+        app:tap_button_title="Upload Documentation"
+        app:dialog_title="Mis datos sirven"
+        app:dialog_options="@array/default_dialog_file_selector_options"/>
 </android.support.constraint.ConstraintLayout>
