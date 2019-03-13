@@ -13,7 +13,7 @@ class CheckboxFormField(context: Context, mAttrs: AttributeSet) : BaseCheckboxFo
 
     override var mIsRequired: Boolean = false
 
-    fun setIsRequired(isRequired: Boolean) {
+    override fun setIsRequired(isRequired: Boolean) {
         mIsRequired = isRequired
     }
 }
