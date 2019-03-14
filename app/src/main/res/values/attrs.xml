@@ -33,6 +33,7 @@
         <attr name="max_lines" format="integer"/>
         <attr name="min_lines" format="integer"/>
         <attr name="background_alpha" format="integer"/>
+        <attr name="multiline" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="SpinnerFormField">
