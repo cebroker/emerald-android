@@ -22,9 +22,11 @@ import android.text.Editable
 import android.text.InputFilter
 import android.text.InputType
 import android.text.TextWatcher
+import android.text.method.ScrollingMovementMethod
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.LinearLayout
 import co.condorlabs.customcomponents.R
@@ -32,6 +34,7 @@ import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.*
 import java.util.regex.Pattern
+
 
 /**
  * @author Oscar Gallon on 2/26/19.
@@ -50,6 +53,7 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
     private var mMinLines: Int? = null
     private var mBackgroundAlpha: Int? = null
 
+    private var mMultiline: Boolean = false
     private var mInputType: Int = InputType.TYPE_CLASS_TEXT
     private val mLayoutParams = LinearLayout.LayoutParams(
         LinearLayout.LayoutParams.MATCH_PARENT,
@@ -76,6 +80,7 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
         mMaxLines = typedArray.getString(R.styleable.BaseEditTextFormField_max_lines)?.let { it.toInt() }
         mMinLines = typedArray.getString(R.styleable.BaseEditTextFormField_min_lines)?.let { it.toInt() }
         mBackgroundAlpha = typedArray.getString(R.styleable.BaseEditTextFormField_background_alpha)?.let { it.toInt() }
+        mMultiline = typedArray.getBoolean(R.styleable.BaseEditTextFormField_multiline, false)
 
         typedArray.recycle()
     }
@@ -100,8 +105,7 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
             id = R.id.etBase
             hint = mHint
             setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.default_text_size))
-            mMaxLines?.let { maxLines = it }
-            mMinLines?.let { minLines = it }
+            isMultiline(_editText)
             mBackgroundAlpha?.let { background.alpha = it }
         }
 
@@ -120,6 +124,16 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
         })
 
         addView(_editText, mLayoutParams)
+    }
+
+    private fun isMultiline(editText: EditText) {
+        if (mMultiline) {
+            editText.apply {
+                setSingleLine(false)
+                setLines(mMinLines ?: LINES_DEFAULT)
+                maxLines = mMaxLines ?: MAXLINES_DEFAULT
+            }
+        }
     }
 
     override fun getValue(): String {
