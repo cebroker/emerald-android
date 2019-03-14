@@ -23,6 +23,7 @@ import android.support.test.espresso.matcher.ViewMatchers
 import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
 import android.support.test.espresso.matcher.ViewMatchers.withId
 import android.support.test.runner.AndroidJUnit4
+import android.view.View
 import co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
 import co.condorlabs.customcomponents.helper.VALIDATE_EMPTY_ERROR
 import co.condorlabs.customcomponents.helper.VALIDATE_INCORRECT_ERROR
@@ -30,6 +31,11 @@ import co.condorlabs.customcomponents.test.util.isTextDisplayed
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
+import android.widget.TextView
+import co.condorlabs.customcomponents.test.util.isTextInLines
+import org.hamcrest.Description
+import org.hamcrest.TypeSafeMatcher
+
 
 /**
  * @author Oscar Gallon on 2/26/19.
@@ -79,13 +85,9 @@ class BaseEditTextFieldTest : MockActivityTest() {
         editText.perform(typeText("Amy normally hated Monday mornings, but this year was different. Kamal was in her art class and she liked Kamal. She was waiting outside the classroom when her friend Tara arrived."))
 
         //Then
-        isTextDisplayed(
-            "Amy normally hated Monday mornings, but this year was" +
-                    " different. Kamal was in her art class and she liked" +
-                    " Kamal. She was waiting outside the classroom when he" +
-                    " friend Tara arrived."
-        )
+        isTextInLines(3)
     }
+
 
     @Test
     fun shouldNotBeInvalidIfItsNotRequired() {

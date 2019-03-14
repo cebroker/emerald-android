@@ -33,6 +33,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/test/src/androidTest/java/co/condorlabs/customcomponents/test/util/hooks.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/test/src/main/res/layout/activity_baseedittextfield_multiline_test.xml">
           <value>
             <set />
@@ -43,7 +48,17 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/java/com/evercheck/wallet/credentials/sections/providermembershipdues/add/addingfragment/AddMembershipDuesFragment.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/res/layout/fragment_add_membership_dues.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="/fragment.kt">
           <value>
             <set />
           </value>
