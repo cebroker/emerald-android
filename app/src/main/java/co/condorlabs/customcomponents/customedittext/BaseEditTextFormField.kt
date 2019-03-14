@@ -130,7 +130,6 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
         if (mMultiline) {
             editText.apply {
                 setSingleLine(false)
-                inputType = InputType.TYPE_CLASS_TEXT or InputType.TYPE_TEXT_FLAG_MULTI_LINE
                 setLines(mMinLines ?: LINES_DEFAULT)
                 maxLines = mMaxLines ?: MAXLINES_DEFAULT
             }
