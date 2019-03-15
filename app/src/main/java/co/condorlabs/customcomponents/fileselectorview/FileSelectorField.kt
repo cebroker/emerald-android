@@ -25,7 +25,7 @@ import kotlin.coroutines.Continuation
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
 
-class FileSelectorView @JvmOverloads constructor(
+class FileSelectorField @JvmOverloads constructor(
     context: Context,
     attrs: AttributeSet? = null,
     defStyleAttr: Int = 0
@@ -153,29 +153,29 @@ class FileSelectorView @JvmOverloads constructor(
     }
 
     private fun setupAttributeSet(attributes: AttributeSet) {
-        val attrsArray = context.obtainStyledAttributes(attributes, R.styleable.FileSelectorView)
+        val attrsArray = context.obtainStyledAttributes(attributes, R.styleable.FileSelectorField)
 
-        if (attrsArray.hasValue(R.styleable.FileSelectorView_dialog_title)) {
-            attrsArray.getString(R.styleable.FileSelectorView_dialog_title).let { dialogTitle ->
+        if (attrsArray.hasValue(R.styleable.FileSelectorField_dialog_title)) {
+            attrsArray.getString(R.styleable.FileSelectorField_dialog_title).let { dialogTitle ->
                 mDialogTitle = dialogTitle
             }
         }
 
-        if (attrsArray.hasValue(R.styleable.FileSelectorView_src_tap_button)) {
-            attrsArray.getResourceId(R.styleable.FileSelectorView_src_tap_button, NOT_DEFINED_ATTRIBUTE_DEFAULT_VALUE)
+        if (attrsArray.hasValue(R.styleable.FileSelectorField_src_tap_button)) {
+            attrsArray.getResourceId(R.styleable.FileSelectorField_src_tap_button, NOT_DEFINED_ATTRIBUTE_DEFAULT_VALUE)
                 .let { imageResourceId ->
                     mIconResourceId = imageResourceId
                 }
         }
 
-        if (attrsArray.hasValue(R.styleable.FileSelectorView_tap_button_text)) {
-            attrsArray.getString(R.styleable.FileSelectorView_tap_button_text)?.let { text ->
+        if (attrsArray.hasValue(R.styleable.FileSelectorField_tap_button_text)) {
+            attrsArray.getString(R.styleable.FileSelectorField_tap_button_text)?.let { text ->
                 mTapButtonText = text
             }
         }
 
-        if (attrsArray.hasValue(R.styleable.FileSelectorView_tap_button_title)) {
-            attrsArray.getString(R.styleable.FileSelectorView_tap_button_title)?.let { title ->
+        if (attrsArray.hasValue(R.styleable.FileSelectorField_tap_button_title)) {
+            attrsArray.getString(R.styleable.FileSelectorField_tap_button_title)?.let { title ->
                 mTitle = title
             }
         }
