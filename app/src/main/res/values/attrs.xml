@@ -52,7 +52,7 @@
         <attr name="is_required"/>
     </declare-styleable>
 
-    <declare-styleable name="FileSelectorView">
+    <declare-styleable name="FileSelectorField">
         <attr name="dialog_title" format="string"/>
         <attr name="tap_button_text" format="string"/>
         <attr name="tap_button_title" format="string"/>

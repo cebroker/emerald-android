@@ -45,6 +45,14 @@ class SpinnerFormField(context: Context, attrs: AttributeSet) :
         super.onItemSelected(parent, view, position, id)
         val spinnerData = (mSpinner?.getItemAtPosition(position) as? SpinnerData)?.let { it } ?: return
         mValueChangeListener?.onValueChange(spinnerData)
+
+        val isValid = isValid()
+
+        if (isValid.error.isNotEmpty()) {
+            showError(isValid.error)
+        } else {
+            clearError()
+        }
     }
 
     override fun isValid(): ValidationResult {

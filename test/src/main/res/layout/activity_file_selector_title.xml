@@ -19,7 +19,7 @@
                                              android:layout_width="match_parent"
                                              android:layout_height="match_parent">
 
-    <co.condorlabs.customcomponents.fileselectorview.FileSelectorView
+    <co.condorlabs.customcomponents.fileselectorview.FileSelectorField
             android:id="@+id/myCustomLayoutSelector"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

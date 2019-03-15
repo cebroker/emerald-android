@@ -10,7 +10,7 @@ import android.view.View
 import android.widget.TextView
 import co.condorlabs.customcomponents.fileselectorview.FileSelectorClickListener
 import co.condorlabs.customcomponents.fileselectorview.FileSelectorOption
-import co.condorlabs.customcomponents.fileselectorview.FileSelectorView
+import co.condorlabs.customcomponents.fileselectorview.FileSelectorField
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.test.util.clickWithText
 import co.condorlabs.customcomponents.test.util.isTextDisplayed
@@ -22,7 +22,7 @@ import org.junit.runner.RunWith
 
 
 @RunWith(AndroidJUnit4::class)
-class FileSelectorViewTest : MockActivityTest() {
+class FileSelectorFieldTest : MockActivityTest() {
 
     @Before
     fun setup() {
@@ -68,7 +68,7 @@ class FileSelectorViewTest : MockActivityTest() {
 
         //Given
         val view = onView(withId(R.id.ivICon))
-        val field = ruleActivity.activity.findViewById<FileSelectorView>(R.id.myCustomLayoutSelector)
+        val field = ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
         var result: FileSelectorOption? = null
         field.setFileSelectorClickListener(object : FileSelectorClickListener {
             override fun onOptionSelected(fileSelectorOption: FileSelectorOption) {
@@ -92,7 +92,7 @@ class FileSelectorViewTest : MockActivityTest() {
 
         //Given
         val view = onView(withId(R.id.ivICon))
-        val field = ruleActivity.activity.findViewById<FileSelectorView>(R.id.myCustomLayoutSelector)
+        val field = ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
         var result: FileSelectorOption? = null
         field.setFileSelectorClickListener(object : FileSelectorClickListener {
             override fun onOptionSelected(fileSelectorOption: FileSelectorOption) {
@@ -115,7 +115,7 @@ class FileSelectorViewTest : MockActivityTest() {
         restartActivity()
 
         //Given
-        val field = ruleActivity.activity.findViewById<FileSelectorView>(R.id.myCustomLayoutSelector)
+        val field = ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
         field.setIsRequired(true)
 
         //When
@@ -135,7 +135,7 @@ class FileSelectorViewTest : MockActivityTest() {
         restartActivity()
 
         //Given
-        val field = ruleActivity.activity.findViewById<FileSelectorView>(R.id.myCustomLayoutSelector)
+        val field = ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
 
 
         //When
@@ -152,7 +152,7 @@ class FileSelectorViewTest : MockActivityTest() {
         restartActivity()
 
         //Given
-        val field = ruleActivity.activity.findViewById<FileSelectorView>(R.id.myCustomLayoutSelector)
+        val field = ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
         val errorView = ruleActivity.activity.findViewById<TextView>(R.id.tvError)
 
 
