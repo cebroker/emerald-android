@@ -1,5 +1,6 @@
 package co.condorlabs.customcomponents.fileselectorview
 
+import android.graphics.Bitmap
 import android.graphics.drawable.Drawable
 
 /**
@@ -8,5 +9,8 @@ import android.graphics.drawable.Drawable
 sealed class FileSelectorValue {
 
     class PathValue(val path: String) : FileSelectorValue()
+
     class DrawableValue(val drawable: Drawable) : FileSelectorValue()
+
+    class BitmapValue(val bitmap: Bitmap): FileSelectorValue()
 }
