@@ -10,10 +10,8 @@ import android.view.View
 import android.widget.TextView
 import co.condorlabs.customcomponents.fileselectorview.FileSelectorClickListener
 import co.condorlabs.customcomponents.fileselectorview.FileSelectorOption
-import co.condorlabs.customcomponents.fileselectorview.FileSelectorValue
 import co.condorlabs.customcomponents.fileselectorview.FileSelectorView
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.helper.EMPTY
 import co.condorlabs.customcomponents.test.util.clickWithText
 import co.condorlabs.customcomponents.test.util.isTextDisplayed
 import kotlinx.coroutines.runBlocking
@@ -125,10 +123,10 @@ class FileSelectorViewTest : MockActivityTest() {
 
         //Then
         Assert.assertEquals(
-            ValidationResult(
-                false,
-                ruleActivity.activity.getString(R.string.file_selector_default_error)
-            ), result
+                ValidationResult(
+                        false,
+                        ruleActivity.activity.getString(R.string.file_selector_default_error)
+                ), result
         )
     }
 
@@ -175,7 +173,7 @@ class FileSelectorViewTest : MockActivityTest() {
 
         //Given
         val view = Espresso.onView(withText("This is the Title"))
-        
+
         //When
 
         //Then

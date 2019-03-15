@@ -127,12 +127,10 @@ class FileSelectorView @JvmOverloads constructor(
         mFileSelectorValue = fileSelectorValue
 
         mIVIcon?.let { view ->
-            if (fileSelectorValue is FileSelectorValue.PathValue) {
-                Picasso.get()
-                    .load(fileSelectorValue.path)
-                    .into(view)
-            } else if (fileSelectorValue is FileSelectorValue.DrawableValue) {
-                view.setImageDrawable(fileSelectorValue.drawable)
+            when (fileSelectorValue) {
+                is FileSelectorValue.PathValue -> Picasso.get().load(fileSelectorValue.path).into(view)
+                is FileSelectorValue.DrawableValue -> view.setImageDrawable(fileSelectorValue.drawable)
+                is FileSelectorValue.BitmapValue -> view.setImageBitmap(fileSelectorValue.bitmap)
             }
         }
     }
