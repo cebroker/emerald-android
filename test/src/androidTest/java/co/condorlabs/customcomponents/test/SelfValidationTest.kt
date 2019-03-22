@@ -123,7 +123,6 @@ class SelfValidationTest : MockActivityTest() {
 
         //Given
         val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
-        val view = Espresso.onView(ViewMatchers.withId(R.id.spState))
         val data = SpinnerData("1", "Antioquia")
         val data1 = SpinnerData("2", "Cundinamarca")
         val data3 = SpinnerData("3", "Atlantico")
@@ -131,11 +130,12 @@ class SelfValidationTest : MockActivityTest() {
         //When
         ruleActivity.runOnUiThread {
             formField.setData(arrayListOf(data, data1, data3))
+            formField.setItemSelectedById("1")
             etNextFocus.requestFocus()
             formField.requestFocus()
             etNextFocus.requestFocus()
+            formField.requestFocus()
         }
-
         isTextDisplayed(formField.isValid().error)
     }
 }
