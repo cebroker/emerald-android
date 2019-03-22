@@ -32,6 +32,7 @@ class SpinnerFormField(context: Context, attrs: AttributeSet) :
     BaseSpinnerFormField(context, attrs), ItemSelectedListenerAdapter {
 
     override var mIsRequired: Boolean = false
+    private  var firstEvaluation: Boolean = true
 
     override fun setup() {
         super.setup()
@@ -46,13 +47,19 @@ class SpinnerFormField(context: Context, attrs: AttributeSet) :
         val spinnerData = (mSpinner?.getItemAtPosition(position) as? SpinnerData)?.let { it } ?: return
         mValueChangeListener?.onValueChange(spinnerData)
 
-        val isValid = isValid()
-
-        if (isValid.error.isNotEmpty()) {
-            showError(isValid.error)
-        } else {
-            clearError()
+        if(firstEvaluation){
+            firstEvaluation =false
         }
+        else{
+            val isValid = isValid()
+
+            if (isValid.error.isNotEmpty()) {
+                showError(isValid.error)
+            } else {
+                clearError()
+            }
+        }
+
     }
 
     override fun isValid(): ValidationResult {

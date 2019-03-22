@@ -17,6 +17,7 @@
 package co.condorlabs.customcomponents.customedittext
 
 import android.content.Context
+import android.text.InputType
 import android.text.method.PasswordTransformationMethod
 import android.util.AttributeSet
 import co.condorlabs.customcomponents.R
@@ -34,6 +35,7 @@ class EditTextPasswordField(context: Context, attrs: AttributeSet) : BaseEditTex
 
         mEditText?.id = R.id.etPassword
         mEditText?.transformationMethod = PasswordTransformationMethod.getInstance()
+        mEditText?.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
         isPasswordVisibilityToggleEnabled = true
     }
 }
