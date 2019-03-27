@@ -19,7 +19,6 @@ package co.condorlabs.customcomponents.customradiogroup
 import android.content.Context
 import android.support.design.widget.TextInputLayout
 import android.util.AttributeSet
-import android.view.View
 import android.widget.LinearLayout
 import android.widget.RadioButton
 import android.widget.RadioGroup
@@ -57,7 +56,7 @@ abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: Att
             DEFAULT_STYLE_ATTR, DEFAULT_STYLE_RES
         )
 
-        mIsRequired = typedArray.getBoolean(R.styleable.BaseRadioGroupFormField_is_required, false)
+        isRequired = typedArray.getBoolean(R.styleable.BaseRadioGroupFormField_is_required, false)
         mLabelText = typedArray.getString(R.styleable.BaseRadioGroupFormField_title) ?: EMPTY
 
         typedArray.recycle()
@@ -74,7 +73,7 @@ abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: Att
 
     override fun isValid(): ValidationResult {
         when {
-            mIsRequired -> {
+            isRequired -> {
                 if (mRadioGroup?.checkedRadioButtonId == NO_RADIO_GROUP_SELECTED_VALUE_FOUND_RETURNED_VALUE) {
                     return getErrorValidateResult()
                 } else {
@@ -112,7 +111,7 @@ abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: Att
                 checkedItem.value = true
                 mValueChangeListener?.onValueChange(checkedItem.label)
             } else {
-                if (mIsRequired) {
+                if (isRequired) {
                     showError(getErrorValidateResult().error)
                 } else {
                     clearError()

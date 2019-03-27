@@ -21,7 +21,7 @@ import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 
 interface FormField<ReturnValueType> {
 
-    var mIsRequired: Boolean
+    var isRequired: Boolean
 
     fun isValid(): ValidationResult
 

@@ -31,7 +31,7 @@ import co.condorlabs.customcomponents.helper.STATE_SPINNER_HINT_POSITION
 class SpinnerFormField(context: Context, attrs: AttributeSet) :
     BaseSpinnerFormField(context, attrs), ItemSelectedListenerAdapter {
 
-    override var mIsRequired: Boolean = false
+    override var isRequired: Boolean = false
     private var firstEvaluation: Boolean = true
 
     override fun setup() {
@@ -63,7 +63,7 @@ class SpinnerFormField(context: Context, attrs: AttributeSet) :
 
     override fun isValid(): ValidationResult {
         mSpinner?.let {
-            if (mIsRequired) {
+            if (isRequired) {
                 if (it.selectedItemPosition <= STATE_SPINNER_HINT_POSITION) {
                     return getErrorValidateResult()
                 }
@@ -84,7 +84,7 @@ class SpinnerFormField(context: Context, attrs: AttributeSet) :
     }
 
     override fun setIsRequired(required: Boolean) {
-        mIsRequired = required
+        isRequired = required
     }
 
     fun setData(data: List<SpinnerData>) {

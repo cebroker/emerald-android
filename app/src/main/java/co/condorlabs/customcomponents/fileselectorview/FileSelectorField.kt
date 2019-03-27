@@ -32,7 +32,7 @@ class FileSelectorField @JvmOverloads constructor(
 ) : ConstraintLayout(context, attrs, defStyleAttr),
     FormField<FileSelectorValue?>, View.OnClickListener {
 
-    override var mIsRequired: Boolean = false
+    override var isRequired: Boolean = false
 
     private var mCLContent: ConstraintLayout? = null
     private var mIVIcon: AppCompatImageView? = null
@@ -59,7 +59,7 @@ class FileSelectorField @JvmOverloads constructor(
     }
 
     override fun isValid(): ValidationResult {
-        if (mIsRequired && mFileSelectorValue == null) {
+        if (isRequired && mFileSelectorValue == null) {
             return ValidationResult(false, context.getString(R.string.file_selector_default_error))
         }
 
@@ -120,7 +120,7 @@ class FileSelectorField @JvmOverloads constructor(
     }
 
     override fun setIsRequired(required: Boolean) {
-        mIsRequired = required
+        isRequired = required
     }
 
     fun setFileValue(fileSelectorValue: FileSelectorValue) {
