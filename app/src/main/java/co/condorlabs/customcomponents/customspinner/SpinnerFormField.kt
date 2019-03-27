@@ -63,10 +63,8 @@ class SpinnerFormField(context: Context, attrs: AttributeSet) :
 
     override fun isValid(): ValidationResult {
         mSpinner?.let {
-            if (isRequired) {
-                if (it.selectedItemPosition <= STATE_SPINNER_HINT_POSITION) {
-                    return getErrorValidateResult()
-                }
+            if (it.selectedItemPosition <= STATE_SPINNER_HINT_POSITION && isRequired) {
+                return getErrorValidateResult()
             }
         }
 
