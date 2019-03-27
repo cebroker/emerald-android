@@ -39,7 +39,7 @@ class EditTextCityField(context: Context, attrs: AttributeSet) : BaseEditTextFor
     override fun isValid(): ValidationResult {
         val emptyValidation = super.isValid()
 
-        if (!emptyValidation.isValid) {
+        if (!emptyValidation.isValid || !isRequired) {
             return emptyValidation
         }
 

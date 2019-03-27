@@ -25,6 +25,7 @@ import android.support.test.runner.AndroidJUnit4
 import android.view.View
 import co.condorlabs.customcomponents.customedittext.EditTextCityField
 import co.condorlabs.customcomponents.formfield.ValidationResult
+import co.condorlabs.customcomponents.helper.EMPTY
 import co.condorlabs.customcomponents.helper.VALIDATE_CITY_ERROR
 import co.condorlabs.customcomponents.helper.VALIDATE_EMPTY_ERROR
 import org.junit.Assert
@@ -104,6 +105,20 @@ class EditTextCityFieldTest : MockActivityTest() {
 
         //Then
         Assert.assertEquals(ValidationResult(false, String.format(VALIDATE_EMPTY_ERROR,"City")), result)
+    }
+
+    @Test
+    fun shouldNotReturnErrorWithEmptyCity() {
+        restartActivity()
+
+        //Given
+        val editTextCityField = (ruleActivity.activity.findViewById<View>(R.id.tlCity) as? EditTextCityField)
+
+        //When
+        val result = editTextCityField?.isValid()
+
+        //Then
+        Assert.assertEquals(ValidationResult(true, EMPTY), result)
     }
 
     @Test
