@@ -212,7 +212,6 @@ class SpinnerFormFieldTest : MockActivityTest() {
             ValidationResult(true, EMPTY),
             result
         )
-
     }
 
     @Test
