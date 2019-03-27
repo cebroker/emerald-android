@@ -78,6 +78,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/data/src/main/java/com/evercheck/data/mappers/credential/MembershipDuesMapper.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/java/com/evercheck/wallet/credentials/sections/providermembershipdues/add/addingfragment/AddMembershipDuesFragment.kt">
           <value>
             <set />
