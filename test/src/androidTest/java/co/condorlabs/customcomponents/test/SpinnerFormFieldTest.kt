@@ -27,6 +27,7 @@ import co.condorlabs.customcomponents.customspinner.SpinnerData
 import co.condorlabs.customcomponents.customspinner.SpinnerFormFieldListener
 import co.condorlabs.customcomponents.customspinner.SpinnerFormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
+import co.condorlabs.customcomponents.helper.EMPTY
 import co.condorlabs.customcomponents.helper.MESSAGE_FORMAT_ERROR
 import org.hamcrest.CoreMatchers.*
 import org.junit.Assert
@@ -174,6 +175,7 @@ class SpinnerFormFieldTest : MockActivityTest() {
 
         //When
         ruleActivity.runOnUiThread {
+            formField.setIsRequired(true)
             formField.setData(arrayListOf(data, data1, data2))
         }
         val result = formField.isValid()
@@ -186,6 +188,30 @@ class SpinnerFormFieldTest : MockActivityTest() {
         )
 
         Assert.assertEquals(error, formField.error)
+    }
+
+    @Test
+    fun shouldNotShowErrorIfNotElementIsSelected() {
+        restartActivity()
+
+        //Given
+        val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
+        val data = SpinnerData("1", "Antioquia")
+        val data1 = SpinnerData("2", "Cundinamarca")
+        val data2 = SpinnerData("3", "Atlantico")
+
+        //When
+        ruleActivity.runOnUiThread {
+            formField.setData(arrayListOf(data, data1, data2))
+        }
+        val result = formField.isValid()
+        showErrorInInputLayout(formField, result.error)
+
+        //Then
+        Assert.assertEquals(
+            ValidationResult(true, EMPTY),
+            result
+        )
     }
 
     @Test

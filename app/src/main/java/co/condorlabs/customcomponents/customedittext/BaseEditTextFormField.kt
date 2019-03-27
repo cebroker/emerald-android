@@ -22,11 +22,9 @@ import android.text.Editable
 import android.text.InputFilter
 import android.text.InputType
 import android.text.TextWatcher
-import android.text.method.ScrollingMovementMethod
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import android.widget.EditText
 import android.widget.LinearLayout
 import co.condorlabs.customcomponents.R
@@ -42,7 +40,7 @@ import java.util.regex.Pattern
 open class BaseEditTextFormField(context: Context, private val mAttrs: AttributeSet) :
     TextInputLayout(context, mAttrs), FormField<String>, View.OnFocusChangeListener {
 
-    override var mIsRequired: Boolean = false
+    override var isRequired: Boolean = false
 
     protected var mRegex: String? = null
     protected var mEditText: EditText? = null
@@ -70,7 +68,7 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
         mHint = typedArray.getString(R.styleable.BaseEditTextFormField_hint)
             ?: context.getString(R.string.default_base_hint)
         mRegex = typedArray.getString(R.styleable.BaseEditTextFormField_regex)
-        mIsRequired = typedArray.getBoolean(R.styleable.BaseEditTextFormField_is_required, false)
+        isRequired = typedArray.getBoolean(R.styleable.BaseEditTextFormField_is_required, false)
         mInputType = when (typedArray.getString(R.styleable.BaseEditTextFormField_input_type)) {
             "number" -> InputType.TYPE_CLASS_NUMBER
             "phone" -> InputType.TYPE_CLASS_PHONE
@@ -142,7 +140,7 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
 
     override fun isValid(): ValidationResult {
         return when {
-            mEditText?.text.toString().isEmpty() && mIsRequired -> ValidationResult(
+            mEditText?.text.toString().isEmpty() && isRequired -> ValidationResult(
                 false,
                 String.format(VALIDATE_EMPTY_ERROR, mHint)
             )
@@ -171,7 +169,7 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
     }
 
     override fun setIsRequired(required: Boolean) {
-        mIsRequired = required
+        isRequired = required
     }
 
     override fun setValueChangeListener(valueChangeListener: ValueChangeListener<String>) {
