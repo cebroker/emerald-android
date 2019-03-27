@@ -8,6 +8,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/co/condorlabs/customcomponents/customspinner/SpinnerFormField.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/co/condorlabs/customcomponents/formfield/FormField.kt">
           <value>
             <set />
@@ -33,7 +38,17 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/test/src/androidTest/java/co/condorlabs/customcomponents/test/SpinnerFormFieldTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/test/src/androidTest/java/co/condorlabs/customcomponents/test/util/hooks.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/src/main/java/co/condorlabs/customcomponents/test/MockActivity.kt">
           <value>
             <set />
           </value>
