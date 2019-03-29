@@ -78,7 +78,22 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/test/src/main/res/layout/activity_spinner_with_is_required.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/src/main/res/layout/activity_statespinnerformfield_test.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/data/src/main/java/com/evercheck/data/mappers/credential/MembershipDuesMapper.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/sonar.gradle">
           <value>
             <set />
           </value>
@@ -89,6 +104,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/res/layout/fragment_add_membership_dues.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/res/values/strings.xml">
           <value>
             <set />
           </value>
