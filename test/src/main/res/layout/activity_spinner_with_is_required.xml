@@ -5,11 +5,12 @@
               android:layout_height="match_parent">
 
 
-    <co.condorlabs.customcomponents.customspinner.SpinnerFormField android:layout_width="match_parent"
-                                                                   app:label="State"
-                                                                   app:is_required="true"
-                                                                   app:hint="Select an State"
-                                                                   android:id="@+id/tlState"
-                                                                   android:layout_height="wrap_content"/>
+    <co.condorlabs.customcomponents.customspinner.SpinnerFormField
+            android:layout_width="match_parent"
+            app:label="State"
+            app:is_required="true"
+            app:hint="Select an State"
+            android:id="@+id/tlState"
+            android:layout_height="wrap_content"/>
 
 </LinearLayout>
