@@ -204,7 +204,6 @@ class SpinnerFormFieldTest : MockActivityTest() {
 
         //When
         ruleActivity.runOnUiThread {
-            formField.setIsRequired(true)
             formField.setData(arrayListOf(data, data1, data2))
         }
         val result = formField.isValid()
