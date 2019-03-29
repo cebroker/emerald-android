@@ -22,6 +22,8 @@ import android.view.View
 import android.widget.AdapterView
 import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.formfield.ValidationResult
+import co.condorlabs.customcomponents.helper.DEFAULT_STYLE_ATTR
+import co.condorlabs.customcomponents.helper.DEFAULT_STYLE_RES
 import co.condorlabs.customcomponents.helper.EMPTY
 import co.condorlabs.customcomponents.helper.STATE_SPINNER_HINT_POSITION
 
@@ -33,6 +35,18 @@ class SpinnerFormField(context: Context, attrs: AttributeSet) :
 
     override var isRequired: Boolean = false
     private var firstEvaluation: Boolean = true
+
+
+    init {
+        val typedArray = context.obtainStyledAttributes(
+            attrs,
+            R.styleable.SpinnerFormField,
+            DEFAULT_STYLE_ATTR, DEFAULT_STYLE_RES
+        )
+
+        isRequired = typedArray.getBoolean(R.styleable.SpinnerFormField_is_required, false)
+        typedArray.recycle()
+    }
 
     override fun setup() {
         super.setup()

@@ -191,6 +191,34 @@ class SpinnerFormFieldTest : MockActivityTest() {
     }
 
     @Test
+    fun shouldShowErrorIfNotElementIsSelectedWithIsRequiredInXml() {
+        MockActivity.layout = R.layout.activity_spinner_with_is_required
+        restartActivity()
+
+        //Given
+        val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
+        val error = String.format(MESSAGE_FORMAT_ERROR, "State")
+        val data = SpinnerData("1", "Antioquia")
+        val data1 = SpinnerData("2", "Cundinamarca")
+        val data2 = SpinnerData("3", "Atlantico")
+
+        //When
+        ruleActivity.runOnUiThread {
+            formField.setData(arrayListOf(data, data1, data2))
+        }
+        val result = formField.isValid()
+        showErrorInInputLayout(formField, result.error)
+
+        //Then
+        Assert.assertEquals(
+            ValidationResult(false, error),
+            result
+        )
+
+        Assert.assertEquals(error, formField.error)
+    }
+
+    @Test
     fun shouldNotShowErrorIfNotElementIsSelected() {
         restartActivity()
 
