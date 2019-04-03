@@ -51,9 +51,6 @@ class SpinnerFormFieldTest : MockActivityTest() {
         //Given
         val view = Espresso.onView(withText("State"))
 
-        //When
-        view.perform(click())
-
         //Then
         view.check(matches(isDisplayed()))
     }
@@ -64,9 +61,6 @@ class SpinnerFormFieldTest : MockActivityTest() {
 
         //Given
         val view = Espresso.onView(withId(R.id.tvLabel))
-
-        //When
-        view.perform(click())
 
         //Then
         view.check(matches(isDisplayed()))
