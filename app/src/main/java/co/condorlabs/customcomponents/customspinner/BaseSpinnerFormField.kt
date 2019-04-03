@@ -51,6 +51,7 @@ abstract class BaseSpinnerFormField(context: Context, private val mAttrs: Attrib
 
     private val mTVLabel = TextView(context, mAttrs)?.apply {
         id = R.id.tvLabel
+        isClickable = true
     }
 
     private var mLabelText = EMPTY

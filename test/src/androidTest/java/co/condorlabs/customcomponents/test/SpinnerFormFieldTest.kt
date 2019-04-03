@@ -24,7 +24,6 @@ import android.support.test.espresso.matcher.ViewMatchers.*
 import android.widget.Spinner
 import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.customspinner.SpinnerData
-import co.condorlabs.customcomponents.customspinner.SpinnerFormFieldListener
 import co.condorlabs.customcomponents.customspinner.SpinnerFormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.EMPTY
@@ -51,6 +50,9 @@ class SpinnerFormFieldTest : MockActivityTest() {
         //Given
         val view = Espresso.onView(withText("State"))
 
+        //When
+        view.perform(click())
+
         //Then
         view.check(matches(isDisplayed()))
     }
@@ -61,6 +63,9 @@ class SpinnerFormFieldTest : MockActivityTest() {
 
         //Given
         val view = Espresso.onView(withId(R.id.tvLabel))
+
+        //When
+        view.perform(click())
 
         //Then
         view.check(matches(isDisplayed()))
@@ -106,6 +111,34 @@ class SpinnerFormFieldTest : MockActivityTest() {
 
         //Then
 
+        Espresso.onView(withText("Cundinamarca")).check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun shouldClickOnSpinnerCustomView() {
+        MockActivity.layout = R.layout.activity_spinner_with_hint
+        restartActivity()
+
+        //Given
+        val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
+        val view = Espresso.onView(withId(R.id.tlState))
+        val data = SpinnerData("1", "Antioquia")
+        val data1 = SpinnerData("2", "Cundinamarca")
+        val data3 = SpinnerData("3", "Atlantico")
+
+        //When
+        ruleActivity.runOnUiThread {
+            formField.setData(arrayListOf(data, data1, data3))
+        }
+        view.perform(click())
+        onData(
+            allOf(
+                `is`(instanceOf(SpinnerData::class.java)),
+                `is`(SpinnerData("Select an State", "Select an State"))
+            )
+        ).perform(click())
+
+        //Then
         Espresso.onView(withText("Cundinamarca")).check(matches(isDisplayed()))
     }
 
