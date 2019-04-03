@@ -30,12 +30,12 @@ import co.condorlabs.customcomponents.helper.STATE_SPINNER_HINT_POSITION
 /**
  * @author Oscar Gallon on 2/26/19.
  */
-class SpinnerFormField(context: Context, attrs: AttributeSet) :
-    BaseSpinnerFormField(context, attrs), ItemSelectedListenerAdapter {
+class SpinnerFormField(
+    context: Context, attrs: AttributeSet
+) : BaseSpinnerFormField(context, attrs), ItemSelectedListenerAdapter {
 
     override var isRequired: Boolean = false
     private var firstEvaluation: Boolean = true
-
 
     init {
         val typedArray = context.obtainStyledAttributes(
@@ -50,10 +50,17 @@ class SpinnerFormField(context: Context, attrs: AttributeSet) :
 
     override fun setup() {
         super.setup()
-        mSpinner?.id = R.id.spState
-        mSpinner?.adapter =
-            SpinnerFormFieldAdapter(context, android.R.layout.simple_spinner_dropdown_item, mHint = mAdapterHint)
-        mSpinner?.onItemSelectedListener = this
+        this.setOnClickListener(this)
+
+        mSpinner?.apply {
+            id = R.id.spState
+            adapter = SpinnerFormFieldAdapter(
+                context,
+                android.R.layout.simple_spinner_dropdown_item,
+                mHint = mAdapterHint
+            )
+            onItemSelectedListener = this@SpinnerFormField
+        }
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -72,7 +79,6 @@ class SpinnerFormField(context: Context, attrs: AttributeSet) :
                 clearError()
             }
         }
-
     }
 
     override fun isValid(): ValidationResult {
@@ -97,6 +103,10 @@ class SpinnerFormField(context: Context, attrs: AttributeSet) :
 
     override fun setIsRequired(required: Boolean) {
         isRequired = required
+    }
+
+    override fun onClick(v: View?) {
+        mSpinner?.performClick()
     }
 
     fun setData(data: List<SpinnerData>) {

@@ -19,7 +19,6 @@ package co.condorlabs.customcomponents.customspinner
 import android.content.Context
 import android.support.design.widget.TextInputLayout
 import android.util.AttributeSet
-import android.view.MotionEvent
 import android.view.View
 import android.widget.AdapterView
 import android.widget.LinearLayout
@@ -39,7 +38,7 @@ import co.condorlabs.customcomponents.helper.MESSAGE_FORMAT_ERROR
  */
 abstract class BaseSpinnerFormField(context: Context, private val mAttrs: AttributeSet) :
     TextInputLayout(context, mAttrs),
-    FormField<SpinnerData?>{
+    FormField<SpinnerData?>, View.OnClickListener {
 
     protected var mSpinner: Spinner? = null
     protected var mAdapterHint: String
@@ -52,6 +51,7 @@ abstract class BaseSpinnerFormField(context: Context, private val mAttrs: Attrib
 
     private val mTVLabel = TextView(context, mAttrs)?.apply {
         id = R.id.tvLabel
+        isClickable = true
     }
 
     private var mLabelText = EMPTY
