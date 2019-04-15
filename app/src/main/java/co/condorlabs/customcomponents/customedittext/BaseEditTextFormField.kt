@@ -18,6 +18,7 @@ package co.condorlabs.customcomponents.customedittext
 
 import android.content.Context
 import android.support.design.widget.TextInputLayout
+import android.support.v7.widget.AppCompatEditText
 import android.text.Editable
 import android.text.InputFilter
 import android.text.InputType
@@ -93,7 +94,7 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
     }
 
     override fun setup() {
-        mEditText = EditText(context, mAttrs)
+        mEditText = EditText(context)
         mEditText?.inputType = mInputType
 
         val _editText = mEditText?.let { it } ?: return
