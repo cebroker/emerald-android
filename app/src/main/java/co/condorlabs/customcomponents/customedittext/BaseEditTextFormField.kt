@@ -93,7 +93,7 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
     }
 
     override fun setup() {
-        mEditText = EditText(context, mAttrs)
+        mEditText = EditText(context)
         mEditText?.inputType = mInputType
 
         val _editText = mEditText?.let { it } ?: return
