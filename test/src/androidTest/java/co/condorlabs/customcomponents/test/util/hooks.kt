@@ -7,6 +7,7 @@ import android.support.test.espresso.assertion.ViewAssertions
 import android.support.test.espresso.matcher.ViewMatchers
 import android.view.View
 import android.widget.TextView
+import co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
 import junit.framework.Assert
 import org.hamcrest.Description
 import org.hamcrest.TypeSafeMatcher
@@ -51,4 +52,8 @@ fun isTextInLines(lines: Int): TypeSafeMatcher<View> {
             description.appendText("isTextInLines")
         }
     }
+}
+
+fun BaseEditTextFormField.text(): String {
+    return this.editText?.text.toString()
 }
