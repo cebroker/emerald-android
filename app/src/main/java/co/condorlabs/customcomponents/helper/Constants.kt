@@ -106,8 +106,9 @@ const val LINES_DEFAULT = 3
 const val MAXLINES_DEFAULT = 5
 
 /**MONEY FORMATS**/
+const val DOLLAR_SYMBOL = "$"
 const val MONEY_FORMAT = "$###,###.##"
 const val MONEY_TWO_DECIMALS = "#.00"
-val MONEY_MAX_AMOUNT = 1000000.toBigDecimal()
+const val MONEY_MAX_AMOUNT = 1000000
 const val NON_NUMERICAL_SYMBOLS = "[$,]"
 const val COMMA_AS_DECIMAL = ","

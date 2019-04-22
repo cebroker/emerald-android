@@ -32,6 +32,7 @@ class PriceTextWatcherMask(private val receiver: EditText) : TextWatcherAdapter(
 
     private val formatter = NumberFormat.getNumberInstance(Locale.US)
     private var previousText: String = EMPTY
+    private val maxAmount = MONEY_MAX_AMOUNT.toBigDecimal()
 
     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
         super.beforeTextChanged(s, start, count, after)
@@ -43,7 +44,7 @@ class PriceTextWatcherMask(private val receiver: EditText) : TextWatcherAdapter(
             ?.let { text ->
                 receiver.removeTextChangedListener(this)
                 try {
-                    if (text == "$" || text.isEmpty()) {
+                    if (text == DOLLAR_SYMBOL || text.isEmpty()) {
                         setSelectionAndListener()
                         return
                     }
@@ -57,7 +58,7 @@ class PriceTextWatcherMask(private val receiver: EditText) : TextWatcherAdapter(
 
                     if (text.last() == '.') {
                         if (isMaxAmount(currentlyAmount)) {
-                            receiver.setText(MONEY_MAX_AMOUNT.toDollarAmount())
+                            receiver.setText(maxAmount.toDollarAmount())
                             setSelectionAndListener()
                             return
                         }
@@ -86,11 +87,11 @@ class PriceTextWatcherMask(private val receiver: EditText) : TextWatcherAdapter(
     }
 
     private fun getPriceFromCurrency(text: String): BigDecimal {
-        val df = DecimalFormat(MONEY_TWO_DECIMALS)
-        df.roundingMode = RoundingMode.FLOOR
-        val amount = formatter.parse(text.replace(NON_NUMERICAL_SYMBOLS.toRegex(), ""))
+        val decimalFormat = DecimalFormat(MONEY_TWO_DECIMALS)
+        decimalFormat.roundingMode = RoundingMode.FLOOR
+        val amount = formatter.parse(text.replace(NON_NUMERICAL_SYMBOLS.toRegex(), EMPTY))
 
-        return df.format(amount).replace(COMMA_AS_DECIMAL, ".").toBigDecimal()
+        return decimalFormat.format(amount).replace(COMMA_AS_DECIMAL, ".").toBigDecimal()
     }
 
     private fun setSelectionAndListener() {
@@ -98,11 +99,11 @@ class PriceTextWatcherMask(private val receiver: EditText) : TextWatcherAdapter(
         receiver.addTextChangedListener(this)
     }
 
-    private fun isAllowedAmount(amount: Number): Boolean {
-        return amount as BigDecimal <= MONEY_MAX_AMOUNT
+    private fun isAllowedAmount(amount: BigDecimal): Boolean {
+        return amount.lessThan(maxAmount) || amount.equalThan(maxAmount)
     }
 
     private fun isMaxAmount(amount: BigDecimal): Boolean {
-        return amount.compareTo(MONEY_MAX_AMOUNT) == 0
+        return amount.equalThan(maxAmount)
     }
 }

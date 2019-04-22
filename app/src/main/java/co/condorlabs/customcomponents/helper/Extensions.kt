@@ -38,3 +38,11 @@ fun BigDecimal.toDollarAmount(): String {
 
     return df.format(this)
 }
+
+fun BigDecimal.lessThan(value: BigDecimal): Boolean {
+    return compareTo(value) == -1
+}
+
+fun BigDecimal.equalThan(value: BigDecimal): Boolean {
+    return compareTo(value) == 0
+}
