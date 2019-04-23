@@ -52,8 +52,9 @@ const val PHONE_NUMBER_REGEX = "\\d{3}-\\d{3}-\\d{4}"
 const val NO_DIGITS_REGEX = "[^\\d.]|\\."
 const val DATE_REGEX = "\\d{2}\\/\\d{2}\\/\\d{4}"
 const val SLASH = "/"
-const val ONE = 1
 const val ZERO = 0
+const val ONE = 1
+const val TWO = 0
 const val PHONE_NUMBER_REGEX_FIRST_GROUP_RANGE_BOTTOM = 0
 const val PHONE_NUMBER_REGEX_FIRST_GROUP_RANGE_TOP = 3
 const val PHONE_NUMBER_REGEX_SECOND_GROUP_RANGE_BOTTOM = 4
@@ -103,3 +104,11 @@ const val NOT_DEFINED_ATTRIBUTE_DEFAULT_VALUE = -1
 const val FILE_SELECTOR_GALLERY_OPTION_INDEX = 0
 const val LINES_DEFAULT = 3
 const val MAXLINES_DEFAULT = 5
+
+/**MONEY FORMATS**/
+const val DOLLAR_SYMBOL = "$"
+const val MONEY_FORMAT = "$###,###.##"
+const val MONEY_TWO_DECIMALS = "#.00"
+const val MONEY_MAX_AMOUNT = 1000000
+const val NON_NUMERICAL_SYMBOLS = "[$,]"
+const val COMMA_AS_DECIMAL = ","

@@ -22,5 +22,6 @@
     <co.condorlabs.customcomponents.customedittext.EditTextCurrencyField
             android:layout_width="253dp"
             android:layout_height="wrap_content"
-            android:id="@+id/tlCurrency"/>
+            android:id="@+id/tlCurrency"
+            app:input_type="numberDecimal" />
 </LinearLayout>

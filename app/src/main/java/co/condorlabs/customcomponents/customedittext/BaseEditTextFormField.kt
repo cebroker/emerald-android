@@ -33,7 +33,6 @@ import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.*
 import java.util.regex.Pattern
 
-
 /**
  * @author Oscar Gallon on 2/26/19.
  */
@@ -71,6 +70,7 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
         isRequired = typedArray.getBoolean(R.styleable.BaseEditTextFormField_is_required, false)
         mInputType = when (typedArray.getString(R.styleable.BaseEditTextFormField_input_type)) {
             "number" -> InputType.TYPE_CLASS_NUMBER
+            "numberDecimal" -> InputType.TYPE_NUMBER_FLAG_DECIMAL or InputType.TYPE_CLASS_NUMBER
             "phone" -> InputType.TYPE_CLASS_PHONE
             "password" -> InputType.TYPE_TEXT_VARIATION_PASSWORD
             else -> InputType.TYPE_CLASS_TEXT
@@ -118,7 +118,6 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
 
             override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
             }
-
         })
 
         addView(_editText, mLayoutParams)
