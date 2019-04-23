@@ -3,6 +3,11 @@
   <component name="issues">
     <option name="index">
       <map>
+        <entry key="$PROJECT_DIR$/.travis.yml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/co/condorlabs/customcomponents/customedittext/BaseEditTextFormField.kt">
           <value>
             <set />
@@ -88,6 +93,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/.travis.yml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/data/src/main/java/com/evercheck/data/mappers/credential/MembershipDuesMapper.kt">
           <value>
             <set />
@@ -98,7 +108,22 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/java/com/evercheck/wallet/credentials/sections/delineationofprivileges/DelineationPrivilegesActivity.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/java/com/evercheck/wallet/credentials/sections/delineationofprivileges/DelineationPrivilegesPresenter.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/java/com/evercheck/wallet/credentials/sections/providermembershipdues/add/addingfragment/AddMembershipDuesFragment.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/java/com/evercheck/wallet/utils/constants/WalletConstants.kt">
           <value>
             <set />
           </value>
