@@ -19,6 +19,7 @@ package co.condorlabs.customcomponents.customcheckbox
 import android.content.Context
 import android.support.design.widget.TextInputLayout
 import android.util.AttributeSet
+import android.view.Gravity
 import android.widget.CheckBox
 import android.widget.CompoundButton
 import android.widget.LinearLayout
@@ -140,6 +141,7 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
                 id = index
                 text = selectable.label
                 isChecked = selectable.value
+                gravity = Gravity.TOP
                 setOnCheckedChangeListener(this@BaseCheckboxFormField)
             }, mLayoutParams)
         }
