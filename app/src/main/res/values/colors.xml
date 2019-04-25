@@ -22,5 +22,5 @@
 
     <!-- FILE SELECTOR VIEW -->
     <color name="file_selector_background">#F5F5F5</color>
-    <color name="text_tap_color">#5AD4A0</color>
+    <color name="text_tap_color">#42A5F5</color>
 </resources>
