@@ -73,6 +73,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/test/src/androidTest/java/co/condorlabs/customcomponents/test/CustomButtonTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/test/src/androidTest/java/co/condorlabs/customcomponents/test/EditTextCityFieldTest.kt">
           <value>
             <set />

@@ -1,5 +1,6 @@
 package co.condorlabs.customcomponents.test
 
+import android.graphics.drawable.LayerDrawable
 import android.support.test.runner.AndroidJUnit4
 import android.support.v4.content.ContextCompat
 import co.condorlabs.customcomponents.custombutton.ColorGradientDrawable
@@ -29,7 +30,7 @@ class CustomButtonTest : MockActivityTest() {
         val button = ruleActivity.activity.findViewById<CustomButton>(R.id.btn)
 
         // When
-        val backgroundColor = (button.background as? ColorGradientDrawable)?.getSolidColor()
+        val backgroundColor = ((button.background as LayerDrawable).getDrawable(0) as? ColorGradientDrawable)?.getSolidColor()
 
         // Then
         Assert.assertEquals(expectedColor, backgroundColor)
@@ -47,7 +48,7 @@ class CustomButtonTest : MockActivityTest() {
         }
 
         // When
-        val backgroundColor = (button.background as? ColorGradientDrawable)?.getSolidColor()
+        val backgroundColor = ((button.background as LayerDrawable).getDrawable(0) as? ColorGradientDrawable)?.getSolidColor()
 
         // Then
         Assert.assertEquals(expectedColor, backgroundColor)
@@ -65,7 +66,7 @@ class CustomButtonTest : MockActivityTest() {
         }
 
         // When
-        val backgroundColor = (button.background as? ColorGradientDrawable)?.getSolidColor()
+        val backgroundColor = ((button.background as LayerDrawable).getDrawable(0) as? ColorGradientDrawable)?.getSolidColor()
 
         // Then
         Assert.assertEquals(expectedColor, backgroundColor)
@@ -83,7 +84,7 @@ class CustomButtonTest : MockActivityTest() {
         }
 
         // When
-        val backgroundColor = (button.background as? ColorGradientDrawable)?.getSolidColor()
+        val backgroundColor = ((button.background as LayerDrawable).getDrawable(0) as? ColorGradientDrawable)?.getSolidColor()
 
         // Then
         Assert.assertEquals(expectedColor, backgroundColor)
@@ -101,7 +102,7 @@ class CustomButtonTest : MockActivityTest() {
         }
 
         // When
-        val backgroundColor = (button.background as? ColorGradientDrawable)?.getSolidColor()
+        val backgroundColor = ((button.background as LayerDrawable).getDrawable(0) as? ColorGradientDrawable)?.getSolidColor()
 
         // Then
         Assert.assertEquals(expectedColor, backgroundColor)
@@ -119,7 +120,7 @@ class CustomButtonTest : MockActivityTest() {
         }
 
         // When
-        val backgroundColor = (button.background as? ColorGradientDrawable)?.getSolidColor()
+        val backgroundColor = ((button.background as LayerDrawable).getDrawable(0) as? ColorGradientDrawable)?.getSolidColor()
 
         // Then
         Assert.assertEquals(expectedColor, backgroundColor)
