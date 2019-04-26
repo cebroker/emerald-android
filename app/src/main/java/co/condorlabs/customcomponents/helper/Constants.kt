@@ -68,7 +68,7 @@ const val PHONE_NUMBER_REGEX_SECOND_GROUP_REPLACEMENT_MATCHER = "$1-$2"
 const val PHONE_NUMBER_REGEX_THIRD_GROUP_REPLACEMENT_MATCHER = "$1-$2-$3"
 const val FIRST_EDITTEXT_SELECTION_CHARACTER = 0
 const val PHONE_NUMBER_SEPARATOR_TOKEN = "-"
-const val VIEW_GROUP_FIRST_VIEW_POSITION  = 0
+const val VIEW_GROUP_FIRST_VIEW_POSITION = 0
 
 
 /**DATE FORMATS**/
@@ -112,3 +112,19 @@ const val MONEY_TWO_DECIMALS = "#.00"
 const val MONEY_MAX_AMOUNT = 1000000
 const val NON_NUMERICAL_SYMBOLS = "[$,]"
 const val COMMA_AS_DECIMAL = ","
+
+const val BUTTON_DEFAULT_TYPE = "default"
+const val BUTTON_PRIMARY_TYPE = "primary"
+const val BUTTON_DANGER_TYPE = "danger"
+const val BUTTON_WARNING_TYPE = "warning"
+const val BUTTON_INFO_TYPE = "info"
+const val BUTTON_SUCCESS_TYPE = "success"
+
+
+typealias ButtonType = String
+
+
+/** FONT PATHS **/
+const val OPEN_SANS_SEMI_BOLD = "fonts/OpenSans-SemiBold.ttf"
+const val OPEN_SANS_REGULAR = "fonts/OpenSans-Regular.ttf"
+
