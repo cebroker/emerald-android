@@ -9,7 +9,6 @@ import android.widget.Button
 import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.helper.*
 
-
 /**
  * @author Oscar Gallon on 2019-04-26.
  */
@@ -60,7 +59,4 @@ class CustomButton(context: Context, attrs: AttributeSet) : Button(context, attr
         val font = Typeface.createFromAsset(context.assets, OPEN_SANS_SEMI_BOLD)
         typeface = font
     }
-
-
 }
-

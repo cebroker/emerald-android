@@ -38,7 +38,6 @@ const val DEFAULT_STYLE_ATTR = 0
 const val DEFAULT_STYLE_RES = 0
 const val DEFAULT_MARGIN_TOP = 3
 
-
 /**PHONE NUMBER FORMATS**/
 const val PHONE_NUMBER_FORMAT_FIRST_HYPHEN_INDEX = 3
 const val PHONE_NUMBER_FORMAT_SECOND_HYPHEN_INDEX = 7
@@ -121,9 +120,7 @@ const val BUTTON_WARNING_TYPE = "warning"
 const val BUTTON_INFO_TYPE = "info"
 const val BUTTON_SUCCESS_TYPE = "success"
 
-
 typealias ButtonType = String
-
 
 /** FONT PATHS **/
 const val OPEN_SANS_SEMI_BOLD = "fonts/OpenSans-SemiBold.ttf"

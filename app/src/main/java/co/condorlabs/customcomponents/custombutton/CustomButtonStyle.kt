@@ -18,5 +18,3 @@ sealed class CustomButtonStyle(
     object SuccessButtonStyle : CustomButtonStyle(R.color.successColor, R.color.white)
     object WarningButtonStyle : CustomButtonStyle(R.color.warningColor, R.color.white)
 }
-
-

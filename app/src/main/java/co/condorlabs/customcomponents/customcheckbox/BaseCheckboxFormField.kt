@@ -17,7 +17,10 @@
 package co.condorlabs.customcomponents.customcheckbox
 
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Typeface
 import android.support.design.widget.TextInputLayout
+import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.view.Gravity
 import android.widget.CheckBox
@@ -139,8 +142,14 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
         return (paddingDp * density).toInt()
     }
 
+    private fun setFont() {
+        val font = Typeface.createFromAsset(context.assets, OPEN_SANS_SEMI_BOLD)
+        typeface = font
+    }
+
     private fun addCheckboxes() {
         removeAllViews()
+        setFont()
         addView(mTVLabel, mLayoutParams)
         mSelectables?.forEachIndexed { index, selectable ->
             addView(CheckBox(context).apply {
@@ -149,7 +158,16 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
                 isChecked = selectable.value
                 gravity = Gravity.TOP
                 setPadding(0, setPaddingTop(), 0, 0)
-                // buttonTintList = ColorStateList.valueOf(R.color.pr)
+                val states = arrayOf(
+                    intArrayOf(-android.R.attr.state_checked),
+                    intArrayOf(android.R.attr.state_checked)
+                )
+
+                val colors = intArrayOf(ContextCompat.getColor(context, R.color.defaultButtonBorderColor), ContextCompat.getColor(context, R.color.primaryColor))
+
+                val myList = ColorStateList(states, colors)
+                buttonTintList = myList
+
                 setOnCheckedChangeListener(this@BaseCheckboxFormField)
             }, mLayoutParams)
         }

@@ -32,4 +32,5 @@
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="defaultButtonBorderColor">#bec6c6</color>
+    <color name="defaultHintColor">#4b5353</color>
 </resources>
