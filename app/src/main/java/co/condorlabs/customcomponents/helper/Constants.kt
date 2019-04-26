@@ -36,6 +36,8 @@ const val DIGITS_PHONE = "0123456789-"
 
 const val DEFAULT_STYLE_ATTR = 0
 const val DEFAULT_STYLE_RES = 0
+const val DEFAULT_MARGIN_TOP = 3
+
 
 /**PHONE NUMBER FORMATS**/
 const val PHONE_NUMBER_FORMAT_FIRST_HYPHEN_INDEX = 3
@@ -112,4 +114,17 @@ const val MONEY_MAX_AMOUNT = 1000000
 const val NON_NUMERICAL_SYMBOLS = "[$,]"
 const val COMMA_AS_DECIMAL = ","
 
-const val DEFAULT_MARGIN_TOP = 3
+const val BUTTON_DEFAULT_TYPE = "default"
+const val BUTTON_PRIMARY_TYPE = "primary"
+const val BUTTON_DANGER_TYPE = "danger"
+const val BUTTON_WARNING_TYPE = "warning"
+const val BUTTON_INFO_TYPE = "info"
+const val BUTTON_SUCCESS_TYPE = "success"
+
+
+typealias ButtonType = String
+
+
+/** FONT PATHS **/
+const val OPEN_SANS_SEMI_BOLD = "fonts/OpenSans-SemiBold.ttf"
+const val OPEN_SANS_REGULAR = "fonts/OpenSans-Regular.ttf"

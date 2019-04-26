@@ -23,4 +23,13 @@
     <!-- FILE SELECTOR VIEW -->
     <color name="file_selector_background">#F5F5F5</color>
     <color name="text_tap_color">#42A5F5</color>
+
+    <color name="primaryColor">#0073e9</color>
+    <color name="dangerColor">#de350b</color>
+    <color name="warningColor">#ffaa00</color>
+    <color name="infoColor">#0073e9</color>
+    <color name="successColor">#00a950</color>
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="defaultButtonBorderColor">#bec6c6</color>
 </resources>
