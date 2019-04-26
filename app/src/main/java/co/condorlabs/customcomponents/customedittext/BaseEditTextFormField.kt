@@ -36,8 +36,8 @@ import java.util.regex.Pattern
 /**
  * @author Oscar Gallon on 2/26/19.
  */
-open class BaseEditTextFormField(context: Context, private val mAttrs: AttributeSet) :
-    TextInputLayout(context, mAttrs), FormField<String>, View.OnFocusChangeListener {
+open class BaseEditTextFormField(context: Context, private val attrs: AttributeSet) :
+    TextInputLayout(context, attrs), FormField<String>, View.OnFocusChangeListener {
 
     override var isRequired: Boolean = false
 
@@ -59,7 +59,7 @@ open class BaseEditTextFormField(context: Context, private val mAttrs: Attribute
 
     init {
         val typedArray = context.obtainStyledAttributes(
-            mAttrs,
+            attrs,
             R.styleable.BaseEditTextFormField,
             DEFAULT_STYLE_ATTR, DEFAULT_STYLE_RES
         )
