@@ -44,7 +44,7 @@ class RadioGroupFieldTest : MockActivityTest() {
     fun shouldShowMessageIfNoSelected() {
         restartActivity()
 
-        //Given
+        // Given
         val formField = ruleActivity.activity.findViewById<RadioGroupFormField>(R.id.tlRadioGroup)
         formField.setIsRequired(true)
         ruleActivity.runOnUiThread {
@@ -58,10 +58,10 @@ class RadioGroupFieldTest : MockActivityTest() {
             )
         }
 
-        //When
+        // When
         val result = formField.isValid()
 
-        //Then
+        // Then
         Assert.assertEquals(
             ValidationResult(false, String.format(MESSAGE_FORMAT_ERROR, "Custom radio group")), result
         )
@@ -72,7 +72,7 @@ class RadioGroupFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_baseradiogroup_is_required_test
         restartActivity()
 
-        //Given
+        // Given
         val formField = ruleActivity.activity.findViewById<RadioGroupFormField>(R.id.tlRadioGroup1)
         ruleActivity.runOnUiThread {
             formField.setSelectables(
@@ -85,22 +85,20 @@ class RadioGroupFieldTest : MockActivityTest() {
             )
         }
 
-        //When
+        // When
         val result = formField.isValid()
 
-        //Then
+        // Then
         Assert.assertEquals(
             ValidationResult(false, String.format(MESSAGE_FORMAT_ERROR, "Custom radio group1")), result
         )
     }
 
-
-
     @Test
     fun shouldShowMessageInLabelIfNoSelected() {
         restartActivity()
 
-        //Given
+        // Given
         val formField = ruleActivity.activity.findViewById<RadioGroupFormField>(R.id.tlRadioGroup)
         formField.setIsRequired(true)
         ruleActivity.runOnUiThread {
@@ -114,12 +112,12 @@ class RadioGroupFieldTest : MockActivityTest() {
             )
         }
 
-        //When
+        // When
         formField?.let {
             showErrorInInputLayout(it, it.isValid().error)
         }
 
-        //Then
+        // Then
 
         ViewMatchers.hasErrorText(String.format(MESSAGE_FORMAT_ERROR, "Custom radio group"))
             .matches(formField.getChildAt(0))
@@ -129,7 +127,7 @@ class RadioGroupFieldTest : MockActivityTest() {
     fun shouldValidateIfSelected() {
         restartActivity()
 
-        //Given
+        // Given
         val formField = ruleActivity.activity.findViewById<RadioGroupFormField>(R.id.tlRadioGroup)
         ruleActivity.runOnUiThread {
             formField.setSelectables(
@@ -143,12 +141,12 @@ class RadioGroupFieldTest : MockActivityTest() {
         }
         formField.setIsRequired(true)
 
-        //When
+        // When
         Espresso.onView(ViewMatchers.withSubstring("Item 3"))
             .perform(ViewActions.click())
         val result = formField.isValid()
 
-        //Then
+        // Then
         Assert.assertEquals(
             ValidationResult(true, EMPTY), result
         )
@@ -158,13 +156,13 @@ class RadioGroupFieldTest : MockActivityTest() {
     fun shouldDisplayTitle() {
         restartActivity()
 
-        //Given
+        // Given
         val view = Espresso.onView(ViewMatchers.withText("Custom radio group"))
 
-        //When
+        // When
         view.perform(ViewActions.click())
 
-        //Then
+        // Then
         view.check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
@@ -172,7 +170,7 @@ class RadioGroupFieldTest : MockActivityTest() {
     fun shouldBeInitWithSelectableOption() {
         restartActivity()
 
-        //Given
+        // Given
         val formField = ruleActivity.activity.findViewById<RadioGroupFormField>(R.id.tlRadioGroup)
         ruleActivity.runOnUiThread {
             formField.setSelectables(
@@ -186,10 +184,10 @@ class RadioGroupFieldTest : MockActivityTest() {
         }
         formField.setIsRequired(true)
 
-        //When
+        // When
         val result = formField.isValid()
 
-        //Then
+        // Then
         Assert.assertEquals(
             ValidationResult(true, EMPTY), result
         )
@@ -199,7 +197,7 @@ class RadioGroupFieldTest : MockActivityTest() {
     fun shouldReturnEmptyWithoutSelection() {
         restartActivity()
 
-        //Given
+        // Given
         val formField = ruleActivity.activity.findViewById<RadioGroupFormField>(R.id.tlRadioGroup)
         ruleActivity.runOnUiThread {
             formField.setSelectables(
@@ -212,10 +210,10 @@ class RadioGroupFieldTest : MockActivityTest() {
             )
         }
 
-        //When
+        // When
         val result = formField.getValue()
 
-        //Then
+        // Then
         Assert.assertEquals(
             "", result
         )
@@ -225,7 +223,7 @@ class RadioGroupFieldTest : MockActivityTest() {
     fun shouldReturnValueSelected() {
         restartActivity()
 
-        //Given
+        // Given
         val formField = ruleActivity.activity.findViewById<RadioGroupFormField>(R.id.tlRadioGroup)
         ruleActivity.runOnUiThread {
             formField.setSelectables(
@@ -238,22 +236,22 @@ class RadioGroupFieldTest : MockActivityTest() {
             )
         }
 
-        //When
+        // When
         Espresso.onView(ViewMatchers.withSubstring("Item 2"))
             .perform(ViewActions.click())
         val result = formField.getValue()
 
-        //Then
+        // Then
         Assert.assertEquals(
             "Item 2", result
         )
     }
 
     @Test
-    fun shouldBeAbleToGetSelectedValues(){
+    fun shouldBeAbleToGetSelectedValues() {
         restartActivity()
 
-        //Given
+        // Given
         val formField = ruleActivity.activity.findViewById<RadioGroupFormField>(R.id.tlRadioGroup)
         ruleActivity.runOnUiThread {
             formField.setSelectables(
@@ -268,28 +266,27 @@ class RadioGroupFieldTest : MockActivityTest() {
 
         var result = ""
 
-        formField?.setValueChangeListener(object : ValueChangeListener<String>{
+        formField?.setValueChangeListener(object : ValueChangeListener<String> {
             override fun onValueChange(value: String) {
                 result = value
             }
-
         })
 
-        //When
+        // When
         Espresso.onView(ViewMatchers.withSubstring("Item 3"))
             .perform(ViewActions.click())
 
-        //Then
+        // Then
         Assert.assertEquals(
             "Item 3", result
         )
     }
 
     @Test
-    fun shouldBeValidatedOnValueChange(){
+    fun shouldBeValidatedOnValueChange() {
         restartActivity()
 
-        //Given
+        // Given
         val formField = ruleActivity.activity.findViewById<RadioGroupFormField>(R.id.tlRadioGroup)
         val radioGroup = ruleActivity.activity.findViewById<RadioGroup>(R.id.rgBase)
         formField.setIsRequired(true)
@@ -304,13 +301,12 @@ class RadioGroupFieldTest : MockActivityTest() {
             )
         }
 
-
-        //When
+        // When
         ruleActivity.runOnUiThread {
             radioGroup.clearCheck()
         }
 
-        //Then
+        // Then
         Espresso.onView(withId(R.id.tlRadioGroup))
             .check(
                 matches(

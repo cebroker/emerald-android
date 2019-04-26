@@ -48,13 +48,13 @@ class EditTextEmailFieldTest : MockActivityTest() {
     fun shouldHaveDefaultHint() {
         restartActivity()
 
-        //Given
+        // Given
         val view = Espresso.onView(ViewMatchers.withId(R.id.tlEmail))
 
-        //When
+        // When
         view.perform(ViewActions.click())
 
-        //Then
+        // Then
         ViewMatchers.withHint("Email").matches(view)
     }
 
@@ -62,31 +62,31 @@ class EditTextEmailFieldTest : MockActivityTest() {
     fun shouldShowAndErrorWithEmptyEmail() {
         restartActivity()
 
-        //Given
+        // Given
         (ruleActivity.activity.findViewById<View>(R.id.tlEmail) as? EditTextEmailField)?.setIsRequired(true)
 
-        //When
+        // When
         val result = (ruleActivity.activity.findViewById<View>(R.id.tlEmail) as? BaseEditTextFormField)?.isValid()
 
-        //Then
+        // Then
         Assert.assertEquals(
-            ValidationResult(false, String.format(VALIDATE_EMPTY_ERROR,"Enter some text")), result
+            ValidationResult(false, String.format(VALIDATE_EMPTY_ERROR, "Enter some text")), result
         )
     }
 
     @Test
     fun shouldShowErrorWitheEmailIncorrectPart1() {
         restartActivity()
-        //Given
+        // Given
         val text = "kdfkd"
         val txtInputLayout = (ruleActivity.activity.findViewById<View>(R.id.tlEmail) as? EditTextEmailField)
         txtInputLayout?.setIsRequired(true)
 
-        //When
+        // When
         txtInputLayout?.setRegex(android.util.Patterns.EMAIL_ADDRESS.toString())
         Espresso.onView(ViewMatchers.withId(R.id.etEmail)).perform(typeText(text))
 
-        //Then
+        // Then
         Assert.assertEquals(
             ValidationResult(false, VALIDATE_EMAIL_ERROR),
             txtInputLayout?.isValid()
@@ -96,16 +96,16 @@ class EditTextEmailFieldTest : MockActivityTest() {
     @Test
     fun shouldShowErrorWitheEmailIncorrectPart2() {
         restartActivity()
-        //Given
+        // Given
         val text = "kdfkd@"
         val txtInputLayout = (ruleActivity.activity.findViewById<View>(R.id.tlEmail) as? EditTextEmailField)
         txtInputLayout?.setIsRequired(true)
 
-        //When
+        // When
         txtInputLayout?.setRegex(android.util.Patterns.EMAIL_ADDRESS.toString())
         Espresso.onView(ViewMatchers.withId(R.id.etEmail)).perform(typeText(text))
 
-        //Then
+        // Then
         Assert.assertEquals(
             ValidationResult(false, VALIDATE_EMAIL_ERROR),
             txtInputLayout?.isValid()
@@ -115,16 +115,16 @@ class EditTextEmailFieldTest : MockActivityTest() {
     @Test
     fun shouldShowErrorWitheEmailIncorrectPart3() {
         restartActivity()
-        //Given
+        // Given
         val text = "kdfkd@smdms"
         val txtInputLayout = (ruleActivity.activity.findViewById<View>(R.id.tlEmail) as? EditTextEmailField)
         txtInputLayout?.setIsRequired(true)
 
-        //When
+        // When
         txtInputLayout?.setRegex(android.util.Patterns.EMAIL_ADDRESS.toString())
         Espresso.onView(ViewMatchers.withId(R.id.etEmail)).perform(typeText(text))
 
-        //Then
+        // Then
         Assert.assertEquals(
             ValidationResult(false, VALIDATE_EMAIL_ERROR),
             txtInputLayout?.isValid()
@@ -134,16 +134,16 @@ class EditTextEmailFieldTest : MockActivityTest() {
     @Test
     fun shouldShowErrorWitheEmailIncorrectPart4() {
         restartActivity()
-        //Given
+        // Given
         val text = "kdfkd@smdms."
         val txtInputLayout = (ruleActivity.activity.findViewById<View>(R.id.tlEmail) as? EditTextEmailField)
         txtInputLayout?.setIsRequired(true)
 
-        //When
+        // When
         txtInputLayout?.setRegex(android.util.Patterns.EMAIL_ADDRESS.toString())
         Espresso.onView(ViewMatchers.withId(R.id.etEmail)).perform(typeText(text))
 
-        //Then
+        // Then
         Assert.assertEquals(
             ValidationResult(false, VALIDATE_EMAIL_ERROR),
             txtInputLayout?.isValid()
@@ -153,16 +153,16 @@ class EditTextEmailFieldTest : MockActivityTest() {
     @Test
     fun shouldMatch() {
         restartActivity()
-        //Given
+        // Given
         val text = "o@gmail.co"
         val txtInputLayout = (ruleActivity.activity.findViewById<View>(R.id.tlEmail) as? EditTextEmailField)
         txtInputLayout?.setIsRequired(true)
 
-        //When
+        // When
         txtInputLayout?.setRegex(android.util.Patterns.EMAIL_ADDRESS.toString())
         Espresso.onView(ViewMatchers.withId(R.id.etEmail)).perform(typeText(text))
 
-        //Then
+        // Then
         Assert.assertEquals(
             ValidationResult(true, EMPTY),
             txtInputLayout?.isValid()

@@ -133,6 +133,12 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
         addCheckboxes()
     }
 
+    private fun setPaddingTop(): Int {
+        val paddingDp = DEFAULT_MARGIN_TOP
+        val density = context.resources.displayMetrics.density
+        return (paddingDp * density).toInt()
+    }
+
     private fun addCheckboxes() {
         removeAllViews()
         addView(mTVLabel, mLayoutParams)
@@ -142,6 +148,8 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
                 text = selectable.label
                 isChecked = selectable.value
                 gravity = Gravity.TOP
+                setPadding(0, setPaddingTop(), 0, 0)
+                // buttonTintList = ColorStateList.valueOf(R.color.pr)
                 setOnCheckedChangeListener(this@BaseCheckboxFormField)
             }, mLayoutParams)
         }
