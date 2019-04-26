@@ -24,6 +24,7 @@ import android.text.InputType
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.util.TypedValue
+import android.view.ContextThemeWrapper
 import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
@@ -37,7 +38,8 @@ import java.util.regex.Pattern
  * @author Oscar Gallon on 2/26/19.
  */
 open class BaseEditTextFormField(context: Context, private val attrs: AttributeSet) :
-    TextInputLayout(context, attrs), FormField<String>, View.OnFocusChangeListener {
+    TextInputLayout(ContextThemeWrapper(context, R.style.TextFormFieldTheme), attrs), FormField<String>,
+    View.OnFocusChangeListener {
 
     override var isRequired: Boolean = false
 
@@ -93,7 +95,7 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
     }
 
     override fun setup() {
-        mEditText = EditText(context)
+        mEditText = EditText(ContextThemeWrapper(context,R.style.TextFormFieldTheme))
         mEditText?.inputType = mInputType
 
         val _editText = mEditText?.let { it } ?: return

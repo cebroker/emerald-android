@@ -16,10 +16,10 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:orientation="vertical"
-              xmlns:app="http://schemas.android.com/apk/res-auto">
+              android:orientation="vertical">
 
     <co.condorlabs.customcomponents.customedittext.EditTextDateField
             android:layout_width="match_parent"
@@ -28,5 +28,4 @@
             app:hint="Expiration"
             app:is_required="true"
             app:picker_icon="@drawable/ic_date"/>
-
 </LinearLayout>

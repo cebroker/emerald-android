@@ -227,7 +227,7 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
                         }
 
                         val datePicker = DatePickerDialog(
-                            context, this, calendar
+                            context, R.style.DatePickerTheme, this, calendar
                                 .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
                             calendar.get(Calendar.DAY_OF_MONTH)
                         )
