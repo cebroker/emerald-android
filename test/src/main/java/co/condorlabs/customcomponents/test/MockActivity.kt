@@ -18,6 +18,9 @@ package co.condorlabs.customcomponents.test
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import co.condorlabs.customcomponents.customspinner.SpinnerData
+import co.condorlabs.customcomponents.formfield.Selectable
+import kotlinx.android.synthetic.main.activity_mock.*
 
 /**
  * @author Oscar Gallon on 2/21/19.
@@ -28,9 +31,30 @@ class MockActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(layout)
 
+
+
     }
 
     companion object {
         var layout: Int = R.layout.activity_mock
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        val myArray: ArrayList<SpinnerData> = ArrayList()
+
+        for (i in 0..20) {
+            myArray.add(SpinnerData("$i", "fkajlshdf kajlsdhf ashdf lkjahsdfjkl sf aldjfhas dfha sdhf "))
+        }
+
+        myList?.setData(myArray)
+
+        myRadio?.setSelectables(
+            listOf(
+                Selectable("Uno", false),
+                Selectable("Dos", true)
+            )
+        )
     }
 }
