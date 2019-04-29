@@ -18,7 +18,6 @@ package co.condorlabs.customcomponents.test
 
 import android.support.test.espresso.Espresso
 import android.support.test.espresso.action.ViewActions
-import android.support.test.espresso.assertion.ViewAssertions
 import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers
 import android.support.test.espresso.matcher.ViewMatchers.withId
@@ -43,14 +42,14 @@ class CheckBoxFieldTest : MockActivityTest() {
     fun shouldShowMessageIfNoSelectedWhenIsRequired1() {
         restartActivity()
 
-        //Given
+        // Given
         val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilChecbox)
         formField.setIsRequired(true)
 
-        //When
+        // When
         val result = formField.isValid()
 
-        //Then
+        // Then
         Assert.assertEquals(
             ValidationResult(false, String.format(MESSAGE_FORMAT_ERROR, "Custom check")), result
         )
@@ -61,13 +60,13 @@ class CheckBoxFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_basechecbox_is_required_test
         restartActivity()
 
-        //Given
+        // Given
         val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.til1Checbox)
 
-        //When
+        // When
         val result = formField.isValid()
 
-        //Then
+        // Then
         Assert.assertEquals(
             ValidationResult(false, String.format(MESSAGE_FORMAT_ERROR, "Custom check1")), result
         )
@@ -77,16 +76,16 @@ class CheckBoxFieldTest : MockActivityTest() {
     fun shouldShowErrorMessageInLabelIfNoSelected() {
         restartActivity()
 
-        //Given
+        // Given
         val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilChecbox)
         formField.setIsRequired(true)
 
-        //When
+        // When
         formField?.let {
             showErrorInInputLayout(it, it.isValid().error)
         }
 
-        //Then
+        // Then
         Espresso.onView(withId(R.id.tilChecbox))
             .check(
                 matches(
@@ -104,7 +103,7 @@ class CheckBoxFieldTest : MockActivityTest() {
     fun shouldShowErrorMessageIfNothingIsSelected() {
         restartActivity()
 
-        //Given
+        // Given
         val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilChecbox)
         formField.setIsRequired(true)
         ruleActivity.runOnUiThread {
@@ -118,28 +117,27 @@ class CheckBoxFieldTest : MockActivityTest() {
             )
         }
 
-        //When
+        // When
         val result = formField.isValid()
 
-        //Then
+        // Then
         Assert.assertEquals(
             ValidationResult(false, String.format(MESSAGE_FORMAT_ERROR, "Custom check")), result
         )
     }
 
-
     @Test
     fun shouldBeValidIfItsNotRequired() {
         restartActivity()
 
-        //Given
+        // Given
         val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilChecbox)
 
         formField.setIsRequired(false)
-        //When
+        // When
         val result = formField.isValid()
 
-        //Then
+        // Then
         Assert.assertEquals(
             ValidationResult(true, EMPTY), result
         )
@@ -149,7 +147,7 @@ class CheckBoxFieldTest : MockActivityTest() {
     fun shouldBeInitFromValues() {
         restartActivity()
 
-        //Given
+        // Given
         val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilChecbox)
         ruleActivity.runOnUiThread {
             formField.setSelectables(
@@ -164,15 +162,14 @@ class CheckBoxFieldTest : MockActivityTest() {
 
         formField.setIsRequired(false)
 
-        //When
+        // When
         val result = formField.getValue()
         Espresso.onView(ViewMatchers.withSubstring("Item 2"))
             .perform(ViewActions.click())
         Espresso.onView(ViewMatchers.withSubstring("Item 3"))
             .perform(ViewActions.click())
 
-
-        //Then
+        // Then
         Assert.assertEquals(
             arrayListOf(
                 Selectable("Item 1", true),
@@ -187,14 +184,14 @@ class CheckBoxFieldTest : MockActivityTest() {
     fun shouldReturnEmptyListWithNoSelectables() {
         restartActivity()
 
-        //Given
+        // Given
         val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilChecbox)
 
         formField.setIsRequired(false)
-        //When
+        // When
         val result = formField.getValue()
 
-        //Then
+        // Then
         Assert.assertEquals(
             ArrayList<Selectable>(), result
         )
@@ -204,7 +201,7 @@ class CheckBoxFieldTest : MockActivityTest() {
     fun shouldBeAbleToGetSelectedValues() {
         restartActivity()
 
-        //Given
+        // Given
         val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilChecbox)
         ruleActivity.runOnUiThread {
             formField.setSelectables(
@@ -221,13 +218,12 @@ class CheckBoxFieldTest : MockActivityTest() {
             override fun onValueChange(value: List<Selectable>) {
                 result = value
             }
-
         })
 
-        //When
+        // When
         Espresso.onView(ViewMatchers.withText("Item 1")).perform(ViewActions.click())
 
-        //Then
+        // Then
         Assert.assertEquals(
             arrayListOf(
                 Selectable("Item 1", false),
@@ -242,7 +238,7 @@ class CheckBoxFieldTest : MockActivityTest() {
     fun shouldBeValidatedOnValueChanged() {
         restartActivity()
 
-        //Given
+        // Given
         val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilChecbox)
         formField.setIsRequired(true)
 
@@ -257,10 +253,10 @@ class CheckBoxFieldTest : MockActivityTest() {
             )
         }
 
-        //When
+        // When
         Espresso.onView(ViewMatchers.withText("Item 1")).perform(ViewActions.click())
 
-        //Then
+        // Then
         Espresso.onView(withId(R.id.tilChecbox))
             .check(
                 matches(
@@ -273,5 +269,4 @@ class CheckBoxFieldTest : MockActivityTest() {
                 )
             )
     }
-
 }

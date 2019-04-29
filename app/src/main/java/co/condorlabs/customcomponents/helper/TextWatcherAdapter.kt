@@ -22,7 +22,7 @@ import android.text.TextWatcher
 /**
  * @author Oscar Gallon on 2/25/19.
  */
-open class TextWatcherAdapter: TextWatcher{
+open class TextWatcherAdapter : TextWatcher {
     override fun afterTextChanged(s: Editable?) {
     }
 

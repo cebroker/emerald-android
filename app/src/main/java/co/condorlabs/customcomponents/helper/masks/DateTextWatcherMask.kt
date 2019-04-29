@@ -97,7 +97,6 @@ class DateTextWatcherMask(private val mReceiver: EditText) : TextWatcherAdapter(
                             DATE_MASK_YEAR_FINAL_INDEX
                     )
 
-
             sel = if (sel < DATE_MASK_SELECTION_MIN_INDEX) DATE_MASK_SELECTION_MIN_INDEX else sel
             mCurrentDate = digitsFromDateTyped
             mReceiver.setText(mCurrentDate)

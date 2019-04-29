@@ -1,7 +1,5 @@
 package co.condorlabs.customcomponents.test
 
-import android.support.test.espresso.Espresso
-import android.support.test.espresso.matcher.ViewMatchers
 import co.condorlabs.customcomponents.customedittext.*
 import co.condorlabs.customcomponents.customspinner.SpinnerData
 import co.condorlabs.customcomponents.customspinner.SpinnerFormField
@@ -15,20 +13,19 @@ class SelfValidationTest : MockActivityTest() {
         MockActivity.layout = R.layout.selft_validate_edit_text_phone_test
         restartActivity()
 
-        //Given
+        // Given
         val required = ruleActivity.activity.findViewById<EditTextPhoneField>(R.id.required)
         val etNextFocus = ruleActivity.activity.findViewById<EditTextPhoneField>(R.id.losefocus)
 
-        //When
+        // When
         ruleActivity.runOnUiThread {
             etNextFocus.requestFocus()
             required.requestFocus()
             etNextFocus.requestFocus()
         }
 
-        //Then
+        // Then
         isTextDisplayed(required.isValid().error)
-
     }
 
     @Test
@@ -36,20 +33,19 @@ class SelfValidationTest : MockActivityTest() {
         MockActivity.layout = R.layout.selft_validate_edit_text_email_test
         restartActivity()
 
-        //Given
+        // Given
         val required = ruleActivity.activity.findViewById<EditTextEmailField>(R.id.required)
         val etNextFocus = ruleActivity.activity.findViewById<EditTextEmailField>(R.id.losefocus)
 
-        //When
+        // When
         ruleActivity.runOnUiThread {
             etNextFocus.requestFocus()
             required.requestFocus()
             etNextFocus.requestFocus()
         }
 
-        //Then
+        // Then
         isTextDisplayed(required.isValid().error)
-
     }
 
     @Test
@@ -57,20 +53,19 @@ class SelfValidationTest : MockActivityTest() {
         MockActivity.layout = R.layout.selft_validate_edit_text_date_test
         restartActivity()
 
-        //Given
+        // Given
         val required = ruleActivity.activity.findViewById<EditTextDateField>(R.id.required)
         val etNextFocus = ruleActivity.activity.findViewById<EditTextDateField>(R.id.losefocus)
 
-        //When
+        // When
         ruleActivity.runOnUiThread {
             etNextFocus.requestFocus()
             required.requestFocus()
             etNextFocus.requestFocus()
         }
 
-        //Then
+        // Then
         isTextDisplayed(required.isValid().error)
-
     }
 
     @Test
@@ -78,20 +73,19 @@ class SelfValidationTest : MockActivityTest() {
         MockActivity.layout = R.layout.selft_validate_edit_text_currency_test
         restartActivity()
 
-        //Given
+        // Given
         val required = ruleActivity.activity.findViewById<EditTextCurrencyField>(R.id.required)
         val etNextFocus = ruleActivity.activity.findViewById<EditTextCurrencyField>(R.id.losefocus)
 
-        //When
+        // When
         ruleActivity.runOnUiThread {
             etNextFocus.requestFocus()
             required.requestFocus()
             etNextFocus.requestFocus()
         }
 
-        //Then
+        // Then
         isTextDisplayed(required.isValid().error)
-
     }
 
     @Test
@@ -99,20 +93,19 @@ class SelfValidationTest : MockActivityTest() {
         MockActivity.layout = R.layout.selft_validate_edit_text_city_test
         restartActivity()
 
-        //Given
+        // Given
         val required = ruleActivity.activity.findViewById<EditTextCityField>(R.id.required)
         val etNextFocus = ruleActivity.activity.findViewById<EditTextCityField>(R.id.losefocus)
 
-        //When
+        // When
         ruleActivity.runOnUiThread {
             etNextFocus.requestFocus()
             required.requestFocus()
             etNextFocus.requestFocus()
         }
 
-        //Then
+        // Then
         isTextDisplayed(required.isValid().error)
-
     }
 
     @Test
@@ -121,13 +114,13 @@ class SelfValidationTest : MockActivityTest() {
         restartActivity()
         val etNextFocus = ruleActivity.activity.findViewById<EditTextCityField>(R.id.losefocus)
 
-        //Given
+        // Given
         val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
         val data = SpinnerData("1", "Antioquia")
         val data1 = SpinnerData("2", "Cundinamarca")
         val data3 = SpinnerData("3", "Atlantico")
 
-        //When
+        // When
         ruleActivity.runOnUiThread {
             formField.setData(arrayListOf(data, data1, data3))
             formField.setItemSelectedById("1")

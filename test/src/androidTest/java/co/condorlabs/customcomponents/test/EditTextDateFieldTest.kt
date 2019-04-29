@@ -30,7 +30,6 @@ import org.junit.Test
 import java.text.SimpleDateFormat
 import java.util.*
 
-
 /**
  * @author Oscar Gallon on 2/25/19.
  */
@@ -50,13 +49,13 @@ class EditTextDateFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_edittextdatefield_test
         restartActivity()
 
-        //Given
+        // Given
         val view = Espresso.onView(ViewMatchers.withId(R.id.etDate))
 
-        //When
+        // When
         view.perform(ViewActions.typeText("12/01/2YY9"))
 
-        //Then
+        // Then
         Assert.assertEquals(
             ValidationResult(false, VALIDATE_DATE_ERROR),
             (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)?.isValid()
@@ -68,15 +67,15 @@ class EditTextDateFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_baseedittextdate_with_out_is_required
         restartActivity()
 
-        //Given
+        // Given
         val view =
             Espresso.onView(ViewMatchers.withId(R.id.etDate))
         (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)?.setIsRequired(true)
 
-        //When
+        // When
         view.perform(ViewActions.replaceText(mDefaultDateFormat))
 
-        //Then
+        // Then
         Assert.assertEquals(
             ValidationResult(false, VALIDATE_DATE_ERROR),
             (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)?.isValid()
@@ -88,7 +87,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_baseedittextdate_with_out_is_required
         restartActivity()
 
-        //Then
+        // Then
         Assert.assertEquals(
             ValidationResult(true, EMPTY),
             (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)?.isValid()
@@ -100,13 +99,13 @@ class EditTextDateFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_edittextdatefield_test
         restartActivity()
 
-        //Given
+        // Given
         val view = Espresso.onView(ViewMatchers.withId(R.id.etDate))
 
-        //When
+        // When
         view.perform(ViewActions.typeText("12/01/2019"))
 
-        //Then
+        // Then
         Assert.assertEquals(
             ValidationResult(true, EMPTY),
             (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)?.isValid()
@@ -118,13 +117,13 @@ class EditTextDateFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_edittextdatefield_test
         restartActivity()
 
-        //Given
+        // Given
         val view = Espresso.onView(ViewMatchers.withId(R.id.etDate))
 
-        //When
+        // When
         view.perform(ViewActions.replaceText("MM/DD/YYYY"))
 
-        //Then
+        // Then
         Assert.assertEquals(
             ValidationResult(false, VALIDATE_DATE_ERROR),
             (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)?.isValid()
@@ -136,15 +135,15 @@ class EditTextDateFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_edittextdatefield_test
         restartActivity()
 
-        //Given
+        // Given
         val format = mDefaultDateFormat
         val dateToParse = "02/25/2019"
         val field = (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)
 
-        //When
+        // When
         field?.setLowerLimit(dateToParse, format)
 
-        //Then
+        // Then
         Assert.assertEquals(
             SimpleDateFormat(format, Locale.getDefault()).parse(
                 dateToParse
@@ -157,15 +156,15 @@ class EditTextDateFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_edittextdatefield_test
         restartActivity()
 
-        //Given
+        // Given
         val format = mDefaultDateFormat
         val dateToParse = "02/AA/2019"
         val field = (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)
 
-        //When
+        // When
         field?.setLowerLimit(dateToParse, format)
 
-        //Then
+        // Then
         Assert.assertNull(
             field?.getLowerLimit()
         )
@@ -176,15 +175,15 @@ class EditTextDateFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_edittextdatefield_test
         restartActivity()
 
-        //Given
+        // Given
         val format = mDefaultDateFormat
         val dateToParse = "02/25/2019"
         val field = (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)
 
-        //When
+        // When
         field?.setUpperLimit(dateToParse, format)
 
-        //Then
+        // Then
         Assert.assertEquals(
             SimpleDateFormat(format, Locale.getDefault()).parse(
                 dateToParse
@@ -197,15 +196,15 @@ class EditTextDateFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_edittextdatefield_test
         restartActivity()
 
-        //Given
+        // Given
         val format = mDefaultDateFormat
         val dateToParse = "02/AA/2019"
         val field = (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)
 
-        //When
+        // When
         field?.setUpperLimit(dateToParse, format)
 
-        //Then
+        // Then
         Assert.assertNull(
             field?.getUpperLimit()
         )
@@ -216,13 +215,12 @@ class EditTextDateFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_edittextdatefield_test
         restartActivity()
 
-        //Given
+        // Given
         (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)?.setIsRequired(true)
 
-        //When
+        // When
 
-
-        //Then
+        // Then
         Assert.assertEquals(
             ValidationResult(false, String.format(VALIDATE_EMPTY_ERROR, "Expiration")),
             (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)?.isValid()
@@ -234,7 +232,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_edittextdatefield_test
         restartActivity()
 
-        //Given
+        // Given
         val todayCalendar = Calendar.getInstance()
         val todayDate = todayCalendar.time
         val view = Espresso.onView(ViewMatchers.withId(R.id.etDate))
@@ -242,13 +240,11 @@ class EditTextDateFieldTest : MockActivityTest() {
         field?.setIsRequired(true)
         field?.setLowerLimit(todayDate.time)
 
-
-        //When
+        // When
         todayCalendar.add(Calendar.DAY_OF_MONTH, -1)
         view.perform(ViewActions.typeText(mSimpleDateFormat.format(todayCalendar.time)))
 
-
-        //Then
+        // Then
         Assert.assertEquals(
             ValidationResult(
                 false,
@@ -263,7 +259,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_edittextdatefield_test
         restartActivity()
 
-        //Given
+        // Given
         val todayCalendar = Calendar.getInstance()
         val todayDate = todayCalendar.time
         val view = Espresso.onView(ViewMatchers.withId(R.id.etDate))
@@ -271,13 +267,11 @@ class EditTextDateFieldTest : MockActivityTest() {
         field?.setIsRequired(true)
         field?.setLowerLimit(todayDate.time)
 
-
-        //When
+        // When
         todayCalendar.add(Calendar.DAY_OF_MONTH, 1)
         view.perform(ViewActions.typeText(mSimpleDateFormat.format(todayCalendar.time)))
 
-
-        //Then
+        // Then
         Assert.assertEquals(
             ValidationResult(
                 true,
@@ -292,7 +286,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_edittextdatefield_lower_limit_test
         restartActivity()
 
-        //Given
+        // Given
         val field = (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)
         val field2 = (ruleActivity.activity.findViewById<View>(R.id.tlDate2) as? EditTextDateField)
         field?.setIsRequired(true)
@@ -301,17 +295,15 @@ class EditTextDateFieldTest : MockActivityTest() {
             override fun onValueChange(value: String) {
                 field2?.setLowerLimit(value)
             }
-
         })
 
-        //When
+        // When
         ruleActivity.runOnUiThread {
             field?.editText?.setText("03/03/2019")
             field2?.editText?.setText("02/03/2019")
-
         }
 
-        //Then
+        // Then
         Assert.assertEquals(
             ValidationResult(
                 false,
@@ -326,7 +318,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_edittextdatefield_lower_limit_test
         restartActivity()
 
-        //Given
+        // Given
         val field = (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)
         val field2 = (ruleActivity.activity.findViewById<View>(R.id.tlDate2) as? EditTextDateField)
         field?.setIsRequired(true)
@@ -335,17 +327,15 @@ class EditTextDateFieldTest : MockActivityTest() {
             override fun onValueChange(value: String) {
                 field2?.setLowerLimit(value)
             }
-
         })
 
-        //When
+        // When
         ruleActivity.runOnUiThread {
             field?.editText?.setText("03/03/2019")
             field2?.editText?.setText("03/03/2019")
-
         }
 
-        //Then
+        // Then
         Assert.assertEquals(
             ValidationResult(
                 true,
@@ -360,7 +350,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         restartActivity()
         MockActivity.layout = R.layout.activity_edittextdatefield_test
 
-        //Given
+        // Given
         val todayCalendar = Calendar.getInstance()
         val todayDate = todayCalendar.time
         val view = Espresso.onView(ViewMatchers.withId(R.id.etDate))
@@ -368,12 +358,11 @@ class EditTextDateFieldTest : MockActivityTest() {
         field?.setIsRequired(true)
         field?.setUpperLimit(todayDate.time)
 
-
-        //When
+        // When
         todayCalendar.add(Calendar.DAY_OF_MONTH, 1)
         view.perform(ViewActions.typeText(mSimpleDateFormat.format(todayCalendar.time)))
 
-        //Then
+        // Then
         Assert.assertEquals(
             ValidationResult(
                 false,
@@ -388,7 +377,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         restartActivity()
         MockActivity.layout = R.layout.activity_edittextdatefield_test
 
-        //Given
+        // Given
         val todayCalendar = Calendar.getInstance()
         val todayDate = todayCalendar.time
         val view = Espresso.onView(ViewMatchers.withId(R.id.etDate))
@@ -396,12 +385,11 @@ class EditTextDateFieldTest : MockActivityTest() {
         field?.setIsRequired(true)
         field?.setUpperLimit(todayDate.time)
 
-
-        //When
+        // When
         todayCalendar.add(Calendar.DAY_OF_MONTH, -1)
         view.perform(ViewActions.typeText(mSimpleDateFormat.format(todayCalendar.time)))
 
-        //Then
+        // Then
         Assert.assertEquals(
             ValidationResult(
                 true,
@@ -416,7 +404,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_edittextdatefield_lower_and_upper_limit_test
         restartActivity()
 
-        //Given
+        // Given
         val field = (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)
         val field2 = (ruleActivity.activity.findViewById<View>(R.id.tlDate2) as? EditTextDateField)
         val field3 = (ruleActivity.activity.findViewById<View>(R.id.tlDate3) as? EditTextDateField)
@@ -428,25 +416,22 @@ class EditTextDateFieldTest : MockActivityTest() {
             override fun onValueChange(value: String) {
                 field3?.setLowerLimit(value)
             }
-
         })
 
         field2?.setValueChangeListener(object : ValueChangeListener<String> {
             override fun onValueChange(value: String) {
                 field3?.setUpperLimit(value)
             }
-
         })
 
-        //When
+        // When
         ruleActivity.runOnUiThread {
             field?.editText?.setText("03/03/2019")
             field2?.editText?.setText("03/05/2019")
             field3?.editText?.setText("03/04/2019")
-
         }
 
-        //Then
+        // Then
         Assert.assertEquals(
             ValidationResult(
                 true,
@@ -461,7 +446,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_edittextdatefield_lower_and_upper_limit_test
         restartActivity()
 
-        //Given
+        // Given
         val field = (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)
         val field2 = (ruleActivity.activity.findViewById<View>(R.id.tlDate2) as? EditTextDateField)
         val field3 = (ruleActivity.activity.findViewById<View>(R.id.tlDate3) as? EditTextDateField)
@@ -473,25 +458,22 @@ class EditTextDateFieldTest : MockActivityTest() {
             override fun onValueChange(value: String) {
                 field3?.setLowerLimit(value)
             }
-
         })
 
         field2?.setValueChangeListener(object : ValueChangeListener<String> {
             override fun onValueChange(value: String) {
                 field3?.setUpperLimit(value)
             }
-
         })
 
-        //When
+        // When
         ruleActivity.runOnUiThread {
             field?.editText?.setText("03/03/2019")
             field2?.editText?.setText("03/05/2019")
             field3?.editText?.setText("03/02/2019")
-
         }
 
-        //Then
+        // Then
         Assert.assertEquals(
             ValidationResult(
                 false,
@@ -506,7 +488,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_edittextdatefield_lower_and_upper_limit_test
         restartActivity()
 
-        //Given
+        // Given
         val field = (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)
         val field2 = (ruleActivity.activity.findViewById<View>(R.id.tlDate2) as? EditTextDateField)
         val field3 = (ruleActivity.activity.findViewById<View>(R.id.tlDate3) as? EditTextDateField)
@@ -518,25 +500,22 @@ class EditTextDateFieldTest : MockActivityTest() {
             override fun onValueChange(value: String) {
                 field3?.setLowerLimit(value)
             }
-
         })
 
         field2?.setValueChangeListener(object : ValueChangeListener<String> {
             override fun onValueChange(value: String) {
                 field3?.setUpperLimit(value)
             }
-
         })
 
-        //When
+        // When
         ruleActivity.runOnUiThread {
             field?.editText?.setText("03/03/2019")
             field2?.editText?.setText("03/05/2019")
             field3?.editText?.setText("03/06/2019")
-
         }
 
-        //Then
+        // Then
         Assert.assertEquals(
             ValidationResult(
                 false,
@@ -545,5 +524,4 @@ class EditTextDateFieldTest : MockActivityTest() {
             field3?.isValid()
         )
     }
-
 }

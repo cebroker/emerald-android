@@ -20,7 +20,6 @@ import org.junit.Before
 import org.junit.Test
 import org.junit.runner.RunWith
 
-
 @RunWith(AndroidJUnit4::class)
 class FileSelectorFieldTest : MockActivityTest() {
 
@@ -33,14 +32,13 @@ class FileSelectorFieldTest : MockActivityTest() {
     fun shouldHaveDefaultText() {
         restartActivity()
 
-        //Given
+        // Given
         val titleView = Espresso.onView(withText("Upload Documentation"))
         val addAction = Espresso.onView(withText("TAP TO ADD"))
 
-        //When
+        // When
 
-
-        //Then
+        // Then
         titleView.check(matches(isDisplayed()))
         addAction.check(matches(isDisplayed()))
     }
@@ -49,15 +47,15 @@ class FileSelectorFieldTest : MockActivityTest() {
     fun shouldOpenFileSelectorDialog() {
         restartActivity()
 
-        //Given
+        // Given
         val view = onView(withId(R.id.ivICon))
 
-        //When
+        // When
         runBlocking {
             view.perform(click())
         }
 
-        //Then
+        // Then
         isTextDisplayed("Gallery")
         isTextDisplayed("Photo")
     }
@@ -66,7 +64,7 @@ class FileSelectorFieldTest : MockActivityTest() {
     fun shouldReturnPhotoAsOptionClicked() {
         restartActivity()
 
-        //Given
+        // Given
         val view = onView(withId(R.id.ivICon))
         val field = ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
         var result: FileSelectorOption? = null
@@ -76,13 +74,13 @@ class FileSelectorFieldTest : MockActivityTest() {
             }
         })
 
-        //When
+        // When
         runBlocking {
             view.perform(click())
             clickWithText("Photo")
         }
 
-        //Then
+        // Then
         Assert.assertTrue(result is FileSelectorOption.Photo)
     }
 
@@ -90,7 +88,7 @@ class FileSelectorFieldTest : MockActivityTest() {
     fun shouldReturnGalleryAsOptionClicked() {
         restartActivity()
 
-        //Given
+        // Given
         val view = onView(withId(R.id.ivICon))
         val field = ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
         var result: FileSelectorOption? = null
@@ -100,13 +98,13 @@ class FileSelectorFieldTest : MockActivityTest() {
             }
         })
 
-        //When
+        // When
         runBlocking {
             view.perform(click())
             clickWithText("Gallery")
         }
 
-        //Then
+        // Then
         Assert.assertTrue(result is FileSelectorOption.Gallery)
     }
 
@@ -114,14 +112,14 @@ class FileSelectorFieldTest : MockActivityTest() {
     fun shouldNotBeValid() {
         restartActivity()
 
-        //Given
+        // Given
         val field = ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
         field.setIsRequired(true)
 
-        //When
+        // When
         val result = field.isValid()
 
-        //Then
+        // Then
         Assert.assertEquals(
                 ValidationResult(
                         false,
@@ -134,16 +132,15 @@ class FileSelectorFieldTest : MockActivityTest() {
     fun shouldShowError() {
         restartActivity()
 
-        //Given
+        // Given
         val field = ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
 
-
-        //When
+        // When
         ruleActivity.activity.runOnUiThread {
             field.showError("This error should be displayed")
         }
 
-        //Then
+        // Then
         Espresso.onView(withText("This error should be displayed")).check(matches(isDisplayed()))
     }
 
@@ -151,18 +148,17 @@ class FileSelectorFieldTest : MockActivityTest() {
     fun shouldClearError() {
         restartActivity()
 
-        //Given
+        // Given
         val field = ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
         val errorView = ruleActivity.activity.findViewById<TextView>(R.id.tvError)
 
-
-        //When
+        // When
         ruleActivity.activity.runOnUiThread {
             field.showError("This error should be displayed")
             field.clearError()
         }
 
-        //Then
+        // Then
         Assert.assertTrue(errorView.visibility == View.GONE)
     }
 
@@ -171,12 +167,12 @@ class FileSelectorFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_file_selector_title
         restartActivity()
 
-        //Given
+        // Given
         val view = Espresso.onView(withText("This is the Title"))
 
-        //When
+        // When
 
-        //Then
+        // Then
         view.check(matches(isDisplayed()))
     }
 }

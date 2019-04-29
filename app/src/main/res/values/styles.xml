@@ -24,4 +24,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="radio_button_custom_style" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:foreground">?attr/selectableItemBackgroundBorderless</item>
+        <item name="android:paddingStart">16dp</item>
+        <item name="android:paddingEnd">16dp</item>
+        <item name="android:buttonTint">@color/radio_button_selector_color_button</item>
+        <item name="android:background">@drawable/radio_button_selector_background</item>
+    </style>
 </resources>

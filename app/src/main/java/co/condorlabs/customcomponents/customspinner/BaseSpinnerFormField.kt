@@ -81,7 +81,6 @@ abstract class BaseSpinnerFormField(context: Context, private val mAttrs: Attrib
         addView(mTVLabel, mLayoutParams)
         mSpinner = Spinner(context, mAttrs)
         addView(mSpinner)
-
     }
 
     override fun getErrorValidateResult(): ValidationResult {
