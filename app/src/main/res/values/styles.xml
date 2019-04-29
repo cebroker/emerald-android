@@ -32,8 +32,8 @@
         <item name="colorControlActivated">@color/primaryColor</item>
         <item name="colorControlNormal">@color/defaultHintColor</item>
         <item name="colorAccent">@color/defaultHintColor</item>
-        <item name="android:textColor">@color/black</item>
-        <item name="android:textColorHint">@color/defaultHintColor</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:textColorHint">@color/textHintColor</item>
         <item name="android:colorControlHighlight">@color/defaultHintColor</item>
         <item name="android:textColorHighlight">@color/defaultHighlightColor</item>
     </style>

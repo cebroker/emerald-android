@@ -54,9 +54,9 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
 
     private var mMultiline: Boolean = false
     private var mInputType: Int = InputType.TYPE_CLASS_TEXT
-    private val mLayoutParams = LinearLayout.LayoutParams(
-        LinearLayout.LayoutParams.MATCH_PARENT,
-        LinearLayout.LayoutParams.WRAP_CONTENT
+    private val mLayoutParams = LayoutParams(
+        LayoutParams.MATCH_PARENT,
+        LayoutParams.WRAP_CONTENT
     )
 
     init {
