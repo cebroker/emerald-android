@@ -36,6 +36,8 @@ const val DIGITS_PHONE = "0123456789-"
 
 const val DEFAULT_STYLE_ATTR = 0
 const val DEFAULT_STYLE_RES = 0
+const val PADDING_TOP = 3
+const val DEFAULT_PADDING = 0
 
 /**PHONE NUMBER FORMATS**/
 const val PHONE_NUMBER_FORMAT_FIRST_HYPHEN_INDEX = 3
@@ -69,7 +71,6 @@ const val PHONE_NUMBER_REGEX_THIRD_GROUP_REPLACEMENT_MATCHER = "$1-$2-$3"
 const val FIRST_EDITTEXT_SELECTION_CHARACTER = 0
 const val PHONE_NUMBER_SEPARATOR_TOKEN = "-"
 const val VIEW_GROUP_FIRST_VIEW_POSITION = 0
-
 
 /**DATE FORMATS**/
 const val DATE_MASK_DATE_FORMAT_WITHOUT_SLASH = "MMDDYYYY"
@@ -120,11 +121,8 @@ const val BUTTON_WARNING_TYPE = "warning"
 const val BUTTON_INFO_TYPE = "info"
 const val BUTTON_SUCCESS_TYPE = "success"
 
-
 typealias ButtonType = String
-
 
 /** FONT PATHS **/
 const val OPEN_SANS_SEMI_BOLD = "fonts/OpenSans-SemiBold.ttf"
 const val OPEN_SANS_REGULAR = "fonts/OpenSans-Regular.ttf"
-

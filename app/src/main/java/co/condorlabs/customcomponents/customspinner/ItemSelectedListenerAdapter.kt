@@ -22,7 +22,7 @@ import android.widget.AdapterView
 /**
  * @author Oscar Gallon on 2/26/19.
  */
-interface ItemSelectedListenerAdapter: AdapterView.OnItemSelectedListener {
+interface ItemSelectedListenerAdapter : AdapterView.OnItemSelectedListener {
 
     override fun onNothingSelected(parent: AdapterView<*>?) {
     }

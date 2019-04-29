@@ -27,7 +27,6 @@ class MockActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout)
-
     }
 
     companion object {

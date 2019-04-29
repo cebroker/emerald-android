@@ -31,7 +31,8 @@ import co.condorlabs.customcomponents.helper.STATE_SPINNER_HINT_POSITION
  * @author Oscar Gallon on 2/26/19.
  */
 class SpinnerFormField(
-    context: Context, attrs: AttributeSet
+    context: Context,
+    attrs: AttributeSet
 ) : BaseSpinnerFormField(context, attrs), ItemSelectedListenerAdapter {
 
     override var isRequired: Boolean = false

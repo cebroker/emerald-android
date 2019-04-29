@@ -35,4 +35,5 @@
 
     <color name="rippleColor">#20FFFFFF</color>
     <color name="defaultButtonStyleRippleColor">#10000000</color>
+    <color name="defaultHintColor">#4b5353</color>
 </resources>
