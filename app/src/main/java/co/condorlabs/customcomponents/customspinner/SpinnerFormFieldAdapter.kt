@@ -29,7 +29,8 @@ import co.condorlabs.customcomponents.helper.STATE_SPINNER_HINT_POSITION
  * @author Oscar Gallon on 2/26/19.
  */
 class SpinnerFormFieldAdapter(
-    context: Context, resourceId: Int,
+    context: Context,
+    resourceId: Int,
     private var mHint: String = context.getString(R.string.spinner_default_hint),
     private val mData: ArrayList<SpinnerData> = ArrayList()
 ) : ArrayAdapter<SpinnerData>(context, resourceId, mData) {

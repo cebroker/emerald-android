@@ -9,14 +9,20 @@ import co.condorlabs.customcomponents.R
 sealed class CustomButtonStyle(
     val backgroundColor: Int,
     val textColor: Int,
+    val rippleColor: Int = R.color.rippleColor,
     val strokeColor: Int = backgroundColor
 ) {
-    object DefaultButtonStyle : CustomButtonStyle(R.color.white, R.color.black, R.color.defaultButtonBorderColor)
+    object DefaultButtonStyle :
+        CustomButtonStyle(
+            R.color.white,
+            R.color.black,
+            R.color.defaultButtonStyleRippleColor,
+            R.color.defaultButtonBorderColor
+        )
+
     object PrimaryButtonStyle : CustomButtonStyle(R.color.primaryColor, R.color.white)
     object DangerButtonStyle : CustomButtonStyle(R.color.dangerColor, R.color.white)
     object InfoButtonStyle : CustomButtonStyle(R.color.infoColor, R.color.white)
     object SuccessButtonStyle : CustomButtonStyle(R.color.successColor, R.color.white)
     object WarningButtonStyle : CustomButtonStyle(R.color.warningColor, R.color.white)
 }
-
-

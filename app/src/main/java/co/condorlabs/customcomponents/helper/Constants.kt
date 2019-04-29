@@ -36,6 +36,8 @@ const val DIGITS_PHONE = "0123456789-"
 
 const val DEFAULT_STYLE_ATTR = 0
 const val DEFAULT_STYLE_RES = 0
+const val PADDING_TOP = 3
+const val DEFAULT_PADDING = 0
 
 /**PHONE NUMBER FORMATS**/
 const val PHONE_NUMBER_FORMAT_FIRST_HYPHEN_INDEX = 3
@@ -70,7 +72,6 @@ const val FIRST_EDITTEXT_SELECTION_CHARACTER = 0
 const val PHONE_NUMBER_SEPARATOR_TOKEN = "-"
 const val VIEW_GROUP_FIRST_VIEW_POSITION = 0
 
-
 /**DATE FORMATS**/
 const val DATE_MASK_DATE_FORMAT_WITHOUT_SLASH = "MMDDYYYY"
 const val DATE_MASK_MIN_MONTH_INDEX = 1
@@ -91,10 +92,6 @@ const val DATE_MASK_JUST_DIGITS_LENGTH = 6
 const val DATE_MASK_DIGITS_STRING_FORMAT = "%02d%02d%02d"
 const val DATE_MASK_MAX_EMS = 10
 const val DEFAULT_DATE_FORMAT = "MM/dd/yyyy"
-const val HEALTH_PROVIDER_MINIMUM_NUMBER_OF_DAYS_TO_RENEW_VACCINES_ = 30
-const val RESPONSE_DATE_FORMAT = "yyyy-MM-dd"
-const val DATE_FORMAT_EXPIRATION_DATE = "LLLL yyyy"
-const val DATE_FORMAT_EXPIRATION_DATE_OCR = "MM/yyyy"
 const val COMPOUND_DRAWABLE_POSITION_ARRAY_SIZE = 2
 const val DATE_EDIT_TEXT_RIGHT_COMPOUND_DRAWABLE_POSITION = 0
 const val DRAWABLE_RIGHT_POSITION = 2
@@ -109,7 +106,7 @@ const val MAXLINES_DEFAULT = 5
 const val DOLLAR_SYMBOL = "$"
 const val MONEY_FORMAT = "$###,###.##"
 const val MONEY_TWO_DECIMALS = "#.00"
-const val MONEY_MAX_AMOUNT = 1000000
+const val MONEY_MAX_AMOUNT = 1000000000000
 const val NON_NUMERICAL_SYMBOLS = "[$,]"
 const val COMMA_AS_DECIMAL = ","
 
@@ -120,11 +117,8 @@ const val BUTTON_WARNING_TYPE = "warning"
 const val BUTTON_INFO_TYPE = "info"
 const val BUTTON_SUCCESS_TYPE = "success"
 
-
 typealias ButtonType = String
-
 
 /** FONT PATHS **/
 const val OPEN_SANS_SEMI_BOLD = "fonts/OpenSans-SemiBold.ttf"
 const val OPEN_SANS_REGULAR = "fonts/OpenSans-Regular.ttf"
-

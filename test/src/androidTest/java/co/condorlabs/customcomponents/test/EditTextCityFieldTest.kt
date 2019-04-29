@@ -48,13 +48,13 @@ class EditTextCityFieldTest : MockActivityTest() {
     fun shouldHaveDefaultHint() {
         restartActivity()
 
-        //Given
+        // Given
         val view = Espresso.onView(ViewMatchers.withId(R.id.tlCity))
 
-        //When
+        // When
         view.perform(click())
 
-        //Then
+        // Then
         ViewMatchers.withHint("City").matches(view)
     }
 
@@ -64,13 +64,13 @@ class EditTextCityFieldTest : MockActivityTest() {
 
         ruleActivity.activity.findViewById<TextInputLayout>(R.id.tlCity).hint = "Custom Hint"
 
-        //Given
+        // Given
         val view = Espresso.onView(ViewMatchers.withId(R.id.tlCity))
 
-        //When
+        // When
         view.perform(click())
 
-        //Then
+        // Then
         ViewMatchers.withHint("Custom Hint").matches(view)
     }
 
@@ -78,17 +78,17 @@ class EditTextCityFieldTest : MockActivityTest() {
     fun shouldReturnErrorIfCityNotBelongToTheState() {
         restartActivity()
 
-        //Given
+        // Given
         val view = Espresso.onView(ViewMatchers.withId(R.id.etCity))
         val editTextCityField = (ruleActivity.activity.findViewById<View>(R.id.tlCity) as? EditTextCityField)
         editTextCityField?.setIsRequired(true)
 
-        //When
+        // When
         view.perform(typeText("C"))
         editTextCityField?.setCities(arrayListOf("Medellin", "Sabaneta"))
         editTextCityField?.setStateName("Antioquia")
 
-        //Then
+        // Then
         Assert.assertEquals(ValidationResult(false, "$VALIDATE_CITY_ERROR Antioquia"), editTextCityField?.isValid())
     }
 
@@ -96,28 +96,28 @@ class EditTextCityFieldTest : MockActivityTest() {
     fun shouldReturnErrorWithEmptyCity() {
         restartActivity()
 
-        //Given
+        // Given
         val editTextCityField = (ruleActivity.activity.findViewById<View>(R.id.tlCity) as? EditTextCityField)
         editTextCityField?.setIsRequired(true)
 
-        //When
+        // When
         val result = editTextCityField?.isValid()
 
-        //Then
-        Assert.assertEquals(ValidationResult(false, String.format(VALIDATE_EMPTY_ERROR,"City")), result)
+        // Then
+        Assert.assertEquals(ValidationResult(false, String.format(VALIDATE_EMPTY_ERROR, "City")), result)
     }
 
     @Test
     fun shouldNotReturnErrorWithEmptyCity() {
         restartActivity()
 
-        //Given
+        // Given
         val editTextCityField = (ruleActivity.activity.findViewById<View>(R.id.tlCity) as? EditTextCityField)
 
-        //When
+        // When
         val result = editTextCityField?.isValid()
 
-        //Then
+        // Then
         Assert.assertEquals(ValidationResult(true, EMPTY), result)
     }
 
@@ -125,12 +125,12 @@ class EditTextCityFieldTest : MockActivityTest() {
     fun shouldDisplayErrorWithStateName() {
         restartActivity()
 
-        //Given
+        // Given
         val view = Espresso.onView(ViewMatchers.withId(R.id.etCity))
         val editTextCityField = (ruleActivity.activity.findViewById<View>(R.id.tlCity) as? EditTextCityField)
         editTextCityField?.setIsRequired(true)
 
-        //When
+        // When
         view.perform(typeText("C"))
         editTextCityField?.setCities(arrayListOf("Medellin", "Sabaneta"))
         editTextCityField?.setStateName("Antioquia")
@@ -138,7 +138,7 @@ class EditTextCityFieldTest : MockActivityTest() {
             showErrorInInputLayout(it, it.isValid().error)
         }
 
-        //Then
+        // Then
         ViewMatchers.hasErrorText("$VALIDATE_CITY_ERROR Antioquia").matches(view)
     }
 }

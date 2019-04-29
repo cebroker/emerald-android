@@ -12,5 +12,5 @@ sealed class FileSelectorValue {
 
     class DrawableValue(val drawable: Drawable) : FileSelectorValue()
 
-    class BitmapValue(val bitmap: Bitmap): FileSelectorValue()
+    class BitmapValue(val bitmap: Bitmap) : FileSelectorValue()
 }

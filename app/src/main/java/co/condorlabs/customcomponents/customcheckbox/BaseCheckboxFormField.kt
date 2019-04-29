@@ -17,7 +17,10 @@
 package co.condorlabs.customcomponents.customcheckbox
 
 import android.content.Context
+import android.content.res.ColorStateList
+import android.graphics.Typeface
 import android.support.design.widget.TextInputLayout
+import android.support.v4.content.ContextCompat
 import android.util.AttributeSet
 import android.view.Gravity
 import android.widget.CheckBox
@@ -133,8 +136,34 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
         addCheckboxes()
     }
 
+    private fun setPaddingTop(): Int {
+        val paddingDp = PADDING_TOP
+        val density = context.resources.displayMetrics.density
+        return (paddingDp * density).toInt()
+    }
+
+    private fun setFont() {
+        val font = Typeface.createFromAsset(context.assets, OPEN_SANS_SEMI_BOLD)
+        typeface = font
+    }
+
+    private fun setStyleCheckBox(): ColorStateList {
+        val states = arrayOf(
+            intArrayOf(-android.R.attr.state_checked),
+            intArrayOf(android.R.attr.state_checked)
+        )
+
+        val colors = intArrayOf(
+            ContextCompat.getColor(context, R.color.defaultButtonBorderColor),
+            ContextCompat.getColor(context, R.color.primaryColor)
+        )
+
+        return ColorStateList(states, colors)
+    }
+
     private fun addCheckboxes() {
         removeAllViews()
+        setFont()
         addView(mTVLabel, mLayoutParams)
         mSelectables?.forEachIndexed { index, selectable ->
             addView(CheckBox(context).apply {
@@ -142,6 +171,8 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
                 text = selectable.label
                 isChecked = selectable.value
                 gravity = Gravity.TOP
+                setPadding(DEFAULT_PADDING, setPaddingTop(), DEFAULT_PADDING, DEFAULT_PADDING)
+                buttonTintList = setStyleCheckBox()
                 setOnCheckedChangeListener(this@BaseCheckboxFormField)
             }, mLayoutParams)
         }

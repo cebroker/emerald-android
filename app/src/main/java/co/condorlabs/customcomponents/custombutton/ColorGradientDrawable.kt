@@ -24,5 +24,4 @@ class ColorGradientDrawable : GradientDrawable() {
     fun getSolidColor(): Int = solidColor
 
     fun getStrokeColor(): Int = strokeColor
-
 }

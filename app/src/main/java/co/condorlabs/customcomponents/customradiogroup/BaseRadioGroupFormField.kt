@@ -48,7 +48,6 @@ abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: Att
         id = R.id.tvLabelRadioGroup
     }
 
-
     init {
         val typedArray = context.obtainStyledAttributes(
             mAttrs,
@@ -101,7 +100,6 @@ abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: Att
             id = R.id.rgBase
         }
 
-
         mRadioGroup?.setOnCheckedChangeListener { _, checkedId ->
 
             mSelectables?.forEach { it.value = false }
@@ -147,7 +145,7 @@ abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: Att
     }
 
     private fun isValidRadioButtonId(index: Int): Boolean {
-        return index <= mSelectables?.size ?: ZERO && index >= ZERO
-                && mSelectables?.size ?: ZERO > ZERO
+        return index <= mSelectables?.size ?: ZERO && index >= ZERO &&
+                mSelectables?.size ?: ZERO > ZERO
     }
 }

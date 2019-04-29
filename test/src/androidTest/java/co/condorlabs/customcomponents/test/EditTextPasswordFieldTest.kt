@@ -47,14 +47,14 @@ class EditTextPasswordFieldTest : MockActivityTest() {
     fun shouldShowAndErrorWithEmptyPassword() {
         restartActivity()
 
-        //Given
+        // Given
         val view = (ruleActivity.activity.findViewById<View>(R.id.tlPassword) as? EditTextPasswordField)
         view?.setIsRequired(true)
 
-        //When
+        // When
         val result = view?.isValid()
 
-        //Then
+        // Then
         Assert.assertEquals(
             ValidationResult(false, String.format(VALIDATE_EMPTY_ERROR, "Enter some text")),
             result
@@ -65,45 +65,44 @@ class EditTextPasswordFieldTest : MockActivityTest() {
     fun shouldNotSeePassword() {
         restartActivity()
 
-        //Given
+        // Given
         val view = Espresso.onView(ViewMatchers.withId(R.id.etPassword))
 
-        //When
+        // When
         view.perform(ViewActions.typeText("1234567890"))
 
-        //Then
+        // Then
         not(isTextDisplayed("1234567890"))
     }
 
     @Test
-    fun eyeIconIsDisplay(){
+    fun eyeIconIsDisplay() {
         Espresso.onView(allOf(withId(R.id.text_input_password_toggle), isDisplayed()))
     }
 
     @Test
     fun tapEyeToSeePassword() {
-        //Given
+        // Given
         shouldNotSeePassword()
         val checkableImageButton = Espresso.onView(withId(R.id.text_input_password_toggle))
 
-        //When
+        // When
         checkableImageButton.perform(ViewActions.click())
 
-        //Then
+        // Then
         isTextDisplayed("1234567890")
-
     }
 
     @Test
     fun tapEyeToHidePassword() {
-        //Given
+        // Given
         shouldNotSeePassword()
         val checkableImageButton = Espresso.onView(withId(R.id.text_input_password_toggle))
 
-        //When
+        // When
         checkableImageButton.perform(ViewActions.doubleClick())
 
-        //Then
+        // Then
         not(isTextDisplayed("1234567890"))
     }
 }

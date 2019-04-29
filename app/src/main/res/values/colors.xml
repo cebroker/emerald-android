@@ -33,8 +33,10 @@
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="defaultButtonBorderColor">#bec6c6</color>
+
+    <color name="rippleColor">#20FFFFFF</color>
+    <color name="defaultButtonStyleRippleColor">#10000000</color>
     <color name="defaultHintColor">#d3dbe7</color>
     <color name="textHintColor">#8EA7A7</color>
-
     <color name="textColor">#282e2e</color>
 </resources>

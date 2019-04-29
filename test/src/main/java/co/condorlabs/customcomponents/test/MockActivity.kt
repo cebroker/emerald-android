@@ -26,7 +26,7 @@ class MockActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_edittextdatefield_lower_and_upper_limit_test)
+        setContentView(layout)
 
     }
 

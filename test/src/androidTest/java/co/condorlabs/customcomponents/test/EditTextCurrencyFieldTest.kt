@@ -18,11 +18,16 @@ package co.condorlabs.customcomponents.test
 
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.action.ViewActions
+import android.support.test.espresso.action.ViewActions.click
+import android.support.test.espresso.action.ViewActions.pressKey
+import android.support.test.espresso.assertion.ViewAssertions.matches
 import android.support.test.espresso.matcher.ViewMatchers
 import android.support.test.runner.AndroidJUnit4
+import android.view.KeyEvent
 import android.view.View
 import co.condorlabs.customcomponents.customedittext.EditTextCurrencyField
 import co.condorlabs.customcomponents.formfield.ValidationResult
+import co.condorlabs.customcomponents.helper.DOLLAR_SYMBOL
 import co.condorlabs.customcomponents.helper.VALIDATE_EMPTY_ERROR
 import co.condorlabs.customcomponents.test.util.text
 import org.junit.Assert
@@ -46,15 +51,15 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
     @Test
     fun shouldShowAndErrorWithEmptyCurrency() {
 
-        //Given
+        // Given
         editText?.setIsRequired(true)
 
-        //When
+        // When
         val result = editText?.isValid()
 
-        //Then
+        // Then
         Assert.assertEquals(
-            ValidationResult(false, String.format(VALIDATE_EMPTY_ERROR,"Enter some text")),
+            ValidationResult(false, String.format(VALIDATE_EMPTY_ERROR, "Enter some text")),
             result
         )
     }
@@ -63,93 +68,126 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
     fun shouldFormatCurrency() {
 
         onView(editTextRef).perform(ViewActions.typeText("1"))
-        //Then
+        // Then
         Assert.assertEquals("$1", editText?.text())
 
         onView(editTextRef).perform(ViewActions.typeText("1"))
-        //Then
+        // Then
         Assert.assertEquals("$11", editText?.text())
 
-        //When
+        // When
         onView(editTextRef).perform(ViewActions.typeText("2"))
-        //Then
+        // Then
         Assert.assertEquals("$112", editText?.text())
 
-        //When
+        // When
         onView(editTextRef).perform(ViewActions.typeText("2"))
-        //Then
+        // Then
         Assert.assertEquals("$1,122", editText?.text())
 
-        //When
+        // When
         onView(editTextRef).perform(ViewActions.typeText("33"))
-        //Then
+        // Then
         Assert.assertEquals("$112,233", editText?.text())
     }
 
     @Test
     fun shouldFormatCurrencyWithMax2Decimals() {
 
-        //When
+        // When
         onView(editTextRef).perform(ViewActions.typeText("0"))
-        //Then
+        // Then
         Assert.assertEquals("$0", editText?.text())
 
-        //When
+        // When
         onView(editTextRef).perform(ViewActions.typeText("."))
-        //Then
+        // Then
         Assert.assertEquals("$0.", editText?.text())
 
-        //When
+        // When
         onView(editTextRef).perform(ViewActions.typeText("0"))
-        //Then
+        // Then
         Assert.assertEquals("$0.0", editText?.text())
 
-        //When
+        // When
         onView(editTextRef).perform(ViewActions.typeText("5"))
-        //Then
+        // Then
         Assert.assertEquals("$0.05", editText?.text())
 
-        //When
+        // When
         onView(editTextRef).perform(ViewActions.typeText("8"))
-        //Then
+        // Then
         Assert.assertEquals("$0.05", editText?.text())
     }
 
     @Test
     fun shouldAllowMax1_000_000() {
 
-        //When
-        onView(editTextRef).perform(ViewActions.typeText("1000001"))
-        //Then
-        Assert.assertEquals("$100,000", editText?.text())
+        // When
+        onView(editTextRef).perform(ViewActions.typeText("1000000000001"))
+        // Then
+        Assert.assertEquals("$100,000,000,000", editText?.text())
 
-        //When
+        // When
         onView(editTextRef).perform(ViewActions.typeText("0"))
-        //Then
-        Assert.assertEquals("$1,000,000", editText?.text())
+        // Then
+        Assert.assertEquals("$1,000,000,000,000", editText?.text())
 
-        //When
+        // When
         onView(editTextRef).perform(ViewActions.typeText("0"))
-        //Then
-        Assert.assertEquals("$1,000,000", editText?.text())
+        // Then
+        Assert.assertEquals("$1,000,000,000,000", editText?.text())
 
-        //When
-        onView(editTextRef).perform(ViewActions.typeText("10000001"))
-        //Then
-        Assert.assertEquals("$1,000,000", editText?.text())
+        // When
+        onView(editTextRef).perform(ViewActions.typeText("10000000000001"))
+        // Then
+        Assert.assertEquals("$1,000,000,000,000", editText?.text())
 
-        //When
+        // When
         onView(editTextRef).perform(ViewActions.typeText("."))
-        //Then
-        Assert.assertEquals("$1,000,000", editText?.text())
+        // Then
+        Assert.assertEquals("$1,000,000,000,000", editText?.text())
     }
 
     @Test
     fun shouldNotAllowPasteNumberBiggerThanMax() {
 
+        // When
+        onView(editTextRef).perform(ViewActions.replaceText("1000000000001"))
+        // Then
+        Assert.assertEquals(DOLLAR_SYMBOL, editText?.text())
+    }
+
+    @Test
+    fun shouldShowDollarSymbolOnStart() {
+
+        // Then
+        Assert.assertEquals(DOLLAR_SYMBOL, editText?.text())
+    }
+
+    @Test
+    fun shouldShowDollarSymbolWhenType() {
+        //Given
+        val view = onView(editTextRef)
+
         //When
-        onView(editTextRef).perform(ViewActions.replaceText("1000001"))
+        view.perform(ViewActions.typeText("123"))
+
         //Then
-        Assert.assertEquals("", editText?.text())
+        view.check(matches(ViewMatchers.withSubstring("$")))
+    }
+
+    @Test
+    fun shouldShowDollarSymbolOnDelete() {
+        //Given
+        val view = onView(editTextRef)
+
+        //When
+        view.perform(ViewActions.typeText("1"))
+            .perform(click())
+            .perform(pressKey(KeyEvent.KEYCODE_DEL))
+
+        //Then
+        view.check(matches(ViewMatchers.withSubstring("$")))
     }
 }

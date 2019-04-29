@@ -20,8 +20,13 @@ import android.content.Context
 import android.util.AttributeSet
 import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.formfield.ValidationResult
+import co.condorlabs.customcomponents.helper.DOLLAR_SYMBOL
+import co.condorlabs.customcomponents.helper.EMPTY
 import co.condorlabs.customcomponents.helper.VALIDATE_CURRENCY_ERROR
+import co.condorlabs.customcomponents.helper.VALIDATE_EMPTY_ERROR
 import co.condorlabs.customcomponents.helper.masks.PriceTextWatcherMask
+import java.util.regex.Pattern
+
 
 class EditTextCurrencyField(context: Context, attrs: AttributeSet) : BaseEditTextFormField(context, attrs) {
 
@@ -35,5 +40,22 @@ class EditTextCurrencyField(context: Context, attrs: AttributeSet) : BaseEditTex
         val _editText = mEditText?.let { it } ?: return
         _editText.id = R.id.etCurrency
         _editText.addTextChangedListener(PriceTextWatcherMask(_editText))
+        _editText.setText(DOLLAR_SYMBOL)
+    }
+
+    override fun isValid(): ValidationResult {
+        return when {
+            isFieldEmpty(mEditText?.text.toString()) && isRequired -> ValidationResult(
+                false,
+                String.format(VALIDATE_EMPTY_ERROR, mHint)
+            )
+            mEditText?.text.toString().isNotEmpty() && mRegex != null &&
+                    !Pattern.compile(mRegex).matcher(mEditText?.text.toString()).matches() -> getErrorValidateResult()
+            else -> ValidationResult(true, EMPTY)
+        }
+    }
+
+    private fun isFieldEmpty(text: String?): Boolean {
+        return text == DOLLAR_SYMBOL
     }
 }

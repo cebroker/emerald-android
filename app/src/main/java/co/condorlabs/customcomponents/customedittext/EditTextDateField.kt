@@ -148,7 +148,6 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
                     )
                 )
             }
-
         }
 
         return result
@@ -178,7 +177,6 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
             EMPTY
         }
     }
-
 
     @Throws(ParseException::class)
     private fun parseDate(format: String, candidate: String): Long {
@@ -262,7 +260,6 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
 
         val rightDrawable =
             (touchedView as? TextView)?.compoundDrawables?.get(DRAWABLE_RIGHT_POSITION)?.let { it } ?: return false
-
 
         val drawableWidth = rightDrawable.bounds.width()
 
