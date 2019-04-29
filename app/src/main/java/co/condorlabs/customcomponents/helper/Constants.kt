@@ -19,7 +19,6 @@ package co.condorlabs.customcomponents.helper
 const val VALIDATE_EMPTY_ERROR = "Field %s must not be empty."
 const val VALIDATE_LOWER_LIMIT_DATE_ERROR = "The %s can't be before the %s"
 const val VALIDATE_UPPER_LIMIT_DATE_ERROR = "The %s can't be after the %s"
-const val VALIDATE_NUMERIC_ERROR = "This field must be numeric."
 const val VALIDATE_LENGTH_ERROR = "This field must have ten digits."
 const val VALIDATE_EMAIL_ERROR = "Email incorrect."
 const val VALIDATE_DATE_ERROR = "Date incorrect."
@@ -36,27 +35,19 @@ const val DIGITS_PHONE = "0123456789-"
 
 const val DEFAULT_STYLE_ATTR = 0
 const val DEFAULT_STYLE_RES = 0
-const val PADDING_TOP = 3
+const val PADDING_TOP = 5
 const val DEFAULT_PADDING = 0
 
 /**PHONE NUMBER FORMATS**/
 const val PHONE_NUMBER_FORMAT_FIRST_HYPHEN_INDEX = 3
 const val PHONE_NUMBER_FORMAT_SECOND_HYPHEN_INDEX = 7
-const val PHONE_NUMBER_FORMAT_FIRST_NUMBER_AFTER_HYPHEN_INDEX = 4
-const val PHONE_NUMBER_FORMAT_SECOND_NUMBER_AFTER_HYPHEN_INDEX = 8
-const val PHONE_NUMBER_FORMAT_NO_HYPHEN_COUNT = 0
-const val PHONE_NUMBER_FORMAT_ONE_HYPHEN_COUNT = 1
 const val HYPHEN = "-"
-const val OPTION_PHONE = 0
-const val OPTION_EMAIL = 1
-const val OPTION_DATE = 2
 const val PHONE_NUMBER_REGEX = "\\d{3}-\\d{3}-\\d{4}"
 const val NO_DIGITS_REGEX = "[^\\d.]|\\."
 const val DATE_REGEX = "\\d{2}\\/\\d{2}\\/\\d{4}"
 const val SLASH = "/"
 const val ZERO = 0
 const val ONE = 1
-const val TWO = 0
 const val PHONE_NUMBER_REGEX_FIRST_GROUP_RANGE_BOTTOM = 0
 const val PHONE_NUMBER_REGEX_FIRST_GROUP_RANGE_TOP = 3
 const val PHONE_NUMBER_REGEX_SECOND_GROUP_RANGE_BOTTOM = 4
@@ -70,7 +61,6 @@ const val PHONE_NUMBER_REGEX_SECOND_GROUP_REPLACEMENT_MATCHER = "$1-$2"
 const val PHONE_NUMBER_REGEX_THIRD_GROUP_REPLACEMENT_MATCHER = "$1-$2-$3"
 const val FIRST_EDITTEXT_SELECTION_CHARACTER = 0
 const val PHONE_NUMBER_SEPARATOR_TOKEN = "-"
-const val VIEW_GROUP_FIRST_VIEW_POSITION = 0
 
 /**DATE FORMATS**/
 const val DATE_MASK_DATE_FORMAT_WITHOUT_SLASH = "MMDDYYYY"
