@@ -17,6 +17,7 @@
 package co.condorlabs.customcomponents.customedittext
 
 import android.content.Context
+import android.graphics.Typeface
 import android.support.design.widget.TextInputLayout
 import android.text.Editable
 import android.text.InputFilter
@@ -24,9 +25,9 @@ import android.text.InputType
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.util.TypedValue
+import android.view.ContextThemeWrapper
 import android.view.View
 import android.widget.EditText
-import android.widget.LinearLayout
 import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
@@ -37,7 +38,8 @@ import java.util.regex.Pattern
  * @author Oscar Gallon on 2/26/19.
  */
 open class BaseEditTextFormField(context: Context, private val attrs: AttributeSet) :
-    TextInputLayout(context, attrs), FormField<String>, View.OnFocusChangeListener {
+    TextInputLayout(ContextThemeWrapper(context, R.style.TextFormFieldTheme), attrs), FormField<String>,
+    View.OnFocusChangeListener {
 
     override var isRequired: Boolean = false
 
@@ -52,9 +54,9 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
 
     private var mMultiline: Boolean = false
     private var mInputType: Int = InputType.TYPE_CLASS_TEXT
-    private val mLayoutParams = LinearLayout.LayoutParams(
-        LinearLayout.LayoutParams.MATCH_PARENT,
-        LinearLayout.LayoutParams.WRAP_CONTENT
+    private val mLayoutParams = LayoutParams(
+        LayoutParams.MATCH_PARENT,
+        LayoutParams.WRAP_CONTENT
     )
 
     init {
@@ -93,8 +95,9 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
     }
 
     override fun setup() {
-        mEditText = EditText(context)
+        mEditText = EditText(ContextThemeWrapper(context, R.style.TextFormFieldTheme))
         mEditText?.inputType = mInputType
+        setFont(OPEN_SANS_REGULAR)
 
         val _editText = mEditText?.let { it } ?: return
         _editText.onFocusChangeListener = this
@@ -143,7 +146,7 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
                 false,
                 String.format(VALIDATE_EMPTY_ERROR, mHint)
             )
-            !mEditText?.text.toString().isEmpty() && mRegex != null && !Pattern.compile(mRegex).matcher(mEditText?.text.toString()).matches() -> getErrorValidateResult()
+            mEditText?.text.toString().isNotEmpty() && mRegex != null && !Pattern.compile(mRegex).matcher(mEditText?.text.toString()).matches() -> getErrorValidateResult()
             else -> ValidationResult(true, EMPTY)
         }
     }
@@ -185,6 +188,11 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
 
     fun setBackgroundAlpha(backgroundAlpha: Int) {
         mEditText?.background?.alpha = backgroundAlpha
+    }
+
+    private fun setFont(fontName: String) {
+        val font = Typeface.createFromAsset(context.assets, fontName)
+        typeface = font
     }
 
     override fun onFocusChange(v: View?, hasFocus: Boolean) {

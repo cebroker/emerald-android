@@ -24,6 +24,7 @@
     <color name="file_selector_background">#F5F5F5</color>
     <color name="text_tap_color">#42A5F5</color>
 
+    <color name="defaultHighlightColor">#800073E9</color>
     <color name="primaryColor">#0073e9</color>
     <color name="dangerColor">#de350b</color>
     <color name="warningColor">#ffaa00</color>
@@ -35,5 +36,7 @@
 
     <color name="rippleColor">#20FFFFFF</color>
     <color name="defaultButtonStyleRippleColor">#10000000</color>
-    <color name="defaultHintColor">#4b5353</color>
+    <color name="defaultHintColor">#d3dbe7</color>
+    <color name="textHintColor">#8EA7A7</color>
+    <color name="textColor">#282e2e</color>
 </resources>

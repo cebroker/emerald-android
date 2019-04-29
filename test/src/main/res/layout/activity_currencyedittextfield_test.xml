@@ -20,7 +20,7 @@
               android:layout_width="match_parent" android:layout_height="match_parent">
 
     <co.condorlabs.customcomponents.customedittext.EditTextCurrencyField
-            android:layout_width="253dp"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tlCurrency"
             app:input_type="numberDecimal" />
