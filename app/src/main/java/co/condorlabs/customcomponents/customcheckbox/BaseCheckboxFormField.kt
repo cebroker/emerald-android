@@ -137,7 +137,7 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
     }
 
     private fun setPaddingTop(): Int {
-        val paddingDp = DEFAULT_MARGIN_TOP
+        val paddingDp = PADDING_TOP
         val density = context.resources.displayMetrics.density
         return (paddingDp * density).toInt()
     }
@@ -145,6 +145,20 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
     private fun setFont() {
         val font = Typeface.createFromAsset(context.assets, OPEN_SANS_SEMI_BOLD)
         typeface = font
+    }
+
+    private fun setStyleCheckBox(): ColorStateList {
+        val states = arrayOf(
+            intArrayOf(-android.R.attr.state_checked),
+            intArrayOf(android.R.attr.state_checked)
+        )
+
+        val colors = intArrayOf(
+            ContextCompat.getColor(context, R.color.defaultButtonBorderColor),
+            ContextCompat.getColor(context, R.color.primaryColor)
+        )
+
+        return ColorStateList(states, colors)
     }
 
     private fun addCheckboxes() {
@@ -157,17 +171,8 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
                 text = selectable.label
                 isChecked = selectable.value
                 gravity = Gravity.TOP
-                setPadding(0, setPaddingTop(), 0, 0)
-                val states = arrayOf(
-                    intArrayOf(-android.R.attr.state_checked),
-                    intArrayOf(android.R.attr.state_checked)
-                )
-
-                val colors = intArrayOf(ContextCompat.getColor(context, R.color.defaultButtonBorderColor), ContextCompat.getColor(context, R.color.primaryColor))
-
-                val myList = ColorStateList(states, colors)
-                buttonTintList = myList
-
+                setPadding(DEFAULT_PADDING, setPaddingTop(), DEFAULT_PADDING, DEFAULT_PADDING)
+                buttonTintList = setStyleCheckBox()
                 setOnCheckedChangeListener(this@BaseCheckboxFormField)
             }, mLayoutParams)
         }
