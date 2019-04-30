@@ -33,4 +33,17 @@
         <item name="android:buttonTint">@color/radio_button_selector_color_button</item>
         <item name="android:background">@drawable/radio_button_selector_background</item>
     </style>
+    <style name="DatePickerTheme" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/primaryColor</item>
+    </style>
+
+    <style name="TextFormFieldTheme" parent="ThemeOverlay.AppCompat.Light">
+        <item name="colorControlActivated">@color/primaryColor</item>
+        <item name="colorControlNormal">@color/defaultHintColor</item>
+        <item name="colorAccent">@color/defaultHintColor</item>
+        <item name="android:textColor">@color/textColor</item>
+        <item name="android:textColorHint">@color/textHintColor</item>
+        <item name="android:colorControlHighlight">@color/defaultHintColor</item>
+        <item name="android:textColorHighlight">@color/defaultHighlightColor</item>
+    </style>
 </resources>

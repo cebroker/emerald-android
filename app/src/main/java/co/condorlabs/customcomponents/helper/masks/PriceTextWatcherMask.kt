@@ -37,53 +37,62 @@ class PriceTextWatcherMask(private val receiver: EditText) : TextWatcherAdapter(
     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
         super.beforeTextChanged(s, start, count, after)
         previousText = s.toString()
+
     }
 
     override fun afterTextChanged(s: Editable?) {
-        s?.toString()
-            ?.let { text ->
-                receiver.removeTextChangedListener(this)
-                try {
-                    if (text == DOLLAR_SYMBOL || text.isEmpty()) {
-                        setSelectionAndListener()
-                        return
-                    }
-                    val currentlyAmount = getPriceFromCurrency(text)
+        val text = s?.toString() ?: return
 
-                    if (!isAllowedAmount(currentlyAmount)) {
-                        receiver.setText(previousText)
-                        setSelectionAndListener()
-                        return
-                    }
+        receiver.removeTextChangedListener(this)
 
-                    if (text.last() == '.') {
-                        if (isMaxAmount(currentlyAmount)) {
-                            receiver.setText(maxAmount.toDollarAmount())
-                            setSelectionAndListener()
-                            return
-                        }
-                        receiver.setText(text)
-                        setSelectionAndListener()
-                        return
-                    }
+        if (text.isEmpty()) {
+            receiver.setText(DOLLAR_SYMBOL)
+            setSelectionAndListener()
+            return
+        }
 
-                    if (text.last() == '0') {
-                        when {
-                            previousText.isEmpty() -> receiver.setText(text.toBigDecimal().toDollarAmount())
-                            previousText.last() == '.' -> receiver.setText(text)
-                            else -> {
-                                receiver.setText(currentlyAmount.toDollarAmount())
-                            }
-                        }
-                        setSelectionAndListener()
-                        return
+        if (text == DOLLAR_SYMBOL) {
+            setSelectionAndListener()
+            return
+        }
+
+        try {
+            val currentlyAmount = getPriceFromCurrency(text)
+
+            if (!isAllowedAmount(currentlyAmount)) {
+                receiver.setText(previousText)
+                setSelectionAndListener()
+                return
+            }
+
+            if (text.last() == '.') {
+                if (isMaxAmount(currentlyAmount)) {
+                    receiver.setText(maxAmount.toDollarAmount())
+                    setSelectionAndListener()
+                    return
+                }
+                receiver.setText(text)
+                setSelectionAndListener()
+                return
+            }
+
+            if (text.last() == '0') {
+                when {
+                    previousText.isEmpty() -> receiver.setText(text.toBigDecimal().toDollarAmount())
+                    previousText.last() == '.' -> receiver.setText(text)
+                    else -> {
+                        receiver.setText(currentlyAmount.toDollarAmount())
                     }
-                    receiver.setText(currentlyAmount.toDollarAmount())
-                } catch (exception: Throwable) {
-                    receiver.setText(previousText)
                 }
                 setSelectionAndListener()
+                return
             }
+            receiver.setText(currentlyAmount.toDollarAmount())
+        } catch (exception: Throwable) {
+            receiver.setText(previousText)
+        }
+
+        setSelectionAndListener()
     }
 
     private fun getPriceFromCurrency(text: String): BigDecimal {

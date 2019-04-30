@@ -92,15 +92,13 @@ class SpinnerFormFieldTest : MockActivityTest() {
         // Given
         val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
         val view = Espresso.onView(withId(R.id.spState))
-        val dataList = ArrayList<SpinnerData>()
-
-        for(i in 0..30) {
-            dataList.add(SpinnerData("4", "Antioquia adskfhas ldfjhak sjdhfk ashdf kjahsd f"))
-        }
+        val data = SpinnerData("1", "Antioquia")
+        val data1 = SpinnerData("2", "Cundinamarca")
+        val data3 = SpinnerData("3", "Atlantico")
 
         // When
         ruleActivity.runOnUiThread {
-            formField.setData(dataList)
+            formField.setData(arrayListOf(data, data1, data3))
         }
         view.perform(click())
         onData(
