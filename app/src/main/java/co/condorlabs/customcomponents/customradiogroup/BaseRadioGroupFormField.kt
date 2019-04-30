@@ -29,22 +29,20 @@ import co.condorlabs.customcomponents.formfield.Selectable
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.*
 
-abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: AttributeSet) :
-    TextInputLayout(context, mAttrs), FormField<String> {
+abstract class BaseRadioGroupFormField(
+    context: Context, private val mAttrs: AttributeSet
+) : TextInputLayout(context, mAttrs), FormField<String> {
 
     protected var mValueChangeListener: ValueChangeListener<String>? = null
-
-    private var mSelectables: List<Selectable>? = null
-    private var mRadioGroup: RadioGroup? = null
-    private var mLabelText = EMPTY
-    private var spaceBetweenItems = 10
-
+    private var selectables: List<Selectable>? = null
+    private var radioGroup: RadioGroup? = null
+    private var labelText = EMPTY
+    private var spaceBetweenItems = DEFATUL_SPACE_BETWEEN_ITEMS
     private val mLayoutParams = LayoutParams(
         LayoutParams.MATCH_PARENT,
         LayoutParams.WRAP_CONTENT
     )
-
-    private val mTVLabel = TextView(context, mAttrs).apply {
+    private val tvLabel = TextView(context, mAttrs).apply {
         id = R.id.tvLabelRadioGroup
     }
 
@@ -56,8 +54,9 @@ abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: Att
         )
 
         isRequired = typedArray.getBoolean(R.styleable.BaseRadioGroupFormField_is_required, false)
-        mLabelText = typedArray.getString(R.styleable.BaseRadioGroupFormField_title) ?: EMPTY
-        spaceBetweenItems = typedArray.getInteger(R.styleable.BaseRadioGroupFormField_space_between_items, 10)
+        labelText = typedArray.getString(R.styleable.BaseRadioGroupFormField_title) ?: EMPTY
+        spaceBetweenItems =
+            typedArray.getInteger(R.styleable.BaseRadioGroupFormField_space_between_items, DEFATUL_SPACE_BETWEEN_ITEMS)
         typedArray.recycle()
     }
 
@@ -67,13 +66,13 @@ abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: Att
     }
 
     override fun getErrorValidateResult(): ValidationResult {
-        return ValidationResult(false, String.format(MESSAGE_FORMAT_ERROR, mLabelText))
+        return ValidationResult(false, String.format(MESSAGE_FORMAT_ERROR, labelText))
     }
 
     override fun isValid(): ValidationResult {
         when {
             isRequired -> {
-                if (mRadioGroup?.checkedRadioButtonId == NO_RADIO_GROUP_SELECTED_VALUE_FOUND_RETURNED_VALUE) {
+                if (radioGroup?.checkedRadioButtonId == NO_RADIO_GROUP_SELECTED_VALUE_FOUND_RETURNED_VALUE) {
                     return getErrorValidateResult()
                 } else {
                     clearError()
@@ -94,18 +93,17 @@ abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: Att
     }
 
     override fun setup() {
-        mTVLabel.text = mLabelText
-        addView(mTVLabel, mLayoutParams)
-        mRadioGroup = RadioGroup(context, mAttrs).apply {
+        tvLabel.text = labelText
+        addView(tvLabel, mLayoutParams)
+        radioGroup = RadioGroup(context, mAttrs).apply {
             id = R.id.rgBase
         }
 
-        mRadioGroup?.setOnCheckedChangeListener { _, checkedId ->
-
-            mSelectables?.forEach { it.value = false }
+        radioGroup?.setOnCheckedChangeListener { _, checkedId ->
+            selectables?.forEach { it.value = false }
 
             if (isValidRadioButtonId(checkedId)) {
-                val checkedItem = mSelectables?.get(checkedId)?.let { it } ?: return@setOnCheckedChangeListener
+                val checkedItem = selectables?.get(checkedId)?.let { it } ?: return@setOnCheckedChangeListener
                 checkedItem.value = true
                 mValueChangeListener?.onValueChange(checkedItem.label)
             } else {
@@ -117,11 +115,11 @@ abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: Att
             }
         }
 
-        addView(mRadioGroup, mLayoutParams)
+        addView(radioGroup, mLayoutParams)
     }
 
     override fun getValue(): String {
-        return mSelectables?.firstOrNull { it.value }?.label ?: EMPTY
+        return selectables?.firstOrNull { it.value }?.label ?: EMPTY
     }
 
     override fun setValueChangeListener(valueChangeListener: ValueChangeListener<String>) {
@@ -129,14 +127,14 @@ abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: Att
     }
 
     fun setSelectables(selectables: List<Selectable>) {
-        mSelectables = selectables
+        this.selectables = selectables
         addRadioButtons()
     }
 
     private fun addRadioButtons() {
-        mRadioGroup?.removeAllViews()
-        mSelectables?.forEachIndexed { index, selectable ->
-            mRadioGroup?.addView(
+        radioGroup?.removeAllViews()
+        selectables?.forEachIndexed { index, selectable ->
+            radioGroup?.addView(
                 RadioButton(context, null, ZERO, R.style.radio_button_custom_style).apply {
                     id = index
                     text = selectable.label
@@ -145,7 +143,7 @@ abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: Att
                         LayoutParams.MATCH_PARENT,
                         LayoutParams.WRAP_CONTENT
                     ).apply {
-                        if (index < (mSelectables?.size?.minus(ONE) ?: ZERO))
+                        if (index < (selectables?.size?.minus(ONE) ?: ZERO))
                             setMargins(ZERO, ZERO, ZERO, spaceBetweenItems)
                     }
                 }
@@ -154,7 +152,7 @@ abstract class BaseRadioGroupFormField(context: Context, private val mAttrs: Att
     }
 
     private fun isValidRadioButtonId(index: Int): Boolean {
-        return index <= mSelectables?.size ?: ZERO && index >= ZERO &&
-                mSelectables?.size ?: ZERO > ZERO
+        return index <= selectables?.size ?: ZERO && index >= ZERO &&
+                selectables?.size ?: ZERO > ZERO
     }
 }
