@@ -114,4 +114,4 @@ const val OPEN_SANS_SEMI_BOLD = "fonts/OpenSans-SemiBold.ttf"
 const val OPEN_SANS_REGULAR = "fonts/OpenSans-Regular.ttf"
 
 /** RADIO GROUP **/
-const val DEFATUL_SPACE_BETWEEN_ITEMS = 10
+const val DEFAULT_SPACE_BETWEEN_ITEMS = 10

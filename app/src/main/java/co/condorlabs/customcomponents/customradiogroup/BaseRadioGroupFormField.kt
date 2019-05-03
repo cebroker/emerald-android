@@ -30,25 +30,25 @@ import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.*
 
 abstract class BaseRadioGroupFormField(
-    context: Context, private val mAttrs: AttributeSet
-) : TextInputLayout(context, mAttrs), FormField<String> {
+    context: Context, private val attrs: AttributeSet
+) : TextInputLayout(context, attrs), FormField<String> {
 
     protected var mValueChangeListener: ValueChangeListener<String>? = null
     private var selectables: List<Selectable>? = null
     private var radioGroup: RadioGroup? = null
     private var labelText = EMPTY
-    private var spaceBetweenItems = DEFATUL_SPACE_BETWEEN_ITEMS
-    private val mLayoutParams = LayoutParams(
+    private var spaceBetweenItems = DEFAULT_SPACE_BETWEEN_ITEMS
+    private val layoutParams = LayoutParams(
         LayoutParams.MATCH_PARENT,
         LayoutParams.WRAP_CONTENT
     )
-    private val tvLabel = TextView(context, mAttrs).apply {
+    private val tvLabel = TextView(context, attrs).apply {
         id = R.id.tvLabelRadioGroup
     }
 
     init {
         val typedArray = context.obtainStyledAttributes(
-            mAttrs,
+            attrs,
             R.styleable.BaseRadioGroupFormField,
             DEFAULT_STYLE_ATTR, DEFAULT_STYLE_RES
         )
@@ -56,7 +56,7 @@ abstract class BaseRadioGroupFormField(
         isRequired = typedArray.getBoolean(R.styleable.BaseRadioGroupFormField_is_required, false)
         labelText = typedArray.getString(R.styleable.BaseRadioGroupFormField_title) ?: EMPTY
         spaceBetweenItems =
-            typedArray.getInteger(R.styleable.BaseRadioGroupFormField_space_between_items, DEFATUL_SPACE_BETWEEN_ITEMS)
+            typedArray.getInteger(R.styleable.BaseRadioGroupFormField_space_between_items, DEFAULT_SPACE_BETWEEN_ITEMS)
         typedArray.recycle()
     }
 
@@ -94,8 +94,8 @@ abstract class BaseRadioGroupFormField(
 
     override fun setup() {
         tvLabel.text = labelText
-        addView(tvLabel, mLayoutParams)
-        radioGroup = RadioGroup(context, mAttrs).apply {
+        addView(tvLabel, layoutParams)
+        radioGroup = RadioGroup(context, attrs).apply {
             id = R.id.rgBase
         }
 
@@ -115,7 +115,7 @@ abstract class BaseRadioGroupFormField(
             }
         }
 
-        addView(radioGroup, mLayoutParams)
+        addView(radioGroup, layoutParams)
     }
 
     override fun getValue(): String {
