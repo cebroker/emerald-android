@@ -50,7 +50,6 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
 
     @Test
     fun shouldShowAndErrorWithEmptyCurrency() {
-
         // Given
         editText?.setIsRequired(true)
 
@@ -66,11 +65,12 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
 
     @Test
     fun shouldFormatCurrency() {
-
+        // When
         onView(editTextRef).perform(ViewActions.typeText("1"))
         // Then
         Assert.assertEquals("$1", editText?.text())
 
+        // When
         onView(editTextRef).perform(ViewActions.typeText("1"))
         // Then
         Assert.assertEquals("$11", editText?.text())
@@ -93,7 +93,6 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
 
     @Test
     fun shouldFormatCurrencyWithMax2Decimals() {
-
         // When
         onView(editTextRef).perform(ViewActions.typeText("0"))
         // Then
@@ -121,8 +120,15 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
     }
 
     @Test
-    fun shouldAllowMax1_000_000() {
+    fun shouldAllowToWriteZeroAsLastDecimal() {
+        // When
+        onView(editTextRef).perform(ViewActions.typeText("1.40"))
+        // Then
+        Assert.assertEquals("$1.40", editText?.text())
+    }
 
+    @Test
+    fun shouldAllowMax1_000_000() {
         // When
         onView(editTextRef).perform(ViewActions.typeText("1000000000001"))
         // Then
@@ -151,7 +157,6 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
 
     @Test
     fun shouldNotAllowPasteNumberBiggerThanMax() {
-
         // When
         onView(editTextRef).perform(ViewActions.replaceText("1000000000001"))
         // Then
@@ -159,35 +164,73 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
     }
 
     @Test
-    fun shouldShowDollarSymbolOnStart() {
+    fun shouldDeleteDecimalPart() {
+        // When
+        onView(editTextRef).perform(ViewActions.replaceText("$2,333.05"))
+        // Then
+        Assert.assertEquals("$2,333.05", editText?.text())
 
+        // When
+        onView(editTextRef).perform(pressKey(KeyEvent.KEYCODE_DEL))
+        // Then
+        Assert.assertEquals("$2,333.0", editText?.text())
+
+        // When
+        onView(editTextRef).perform(pressKey(KeyEvent.KEYCODE_DEL))
+        // Then
+        Assert.assertEquals("$2,333.", editText?.text())
+
+        // When
+        onView(editTextRef).perform(pressKey(KeyEvent.KEYCODE_DEL))
+        // Then
+        Assert.assertEquals("$2,333", editText?.text())
+    }
+
+    @Test
+    fun shouldFormatDeleting() {
+        // Given
+        onView(editTextRef).perform(ViewActions.replaceText("$111,222,333"))
+
+        // When
+        onView(editTextRef).perform(pressKey(KeyEvent.KEYCODE_DEL))
+        // Then
+        Assert.assertEquals("$11,122,233", editText?.text())
+
+        // When
+        onView(editTextRef).perform(pressKey(KeyEvent.KEYCODE_DEL))
+        // Then
+        Assert.assertEquals("$1,112,223", editText?.text())
+    }
+
+    @Test
+    fun shouldShowDollarSymbolOnStart() {
         // Then
         Assert.assertEquals(DOLLAR_SYMBOL, editText?.text())
     }
 
     @Test
     fun shouldShowDollarSymbolWhenType() {
-        //Given
+        // Given
         val view = onView(editTextRef)
 
-        //When
+        // When
         view.perform(ViewActions.typeText("123"))
 
-        //Then
+        // Then
         view.check(matches(ViewMatchers.withSubstring("$")))
     }
 
     @Test
     fun shouldShowDollarSymbolOnDelete() {
-        //Given
+        // Given
         val view = onView(editTextRef)
 
-        //When
+        // When
         view.perform(ViewActions.typeText("1"))
             .perform(click())
             .perform(pressKey(KeyEvent.KEYCODE_DEL))
 
-        //Then
+        // Then
         view.check(matches(ViewMatchers.withSubstring("$")))
     }
 }
