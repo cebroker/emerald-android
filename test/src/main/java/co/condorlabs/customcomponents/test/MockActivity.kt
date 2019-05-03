@@ -17,7 +17,8 @@
 package co.condorlabs.customcomponents.test
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
+import co.condorlabs.customcomponents.loadingfragment.LoadingFragment
 
 /**
  * @author Oscar Gallon on 2/21/19.
@@ -26,8 +27,13 @@ class MockActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(layout)
+        setContentView(R.layout.activity_mock)
+
+        supportFragmentManager?.beginTransaction()
+            ?.replace(R.id.ll, LoadingFragment.newInstance())
+            ?.commitAllowingStateLoss()
     }
+
 
     companion object {
         var layout: Int = R.layout.activity_mock

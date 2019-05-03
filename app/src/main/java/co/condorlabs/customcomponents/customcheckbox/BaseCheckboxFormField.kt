@@ -19,8 +19,8 @@ package co.condorlabs.customcomponents.customcheckbox
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Typeface
-import android.support.design.widget.TextInputLayout
-import android.support.v4.content.ContextCompat
+import com.google.android.material.textfield.TextInputLayout
+import androidx.core.content.ContextCompat
 import android.util.AttributeSet
 import android.view.Gravity
 import android.widget.CheckBox

@@ -1,8 +1,8 @@
 package co.condorlabs.customcomponents.test
 
 import android.graphics.drawable.LayerDrawable
-import android.support.test.runner.AndroidJUnit4
-import android.support.v4.content.ContextCompat
+import androidx.test.runner.AndroidJUnit4
+import androidx.core.content.ContextCompat
 import co.condorlabs.customcomponents.custombutton.ColorGradientDrawable
 import co.condorlabs.customcomponents.custombutton.CustomButton
 import org.junit.Assert

@@ -19,7 +19,7 @@ package co.condorlabs.customcomponents.customedittext
 import android.app.DatePickerDialog
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import android.text.InputType
 import android.text.TextUtils
 import android.util.AttributeSet

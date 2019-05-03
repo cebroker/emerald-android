@@ -17,7 +17,7 @@
 package co.condorlabs.customcomponents.customspinner
 
 import android.content.Context
-import android.support.design.widget.TextInputLayout
+import com.google.android.material.textfield.TextInputLayout
 import android.util.AttributeSet
 import android.view.View
 import android.widget.AdapterView
