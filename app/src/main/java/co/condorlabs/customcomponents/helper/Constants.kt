@@ -112,3 +112,25 @@ typealias ButtonType = String
 /** FONT PATHS **/
 const val OPEN_SANS_SEMI_BOLD = "fonts/OpenSans-SemiBold.ttf"
 const val OPEN_SANS_REGULAR = "fonts/OpenSans-Regular.ttf"
+
+/** MONTH AND YEAR PICKER **/
+const val MAX_YEAR = 2099
+const val MIN_YEAR = 1900
+const val MIN_MONTH = 0
+const val MAX_MONTH = 11
+val MONTHS = arrayOf(
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+)
+
+/** MONTH AND YEAR FORMAT **/
+const val MONTH_YEAR_REGEX = "\\d{2}\\/\\d{2}"
+const val MONTH_YEAR_FORMAT_WITHOUT_SLASH = "MMYYYY"
+const val MONTH_YEAR_MASK_LENGTH = 6
+const val MONTH_YEAR_MASK_MONTH_INITIAL_INDEX = 0
+const val MONTH_YEAR_MASK_MONTH_FINAL_INDEX = 2
+const val MONTH_YEAR_MASK_YEAR_INITIAL_INDEX = 2
+const val MONTH_YEAR_MASK_YEAR_FINAL_INDEX = 6
+const val MONTH_YEAR_MASK_JUST_DIGITS_LENGTH = 4
+const val MONTH_YEAR_MASK_DIGITS_STRING_FORMAT = "%02d%02d"
+const val MONTH_YEAR_FORMAT = "MM/yyyy"
