@@ -53,25 +53,23 @@ class LoadingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), Upd
             if (firstSpacePosition != -1) firstSpacePosition else text.length,
             Spannable.SPAN_INCLUSIVE_INCLUSIVE
         )
+
         textView.text = builder
     }
 
-    private fun animatedChange(v: ImageView, new_image: Drawable) {
-        val anim_out = AnimationUtils.loadAnimation(v.context, android.R.anim.fade_out)
-        val anim_in = AnimationUtils.loadAnimation(v.context, android.R.anim.fade_in)
-        anim_out.setAnimationListener(object : Animation.AnimationListener {
-            override fun onAnimationStart(animation: Animation) {}
-            override fun onAnimationRepeat(animation: Animation) {}
-            override fun onAnimationEnd(animation: Animation) {
-                v.setImageDrawable(new_image)
-                anim_in.setAnimationListener(object : Animation.AnimationListener {
-                    override fun onAnimationStart(animation: Animation) {}
-                    override fun onAnimationRepeat(animation: Animation) {}
-                    override fun onAnimationEnd(animation: Animation) {}
-                })
-                v.startAnimation(anim_in)
+    private fun animatedChange(imageView: ImageView, newImage: Drawable) {
+        val context = imageView.context
+        val exitAnimation = AnimationUtils.loadAnimation(context, android.R.anim.fade_out)
+        val enterAnimation = AnimationUtils.loadAnimation(context, R.anim.zoom_to_full)
+        exitAnimation.setAnimationListener(object : AnimationAdapter() {
+            override fun onAnimationEnd(animation: Animation?) {
+                super.onAnimationEnd(animation)
+                imageView.setImageDrawable(newImage)
+                enterAnimation.setAnimationListener(object : AnimationAdapter() {})
+                imageView.startAnimation(enterAnimation)
             }
         })
-        v.startAnimation(anim_out)
+
+        imageView.startAnimation(exitAnimation)
     }
 }

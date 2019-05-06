@@ -1,6 +1,6 @@
 package co.condorlabs.customcomponents.custombutton
 
-import co.condorlabs.customcomponents.helper.*
+import co.condorlabs.customcomponents.*
 
 /**
  * @author Oscar Gallon on 2019-04-26.

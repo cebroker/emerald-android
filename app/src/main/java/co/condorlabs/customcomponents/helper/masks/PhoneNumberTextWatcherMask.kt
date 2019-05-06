@@ -18,6 +18,7 @@ package co.condorlabs.customcomponents.helper.masks
 
 import android.text.Editable
 import android.widget.EditText
+import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.helper.*
 
 class PhoneNumberTextWatcherMask(private val mReceiver: EditText) : TextWatcherAdapter() {

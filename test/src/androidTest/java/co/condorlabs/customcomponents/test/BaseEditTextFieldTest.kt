@@ -24,8 +24,8 @@ import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.runner.AndroidJUnit4
 import co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
-import co.condorlabs.customcomponents.helper.VALIDATE_EMPTY_ERROR
-import co.condorlabs.customcomponents.helper.VALIDATE_INCORRECT_ERROR
+import co.condorlabs.customcomponents.VALIDATE_EMPTY_ERROR
+import co.condorlabs.customcomponents.VALIDATE_INCORRECT_ERROR
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith

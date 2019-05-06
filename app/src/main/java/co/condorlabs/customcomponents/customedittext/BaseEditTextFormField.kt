@@ -28,10 +28,9 @@ import android.util.TypedValue
 import android.view.ContextThemeWrapper
 import android.view.View
 import android.widget.EditText
-import co.condorlabs.customcomponents.R
+import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.helper.*
 import java.util.regex.Pattern
 
 /**

@@ -8,8 +8,7 @@ import android.graphics.drawable.RippleDrawable
 import androidx.core.content.ContextCompat
 import android.util.AttributeSet
 import android.widget.Button
-import co.condorlabs.customcomponents.R
-import co.condorlabs.customcomponents.helper.*
+import co.condorlabs.customcomponents.*
 
 /**
  * @author Oscar Gallon on 2019-04-26.

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package co.condorlabs.customcomponents.helper
+package co.condorlabs.customcomponents
 
 const val VALIDATE_EMPTY_ERROR = "Field %s must not be empty."
 const val VALIDATE_LOWER_LIMIT_DATE_ERROR = "The %s can't be before the %s"
@@ -112,3 +112,23 @@ typealias ButtonType = String
 /** FONT PATHS **/
 const val OPEN_SANS_SEMI_BOLD = "fonts/OpenSans-SemiBold.ttf"
 const val OPEN_SANS_REGULAR = "fonts/OpenSans-Regular.ttf"
+
+
+/**Loading Fragment**/
+const val DEFAULT_TIME_BETWEEN_OBJECT_ANIMATION = 1200.toLong()
+const val LOADING_ADAPTER_FIRST_POSITION = 0
+const val ARGUMENT_LOADING_ITEM_LIST = "ARGUMENT_LOADING_ITEM_LIST"
+const val ARGUMENT_TITLE = "ARGUMENT_TITLE"
+const val LOADING_FRAGMENT_MAX_ELEMENTS = 4
+const val ARGUMENT_SUCCESS_TITLE = "ARGUMENT_SUCCESS_TITLE"
+const val ARGUMENT_ERROR_TITLE = "ARGUMENT_ERROR_TITLE"
+const val ARGUMENT_SUCCESS_MESSAGE = "ARGUMENT_SUCCESS_MESSAGE"
+const val ARGUMENT_ERROR_MESSAGE = "ARGUMENT_ERROR_MESSAGE"
+const val ARGUMENT_ACTION_BUTTON_TEXT = "ARGUMENT_ACTION_BUTTON_TEXT"
+const val ARGUMENT_LOADING_ACTIVITY_TEST_INIT_OPTION = "ARGUMENT_LOADING_ACTIVITY_TEST_INIT_OPTION"
+
+const val INIT_WITH_TITLE = 0
+const val INIT_WITH_ELEMENTS = 1
+const val INIT_FOR_SUCCESS = 2
+const val INIT_FOR_ERROR = 3
+

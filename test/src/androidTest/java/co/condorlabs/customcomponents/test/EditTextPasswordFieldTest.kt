@@ -17,7 +17,6 @@
 package co.condorlabs.customcomponents.test
 
 import androidx.test.espresso.Espresso
-import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
@@ -26,7 +25,7 @@ import androidx.test.runner.AndroidJUnit4
 import android.view.View
 import co.condorlabs.customcomponents.customedittext.EditTextPasswordField
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.helper.VALIDATE_EMPTY_ERROR
+import co.condorlabs.customcomponents.VALIDATE_EMPTY_ERROR
 import co.condorlabs.customcomponents.test.util.isTextDisplayed
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.Matchers.not

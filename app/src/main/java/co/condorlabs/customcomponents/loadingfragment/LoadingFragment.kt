@@ -5,61 +5,154 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import co.condorlabs.customcomponents.R
+import co.condorlabs.customcomponents.*
 import kotlinx.android.synthetic.main.fragment_loading.*
-import java.util.*
+import kotlinx.android.synthetic.main.fragment_loading.tvTitle
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 
-class LoadingFragment : Fragment() {
+class LoadingFragment : Fragment(), LoadingItemsScreen {
+
+    private lateinit var successTitle: String
+    private lateinit var errorTitle: String
+    private lateinit var successMessage: String
+    private lateinit var errorMessage: String
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_loading, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        tvTitle?.text = "Adding the following:"
+        val wrappedArguments = arguments ?: throw ArgumentsNotFoundException()
 
-        val wrappedContext = context ?: return
-        rvItems?.setHasFixedSize(false)
-        rvItems?.adapter = LoadingAdapter()
-        rvItems?.layoutManager = LinearLayoutManager(wrappedContext)
+        val title = wrappedArguments.getString(ARGUMENT_TITLE) ?: throw ArgumentNotFoundException(ARGUMENT_TITLE)
+        setTitle(title)
 
-        val uuid = UUID.randomUUID()
+        val itemList = wrappedArguments.getParcelableArrayList<LoadingItem>(ARGUMENT_LOADING_ITEM_LIST)
+            ?: throw ArgumentNotFoundException(ARGUMENT_LOADING_ITEM_LIST)
 
-        (rvItems?.adapter as? LoadingAdapter)?.add(
-            listOf(
-                LoadingItem(title = "All provider demographic information"),
-                LoadingItem(id = uuid, title = "2 medical licenses"),
-                LoadingItem(title = "3 Education entries"),
-                LoadingItem(title = "4 Employment history entries")
-            )
+        if (itemList.size > LOADING_FRAGMENT_MAX_ELEMENTS) {
+            throw LoadingFragmentListGreaterThatLimitException()
+        }
+
+        setList(itemList)
+
+        successTitle = wrappedArguments.getString(ARGUMENT_SUCCESS_TITLE) ?: throw ArgumentNotFoundException(
+            ARGUMENT_SUCCESS_TITLE
         )
 
-        rvItems?.postDelayed({
+        errorTitle =
+            wrappedArguments.getString(ARGUMENT_ERROR_TITLE) ?: throw ArgumentNotFoundException(ARGUMENT_ERROR_TITLE)
 
-            rvItems?.apply {
-                val position = (rvItems?.adapter as? LoadingAdapter)?.getItemPosition(uuid) ?: -1
-                if (position < 0) {
-                    return@apply
-                }
+        successMessage = wrappedArguments.getString(ARGUMENT_SUCCESS_MESSAGE) ?: throw ArgumentNotFoundException(
+            ARGUMENT_SUCCESS_MESSAGE
+        )
 
-                (findViewHolderForAdapterPosition(position) as? LoadingViewHolder)?.updateItemStatus(Status.Loaded)
-            }
-        }, 5000)
-
+        errorMessage =
+            wrappedArguments.getString(ARGUMENT_ERROR_MESSAGE) ?: throw ArgumentNotFoundException(
+                ARGUMENT_ERROR_MESSAGE
+            )
     }
 
+    override fun updateItemsTilPosition(
+        position: Int,
+        timeBetweenObjectAnimation: Long
+    ) {
+        val recyclerView = rvItems ?: throw RecyclerViewNotFoundException()
+        val adapter = (rvItems?.adapter as? LoadingAdapter) ?: throw LoadingAdapterNotFoundException()
+        val adapterSize = adapter.itemCount
+
+        if (position > adapterSize) {
+            throw PositionGreaterThatItemsSizeException()
+        }
+
+        CoroutineScope(Dispatchers.Main).launch {
+            for (i in LOADING_ADAPTER_FIRST_POSITION until position) {
+                val viewHolder =
+                    (recyclerView.findViewHolderForAdapterPosition(i) as? LoadingViewHolder)
+                        ?: throw ViewHolderNotFoundForPositionException(i)
+
+                viewHolder.updateItemStatus(Status.Loaded)
+                delay(timeBetweenObjectAnimation)
+            }
+        }
+    }
+
+    override fun showSuccessStatus(btnActionText: String, btnActionCallback: () -> Unit) {
+        val wrappedContext = context ?: return
+        lavSpinner?.visibility = View.GONE
+        llStatus?.visibility = View.VISIBLE
+        btnAction?.visibility = View.VISIBLE
+        btnAction?.setType(BUTTON_PRIMARY_TYPE)
+        setActionButtonText(btnActionText)
+        ivICon?.setImageDrawable(ContextCompat.getDrawable(wrappedContext, R.drawable.ic_success))
+        setCompletionTitle(successTitle)
+        setCompletionMessage(successMessage)
+    }
+
+    override fun showErrorStatus(btnActionText: String, btnActionCallback: () -> Unit) {
+        val wrappedContext = context ?: return
+        lavSpinner?.visibility = View.GONE
+        llStatus?.visibility = View.VISIBLE
+        btnAction?.visibility = View.VISIBLE
+        btnAction?.setType(BUTTON_DANGER_TYPE)
+        setActionButtonText(btnActionText)
+        ivICon?.setImageDrawable(ContextCompat.getDrawable(wrappedContext, R.drawable.ic_error))
+        setCompletionTitle(errorTitle)
+        setCompletionMessage(errorMessage)
+    }
+
+    private fun setActionButtonText(text: String) {
+        btnAction?.text = text
+    }
+
+    private fun setCompletionMessage(message: String) {
+        tvStatusMessage.text = message
+    }
+
+    private fun setCompletionTitle(title: String) {
+        tvStatusTitle.text = title
+    }
+
+    private fun setTitle(title: String) {
+        tvTitle?.text = title
+    }
+
+    private fun setList(items: List<LoadingItem>) {
+        val wrappedContext = context ?: return
+        rvItems?.setHasFixedSize(true)
+        rvItems?.adapter = LoadingAdapter(items)
+        rvItems?.layoutManager = LinearLayoutManager(wrappedContext)
+    }
 
     companion object {
-
-        fun newInstance(): LoadingFragment = LoadingFragment()
+        fun newInstance(
+            title: String,
+            items: ArrayList<LoadingItem>,
+            successTitle: String,
+            errorTitle: String,
+            successMessage: String,
+            errorMessage: String
+        ): LoadingFragment = LoadingFragment().apply {
+            arguments = Bundle().apply {
+                putString(ARGUMENT_TITLE, title)
+                putParcelableArrayList(ARGUMENT_LOADING_ITEM_LIST, items)
+                putString(ARGUMENT_SUCCESS_TITLE, successTitle)
+                putString(ARGUMENT_ERROR_TITLE, errorTitle)
+                putString(ARGUMENT_SUCCESS_MESSAGE, successMessage)
+                putString(ARGUMENT_ERROR_MESSAGE, errorMessage)
+            }
+        }
     }
 }

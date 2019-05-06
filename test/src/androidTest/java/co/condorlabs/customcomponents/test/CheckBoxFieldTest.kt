@@ -25,8 +25,8 @@ import co.condorlabs.customcomponents.customcheckbox.CheckboxFormField
 import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.formfield.Selectable
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.helper.EMPTY
-import co.condorlabs.customcomponents.helper.MESSAGE_FORMAT_ERROR
+import co.condorlabs.customcomponents.EMPTY
+import co.condorlabs.customcomponents.MESSAGE_FORMAT_ERROR
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test

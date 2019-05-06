@@ -4,13 +4,11 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import co.condorlabs.customcomponents.R
-import java.util.*
-import kotlin.collections.ArrayList
 
 /**
  * @author Oscar Gallon on 2019-05-03.
  */
-class LoadingAdapter(private val items: ArrayList<LoadingItem> = ArrayList()) :
+class LoadingAdapter(private val items: List<LoadingItem>) :
     RecyclerView.Adapter<LoadingViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LoadingViewHolder {
@@ -23,16 +21,5 @@ class LoadingAdapter(private val items: ArrayList<LoadingItem> = ArrayList()) :
 
     override fun onBindViewHolder(holder: LoadingViewHolder, position: Int) {
         holder.bind(items[position])
-    }
-
-    fun add(loadingItems: List<LoadingItem>){
-        items.addAll(loadingItems)
-         notifyDataSetChanged()
-    }
-
-    fun getItemPosition(uuid: UUID): Int{
-        return items.indexOfFirst {
-            it.id == uuid
-        }
     }
 }

@@ -25,9 +25,9 @@ import androidx.test.runner.AndroidJUnit4
 import android.view.View
 import co.condorlabs.customcomponents.customedittext.EditTextCityField
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.helper.EMPTY
-import co.condorlabs.customcomponents.helper.VALIDATE_CITY_ERROR
-import co.condorlabs.customcomponents.helper.VALIDATE_EMPTY_ERROR
+import co.condorlabs.customcomponents.EMPTY
+import co.condorlabs.customcomponents.VALIDATE_CITY_ERROR
+import co.condorlabs.customcomponents.VALIDATE_EMPTY_ERROR
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test

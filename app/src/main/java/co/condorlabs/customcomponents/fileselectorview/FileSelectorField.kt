@@ -12,9 +12,9 @@ import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.helper.EMPTY
-import co.condorlabs.customcomponents.helper.FILE_SELECTOR_GALLERY_OPTION_INDEX
-import co.condorlabs.customcomponents.helper.NOT_DEFINED_ATTRIBUTE_DEFAULT_VALUE
+import co.condorlabs.customcomponents.EMPTY
+import co.condorlabs.customcomponents.FILE_SELECTOR_GALLERY_OPTION_INDEX
+import co.condorlabs.customcomponents.NOT_DEFINED_ATTRIBUTE_DEFAULT_VALUE
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.file_selector_view.view.*
 import kotlinx.coroutines.CoroutineScope
@@ -162,7 +162,9 @@ class FileSelectorField @JvmOverloads constructor(
         }
 
         if (attrsArray.hasValue(R.styleable.FileSelectorField_src_tap_button)) {
-            attrsArray.getResourceId(R.styleable.FileSelectorField_src_tap_button, NOT_DEFINED_ATTRIBUTE_DEFAULT_VALUE)
+            attrsArray.getResourceId(R.styleable.FileSelectorField_src_tap_button,
+                NOT_DEFINED_ATTRIBUTE_DEFAULT_VALUE
+            )
                 .let { imageResourceId ->
                     mIconResourceId = imageResourceId
                 }

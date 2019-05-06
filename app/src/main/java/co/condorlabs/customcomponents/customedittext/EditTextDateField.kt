@@ -27,9 +27,8 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.DatePicker
 import android.widget.TextView
-import co.condorlabs.customcomponents.R
+import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.helper.*
 import co.condorlabs.customcomponents.helper.masks.DateTextWatcherMask
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -213,7 +212,10 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
                         val calendar = Calendar.getInstance()
 
                         val dialogCanBeOpenOnEditTextText = if (receiver.text?.isEmpty() == false) {
-                            val dateTyped = receiver.text?.replace(SLASH.toRegex(), EMPTY)
+                            val dateTyped = receiver.text?.replace(
+                                SLASH.toRegex(),
+                                EMPTY
+                            )
                             TextUtils.isDigitsOnly(dateTyped)
                         } else {
                             false

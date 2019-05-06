@@ -28,10 +28,10 @@ import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.helper.DEFAULT_STYLE_ATTR
-import co.condorlabs.customcomponents.helper.DEFAULT_STYLE_RES
-import co.condorlabs.customcomponents.helper.EMPTY
-import co.condorlabs.customcomponents.helper.MESSAGE_FORMAT_ERROR
+import co.condorlabs.customcomponents.DEFAULT_STYLE_ATTR
+import co.condorlabs.customcomponents.DEFAULT_STYLE_RES
+import co.condorlabs.customcomponents.EMPTY
+import co.condorlabs.customcomponents.MESSAGE_FORMAT_ERROR
 
 /**
  * @author Oscar Gallon on 2/26/19.

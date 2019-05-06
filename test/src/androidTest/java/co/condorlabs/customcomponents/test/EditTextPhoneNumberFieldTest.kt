@@ -23,9 +23,9 @@ import androidx.test.espresso.matcher.ViewMatchers
 import android.view.View
 import co.condorlabs.customcomponents.customedittext.EditTextPhoneField
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.helper.PHONE_NUMBER_REGEX
-import co.condorlabs.customcomponents.helper.VALIDATE_EMPTY_ERROR
-import co.condorlabs.customcomponents.helper.VALIDATE_LENGTH_ERROR
+import co.condorlabs.customcomponents.PHONE_NUMBER_REGEX
+import co.condorlabs.customcomponents.VALIDATE_EMPTY_ERROR
+import co.condorlabs.customcomponents.VALIDATE_LENGTH_ERROR
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test

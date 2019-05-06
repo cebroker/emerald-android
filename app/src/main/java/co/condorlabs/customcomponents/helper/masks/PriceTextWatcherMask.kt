@@ -18,6 +18,7 @@ package co.condorlabs.customcomponents.helper.masks
 
 import android.text.Editable
 import android.widget.EditText
+import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.helper.*
 import java.math.BigDecimal
 import java.math.RoundingMode
@@ -98,7 +99,10 @@ class PriceTextWatcherMask(private val receiver: EditText) : TextWatcherAdapter(
     private fun getPriceFromCurrency(text: String): BigDecimal {
         val decimalFormat = DecimalFormat(MONEY_TWO_DECIMALS)
         decimalFormat.roundingMode = RoundingMode.FLOOR
-        val amount = formatter.parse(text.replace(NON_NUMERICAL_SYMBOLS.toRegex(), EMPTY))
+        val amount = formatter.parse(text.replace(
+            NON_NUMERICAL_SYMBOLS.toRegex(),
+            EMPTY
+        ))
 
         return decimalFormat.format(amount).replace(COMMA_AS_DECIMAL, ".").toBigDecimal()
     }

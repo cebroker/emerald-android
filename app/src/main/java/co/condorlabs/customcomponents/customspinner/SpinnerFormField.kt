@@ -22,10 +22,10 @@ import android.view.View
 import android.widget.AdapterView
 import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.helper.DEFAULT_STYLE_ATTR
-import co.condorlabs.customcomponents.helper.DEFAULT_STYLE_RES
-import co.condorlabs.customcomponents.helper.EMPTY
-import co.condorlabs.customcomponents.helper.STATE_SPINNER_HINT_POSITION
+import co.condorlabs.customcomponents.DEFAULT_STYLE_ATTR
+import co.condorlabs.customcomponents.DEFAULT_STYLE_RES
+import co.condorlabs.customcomponents.EMPTY
+import co.condorlabs.customcomponents.STATE_SPINNER_HINT_POSITION
 
 /**
  * @author Oscar Gallon on 2/26/19.

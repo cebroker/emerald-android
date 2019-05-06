@@ -25,9 +25,9 @@ import android.view.View
 import co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
 import co.condorlabs.customcomponents.customedittext.EditTextEmailField
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.helper.EMPTY
-import co.condorlabs.customcomponents.helper.VALIDATE_EMAIL_ERROR
-import co.condorlabs.customcomponents.helper.VALIDATE_EMPTY_ERROR
+import co.condorlabs.customcomponents.EMPTY
+import co.condorlabs.customcomponents.VALIDATE_EMAIL_ERROR
+import co.condorlabs.customcomponents.VALIDATE_EMPTY_ERROR
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test

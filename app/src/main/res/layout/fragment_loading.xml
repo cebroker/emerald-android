@@ -23,24 +23,74 @@
     <androidx.recyclerview.widget.RecyclerView android:layout_width="0dp"
                                                app:layout_constraintStart_toStartOf="parent"
                                                app:layout_constraintEnd_toEndOf="parent"
-                                               android:layout_marginTop="32dp"
+                                               android:layout_marginTop="16dp"
                                                android:layout_marginStart="16dp"
-                                               app:layout_constraintBottom_toTopOf="@+id/animation_view"
                                                android:layout_marginEnd="16dp"
+                                               tools:listitem="@layout/loading_item"
                                                android:id="@+id/rvItems"
+                                               tools:itemCount="4"
                                                app:layout_constraintTop_toBottomOf="@+id/tvTitle"
                                                android:layout_height="wrap_content"/>
 
 
     <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/animation_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            app:layout_constraintBottom_toBottomOf="parent"
+            android:id="@+id/lavSpinner"
+            android:layout_width="64dp"
+            android:layout_height="64dp"
+            android:layout_marginTop="64dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/rvItems"
             app:lottie_rawRes="@raw/loading"
             app:lottie_loop="true"
             app:lottie_autoPlay="true"/>
+
+
+    <androidx.appcompat.widget.LinearLayoutCompat android:layout_width="0dp"
+                                                  android:orientation="vertical"
+                                                  app:layout_constraintEnd_toEndOf="parent"
+                                                  app:layout_constraintStart_toStartOf="parent"
+                                                  android:layout_marginTop="32dp"
+                                                  android:id="@+id/llStatus"
+                                                  android:visibility="gone"
+                                                  app:layout_constraintBottom_toTopOf="@+id/btnAction"
+                                                  android:layout_marginStart="16dp"
+                                                  android:layout_marginEnd="16dp"
+                                                  app:layout_constraintTop_toBottomOf="@+id/rvItems"
+                                                  android:layout_height="wrap_content">
+
+        <ImageView android:layout_width="64dp"
+                   android:id="@+id/ivICon"
+                   android:src="@drawable/ic_success"
+                   android:layout_gravity="center"
+                   android:layout_height="64dp"/>
+
+        <TextView android:layout_width="match_parent"
+                  android:layout_gravity="center"
+                  android:gravity="center"
+                  android:id="@+id/tvStatusTitle"
+                  android:fontFamily="@font/open_sans_semibold"
+                  android:layout_marginTop="16dp"
+                  tools:text="All set!"
+                  android:layout_height="wrap_content"/>
+
+        <TextView android:layout_width="match_parent"
+                  android:layout_gravity="center"
+                  android:gravity="center"
+                  android:id="@+id/tvStatusMessage"
+                  android:fontFamily="@font/open_sans"
+                  android:layout_marginTop="16dp"
+                  tools:text="We've updated your profile. Be sure to double check everything before submit"
+                  android:layout_height="wrap_content"/>
+    </androidx.appcompat.widget.LinearLayoutCompat>
+
+    <co.condorlabs.customcomponents.custombutton.CustomButton android:layout_width="0dp"
+                                                              app:type="primary"
+                                                              android:layout_marginTop="8dp"
+                                                              android:id="@+id/btnAction"
+                                                              android:visibility="gone"
+                                                              app:layout_constraintEnd_toEndOf="parent"
+                                                              app:layout_constraintBottom_toBottomOf="parent"
+                                                              app:layout_constraintStart_toStartOf="parent"
+                                                              android:layout_height="wrap_content"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

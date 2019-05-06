@@ -21,7 +21,7 @@ import android.text.InputType
 import android.util.AttributeSet
 import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.helper.VALIDATE_EMAIL_ERROR
+import co.condorlabs.customcomponents.VALIDATE_EMAIL_ERROR
 
 class EditTextEmailField(context: Context, attrs: AttributeSet) : BaseEditTextFormField(context, attrs) {
 

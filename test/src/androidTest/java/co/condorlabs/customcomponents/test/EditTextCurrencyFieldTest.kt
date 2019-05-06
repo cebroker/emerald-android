@@ -27,8 +27,8 @@ import android.view.KeyEvent
 import android.view.View
 import co.condorlabs.customcomponents.customedittext.EditTextCurrencyField
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.helper.DOLLAR_SYMBOL
-import co.condorlabs.customcomponents.helper.VALIDATE_EMPTY_ERROR
+import co.condorlabs.customcomponents.DOLLAR_SYMBOL
+import co.condorlabs.customcomponents.VALIDATE_EMPTY_ERROR
 import co.condorlabs.customcomponents.test.util.text
 import org.junit.Assert
 import org.junit.Before

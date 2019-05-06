@@ -27,13 +27,8 @@ class MockActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_mock)
-
-        supportFragmentManager?.beginTransaction()
-            ?.replace(R.id.ll, LoadingFragment.newInstance())
-            ?.commitAllowingStateLoss()
+        setContentView(layout)
     }
-
 
     companion object {
         var layout: Int = R.layout.activity_mock

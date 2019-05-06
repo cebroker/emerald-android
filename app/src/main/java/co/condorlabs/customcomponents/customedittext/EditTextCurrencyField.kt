@@ -20,10 +20,10 @@ import android.content.Context
 import android.util.AttributeSet
 import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.helper.DOLLAR_SYMBOL
-import co.condorlabs.customcomponents.helper.EMPTY
-import co.condorlabs.customcomponents.helper.VALIDATE_CURRENCY_ERROR
-import co.condorlabs.customcomponents.helper.VALIDATE_EMPTY_ERROR
+import co.condorlabs.customcomponents.DOLLAR_SYMBOL
+import co.condorlabs.customcomponents.EMPTY
+import co.condorlabs.customcomponents.VALIDATE_CURRENCY_ERROR
+import co.condorlabs.customcomponents.VALIDATE_EMPTY_ERROR
 import co.condorlabs.customcomponents.helper.masks.PriceTextWatcherMask
 import java.util.regex.Pattern
 
