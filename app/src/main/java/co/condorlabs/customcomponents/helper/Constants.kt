@@ -99,6 +99,8 @@ const val MONEY_TWO_DECIMALS = "#.00"
 const val MONEY_MAX_AMOUNT = 1000000000000
 const val NON_NUMERICAL_SYMBOLS = "[$,]"
 const val COMMA_AS_DECIMAL = ","
+const val THREE_DIGITS = "\\d{3}"
+const val ZERO_AFTER_DIGIT = "\\d[0]"
 
 const val BUTTON_DEFAULT_TYPE = "default"
 const val BUTTON_PRIMARY_TYPE = "primary"

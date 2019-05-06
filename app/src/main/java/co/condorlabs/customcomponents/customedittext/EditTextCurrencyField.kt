@@ -27,7 +27,6 @@ import co.condorlabs.customcomponents.helper.VALIDATE_EMPTY_ERROR
 import co.condorlabs.customcomponents.helper.masks.PriceTextWatcherMask
 import java.util.regex.Pattern
 
-
 class EditTextCurrencyField(context: Context, attrs: AttributeSet) : BaseEditTextFormField(context, attrs) {
 
     override fun getErrorValidateResult(): ValidationResult {

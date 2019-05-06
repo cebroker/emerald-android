@@ -37,7 +37,6 @@ class PriceTextWatcherMask(private val receiver: EditText) : TextWatcherAdapter(
     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
         super.beforeTextChanged(s, start, count, after)
         previousText = s.toString()
-
     }
 
     override fun afterTextChanged(s: Editable?) {
@@ -76,10 +75,22 @@ class PriceTextWatcherMask(private val receiver: EditText) : TextWatcherAdapter(
                 return
             }
 
+            if (isTypingThirdDecimalDigit(text)) {
+                receiver.setText(previousText)
+                setSelectionAndListener()
+                return
+            }
+
+            if (isDeletingDecimalPart(text)) {
+                receiver.setText(text)
+                setSelectionAndListener()
+                return
+            }
+
             if (text.last() == '0') {
                 when {
-                    previousText.isEmpty() -> receiver.setText(text.toBigDecimal().toDollarAmount())
                     previousText.last() == '.' -> receiver.setText(text)
+                    isZeroLastDecimal(text) -> receiver.setText(text)
                     else -> {
                         receiver.setText(currentlyAmount.toDollarAmount())
                     }
@@ -90,6 +101,7 @@ class PriceTextWatcherMask(private val receiver: EditText) : TextWatcherAdapter(
             receiver.setText(currentlyAmount.toDollarAmount())
         } catch (exception: Throwable) {
             receiver.setText(previousText)
+            setSelectionAndListener()
         }
 
         setSelectionAndListener()
@@ -114,5 +126,20 @@ class PriceTextWatcherMask(private val receiver: EditText) : TextWatcherAdapter(
 
     private fun isMaxAmount(amount: BigDecimal): Boolean {
         return amount.equalThan(maxAmount)
+    }
+
+    private fun isTypingThirdDecimalDigit(newText: String): Boolean {
+        return newText.substringAfter(".").matches(THREE_DIGITS.toRegex())
+    }
+
+    private fun isDeletingDecimalPart(newText: String): Boolean {
+        if (!newText.contains(".")) {
+            return false
+        }
+        return newText.substringAfter(".") < previousText.substringAfter(".")
+    }
+
+    private fun isZeroLastDecimal(newText: String): Boolean {
+        return newText.substringAfter(".").matches(ZERO_AFTER_DIGIT.toRegex())
     }
 }
