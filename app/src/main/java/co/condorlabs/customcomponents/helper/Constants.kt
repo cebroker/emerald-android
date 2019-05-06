@@ -115,6 +115,9 @@ typealias ButtonType = String
 const val OPEN_SANS_SEMI_BOLD = "fonts/OpenSans-SemiBold.ttf"
 const val OPEN_SANS_REGULAR = "fonts/OpenSans-Regular.ttf"
 
+/** RADIO GROUP **/
+const val DEFAULT_SPACE_BETWEEN_ITEMS = 10
+
 /** MONTH AND YEAR PICKER **/
 const val MAX_YEAR = 2099
 const val MIN_YEAR = 1900

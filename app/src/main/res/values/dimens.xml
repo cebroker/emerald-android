@@ -24,7 +24,7 @@
     <dimen name="icon_height">125dp</dimen>
     <dimen name="default_margin">8dp</dimen>
     <dimen name="title_margin_top">16dp</dimen>
-
-    <!-- MONTH AND YEAR PICKER -->
+    <dimen name="radio_button_padding_start">16dp</dimen>
+    <dimen name="radio_button_padding_end">16dp</dimen>
     <dimen name="month_picker_margin">20dp</dimen>
 </resources>
