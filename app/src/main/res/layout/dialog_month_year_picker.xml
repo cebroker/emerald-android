@@ -15,13 +15,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="@dimen/month_picker_margin"
-                android:layout_marginRight="@dimen/month_picker_margin">
+                android:layout_marginRight="@dimen/month_picker_margin"
+                android:descendantFocusability="blocksDescendants" >
         </NumberPicker>
 
         <NumberPicker
                 android:id="@+id/yearPicker"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:descendantFocusability="blocksDescendants" >
         </NumberPicker>
     </LinearLayout>
 </LinearLayout>
