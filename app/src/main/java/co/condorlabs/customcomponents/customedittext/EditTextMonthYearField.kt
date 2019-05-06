@@ -78,6 +78,7 @@ class EditTextMonthYearField(
         mValueChangeListener?.onValueChange(getValue())
 
         receiver.addTextChangedListener(dateTextWatcherMask)
+        receiver.setSelection(receiver.text.length)
     }
 
     private fun setupPicker() {

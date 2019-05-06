@@ -5,9 +5,7 @@ import android.support.test.espresso.action.ViewActions
 import android.support.test.espresso.matcher.ViewMatchers
 import android.view.View
 import co.condorlabs.customcomponents.customedittext.EditTextMonthYearField
-import co.condorlabs.customcomponents.helper.MAX_MONTH
 import co.condorlabs.customcomponents.helper.MAX_YEAR
-import co.condorlabs.customcomponents.helper.MIN_MONTH
 import co.condorlabs.customcomponents.helper.MIN_YEAR
 import co.condorlabs.customcomponents.test.util.text
 import org.junit.Assert
@@ -87,12 +85,11 @@ class CustomDatePickerTest : MockActivityTest() {
         Assert.assertEquals("01/$MAX_YEAR", editText?.text())
     }
 
-    // TODO:
-    /*
-    * type text (abc...)
-    * select a year less than MIN_YEAR
-    * select a year greater than MAX_YEAR
-    * select a date, confirm, open the dialgo again, check if last date is selected
-    * type a date. Open dialgo, check if last date is right.
-    * */
+    @Test
+    fun shouldNotAllowTypeText() {
+        // When
+        onView(editTextRef).perform(ViewActions.typeText("a"))
+        // Then
+        Assert.assertEquals("", editText?.text())
+    }
 }

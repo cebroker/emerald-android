@@ -166,7 +166,7 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
     @Test
     fun shouldDeleteDecimalPart() {
         // When
-        onView(editTextRef).perform(ViewActions.replaceText("$2,333.05"))
+        onView(editTextRef).perform(ViewActions.typeText("2,333.05"))
         // Then
         Assert.assertEquals("$2,333.05", editText?.text())
 
@@ -189,7 +189,7 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
     @Test
     fun shouldFormatDeleting() {
         // Given
-        onView(editTextRef).perform(ViewActions.replaceText("$111,222,333"))
+        onView(editTextRef).perform(ViewActions.typeText("111,222,333"))
 
         // When
         onView(editTextRef).perform(pressKey(KeyEvent.KEYCODE_DEL))
