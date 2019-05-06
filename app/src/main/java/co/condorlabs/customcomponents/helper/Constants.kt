@@ -112,3 +112,6 @@ typealias ButtonType = String
 /** FONT PATHS **/
 const val OPEN_SANS_SEMI_BOLD = "fonts/OpenSans-SemiBold.ttf"
 const val OPEN_SANS_REGULAR = "fonts/OpenSans-Regular.ttf"
+
+/** RADIO GROUP **/
+const val DEFAULT_SPACE_BETWEEN_ITEMS = 10
