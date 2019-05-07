@@ -7,7 +7,7 @@
 
     <NumberPicker
             android:id="@+id/monthPicker"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/month_picker_margin"
             android:layout_marginEnd="@dimen/month_picker_margin"
@@ -20,7 +20,7 @@
 
     <NumberPicker
             android:id="@+id/yearPicker"
-            android:layout_width="0dp"
+            android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/month_picker_margin"
             android:layout_marginEnd="@dimen/month_picker_margin"

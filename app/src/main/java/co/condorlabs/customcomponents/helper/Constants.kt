@@ -99,6 +99,9 @@ const val MONEY_TWO_DECIMALS = "#.00"
 const val MONEY_MAX_AMOUNT = 1000000000000
 const val NON_NUMERICAL_SYMBOLS = "[$,]"
 const val COMMA_AS_DECIMAL = ","
+const val DOT_CHARACTER = '.'
+const val DOT_STRING = "."
+const val ZERO_CHARACTER = '0'
 const val THREE_DIGITS = "\\d{3}"
 const val ZERO_AFTER_DIGIT = "\\d[0]"
 
@@ -123,10 +126,12 @@ const val MAX_YEAR = 2099
 const val MIN_YEAR = 1900
 const val MIN_MONTH = 0
 const val MAX_MONTH = 11
+const val FIRST_DAY_OF_MONTH = 11
 val MONTHS = arrayOf(
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
 )
+const val MONTH_YEAR_PICKER_DIALOG_TAG = "MonthYearPickerDialog"
 
 /** MONTH AND YEAR FORMAT **/
 const val MONTH_YEAR_REGEX = "\\d{2}\\/\\d{2}"

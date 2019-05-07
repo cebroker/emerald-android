@@ -21,22 +21,22 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class EditTextMonthYearField(
-    private val myContext: Context, attrs: AttributeSet
-) : BaseEditTextFormField(myContext, attrs), DatePickerDialog.OnDateSetListener {
+    private val currentContext: Context, attrs: AttributeSet
+) : BaseEditTextFormField(currentContext, attrs), DatePickerDialog.OnDateSetListener {
 
-    private var mIconDrawable: Drawable? = null
+    private var iconDrawable: Drawable? = null
     private var monthYearWatcherMark: MonthYearWatcherMark? = null
-    private var mSimpleDateFormat: SimpleDateFormat? = null
-    private var mDateFormat = MONTH_YEAR_FORMAT
+    private var simpleDateFormat: SimpleDateFormat? = null
+    private var dateFormat = MONTH_YEAR_FORMAT
 
     init {
-        myContext.theme.obtainStyledAttributes(
+        currentContext.theme.obtainStyledAttributes(
             attrs,
             R.styleable.EditTextDateField,
             DEFAULT_STYLE_ATTR, DEFAULT_STYLE_RES
         ).apply {
             try {
-                mIconDrawable = getDrawable(R.styleable.EditTextDateField_picker_icon)
+                iconDrawable = getDrawable(R.styleable.EditTextDateField_picker_icon)
             } finally {
                 recycle()
             }
@@ -46,7 +46,7 @@ class EditTextMonthYearField(
             mRegex = MONTH_YEAR_REGEX
         }
 
-        mSimpleDateFormat = SimpleDateFormat(mDateFormat, Locale.getDefault())
+        simpleDateFormat = SimpleDateFormat(dateFormat, Locale.getDefault())
     }
 
     override fun setup() {
@@ -89,7 +89,7 @@ class EditTextMonthYearField(
             receiver.addTextChangedListener(this)
         }
 
-        val drawable = mIconDrawable?.let { it } ?: ContextCompat.getDrawable(context, R.drawable.ic_date)?.let { it }
+        val drawable = iconDrawable?.let { it } ?: ContextCompat.getDrawable(context, R.drawable.ic_date)?.let { it }
         ?: throw RuntimeException(context.getString(R.string.dateformfield_no_icon_error_message))
 
         receiver.setCompoundDrawablesWithIntrinsicBounds(
@@ -130,8 +130,8 @@ class EditTextMonthYearField(
                         datePicker.setListener(this)
 
                         datePicker.show(
-                            (myContext as? AppCompatActivity)?.supportFragmentManager,
-                            "MonthYearPickerDialog"
+                            (currentContext as? AppCompatActivity)?.supportFragmentManager,
+                            MONTH_YEAR_PICKER_DIALOG_TAG
                         )
 
                         true

@@ -11,8 +11,6 @@ import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.helper.*
 import java.util.*
 
-
-
 class MonthYearPickerDialog: DialogFragment() {
 
     private var listener: DatePickerDialog.OnDateSetListener? = null
@@ -62,5 +60,4 @@ class MonthYearPickerDialog: DialogFragment() {
             maxValue = MAX_YEAR
             value = year ?: currentDate.get(Calendar.YEAR)
         }
-
 }
