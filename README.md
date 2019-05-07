@@ -13,7 +13,7 @@ Emerald UI for Android Apps
 
 - Android Studio 3.4+
 
-- Swift 4.0+
+- Kotlin 1.3.21+
 
 ### Documentation
 <ul class="icon-list">
