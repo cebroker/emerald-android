@@ -37,7 +37,6 @@ class PriceTextWatcherMask(private val receiver: EditText) : TextWatcherAdapter(
     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
         super.beforeTextChanged(s, start, count, after)
         previousText = s.toString()
-
     }
 
     override fun afterTextChanged(s: Editable?) {
@@ -65,7 +64,7 @@ class PriceTextWatcherMask(private val receiver: EditText) : TextWatcherAdapter(
                 return
             }
 
-            if (text.last() == '.') {
+            if (text.last() == DOT_CHARACTER) {
                 if (isMaxAmount(currentlyAmount)) {
                     receiver.setText(maxAmount.toDollarAmount())
                     setSelectionAndListener()
@@ -76,10 +75,22 @@ class PriceTextWatcherMask(private val receiver: EditText) : TextWatcherAdapter(
                 return
             }
 
-            if (text.last() == '0') {
+            if (isTypingThirdDecimalDigit(text)) {
+                receiver.setText(previousText)
+                setSelectionAndListener()
+                return
+            }
+
+            if (isDeletingDecimalPart(text)) {
+                receiver.setText(text)
+                setSelectionAndListener()
+                return
+            }
+
+            if (text.last() == ZERO_CHARACTER) {
                 when {
-                    previousText.isEmpty() -> receiver.setText(text.toBigDecimal().toDollarAmount())
-                    previousText.last() == '.' -> receiver.setText(text)
+                    previousText.last() == DOT_CHARACTER -> receiver.setText(text)
+                    isZeroLastDecimal(text) -> receiver.setText(text)
                     else -> {
                         receiver.setText(currentlyAmount.toDollarAmount())
                     }
@@ -90,6 +101,7 @@ class PriceTextWatcherMask(private val receiver: EditText) : TextWatcherAdapter(
             receiver.setText(currentlyAmount.toDollarAmount())
         } catch (exception: Throwable) {
             receiver.setText(previousText)
+            setSelectionAndListener()
         }
 
         setSelectionAndListener()
@@ -114,5 +126,20 @@ class PriceTextWatcherMask(private val receiver: EditText) : TextWatcherAdapter(
 
     private fun isMaxAmount(amount: BigDecimal): Boolean {
         return amount.equalThan(maxAmount)
+    }
+
+    private fun isTypingThirdDecimalDigit(newText: String): Boolean {
+        return newText.substringAfter(DOT_STRING).matches(THREE_DIGITS.toRegex())
+    }
+
+    private fun isDeletingDecimalPart(newText: String): Boolean {
+        if (!newText.contains(DOT_STRING)) {
+            return false
+        }
+        return newText.substringAfter(DOT_STRING) < previousText.substringAfter(DOT_STRING)
+    }
+
+    private fun isZeroLastDecimal(newText: String): Boolean {
+        return newText.substringAfter(DOT_STRING).matches(ZERO_AFTER_DIGIT.toRegex())
     }
 }

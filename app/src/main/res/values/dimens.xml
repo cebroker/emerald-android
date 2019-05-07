@@ -26,4 +26,6 @@
     <dimen name="title_margin_top">16dp</dimen>
     <dimen name="radio_button_padding_start">16dp</dimen>
     <dimen name="radio_button_padding_end">16dp</dimen>
+    <dimen name="month_picker_margin">20dp</dimen>
+    <dimen name="zero">0dp</dimen>
 </resources>

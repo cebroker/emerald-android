@@ -99,6 +99,11 @@ const val MONEY_TWO_DECIMALS = "#.00"
 const val MONEY_MAX_AMOUNT = 1000000000000
 const val NON_NUMERICAL_SYMBOLS = "[$,]"
 const val COMMA_AS_DECIMAL = ","
+const val DOT_CHARACTER = '.'
+const val DOT_STRING = "."
+const val ZERO_CHARACTER = '0'
+const val THREE_DIGITS = "\\d{3}"
+const val ZERO_AFTER_DIGIT = "\\d[0]"
 
 const val BUTTON_DEFAULT_TYPE = "default"
 const val BUTTON_PRIMARY_TYPE = "primary"
@@ -115,3 +120,27 @@ const val OPEN_SANS_REGULAR = "fonts/OpenSans-Regular.ttf"
 
 /** RADIO GROUP **/
 const val DEFAULT_SPACE_BETWEEN_ITEMS = 10
+
+/** MONTH AND YEAR PICKER **/
+const val MAX_YEAR = 2099
+const val MIN_YEAR = 1900
+const val MIN_MONTH = 0
+const val MAX_MONTH = 11
+const val FIRST_DAY_OF_MONTH = 11
+val MONTHS = arrayOf(
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+)
+const val MONTH_YEAR_PICKER_DIALOG_TAG = "MonthYearPickerDialog"
+
+/** MONTH AND YEAR FORMAT **/
+const val MONTH_YEAR_REGEX = "\\d{2}\\/\\d{2}"
+const val MONTH_YEAR_FORMAT_WITHOUT_SLASH = "MMYYYY"
+const val MONTH_YEAR_MASK_LENGTH = 6
+const val MONTH_YEAR_MASK_MONTH_INITIAL_INDEX = 0
+const val MONTH_YEAR_MASK_MONTH_FINAL_INDEX = 2
+const val MONTH_YEAR_MASK_YEAR_INITIAL_INDEX = 2
+const val MONTH_YEAR_MASK_YEAR_FINAL_INDEX = 6
+const val MONTH_YEAR_MASK_JUST_DIGITS_LENGTH = 4
+const val MONTH_YEAR_MASK_DIGITS_STRING_FORMAT = "%02d%02d"
+const val MONTH_YEAR_FORMAT = "MM/yyyy"

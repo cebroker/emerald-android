@@ -17,6 +17,7 @@
 <resources>
     <string name="app_name">My Application</string>
     <string name="show_date_format">MM/dd/yyyy</string>
+    <string name="show_month_year_format">MM/yyyy</string>
     <string name="edittextcityfield_default_hint">City</string>
     <string name="currency_default_hint">Currency</string>
     <string name="default_base_hint">Enter some text</string>
@@ -41,4 +42,7 @@
         <item>Open cam</item>
         <item>Select file from device</item>
     </string-array>
+
+    <string name="date_picker_confirm">OK</string>
+    <string name="date_picker_cancel">CANCEL</string>
 </resources>
