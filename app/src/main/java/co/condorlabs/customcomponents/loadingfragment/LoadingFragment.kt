@@ -10,7 +10,6 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.condorlabs.customcomponents.*
 import kotlinx.android.synthetic.main.fragment_loading.*
-import kotlinx.android.synthetic.main.fragment_loading.tvTitle
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
@@ -67,6 +66,7 @@ class LoadingFragment : Fragment(), LoadingItemsScreen {
 
     override fun updateItemsTilPosition(
         position: Int,
+        status: Status,
         timeBetweenObjectAnimation: Long
     ) {
         val recyclerView = rvItems ?: throw RecyclerViewNotFoundException()
@@ -83,7 +83,7 @@ class LoadingFragment : Fragment(), LoadingItemsScreen {
                     (recyclerView.findViewHolderForAdapterPosition(i) as? LoadingViewHolder)
                         ?: throw ViewHolderNotFoundForPositionException(i)
 
-                viewHolder.updateItemStatus(Status.Loaded)
+                viewHolder.updateItemStatus(status)
                 delay(timeBetweenObjectAnimation)
             }
         }
@@ -99,6 +99,9 @@ class LoadingFragment : Fragment(), LoadingItemsScreen {
         ivICon?.setImageDrawable(ContextCompat.getDrawable(wrappedContext, R.drawable.ic_success))
         setCompletionTitle(successTitle)
         setCompletionMessage(successMessage)
+        btnAction?.setOnClickListener {
+            btnActionCallback()
+        }
     }
 
     override fun showErrorStatus(btnActionText: String, btnActionCallback: () -> Unit) {
@@ -111,6 +114,9 @@ class LoadingFragment : Fragment(), LoadingItemsScreen {
         ivICon?.setImageDrawable(ContextCompat.getDrawable(wrappedContext, R.drawable.ic_error))
         setCompletionTitle(errorTitle)
         setCompletionMessage(errorMessage)
+        btnAction?.setOnClickListener {
+            btnActionCallback()
+        }
     }
 
     private fun setActionButtonText(text: String) {

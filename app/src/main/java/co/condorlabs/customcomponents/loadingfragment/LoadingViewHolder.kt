@@ -20,23 +20,33 @@ import co.condorlabs.customcomponents.R
  */
 class LoadingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), UpdatableLoadingItem {
 
-
     private val tvTitle = itemView.findViewById<TextView>(R.id.tvTitle)
     private val ivIndicator = itemView.findViewById<ImageView>(R.id.ivIndicator)
-
     private val style = StyleSpan(Typeface.BOLD)
+    private var currentStatus: Status = Status.Pending
 
     fun bind(loadingItem: LoadingItem) {
         tvTitle?.text = loadingItem.title
         putStyleToText(tvTitle)
+        renderStatus()
     }
 
+    fun getStatus() = currentStatus
+
     override fun updateItemStatus(status: Status) {
+        currentStatus = status
+        renderStatus()
+    }
+
+
+    private fun renderStatus() {
         ivIndicator?.apply {
             animatedChange(
-                this, when (status) {
+                this,
+                when (currentStatus) {
                     Status.Pending -> ContextCompat.getDrawable(context, R.drawable.ic_circle)!!
-                    else -> ContextCompat.getDrawable(context, R.drawable.ic_checked)!!
+                    Status.Loaded -> ContextCompat.getDrawable(context, R.drawable.ic_checked)!!
+                    Status.Error -> ContextCompat.getDrawable(context, R.drawable.ic_error_mark)!!
                 }
             )
         }

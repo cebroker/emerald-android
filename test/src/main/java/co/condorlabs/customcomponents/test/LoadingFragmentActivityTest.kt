@@ -24,6 +24,10 @@ class LoadingFragmentActivityTest : AppCompatActivity() {
             INIT_WITH_ELEMENTS -> initWithElements()
             INIT_FOR_SUCCESS -> initForSuccess()
             INIT_FOR_ERROR -> initForError()
+            INIT_FOR_SUCCESS_WITH_ACTION ->  initForSuccessWithAction()
+            INIT_FOR_ERROR_WITH_ACTION -> initForErrorWitAction()
+            INIT_FOR_SUCCES_WITHOUT_TRIGGER_ACTION -> initForSuccessWithoutTriggerAction()
+
         }
     }
 
@@ -98,5 +102,58 @@ class LoadingFragmentActivityTest : AppCompatActivity() {
         ll?.postDelayed({
             fragment.showErrorStatus("Try again")
         }, 2000)
+    }
+
+    private fun initForSuccessWithAction(){
+        val fragment = LoadingFragment.newInstance(
+            "Some title", arrayListOf(
+                LoadingItem("Element 1"),
+                LoadingItem("Element 2"),
+                LoadingItem("Element 3"),
+                LoadingItem("Element 4")
+            ), "Done!", "Ups!", "You have submitted everything thank you",
+            "Something went wrong"
+        )
+
+        supportFragmentManager?.beginTransaction()
+            ?.replace(
+                R.id.ll, fragment
+            )
+            ?.commitAllowingStateLoss()
+    }
+
+    private fun initForErrorWitAction() {
+        val fragment = LoadingFragment.newInstance(
+            "Some title", arrayListOf(
+                LoadingItem("Element 1"),
+                LoadingItem("Element 2"),
+                LoadingItem("Element 3"),
+                LoadingItem("Element 4")
+            ), "Done!", "Ups!", "You have submitted everything thank you",
+            "Something went wrong"
+        )
+
+        supportFragmentManager?.beginTransaction()
+            ?.replace(
+                R.id.ll, fragment
+            )
+            ?.commitAllowingStateLoss()
+    }
+
+    private fun initForSuccessWithoutTriggerAction(){
+        val fragment = LoadingFragment.newInstance(
+            "Some title", arrayListOf(
+                LoadingItem("Element 1"),
+                LoadingItem("Element 2"),
+                LoadingItem("Element 3"),
+                LoadingItem("Element 4")
+            ), "Done!", "Failing", "You have submitted everything thank you", "Error"
+        )
+
+        supportFragmentManager?.beginTransaction()
+            ?.replace(
+                R.id.ll, fragment
+            )
+            ?.commitAllowingStateLoss()
     }
 }

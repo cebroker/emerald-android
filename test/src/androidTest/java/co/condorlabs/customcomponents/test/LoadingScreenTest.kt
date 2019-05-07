@@ -1,13 +1,19 @@
 package co.condorlabs.customcomponents.test
 
 import android.content.Intent
+import androidx.recyclerview.widget.RecyclerView
 import androidx.test.espresso.Espresso
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
 import androidx.test.espresso.matcher.ViewMatchers.withText
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import co.condorlabs.customcomponents.*
+import co.condorlabs.customcomponents.loadingfragment.LoadingFragment
+import co.condorlabs.customcomponents.loadingfragment.LoadingViewHolder
+import co.condorlabs.customcomponents.loadingfragment.Status
+import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -122,5 +128,227 @@ class LoadingScreenTest {
         errorTitle.check(matches(isDisplayed()))
         errorMessage.check(matches(isDisplayed()))
         actionButton.check(matches(isDisplayed()))
+    }
+
+    @Test
+    fun shouldCallMyActionOnButtonPressedSuccessScenario() {
+        //Given
+        val intent = Intent()
+        intent.putExtra(ARGUMENT_LOADING_ACTIVITY_TEST_INIT_OPTION, INIT_FOR_SUCCESS_WITH_ACTION)
+        ruleActivity.launchActivity(intent)
+
+        Thread.sleep(3000)
+        val fragment = ruleActivity.activity.supportFragmentManager.fragments[0] as LoadingFragment
+        var count = 0
+
+        ruleActivity.runOnUiThread {
+            fragment.showSuccessStatus("Continue 2") {
+                count++
+            }
+
+        }
+
+        //When
+        Espresso.onView(withText("Continue 2")).perform(click())
+
+
+        //Then
+        Assert.assertEquals(1, count)
+    }
+
+    @Test
+    fun shouldCallMyActionOnButtonPressedErrorScenario() {
+        //Given
+        val intent = Intent()
+        intent.putExtra(ARGUMENT_LOADING_ACTIVITY_TEST_INIT_OPTION, INIT_FOR_ERROR)
+        ruleActivity.launchActivity(intent)
+
+        Thread.sleep(3000)
+        val fragment = ruleActivity.activity.supportFragmentManager.fragments[0] as LoadingFragment
+        var count = 1
+
+        ruleActivity.runOnUiThread {
+            fragment.showErrorStatus("Try") {
+                count++
+            }
+
+        }
+
+        //When
+        Espresso.onView(withText("Try")).perform(click())
+
+
+        //Then
+        Assert.assertEquals(2, count)
+    }
+
+    @Test
+    fun shouldMarkOneElementAsCompleted() {
+        //Given
+        val intent = Intent()
+        intent.putExtra(ARGUMENT_LOADING_ACTIVITY_TEST_INIT_OPTION, INIT_WITH_ELEMENTS)
+        ruleActivity.launchActivity(intent)
+
+        Thread.sleep(3000)
+        val fragment = ruleActivity.activity.supportFragmentManager.fragments[0] as LoadingFragment
+        val recyclerView = fragment.view!!.findViewById<RecyclerView>(R.id.rvItems)!!
+
+        //When
+        fragment.updateItemsTilPosition(1, status = Status.Loaded)
+        Thread.sleep(DEFAULT_TIME_BETWEEN_OBJECT_ANIMATION + 1)
+
+        //Then
+        Assert.assertEquals(
+            (recyclerView.findViewHolderForAdapterPosition(0) as LoadingViewHolder).getStatus(),
+            Status.Loaded
+        )
+        Assert.assertEquals(
+            (recyclerView.findViewHolderForAdapterPosition(1) as LoadingViewHolder).getStatus(),
+            Status.Pending
+        )
+        Assert.assertEquals(
+            (recyclerView.findViewHolderForAdapterPosition(2) as LoadingViewHolder).getStatus(),
+            Status.Pending
+        )
+        Assert.assertEquals(
+            (recyclerView.findViewHolderForAdapterPosition(3) as LoadingViewHolder).getStatus(),
+            Status.Pending
+        )
+    }
+
+    @Test
+    fun shouldMarkTwoElementAsCompleted() {
+        //Given
+        val intent = Intent()
+        intent.putExtra(ARGUMENT_LOADING_ACTIVITY_TEST_INIT_OPTION, INIT_WITH_ELEMENTS)
+        ruleActivity.launchActivity(intent)
+
+        Thread.sleep(3000)
+        val fragment = ruleActivity.activity.supportFragmentManager.fragments[0] as LoadingFragment
+        val recyclerView = fragment.view!!.findViewById<RecyclerView>(R.id.rvItems)!!
+
+        //When
+        fragment.updateItemsTilPosition(2, status = Status.Loaded)
+        Thread.sleep(DEFAULT_TIME_BETWEEN_OBJECT_ANIMATION  * 2 + 1)
+
+        //Then
+        Assert.assertEquals(
+            (recyclerView.findViewHolderForAdapterPosition(0) as LoadingViewHolder).getStatus(),
+            Status.Loaded
+        )
+        Assert.assertEquals(
+            (recyclerView.findViewHolderForAdapterPosition(1) as LoadingViewHolder).getStatus(),
+            Status.Loaded
+        )
+        Assert.assertEquals(
+            (recyclerView.findViewHolderForAdapterPosition(2) as LoadingViewHolder).getStatus(),
+            Status.Pending
+        )
+        Assert.assertEquals(
+            (recyclerView.findViewHolderForAdapterPosition(3) as LoadingViewHolder).getStatus(),
+            Status.Pending
+        )
+    }
+
+    @Test
+    fun shouldMarkThreeElementAsCompleted() {
+        //Given
+        val intent = Intent()
+        intent.putExtra(ARGUMENT_LOADING_ACTIVITY_TEST_INIT_OPTION, INIT_WITH_ELEMENTS)
+        ruleActivity.launchActivity(intent)
+
+        Thread.sleep(3000)
+        val fragment = ruleActivity.activity.supportFragmentManager.fragments[0] as LoadingFragment
+        val recyclerView = fragment.view!!.findViewById<RecyclerView>(R.id.rvItems)!!
+
+        //When
+        fragment.updateItemsTilPosition(3, status = Status.Loaded)
+        Thread.sleep(DEFAULT_TIME_BETWEEN_OBJECT_ANIMATION  * 3 + 1)
+
+        //Then
+        Assert.assertEquals(
+            (recyclerView.findViewHolderForAdapterPosition(0) as LoadingViewHolder).getStatus(),
+            Status.Loaded
+        )
+        Assert.assertEquals(
+            (recyclerView.findViewHolderForAdapterPosition(1) as LoadingViewHolder).getStatus(),
+            Status.Loaded
+        )
+        Assert.assertEquals(
+            (recyclerView.findViewHolderForAdapterPosition(2) as LoadingViewHolder).getStatus(),
+            Status.Loaded
+        )
+        Assert.assertEquals(
+            (recyclerView.findViewHolderForAdapterPosition(3) as LoadingViewHolder).getStatus(),
+            Status.Pending
+        )
+    }
+
+    @Test
+    fun shouldMarkFourElementAsCompleted() {
+        //Given
+        val intent = Intent()
+        intent.putExtra(ARGUMENT_LOADING_ACTIVITY_TEST_INIT_OPTION, INIT_WITH_ELEMENTS)
+        ruleActivity.launchActivity(intent)
+
+        Thread.sleep(3000)
+        val fragment = ruleActivity.activity.supportFragmentManager.fragments[0] as LoadingFragment
+        val recyclerView = fragment.view!!.findViewById<RecyclerView>(R.id.rvItems)!!
+
+        //When
+        fragment.updateItemsTilPosition(4, Status.Loaded)
+        Thread.sleep(DEFAULT_TIME_BETWEEN_OBJECT_ANIMATION  * 4 + 1)
+
+        //Then
+        Assert.assertEquals(
+            (recyclerView.findViewHolderForAdapterPosition(0) as LoadingViewHolder).getStatus(),
+            Status.Loaded
+        )
+        Assert.assertEquals(
+            (recyclerView.findViewHolderForAdapterPosition(1) as LoadingViewHolder).getStatus(),
+            Status.Loaded
+        )
+        Assert.assertEquals(
+            (recyclerView.findViewHolderForAdapterPosition(2) as LoadingViewHolder).getStatus(),
+            Status.Loaded
+        )
+        Assert.assertEquals(
+            (recyclerView.findViewHolderForAdapterPosition(3) as LoadingViewHolder).getStatus(),
+            Status.Loaded
+        )
+    }
+
+    @Test
+    fun shouldShowErrorOnItems() {
+        //Given
+        val intent = Intent()
+        intent.putExtra(ARGUMENT_LOADING_ACTIVITY_TEST_INIT_OPTION, INIT_WITH_ELEMENTS)
+        ruleActivity.launchActivity(intent)
+
+        Thread.sleep(3000)
+        val fragment = ruleActivity.activity.supportFragmentManager.fragments[0] as LoadingFragment
+        val recyclerView = fragment.view!!.findViewById<RecyclerView>(R.id.rvItems)!!
+
+        //When
+        fragment.updateItemsTilPosition(4, Status.Error, ERROR_TIME_BETWEEN_OBJECT_ANIMATION)
+        Thread.sleep(ERROR_TIME_BETWEEN_OBJECT_ANIMATION  * 4 + 1)
+
+        //Then
+        Assert.assertEquals(
+            (recyclerView.findViewHolderForAdapterPosition(0) as LoadingViewHolder).getStatus(),
+            Status.Error
+        )
+        Assert.assertEquals(
+            (recyclerView.findViewHolderForAdapterPosition(1) as LoadingViewHolder).getStatus(),
+            Status.Error
+        )
+        Assert.assertEquals(
+            (recyclerView.findViewHolderForAdapterPosition(2) as LoadingViewHolder).getStatus(),
+            Status.Error
+        )
+        Assert.assertEquals(
+            (recyclerView.findViewHolderForAdapterPosition(3) as LoadingViewHolder).getStatus(),
+            Status.Error
+        )
     }
 }

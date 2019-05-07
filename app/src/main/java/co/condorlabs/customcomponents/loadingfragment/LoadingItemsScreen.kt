@@ -9,6 +9,7 @@ interface LoadingItemsScreen {
 
     fun updateItemsTilPosition(
         position: Int,
+        status: Status,
         timeBetweenObjectAnimation: Long = DEFAULT_TIME_BETWEEN_OBJECT_ANIMATION
     )
 
