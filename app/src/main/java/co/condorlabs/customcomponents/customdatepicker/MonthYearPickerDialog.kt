@@ -53,7 +53,6 @@ class MonthYearPickerDialog: DialogFragment() {
             value = month ?: currentDate.get(Calendar.MONTH)
         }
 
-
     private fun initializeYearPicker(dialog: View?, currentDate: Calendar) =
         dialog?.findViewById<NumberPicker>(R.id.yearPicker)?.apply {
             minValue = MIN_YEAR
