@@ -13,6 +13,8 @@ import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.loadingfragment.LoadingFragment
 import co.condorlabs.customcomponents.loadingfragment.LoadingViewHolder
 import co.condorlabs.customcomponents.loadingfragment.Status
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Rule
 import org.junit.Test
@@ -142,10 +144,11 @@ class LoadingScreenTest {
         var count = 0
 
         ruleActivity.runOnUiThread {
-            fragment.showSuccessStatus("Continue 2") {
-                count++
+            runBlocking {
+                fragment.showSuccessStatus("Continue 2") {
+                    count++
+                }
             }
-
         }
 
         //When
@@ -168,10 +171,11 @@ class LoadingScreenTest {
         var count = 1
 
         ruleActivity.runOnUiThread {
-            fragment.showErrorStatus("Try") {
-                count++
+            runBlocking {
+                fragment.showErrorStatus("Try") {
+                    count++
+                }
             }
-
         }
 
         //When
@@ -194,8 +198,9 @@ class LoadingScreenTest {
         val recyclerView = fragment.view!!.findViewById<RecyclerView>(R.id.rvItems)!!
 
         //When
-        fragment.updateItemsTilPosition(1, status = Status.Loaded)
-        Thread.sleep(DEFAULT_TIME_BETWEEN_OBJECT_ANIMATION + 1)
+        runBlocking {
+            fragment.updateItemsTilPosition(1, status = Status.Loaded)
+        }
 
         //Then
         Assert.assertEquals(
@@ -228,8 +233,9 @@ class LoadingScreenTest {
         val recyclerView = fragment.view!!.findViewById<RecyclerView>(R.id.rvItems)!!
 
         //When
-        fragment.updateItemsTilPosition(2, status = Status.Loaded)
-        Thread.sleep(DEFAULT_TIME_BETWEEN_OBJECT_ANIMATION  * 2 + 1)
+        runBlocking {
+            fragment.updateItemsTilPosition(2, status = Status.Loaded)
+        }
 
         //Then
         Assert.assertEquals(
@@ -262,8 +268,9 @@ class LoadingScreenTest {
         val recyclerView = fragment.view!!.findViewById<RecyclerView>(R.id.rvItems)!!
 
         //When
-        fragment.updateItemsTilPosition(3, status = Status.Loaded)
-        Thread.sleep(DEFAULT_TIME_BETWEEN_OBJECT_ANIMATION  * 3 + 1)
+        runBlocking {
+            fragment.updateItemsTilPosition(3, status = Status.Loaded)
+        }
 
         //Then
         Assert.assertEquals(
@@ -296,8 +303,12 @@ class LoadingScreenTest {
         val recyclerView = fragment.view!!.findViewById<RecyclerView>(R.id.rvItems)!!
 
         //When
-        fragment.updateItemsTilPosition(4, Status.Loaded)
-        Thread.sleep(DEFAULT_TIME_BETWEEN_OBJECT_ANIMATION  * 4 + 1)
+        ruleActivity.runOnUiThread {
+            runBlocking {
+                fragment.updateItemsTilPosition(4, Status.Loaded)
+                delay(4 * 600)
+            }
+        }
 
         //Then
         Assert.assertEquals(
@@ -330,8 +341,9 @@ class LoadingScreenTest {
         val recyclerView = fragment.view!!.findViewById<RecyclerView>(R.id.rvItems)!!
 
         //When
-        fragment.updateItemsTilPosition(4, Status.Error, ERROR_TIME_BETWEEN_OBJECT_ANIMATION)
-        Thread.sleep(ERROR_TIME_BETWEEN_OBJECT_ANIMATION  * 4 + 1)
+        runBlocking {
+            fragment.updateItemsTilPosition(4, Status.Error, ERROR_TIME_BETWEEN_OBJECT_ANIMATION)
+        }
 
         //Then
         Assert.assertEquals(
@@ -350,5 +362,54 @@ class LoadingScreenTest {
             (recyclerView.findViewHolderForAdapterPosition(3) as LoadingViewHolder).getStatus(),
             Status.Error
         )
+    }
+
+    @Test
+    fun shouldShowErrorOnItemsAndErrorScreen() {
+        //Given
+        val intent = Intent()
+        intent.putExtra(ARGUMENT_LOADING_ACTIVITY_TEST_INIT_OPTION, INIT_FOR_ERROR)
+        ruleActivity.launchActivity(intent)
+
+        val errorTitle = Espresso.onView(withText("Ups!"))
+        val errorMessage = Espresso.onView(withText("Something went wrong"))
+        val actionButton = Espresso.onView(withText("Try again"))
+
+        Thread.sleep(3000)
+        val fragment = ruleActivity.activity.supportFragmentManager.fragments[0] as LoadingFragment
+        val recyclerView = fragment.view!!.findViewById<RecyclerView>(R.id.rvItems)!!
+
+        //When
+        ruleActivity.runOnUiThread {
+            runBlocking {
+                fragment.updateItemsTilPosition(4, Status.Error, ERROR_TIME_BETWEEN_OBJECT_ANIMATION)
+                delay(4 * 600)
+                fragment.showErrorStatus("Try again") {
+
+                }
+            }
+        }
+
+        //Then
+        Assert.assertEquals(
+            (recyclerView.findViewHolderForAdapterPosition(0) as LoadingViewHolder).getStatus(),
+            Status.Error
+        )
+        Assert.assertEquals(
+            (recyclerView.findViewHolderForAdapterPosition(1) as LoadingViewHolder).getStatus(),
+            Status.Error
+        )
+        Assert.assertEquals(
+            (recyclerView.findViewHolderForAdapterPosition(2) as LoadingViewHolder).getStatus(),
+            Status.Error
+        )
+        Assert.assertEquals(
+            (recyclerView.findViewHolderForAdapterPosition(3) as LoadingViewHolder).getStatus(),
+            Status.Error
+        )
+        errorTitle.check(matches(isDisplayed()))
+        errorMessage.check(matches(isDisplayed()))
+        actionButton.check(matches(isDisplayed()))
+
     }
 }

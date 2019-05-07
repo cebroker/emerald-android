@@ -10,10 +10,7 @@ import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import co.condorlabs.customcomponents.*
 import kotlinx.android.synthetic.main.fragment_loading.*
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.delay
-import kotlinx.coroutines.launch
 
 
 class LoadingFragment : Fragment(), LoadingItemsScreen {
@@ -64,7 +61,7 @@ class LoadingFragment : Fragment(), LoadingItemsScreen {
             )
     }
 
-    override fun updateItemsTilPosition(
+    override suspend fun updateItemsTilPosition(
         position: Int,
         status: Status,
         timeBetweenObjectAnimation: Long
@@ -77,23 +74,19 @@ class LoadingFragment : Fragment(), LoadingItemsScreen {
             throw PositionGreaterThatItemsSizeException()
         }
 
-        CoroutineScope(Dispatchers.Main).launch {
-            for (i in LOADING_ADAPTER_FIRST_POSITION until position) {
-                val viewHolder =
-                    (recyclerView.findViewHolderForAdapterPosition(i) as? LoadingViewHolder)
-                        ?: throw ViewHolderNotFoundForPositionException(i)
+        for (i in LOADING_ADAPTER_FIRST_POSITION until position) {
+            val viewHolder =
+                (recyclerView.findViewHolderForAdapterPosition(i) as? LoadingViewHolder)
+                    ?: throw ViewHolderNotFoundForPositionException(i)
 
-                viewHolder.updateItemStatus(status)
-                delay(timeBetweenObjectAnimation)
-            }
+            viewHolder.updateItemStatus(status)
+            delay(timeBetweenObjectAnimation)
         }
     }
 
-    override fun showSuccessStatus(btnActionText: String, btnActionCallback: () -> Unit) {
+    override suspend fun showSuccessStatus(btnActionText: String, btnActionCallback: () -> Unit) {
         val wrappedContext = context ?: return
-        lavSpinner?.visibility = View.GONE
-        llStatus?.visibility = View.VISIBLE
-        btnAction?.visibility = View.VISIBLE
+        makeStatusItemsVisible()
         btnAction?.setType(BUTTON_PRIMARY_TYPE)
         setActionButtonText(btnActionText)
         ivICon?.setImageDrawable(ContextCompat.getDrawable(wrappedContext, R.drawable.ic_success))
@@ -104,11 +97,9 @@ class LoadingFragment : Fragment(), LoadingItemsScreen {
         }
     }
 
-    override fun showErrorStatus(btnActionText: String, btnActionCallback: () -> Unit) {
+    override suspend fun showErrorStatus(btnActionText: String, btnActionCallback: () -> Unit) {
         val wrappedContext = context ?: return
-        lavSpinner?.visibility = View.GONE
-        llStatus?.visibility = View.VISIBLE
-        btnAction?.visibility = View.VISIBLE
+        makeStatusItemsVisible()
         btnAction?.setType(BUTTON_DANGER_TYPE)
         setActionButtonText(btnActionText)
         ivICon?.setImageDrawable(ContextCompat.getDrawable(wrappedContext, R.drawable.ic_error))
@@ -117,6 +108,12 @@ class LoadingFragment : Fragment(), LoadingItemsScreen {
         btnAction?.setOnClickListener {
             btnActionCallback()
         }
+    }
+
+    private fun makeStatusItemsVisible() {
+        lavSpinner?.visibility = View.GONE
+        llStatus?.visibility = View.VISIBLE
+        btnAction?.visibility = View.VISIBLE
     }
 
     private fun setActionButtonText(text: String) {

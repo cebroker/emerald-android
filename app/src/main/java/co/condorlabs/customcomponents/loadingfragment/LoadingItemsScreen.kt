@@ -7,13 +7,13 @@ import co.condorlabs.customcomponents.DEFAULT_TIME_BETWEEN_OBJECT_ANIMATION
  */
 interface LoadingItemsScreen {
 
-    fun updateItemsTilPosition(
+    suspend fun updateItemsTilPosition(
         position: Int,
         status: Status,
         timeBetweenObjectAnimation: Long = DEFAULT_TIME_BETWEEN_OBJECT_ANIMATION
     )
 
-    fun showSuccessStatus(btnActionText: String, btnActionCallback: () -> Unit = {})
+    suspend fun showSuccessStatus(btnActionText: String, btnActionCallback: () -> Unit = {})
 
-    fun showErrorStatus(btnActionText: String, btnActionCallback: () -> Unit = {})
+    suspend fun showErrorStatus(btnActionText: String, btnActionCallback: () -> Unit = {})
 }

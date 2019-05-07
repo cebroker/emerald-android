@@ -6,6 +6,9 @@ import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.loadingfragment.LoadingFragment
 import co.condorlabs.customcomponents.loadingfragment.LoadingItem
 import kotlinx.android.synthetic.main.activity_mock.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 
 /**
  * @author Oscar Gallon on 2019-05-06.
@@ -78,7 +81,9 @@ class LoadingFragmentActivityTest : AppCompatActivity() {
             ?.commitAllowingStateLoss()
 
         ll?.postDelayed({
-            fragment.showSuccessStatus("Continue")
+            CoroutineScope(Dispatchers.Main).launch {
+                fragment.showSuccessStatus("Continue")
+            }
         }, 2000)
     }
 
@@ -100,7 +105,9 @@ class LoadingFragmentActivityTest : AppCompatActivity() {
             ?.commitAllowingStateLoss()
 
         ll?.postDelayed({
-            fragment.showErrorStatus("Try again")
+            CoroutineScope(Dispatchers.Main).launch {
+                fragment.showErrorStatus("Try again")
+            }
         }, 2000)
     }
 
