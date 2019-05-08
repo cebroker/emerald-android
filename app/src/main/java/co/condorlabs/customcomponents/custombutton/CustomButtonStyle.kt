@@ -24,7 +24,7 @@ sealed class CustomButtonStyle(
         CustomButtonStyle(
             R.color.white,
             R.color.black,
-            R.color.defaultButtonStyleRippleColor,
+            R.color.defaultRippleColor,
             R.color.defaultButtonBorderColor
         )
 

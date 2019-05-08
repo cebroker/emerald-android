@@ -25,6 +25,7 @@
     <color name="text_tap_color">#42A5F5</color>
 
     <color name="defaultHighlightColor">#800073E9</color>
+    <color name="defaultRippleColor">#e6e6e6</color>
     <color name="primaryColor">#0073e9</color>
     <color name="primaryRippleColor">#005ab6</color>
     <color name="dangerColor">#de350b</color>
