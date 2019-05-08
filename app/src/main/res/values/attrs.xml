@@ -44,6 +44,7 @@
 
     <declare-styleable name="BaseRadioGroupFormField">
         <attr name="title"/>
+        <attr name="space_between_items" format="integer"/>
         <attr name="is_required"/>
     </declare-styleable>
 

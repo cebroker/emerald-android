@@ -96,6 +96,7 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
         mValueChangeListener?.onValueChange(getValue())
 
         receiver.addTextChangedListener(dateTextWatcherMask)
+        receiver.setSelection(receiver.text.length)
     }
 
     fun setLowerLimit(limit: Long) {
