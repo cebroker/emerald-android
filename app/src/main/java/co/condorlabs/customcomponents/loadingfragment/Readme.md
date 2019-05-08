@@ -22,7 +22,7 @@ LoadingFragment.newInstance(
 
 
 | Name | Description  |
-| -| - | - |
+| -| - |
 |  title | View title   |
 |  items | List of `LoadingItem` maximum number of items 4 |
 |  successTitle | Success status title|
@@ -31,11 +31,14 @@ LoadingFragment.newInstance(
 |  errorTitle | Error status message|
 
 ## Public methods
-| Return Type | Description  |
-| -| - | - |
+| Return Type | Description |
+| -| - |
 |  Unit | *`updateItemsTilPosition(position:Int,status: Status,timeBetweenObjectAnimation:Long)`* <br> Update the `LoadingItem`  list with the status provided til the position provided. This is a `suspend` function |
 |  Unit | *`showSuccessStatus(btnActionText: String, btnActionCallback: ActionListener = {})`* <br> Shows the success status, and set the listener for the `btnAction` clickListener. This is a `suspend` function |
 |  Unit | *`showErrorStatus(btnActionText: String, btnActionCallback: ActionListener = {})`* <br> Shows the error status, and set the listener for the `btnAction` clickListener. This is a `suspend` function |
 
+
 ## Examples
 1. List
+
+2. Success Status
