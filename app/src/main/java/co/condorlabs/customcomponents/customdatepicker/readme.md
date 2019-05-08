@@ -18,3 +18,6 @@ Emerald provides a month and year date picker.
 | - | - |
 | app:is_required | Set if the field is required. true / false. |
 | app:picker_icon | Icon resource |
+
+## Example
+<p align="center"><img src="https://github.com/cebroker/emerald-ios/blob/develop/Resources/Images/Palettes.PNG" /></p>
