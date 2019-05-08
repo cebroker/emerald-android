@@ -2,12 +2,13 @@ package co.condorlabs.customcomponents.test
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.loadingfragment.LoadingFragment
 import co.condorlabs.customcomponents.loadingfragment.LoadingItem
+import co.condorlabs.customcomponents.loadingfragment.Status
 import kotlinx.android.synthetic.main.activity_mock.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 /**
@@ -19,19 +20,7 @@ class LoadingFragmentActivityTest : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_mock)
 
-        val initOptions = intent?.extras?.getInt(ARGUMENT_LOADING_ACTIVITY_TEST_INIT_OPTION)
-            ?: throw RuntimeException("Init option must be specified")
-
-        when (initOptions) {
-            INIT_WITH_TITLE -> initWithTitle()
-            INIT_WITH_ELEMENTS -> initWithElements()
-            INIT_FOR_SUCCESS -> initForSuccess()
-            INIT_FOR_ERROR -> initForError()
-            INIT_FOR_SUCCESS_WITH_ACTION ->  initForSuccessWithAction()
-            INIT_FOR_ERROR_WITH_ACTION -> initForErrorWitAction()
-            INIT_FOR_SUCCES_WITHOUT_TRIGGER_ACTION -> initForSuccessWithoutTriggerAction()
-
-        }
+        initForSuccessWithAction()
     }
 
     private fun initWithTitle() {
@@ -121,12 +110,19 @@ class LoadingFragmentActivityTest : AppCompatActivity() {
             ), "Done!", "Ups!", "You have submitted everything thank you",
             "Something went wrong"
         )
-
         supportFragmentManager?.beginTransaction()
             ?.replace(
                 R.id.ll, fragment
             )
             ?.commitAllowingStateLoss()
+
+
+
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(3000)
+            fragment.updateItemsTilPosition(4, Status.Loaded)
+            fragment.showSuccessStatus("Continue")
+        }
     }
 
     private fun initForErrorWitAction() {
