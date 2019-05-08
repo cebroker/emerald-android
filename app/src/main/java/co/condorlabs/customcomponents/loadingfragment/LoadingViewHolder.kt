@@ -41,14 +41,19 @@ class LoadingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), Upd
 
     private fun renderStatus() {
         ivIndicator?.apply {
-            animatedChange(
-                this,
-                when (currentStatus) {
-                    Status.Pending -> ContextCompat.getDrawable(context, R.drawable.ic_circle)!!
-                    Status.Loaded -> ContextCompat.getDrawable(context, R.drawable.ic_checked)!!
-                    Status.Error -> ContextCompat.getDrawable(context, R.drawable.ic_error_mark)!!
-                }
-            )
+
+            when (currentStatus) {
+                Status.Pending -> ContextCompat.getDrawable(context, R.drawable.ic_circle)!!
+                Status.Loaded -> animatedChange(
+                    this,
+                    ContextCompat.getDrawable(context, R.drawable.ic_checked)!!
+                )
+                Status.Error -> animatedChange(
+                    this,
+                    ContextCompat.getDrawable(context, R.drawable.ic_error_mark)!!
+                )
+            }
+
         }
     }
 
