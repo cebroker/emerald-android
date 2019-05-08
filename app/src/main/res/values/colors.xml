@@ -26,10 +26,16 @@
 
     <color name="defaultHighlightColor">#800073E9</color>
     <color name="primaryColor">#0073e9</color>
+    <color name="primaryRippleColor">#005ab6</color>
     <color name="dangerColor">#de350b</color>
+    <color name="dangerRippleColor">#ad2909</color>
     <color name="warningColor">#ffaa00</color>
+    <color name="warningRippleColor">#c80</color>
     <color name="infoColor">#0073e9</color>
+    <color name="infoRippleColor">#005ab6</color>
     <color name="successColor">#00a950</color>
+    <color name="successRippleColor">#007638</color>
+    <color name="overlayRippleColor">#0073e9</color>
     <color name="white">#ffffff</color>
     <color name="black">#000000</color>
     <color name="defaultButtonBorderColor">#bec6c6</color>

@@ -106,6 +106,7 @@ const val BUTTON_DANGER_TYPE = "danger"
 const val BUTTON_WARNING_TYPE = "warning"
 const val BUTTON_INFO_TYPE = "info"
 const val BUTTON_SUCCESS_TYPE = "success"
+const val BUTTON_OVERLAY_TYPE = "overlay"
 
 typealias ButtonType = String
 
@@ -136,3 +137,4 @@ const val INIT_FOR_ERROR_WITH_ACTION = 5
 const val INIT_FOR_SUCCES_WITHOUT_TRIGGER_ACTION =6
 
 const val TEXT_FIELD_CORNER_RADIOUS = 16.toFloat()
+const val DEFAULT_STROKE_WIDTH = 3

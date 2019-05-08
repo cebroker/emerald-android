@@ -1,6 +1,7 @@
 package co.condorlabs.customcomponents.custombutton
 
 import android.graphics.drawable.GradientDrawable
+import co.condorlabs.customcomponents.DEFAULT_STROKE_WIDTH
 import co.condorlabs.customcomponents.R
 
 /**
@@ -16,9 +17,9 @@ class ColorGradientDrawable : GradientDrawable() {
         setColor(color)
     }
 
-    fun setStrokeColor(color: Int) {
+    fun setStrokeColor(color: Int, width: Int = DEFAULT_STROKE_WIDTH) {
         this.strokeColor = color
-        setStroke(1, color)
+        setStroke(width, color)
     }
 
     fun getSolidColor(): Int = solidColor

@@ -1,13 +1,10 @@
 package co.condorlabs.customcomponents.custombutton
 
 import android.content.Context
-import android.content.res.ColorStateList
 import android.graphics.Typeface
-import android.graphics.drawable.GradientDrawable
-import android.graphics.drawable.RippleDrawable
-import androidx.core.content.ContextCompat
 import android.util.AttributeSet
 import android.widget.Button
+import androidx.core.content.ContextCompat
 import co.condorlabs.customcomponents.*
 
 /**
@@ -48,24 +45,8 @@ class CustomButton(context: Context, attrs: AttributeSet) : Button(context, attr
 
     private fun renderStyle() {
         val style = customButtonStyleFactory.getCustomColorFromType(type)
-        val backgroundStyled = ColorGradientDrawable().apply {
-            setSolidColor(ContextCompat.getColor(context, style.backgroundColor))
-            setStrokeColor(ContextCompat.getColor(context, style.strokeColor))
-            shape = GradientDrawable.RECTANGLE
-        }
-        background = RippleDrawable(
-            getPressedColor(ContextCompat.getColor(context, style.rippleColor)),
-            backgroundStyled,
-            null
-        )
-        setTextColor(ContextCompat.getColor(context, style.textColor))
-    }
-
-    private fun getPressedColor(rippleColor: Int): ColorStateList {
-        return ColorStateList(
-            arrayOf(intArrayOf()),
-            intArrayOf(rippleColor)
-        )
+        background = style.getBackground(context)
+        setTextColor(style.getTextColor(context))
     }
 
     private fun setFont() {
