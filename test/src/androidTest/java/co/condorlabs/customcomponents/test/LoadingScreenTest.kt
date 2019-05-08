@@ -198,8 +198,11 @@ class LoadingScreenTest {
         val recyclerView = fragment.view!!.findViewById<RecyclerView>(R.id.rvItems)!!
 
         //When
-        runBlocking {
-            fragment.updateItemsTilPosition(1, status = Status.Loaded)
+        ruleActivity.runOnUiThread {
+            runBlocking {
+                fragment.updateItemsTilPosition(1, status = Status.Loaded)
+                delay(1 * DEFAULT_TIME_BETWEEN_OBJECT_ANIMATION + 1)
+            }
         }
 
         //Then
@@ -233,8 +236,12 @@ class LoadingScreenTest {
         val recyclerView = fragment.view!!.findViewById<RecyclerView>(R.id.rvItems)!!
 
         //When
-        runBlocking {
-            fragment.updateItemsTilPosition(2, status = Status.Loaded)
+        ruleActivity.runOnUiThread {
+            runBlocking {
+                fragment.updateItemsTilPosition(2, status = Status.Loaded)
+                delay(2 * DEFAULT_TIME_BETWEEN_OBJECT_ANIMATION + 1)
+            }
+
         }
 
         //Then
@@ -268,8 +275,11 @@ class LoadingScreenTest {
         val recyclerView = fragment.view!!.findViewById<RecyclerView>(R.id.rvItems)!!
 
         //When
-        runBlocking {
-            fragment.updateItemsTilPosition(3, status = Status.Loaded)
+        ruleActivity.runOnUiThread {
+            runBlocking {
+                fragment.updateItemsTilPosition(3, status = Status.Loaded)
+                delay(3 * DEFAULT_TIME_BETWEEN_OBJECT_ANIMATION + 1)
+            }
         }
 
         //Then
@@ -306,7 +316,7 @@ class LoadingScreenTest {
         ruleActivity.runOnUiThread {
             runBlocking {
                 fragment.updateItemsTilPosition(4, Status.Loaded)
-                delay(4 * 600)
+                delay(4 * DEFAULT_TIME_BETWEEN_OBJECT_ANIMATION + 1)
             }
         }
 
@@ -341,8 +351,11 @@ class LoadingScreenTest {
         val recyclerView = fragment.view!!.findViewById<RecyclerView>(R.id.rvItems)!!
 
         //When
-        runBlocking {
-            fragment.updateItemsTilPosition(4, Status.Error, ERROR_TIME_BETWEEN_OBJECT_ANIMATION)
+        ruleActivity.runOnUiThread {
+            runBlocking {
+                fragment.updateItemsTilPosition(4, Status.Error, ERROR_TIME_BETWEEN_OBJECT_ANIMATION)
+                delay(4 * ERROR_TIME_BETWEEN_OBJECT_ANIMATION + 1)
+            }
         }
 
         //Then
@@ -383,7 +396,7 @@ class LoadingScreenTest {
         ruleActivity.runOnUiThread {
             runBlocking {
                 fragment.updateItemsTilPosition(4, Status.Error, ERROR_TIME_BETWEEN_OBJECT_ANIMATION)
-                delay(4 * 600)
+                delay(4 * DEFAULT_TIME_BETWEEN_OBJECT_ANIMATION + 1)
                 fragment.showErrorStatus("Try again") {
 
                 }

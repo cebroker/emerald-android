@@ -11,16 +11,13 @@
             android:theme="@style/AppTheme">
 
         <activity android:name=".MockActivity">
-
-        </activity>
-        <activity android:name=".LoadingFragmentActivityTest">
             <intent-filter>
                 <category android:name="android.intent.category.LAUNCHER"/>
 
                 <action android:name="android.intent.action.MAIN"/>
             </intent-filter>
-
         </activity>
+        <activity android:name=".LoadingFragmentActivityTest"/>
     </application>
 
 </manifest>

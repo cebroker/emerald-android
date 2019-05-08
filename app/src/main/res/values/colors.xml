@@ -15,7 +15,7 @@
   ~ limitations under the License.
   -->
 
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
@@ -37,6 +37,10 @@
     <color name="rippleColor">#20FFFFFF</color>
     <color name="defaultButtonStyleRippleColor">#10000000</color>
     <color name="defaultHintColor">#d3dbe7</color>
+    <color name="labelColor">#4b5353</color>
     <color name="textHintColor">#8EA7A7</color>
     <color name="textColor">#282e2e</color>
+
+    <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#4b5353</color>
+
 </resources>

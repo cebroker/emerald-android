@@ -18,7 +18,6 @@ package co.condorlabs.customcomponents.customedittext
 
 import android.content.Context
 import android.graphics.Typeface
-import com.google.android.material.textfield.TextInputLayout
 import android.text.Editable
 import android.text.InputFilter
 import android.text.InputType
@@ -31,13 +30,14 @@ import android.widget.EditText
 import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
+import com.google.android.material.textfield.TextInputLayout
 import java.util.regex.Pattern
 
 /**
  * @author Oscar Gallon on 2/26/19.
  */
 open class BaseEditTextFormField(context: Context, private val attrs: AttributeSet) :
-    TextInputLayout(ContextThemeWrapper(context, R.style.TextFormFieldTheme), attrs), FormField<String>,
+    TextInputLayout(ContextThemeWrapper(context,R.style.TextFormFieldTheme), attrs), FormField<String>,
     View.OnFocusChangeListener {
 
     override var isRequired: Boolean = false
@@ -86,6 +86,7 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
 
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
+
         setup()
     }
 
@@ -94,7 +95,11 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
     }
 
     override fun setup() {
-        mEditText = EditText(ContextThemeWrapper(context, R.style.TextFormFieldTheme))
+        setBoxBackgroundMode(BOX_BACKGROUND_OUTLINE)
+        setBoxCornerRadii(TEXT_FIELD_CORNER_RADIOUS,TEXT_FIELD_CORNER_RADIOUS,TEXT_FIELD_CORNER_RADIOUS,TEXT_FIELD_CORNER_RADIOUS)
+        mEditText = EditText(context).apply {
+            setPaddingRelative(paddingStart,paddingTop,64,paddingBottom)
+        }
         mEditText?.inputType = mInputType
         setFont(OPEN_SANS_REGULAR)
 

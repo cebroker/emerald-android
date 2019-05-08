@@ -24,6 +24,11 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="radio_button_custom_style" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:foreground">?attr/selectableItemBackgroundBorderless</item>
+    </style>
     <style name="DatePickerTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">@color/primaryColor</item>
     </style>
@@ -33,8 +38,10 @@
         <item name="colorControlNormal">@color/defaultHintColor</item>
         <item name="colorAccent">@color/defaultHintColor</item>
         <item name="android:textColor">@color/textColor</item>
-        <item name="android:textColorHint">@color/textHintColor</item>
+        <item name="android:textColorHint">@color/labelColor</item>
         <item name="android:colorControlHighlight">@color/defaultHintColor</item>
         <item name="android:textColorHighlight">@color/defaultHighlightColor</item>
+        <item name="android:paddingStart">8dp</item>
     </style>
+
 </resources>
