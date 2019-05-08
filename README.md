@@ -17,7 +17,7 @@ Emerald UI for Android Apps
 
 ### Documentation
 <ul class="icon-list">
-  <li class="icon-list-item icon-list-item--spec"><a href="https://github.com/cebroker/emerald-ios/tree/develop/EmeraldIOS/Theme">Custom Date Picker</a></li>
+  <li class="icon-list-item icon-list-item--spec"><a href="https://github.com/cebroker/emerald-android/tree/feature/readme/app/src/main/java/co/condorlabs/customcomponents/customdatepicker">Custom Date Picker</a></li>
  </ul>
 
 ## Contribute
