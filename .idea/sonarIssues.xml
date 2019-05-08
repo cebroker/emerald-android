@@ -28,6 +28,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/co/condorlabs/customcomponents/customradiogroup/BaseRadioGroupFormField.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/co/condorlabs/customcomponents/customspinner/SpinnerFormField.kt">
           <value>
             <set />
@@ -49,6 +54,16 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/res/values/colors.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/values/dimens.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/values/styles.xml">
           <value>
             <set />
           </value>
@@ -79,6 +94,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/test/src/androidTest/java/co/condorlabs/customcomponents/test/EditTextCityFieldTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/src/androidTest/java/co/condorlabs/customcomponents/test/RadioGroupFieldTest.kt">
           <value>
             <set />
           </value>
@@ -154,6 +174,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/res/layout/fragment_add_membership_dues.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/res/layout/fragment_attend_education.xml">
           <value>
             <set />
           </value>

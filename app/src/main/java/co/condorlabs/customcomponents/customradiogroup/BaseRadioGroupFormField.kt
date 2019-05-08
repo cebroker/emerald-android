@@ -131,6 +131,13 @@ abstract class BaseRadioGroupFormField(
         addRadioButtons()
     }
 
+
+    private fun setPaddingDefault(): Int {
+        val paddingDp = DEFAULT_PADDING_RADIO_BUTTON
+        val density = context.resources.displayMetrics.density
+        return (paddingDp * density).toInt()
+    }
+
     private fun addRadioButtons() {
         radioGroup?.removeAllViews()
         selectables?.forEachIndexed { index, selectable ->
@@ -139,6 +146,7 @@ abstract class BaseRadioGroupFormField(
                     id = index
                     text = selectable.label
                     isChecked = selectable.value
+                    setPadding(setPaddingDefault(), setPaddingDefault(), setPaddingDefault(), setPaddingDefault())
                     layoutParams = LayoutParams(
                         LayoutParams.MATCH_PARENT,
                         LayoutParams.WRAP_CONTENT
