@@ -20,4 +20,4 @@ Emerald provides a month and year date picker.
 | app:picker_icon | Icon resource |
 
 ## Example
-<p align="center"><img src="https://github.com/cebroker/emerald-ios/blob/develop/Resources/Images/Palettes.PNG" /></p>
+<p align="center"><img src="https://github.com/cebroker/emerald-android/blob/feature/readme/app/src/main/assets/Images/datepicker-example.png" /></p>
