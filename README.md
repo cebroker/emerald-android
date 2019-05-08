@@ -17,14 +17,8 @@ Emerald UI for Android Apps
 
 ### Documentation
 <ul class="icon-list">
-  <li class="icon-list-item icon-list-item--spec"><a href="https://github.com/cebroker/emerald-ios/tree/develop/EmeraldIOS/Theme">Theme palettes & typography</a></li>
+  <li class="icon-list-item icon-list-item--spec"><a href="https://github.com/cebroker/emerald-ios/tree/develop/EmeraldIOS/Theme">Custom Date Picker</a></li>
  </ul>
-<ul class="icon-list">
-  <li class="icon-list-item icon-list-item--spec"><a href="https://github.com/cebroker/emerald-ios/tree/develop/EmeraldIOS/UIModels/Button">Buttons</a></li>
-  </ul>
- <ul class="icon-list">
-  <li class="icon-list-item icon-list-item--spec"><a href="https://github.com/cebroker/emerald-ios/tree/develop/EmeraldIOS/UIModels/Label">Label</a></li>
-  </ul>
 
 ## Contribute
 - If you've __found a bug__, open an issue;
