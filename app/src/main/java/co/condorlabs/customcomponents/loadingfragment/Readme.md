@@ -40,5 +40,8 @@ LoadingFragment.newInstance(
 
 ## Examples
 1. List
-
+![list](https://github.com/cebroker/emerald-android/blob/feature/loadingFragment/app/src/main/assets/Images/loading_fragment_items.png)
 2. Success Status
+![list](https://github.com/cebroker/emerald-android/blob/feature/loadingFragment/app/src/main/assets/Images/loading_fragment_success_status.png)
+3. Error Status
+![list](https://github.com/cebroker/emerald-android/blob/feature/loadingFragment/app/src/main/assets/Images/loading_fragment_error_status.png)
