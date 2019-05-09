@@ -5,7 +5,7 @@ Emerald provides a month and year date picker.
 
 ## Basic Usage
 
-Create a new instance in your layout
+Create a new instance
 ```
 LoadingFragment.newInstance(  
   title: String,  
