@@ -92,4 +92,38 @@ class CustomDatePickerTest : MockActivityTest() {
         // Then
         Assert.assertEquals("", editText?.text())
     }
+
+    @Test
+    fun shouldReturnIsValid() {
+        // When
+        onView(editTextRef).perform(ViewActions.typeText("01/2008"))
+        // Then
+        Assert.assertEquals(true, editText?.isValid()?.isValid)
+    }
+
+    @Test
+    fun shouldNotAllowMoreThan4DigitsYear() {
+        // When
+        onView(editTextRef).perform(ViewActions.typeText("01/20080"))
+        // Then
+        Assert.assertEquals(7, editText?.text()?.length)
+        Assert.assertEquals(true, editText?.isValid()?.isValid)
+    }
+
+    @Test
+    fun shouldNotAllowMoreThan2DigitsMonth() {
+        // When
+        onView(editTextRef).perform(ViewActions.typeText("021/2008"))
+        // Then
+        Assert.assertEquals(7, editText?.text()?.length)
+        Assert.assertEquals(true, editText?.isValid()?.isValid)
+    }
+
+    @Test
+    fun shouldReturnIsNotValidEmptyField() {
+        // When
+        onView(editTextRef).perform(ViewActions.typeText(""))
+        // Then
+        Assert.assertEquals(false, editText?.isValid()?.isValid)
+    }
 }

@@ -8,7 +8,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/etMonthYearField"
-            app:is_required="false"
+            app:is_required="true"
             app:picker_icon="@drawable/ic_date"/>
 
 </LinearLayout>

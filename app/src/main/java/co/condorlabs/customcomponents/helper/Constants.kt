@@ -135,7 +135,7 @@ val MONTHS = arrayOf(
 const val MONTH_YEAR_PICKER_DIALOG_TAG = "MonthYearPickerDialog"
 
 /** MONTH AND YEAR FORMAT **/
-const val MONTH_YEAR_REGEX = "\\d{2}\\/\\d{2}"
+const val MONTH_YEAR_REGEX = "\\d{2}\\/\\d{4}"
 const val MONTH_YEAR_FORMAT_WITHOUT_SLASH = "MMYYYY"
 const val MONTH_YEAR_MASK_LENGTH = 6
 const val MONTH_YEAR_MASK_MONTH_INITIAL_INDEX = 0
