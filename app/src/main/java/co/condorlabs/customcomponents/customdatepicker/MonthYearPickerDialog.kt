@@ -47,16 +47,16 @@ class MonthYearPickerDialog: DialogFragment() {
 
     private fun initializeMonthPicker(dialog: View?, currentDate: Calendar) =
         dialog?.findViewById<NumberPicker>(R.id.monthPicker)?.apply {
-            minValue = MIN_MONTH
-            maxValue = MAX_MONTH
+            minValue = DATEPICKER_MIN_MONTH
+            maxValue = DATEPICKER_MAX_MONTH
             displayedValues = MONTHS
             value = month ?: currentDate.get(Calendar.MONTH)
         }
 
     private fun initializeYearPicker(dialog: View?, currentDate: Calendar) =
         dialog?.findViewById<NumberPicker>(R.id.yearPicker)?.apply {
-            minValue = MIN_YEAR
-            maxValue = MAX_YEAR
+            minValue = DATEPICKER_MIN_YEAR
+            maxValue = DATEPICKER_MAX_YEAR
             value = year ?: currentDate.get(Calendar.YEAR)
         }
 }

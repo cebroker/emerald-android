@@ -5,8 +5,8 @@ import android.support.test.espresso.action.ViewActions
 import android.support.test.espresso.matcher.ViewMatchers
 import android.view.View
 import co.condorlabs.customcomponents.customedittext.EditTextMonthYearField
-import co.condorlabs.customcomponents.helper.MAX_YEAR
-import co.condorlabs.customcomponents.helper.MIN_YEAR
+import co.condorlabs.customcomponents.helper.DATEPICKER_MAX_YEAR
+import co.condorlabs.customcomponents.helper.DATEPICKER_MIN_YEAR
 import co.condorlabs.customcomponents.test.util.text
 import org.junit.Assert
 import org.junit.Before
@@ -74,7 +74,7 @@ class CustomDatePickerTest : MockActivityTest() {
         // When
         onView(editTextRef).perform(ViewActions.typeText("01/0000"))
         // Then
-        Assert.assertEquals("01/$MIN_YEAR", editText?.text())
+        Assert.assertEquals("01/$DATEPICKER_MIN_YEAR", editText?.text())
     }
 
     @Test
@@ -82,7 +82,7 @@ class CustomDatePickerTest : MockActivityTest() {
         // When
         onView(editTextRef).perform(ViewActions.typeText("01/5000"))
         // Then
-        Assert.assertEquals("01/$MAX_YEAR", editText?.text())
+        Assert.assertEquals("01/$DATEPICKER_MAX_YEAR", editText?.text())
     }
 
     @Test
@@ -120,10 +120,22 @@ class CustomDatePickerTest : MockActivityTest() {
     }
 
     @Test
-    fun shouldReturnIsNotValidEmptyField() {
+    fun shouldReturnIsNotValidIfFieldIsEmptyAndIsRequired() {
+        // Given
+        editText?.isRequired = true
         // When
         onView(editTextRef).perform(ViewActions.typeText(""))
         // Then
         Assert.assertEquals(false, editText?.isValid()?.isValid)
+    }
+
+    @Test
+    fun shouldReturnIsValidIfFieldIsEmptyAndIsNotRequired() {
+        // Given
+        editText?.isRequired = false
+        // When
+        onView(editTextRef).perform(ViewActions.typeText(""))
+        // Then
+        Assert.assertEquals(true, editText?.isValid()?.isValid)
     }
 }
