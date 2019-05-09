@@ -19,6 +19,7 @@ package co.condorlabs.customcomponents.customradiogroup
 import android.content.Context
 import com.google.android.material.textfield.TextInputLayout
 import android.util.AttributeSet
+import android.view.ContextThemeWrapper
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
@@ -142,7 +143,7 @@ abstract class BaseRadioGroupFormField(
         radioGroup?.removeAllViews()
         selectables?.forEachIndexed { index, selectable ->
             radioGroup?.addView(
-                RadioButton(context, null, ZERO, R.style.radio_button_custom_style).apply {
+                RadioButton(ContextThemeWrapper(context, R.style.radio_button_custom_style), null).apply {
                     id = index
                     text = selectable.label
                     isChecked = selectable.value
