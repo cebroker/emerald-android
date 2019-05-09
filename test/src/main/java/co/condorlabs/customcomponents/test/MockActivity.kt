@@ -26,7 +26,7 @@ class MockActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(layout)
+        setContentView(R.layout.activity_custom_button)
     }
 
     companion object {
