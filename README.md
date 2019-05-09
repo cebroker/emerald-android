@@ -17,8 +17,8 @@ Emerald UI for Android Apps
 
 ### Documentation
 
-- [Custom Date Picker](https://github.com/cebroker/emerald-android/tree/master/app/src/main/java/co/condorlabs/customcomponents/customdatepicker)
-- [Loading Screen](https://github.com/cebroker/emerald-android/tree/feature/loadingFragment/app/src/main/java/co/condorlabs/customcomponents/loadingfragment)
+- [Custom Date Picker](/app/src/main/java/co/condorlabs/customcomponents/customdatepicker)
+- [Loading Screen](/app/src/main/java/co/condorlabs/customcomponents/loadingfragment)
 
 ## Contribute
 - If you've __found a bug__, open an issue;
