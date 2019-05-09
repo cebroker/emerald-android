@@ -123,11 +123,11 @@ const val OPEN_SANS_REGULAR = "fonts/OpenSans-Regular.ttf"
 const val DEFAULT_SPACE_BETWEEN_ITEMS = 10
 
 /** MONTH AND YEAR PICKER **/
-const val DATEPICKER_MAX_YEAR = 2099
-const val DATEPICKER_MIN_YEAR = 1900
-const val DATEPICKER_MIN_MONTH = 0
-const val DATEPICKER_MAX_MONTH = 11
-const val DATEPICKER_FIRST_DAY_OF_MONTH = 1
+const val DATE_PICKER_MAX_YEAR = 2099
+const val DATE_PICKER_MIN_YEAR = 1900
+const val DATE_PICKER_MIN_MONTH = 0
+const val DATE_PICKER_MAX_MONTH = 11
+const val DATE_PICKER_FIRST_DAY_OF_MONTH = 1
 val MONTHS = arrayOf(
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
