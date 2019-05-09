@@ -32,9 +32,17 @@ Create a new instance in your layout
 
 
 ## Examples
-1. List <br>
-<img src="/Images/loading_fragment_items.png" width="400" heigth="400"/>
-2. Success Status <br>
-<img src="/Images/loading_fragment_success_status.png" width="400" heigth="400"/>
-3. Error Status <br>
-<img src="/Images/loading_fragment_error_status.png" width="400" heigth="400"/>
+1. Default <br>
+<img src="/Images/custom_button_default.png" width="400" heigth="400"/>
+2. Primary <br>
+<img src="/Images/custom_button_primary.png" width="400" heigth="400"/>
+3. Success Status <br>
+<img src="/Images/custom_button_success.png" width="400" heigth="400"/>
+4. Danger Status <br>
+<img src="/Images/custom_button_danger.png" width="400" heigth="400"/>
+5. Warning Status <br>
+<img src="/Images/custom_button_warning.png" width="400" heigth="400"/>
+6. Info Status <br>
+<img src="/Images/custom_button_info.png" width="400" heigth="400"/>
+7. Info Status <br>
+<img src="/Images/custom_button_overlay.png" width="400" heigth="400"/>
