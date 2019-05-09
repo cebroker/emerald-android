@@ -36,13 +36,13 @@ Create a new instance in your layout
 <img src="/Images/custom_button_default.png" width="400" heigth="400"/>
 2. Primary <br>
 <img src="/Images/custom_button_primary.png" width="400" heigth="400"/>
-3. Success Status <br>
+3. Success <br>
 <img src="/Images/custom_button_success.png" width="400" heigth="400"/>
-4. Danger Status <br>
+4. Danger <br>
 <img src="/Images/custom_button_danger.png" width="400" heigth="400"/>
-5. Warning Status <br>
+5. Warning <br>
 <img src="/Images/custom_button_warning.png" width="400" heigth="400"/>
-6. Info Status <br>
+6. Info <br>
 <img src="/Images/custom_button_info.png" width="400" heigth="400"/>
-7. Info Status <br>
+7. Info <br>
 <img src="/Images/custom_button_overlay.png" width="400" heigth="400"/>
