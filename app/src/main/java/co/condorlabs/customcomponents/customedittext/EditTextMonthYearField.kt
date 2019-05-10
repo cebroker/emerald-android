@@ -169,7 +169,7 @@ class EditTextMonthYearField(
         return if (month == ZERO) {
             ZERO
         } else {
-            month - 1
+            month - HUMAN_READABLE_MONTH_INDEX
         }
     }
 
@@ -183,26 +183,28 @@ class EditTextMonthYearField(
     override fun isValid(): ValidationResult {
         val result = super.isValid()
         if (result.isValid) {
-            upperLimit?.let {
-                val upperLimitYear = it.get(Calendar.YEAR)
-                val upperLimitMonth = it.get(Calendar.MONTH)
-                val typedYear = getYear()
-                val typedMonth = getMonth()
-                if (typedYear > upperLimitYear
-                    || (typedYear == upperLimitYear && typedMonth > upperLimitMonth)) {
-                    return ValidationResult(
-                        false,
-                        String.format(
-                            VALIDATE_UPPER_LIMIT_DATE_ERROR,
-                            mHint,
-                            String.format(MONTH_YEAR_STRING_TO_REPLACE, upperLimitMonth + 1, upperLimitYear)
-                        )
-                    )
-                }
-            }
-
+            return validateUpperLimit() ?: result
         }
         return result
     }
 
+    private fun validateUpperLimit(): ValidationResult? {
+        return upperLimit?.let {
+            val upperLimitYear = it.get(Calendar.YEAR)
+            val upperLimitMonth = it.get(Calendar.MONTH)
+            val typedYear = getYear()
+            val typedMonth = getMonth()
+            if (typedYear > upperLimitYear
+                || (typedYear == upperLimitYear && typedMonth > upperLimitMonth)) {
+                ValidationResult(
+                    false,
+                    String.format(
+                        VALIDATE_UPPER_LIMIT_DATE_ERROR,
+                        mHint,
+                        String.format(MONTH_YEAR_STRING_TO_REPLACE, upperLimitMonth + HUMAN_READABLE_MONTH_INDEX, upperLimitYear)
+                    )
+                )
+            } else null
+        }
+    }
 }

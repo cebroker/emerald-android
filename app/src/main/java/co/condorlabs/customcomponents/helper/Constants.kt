@@ -150,3 +150,5 @@ const val MONTH_YEAR_STRING_TO_REPLACE = "%d/%d"
 const val CLICK_DRAWABLE_DESCRIPTION = "click drawable"
 const val CLICK_DRAWABLE_DESCRIPTION_APPEND = "has drawable"
 const val NUMBER_PICKER_VALUE_SETTER_DESCRIPTION = "Set the value of a Number Picker"
+
+const val HUMAN_READABLE_MONTH_INDEX = 1
