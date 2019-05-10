@@ -35,7 +35,7 @@ ext {
     siteUrl = 'https://github.com/cebroker/CustomComponents'
     gitUrl = 'https://github.com/cebroker/CustomComponents.git'
 
-    libraryVersion = '0.34.0'
+    libraryVersion = '0.33.0'
 
     developerId = 'condorlabs'
     developerName = 'Oscar Gallon'

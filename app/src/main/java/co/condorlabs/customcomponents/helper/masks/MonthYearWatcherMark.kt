@@ -49,15 +49,15 @@ class MonthYearWatcherMark(private val mReceiver: EditText) : TextWatcherAdapter
                 }
 
                 year = when {
-                    year < MIN_YEAR -> MIN_YEAR
-                    year > MAX_YEAR -> MAX_YEAR
+                    year < DATE_PICKER_MIN_YEAR -> DATE_PICKER_MIN_YEAR
+                    year > DATE_PICKER_MAX_YEAR -> DATE_PICKER_MAX_YEAR
                     else -> year
                 }
 
                 calendar.set(Calendar.MONTH, month - DATE_MASK_MONTH_INDEX_DEFAULT_AGGREGATOR_VALUE)
                 calendar.set(Calendar.YEAR, year)
 
-                calendar.set(Calendar.DAY_OF_MONTH, FIRST_DAY_OF_MONTH)
+                calendar.set(Calendar.DAY_OF_MONTH, DATE_PICKER_FIRST_DAY_OF_MONTH)
 
                 digitsFromDateTyped = String.format(MONTH_YEAR_MASK_DIGITS_STRING_FORMAT, month, year)
             }

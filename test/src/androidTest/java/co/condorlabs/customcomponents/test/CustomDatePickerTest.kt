@@ -5,8 +5,8 @@ import android.view.View
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.matcher.ViewMatchers
-import co.condorlabs.customcomponents.MAX_YEAR
-import co.condorlabs.customcomponents.MIN_YEAR
+import co.condorlabs.customcomponents.DATE_PICKER_MAX_YEAR
+import co.condorlabs.customcomponents.DATE_PICKER_MIN_YEAR
 import co.condorlabs.customcomponents.customedittext.EditTextMonthYearField
 import co.condorlabs.customcomponents.test.util.text
 import org.junit.Assert
@@ -75,7 +75,7 @@ class CustomDatePickerTest : MockActivityTest() {
         // When
         onView(editTextRef).perform(ViewActions.typeText("01/0000"))
         // Then
-        Assert.assertEquals("01/$MIN_YEAR", editText?.text())
+        Assert.assertEquals("01/$DATE_PICKER_MIN_YEAR", editText?.text())
     }
 
     @Test
@@ -83,7 +83,7 @@ class CustomDatePickerTest : MockActivityTest() {
         // When
         onView(editTextRef).perform(ViewActions.typeText("01/5000"))
         // Then
-        Assert.assertEquals("01/$MAX_YEAR", editText?.text())
+        Assert.assertEquals("01/$DATE_PICKER_MAX_YEAR", editText?.text())
     }
 
     @Test
@@ -92,5 +92,51 @@ class CustomDatePickerTest : MockActivityTest() {
         onView(editTextRef).perform(ViewActions.typeText("a"))
         // Then
         Assert.assertEquals("", editText?.text())
+    }
+
+    @Test
+    fun shouldReturnIsValid() {
+        // When
+        onView(editTextRef).perform(ViewActions.typeText("01/2008"))
+        // Then
+        Assert.assertEquals(true, editText?.isValid()?.isValid)
+    }
+
+    @Test
+    fun shouldNotAllowMoreThan4DigitsYear() {
+        // When
+        onView(editTextRef).perform(ViewActions.typeText("01/20080"))
+        // Then
+        Assert.assertEquals(7, editText?.text()?.length)
+        Assert.assertEquals(true, editText?.isValid()?.isValid)
+    }
+
+    @Test
+    fun shouldNotAllowMoreThan2DigitsMonth() {
+        // When
+        onView(editTextRef).perform(ViewActions.typeText("021/2008"))
+        // Then
+        Assert.assertEquals(7, editText?.text()?.length)
+        Assert.assertEquals(true, editText?.isValid()?.isValid)
+    }
+
+    @Test
+    fun shouldReturnIsNotValidIfFieldIsEmptyAndIsRequired() {
+        // Given
+        editText?.isRequired = true
+        // When
+        onView(editTextRef).perform(ViewActions.typeText(""))
+        // Then
+        Assert.assertEquals(false, editText?.isValid()?.isValid)
+    }
+
+    @Test
+    fun shouldReturnIsValidIfFieldIsEmptyAndIsNotRequired() {
+        // Given
+        editText?.isRequired = false
+        // When
+        onView(editTextRef).perform(ViewActions.typeText(""))
+        // Then
+        Assert.assertEquals(true, editText?.isValid()?.isValid)
     }
 }
