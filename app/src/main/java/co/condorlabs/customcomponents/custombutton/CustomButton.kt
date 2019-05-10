@@ -4,7 +4,6 @@ import android.content.Context
 import android.graphics.Typeface
 import android.util.AttributeSet
 import android.widget.Button
-import androidx.core.content.ContextCompat
 import co.condorlabs.customcomponents.*
 
 /**
@@ -35,6 +34,7 @@ class CustomButton(context: Context, attrs: AttributeSet) : Button(context, attr
 
     fun setType(type: ButtonType) {
         this.type = type
+        isAllCaps = false
         setup()
     }
 
