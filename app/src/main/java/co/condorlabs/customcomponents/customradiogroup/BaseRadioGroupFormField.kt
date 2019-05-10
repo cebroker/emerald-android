@@ -16,10 +16,14 @@
 
 package co.condorlabs.customcomponents.customradiogroup
 
+import android.annotation.SuppressLint
 import android.content.Context
+import android.content.res.ColorStateList
+import android.os.Build
 import android.support.design.widget.TextInputLayout
+import android.support.v4.content.res.ResourcesCompat
+import android.support.v7.widget.AppCompatRadioButton
 import android.util.AttributeSet
-import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import co.condorlabs.customcomponents.R
@@ -28,6 +32,7 @@ import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.Selectable
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.*
+
 
 abstract class BaseRadioGroupFormField(
     context: Context, private val attrs: AttributeSet
@@ -138,12 +143,43 @@ abstract class BaseRadioGroupFormField(
         return (paddingDp * density).toInt()
     }
 
+    @SuppressLint("ResourceType")
     private fun addRadioButtons() {
         val resultDefaultPadding = setDefaultPadding()
         radioGroup?.removeAllViews()
         selectables?.forEachIndexed { index, selectable ->
             radioGroup?.addView(
-                RadioButton(context, null, ZERO, R.style.radio_button_custom_style).apply {
+                AppCompatRadioButton(context).apply {
+                    isClickable = true
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        val colorStateList = ColorStateList(
+                            arrayOf(
+                                intArrayOf(-android.R.attr.state_checked),
+                                intArrayOf(android.R.attr.state_checked)
+                            ),
+                            intArrayOf(
+                                resources.getColor(R.color.gray_color_with_alpha),
+                                resources.getColor(R.color.blueFillColor)
+                            )
+                        )
+
+                        this.buttonTintList = colorStateList
+                        this.invalidate()
+                    }
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        val attrs = intArrayOf(R.attr.selectableItemBackground)
+                        val typedArray = context.obtainStyledAttributes(attrs)
+                        val selectableItemBackground = typedArray.getResourceId(0, 0)
+                        typedArray.recycle()
+
+                        this.foreground = context.getDrawable(selectableItemBackground)
+                    }
+
+                    background =
+                        ResourcesCompat.getDrawable(resources, R.drawable.radio_button_selector_background, null)
+
                     id = index
                     text = selectable.label
                     isChecked = selectable.value

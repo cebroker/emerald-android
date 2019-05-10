@@ -18,6 +18,8 @@ package co.condorlabs.customcomponents.test
 
 import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
+import co.condorlabs.customcomponents.formfield.Selectable
+import kotlinx.android.synthetic.main.activity_mock.*
 
 /**
  * @author Oscar Gallon on 2/21/19.
