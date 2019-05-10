@@ -30,7 +30,7 @@ const val NO_RADIO_GROUP_SELECTED_VALUE_FOUND_RETURNED_VALUE = -1
 const val STATE_SPINNER_HINT_POSITION = 0
 
 const val EMPTY = ""
-const val MAX_LENGHT = 12
+const val MAX_LENGTH = 12
 const val DIGITS_PHONE = "0123456789-"
 
 const val DEFAULT_STYLE_ATTR = 0
@@ -132,7 +132,6 @@ val MONTHS = arrayOf(
     "January", "February", "March", "April", "May", "June",
     "July", "August", "September", "October", "November", "December"
 )
-const val MONTH_YEAR_PICKER_DIALOG_TAG = "MonthYearPickerDialog"
 
 /** MONTH AND YEAR FORMAT **/
 const val MONTH_YEAR_REGEX = "\\d{2}\\/\\d{4}"

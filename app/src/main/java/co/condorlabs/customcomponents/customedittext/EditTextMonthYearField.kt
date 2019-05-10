@@ -174,9 +174,9 @@ class EditTextMonthYearField(
     }
 
     fun getYear() =
-        editText?.text?.substring(
-            MONTH_YEAR_MASK_YEAR_INITIAL_INDEX + 1,
-            MONTH_YEAR_MASK_YEAR_FINAL_INDEX + 1
+        editText?.text?.toString()?.replace(SLASH, EMPTY)?.substring(
+            MONTH_YEAR_MASK_YEAR_INITIAL_INDEX,
+            MONTH_YEAR_MASK_YEAR_FINAL_INDEX
         )?.toInt() ?: ZERO
 
 
@@ -201,7 +201,11 @@ class EditTextMonthYearField(
                     String.format(
                         VALIDATE_UPPER_LIMIT_DATE_ERROR,
                         mHint,
-                        String.format(MONTH_YEAR_STRING_TO_REPLACE, upperLimitMonth + HUMAN_READABLE_MONTH_INDEX, upperLimitYear)
+                        String.format(
+                            MONTH_YEAR_STRING_TO_REPLACE,
+                            upperLimitMonth + HUMAN_READABLE_MONTH_INDEX,
+                            upperLimitYear
+                        )
                     )
                 )
             } else null

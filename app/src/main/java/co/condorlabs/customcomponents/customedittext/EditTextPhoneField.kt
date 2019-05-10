@@ -24,7 +24,7 @@ import android.util.AttributeSet
 import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.DIGITS_PHONE
-import co.condorlabs.customcomponents.helper.MAX_LENGHT
+import co.condorlabs.customcomponents.helper.MAX_LENGTH
 import co.condorlabs.customcomponents.helper.VALIDATE_LENGTH_ERROR
 import co.condorlabs.customcomponents.helper.masks.PhoneNumberTextWatcherMask
 
@@ -55,7 +55,7 @@ class EditTextPhoneField(context: Context, attrs: AttributeSet) : BaseEditTextFo
 
     private fun setMaxLength() {
         val filterArray = arrayOfNulls<InputFilter>(1)
-        filterArray[0] = InputFilter.LengthFilter(MAX_LENGHT)
+        filterArray[0] = InputFilter.LengthFilter(MAX_LENGTH)
         mEditText?.filters = filterArray
     }
 
