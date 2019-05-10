@@ -2,11 +2,14 @@ package co.condorlabs.customcomponents.test
 
 import android.support.test.espresso.Espresso.onView
 import android.support.test.espresso.action.ViewActions
+import android.support.test.espresso.assertion.ViewAssertions
 import android.support.test.espresso.matcher.ViewMatchers
 import android.view.View
 import co.condorlabs.customcomponents.customedittext.EditTextMonthYearField
 import co.condorlabs.customcomponents.helper.DATE_PICKER_MAX_YEAR
 import co.condorlabs.customcomponents.helper.DATE_PICKER_MIN_YEAR
+import co.condorlabs.customcomponents.test.util.clickDrawable
+import co.condorlabs.customcomponents.test.util.setNumberPickerValue
 import co.condorlabs.customcomponents.test.util.text
 import org.junit.Assert
 import org.junit.Before
@@ -16,6 +19,8 @@ import java.util.Calendar
 class CustomDatePickerTest : MockActivityTest() {
 
     private var editTextRef = ViewMatchers.withId(R.id.etMonthYear)
+    private var dpMonthRef = ViewMatchers.withId(R.id.monthPicker)
+    private var dpYearRef = ViewMatchers.withId(R.id.yearPicker)
     private var editText: EditTextMonthYearField? = null
 
     @Before
@@ -198,5 +203,21 @@ class CustomDatePickerTest : MockActivityTest() {
         // Then
         Assert.assertEquals(11, editText?.getMonth())
         Assert.assertEquals(2006, editText?.getYear())
+    }
+
+    @Test
+    fun shouldOpenDialog(){
+        // When
+        onView(editTextRef).perform(clickDrawable())
+        onView(dpMonthRef).perform(setNumberPickerValue(11))
+        onView(dpYearRef).perform(setNumberPickerValue(2008))
+        onView(ViewMatchers.withSubstring("OK"))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+            .perform(ViewActions.click())
+
+
+        // Then
+        Assert.assertEquals(11, editText?.getMonth())
+        Assert.assertEquals(2008, editText?.getYear())
     }
 }

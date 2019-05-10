@@ -128,12 +128,11 @@ class EditTextMonthYearField(
                             month = calendar.get(Calendar.MONTH)
                             setListener(this@EditTextMonthYearField)
                             upperLimit = this@EditTextMonthYearField.upperLimit
-                            show(
-                                (currentContext as? AppCompatActivity)?.supportFragmentManager,
-                                MONTH_YEAR_PICKER_DIALOG_TAG
-                            )
+                            (currentContext as? AppCompatActivity)?.supportFragmentManager
+                                ?.beginTransaction()
+                                ?.add(this, MonthYearPickerDialog::class.java.name)
+                                ?.commitAllowingStateLoss()
                         }
-
                         true
                     } else {
                         false

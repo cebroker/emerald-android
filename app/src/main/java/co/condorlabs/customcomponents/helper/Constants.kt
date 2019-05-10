@@ -146,3 +146,7 @@ const val MONTH_YEAR_MASK_JUST_DIGITS_LENGTH = 4
 const val MONTH_YEAR_MASK_DIGITS_STRING_FORMAT = "%02d%02d"
 const val MONTH_YEAR_FORMAT = "MM/yyyy"
 const val MONTH_YEAR_STRING_TO_REPLACE = "%d/%d"
+
+const val CLICK_DRAWABLE_DESCRIPTION = "click drawable"
+const val CLICK_DRAWABLE_DESCRIPTION_APPEND = "has drawable"
+const val NUMBER_PICKER_VALUE_SETTER_DESCRIPTION = "Set the value of a Number Picker"
