@@ -1,11 +1,9 @@
 package co.condorlabs.customcomponents.test
 
-import android.graphics.drawable.GradientDrawable
-import android.graphics.drawable.LayerDrawable
-import android.graphics.drawable.StateListDrawable
 import androidx.core.content.ContextCompat
 import androidx.test.runner.AndroidJUnit4
 import co.condorlabs.customcomponents.custombutton.CustomButton
+import co.condorlabs.customcomponents.custombutton.CustomButtonStyleFactory
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -17,6 +15,7 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class CustomButtonTest : MockActivityTest() {
 
+    private val buttonStyleFactory = CustomButtonStyleFactory()
     @Before
     fun setup() {
         MockActivity.layout = R.layout.activity_custom_button
@@ -31,7 +30,7 @@ class CustomButtonTest : MockActivityTest() {
         val button = ruleActivity.activity.findViewById<CustomButton>(R.id.btn)
 
         // When
-        val backgroundColor = ((((button.background as StateListDrawable).current) as LayerDrawable).getDrawable(0) as GradientDrawable).color.defaultColor
+        val backgroundColor = ContextCompat.getColor(ruleActivity.activity,buttonStyleFactory.getCustomColorFromType(button.getType()).backgroundColor)
 
         // Then
         Assert.assertEquals(expectedColor, backgroundColor)
@@ -49,7 +48,7 @@ class CustomButtonTest : MockActivityTest() {
         }
 
         // When
-        val backgroundColor = ((((button.background as StateListDrawable).current) as LayerDrawable).getDrawable(0) as GradientDrawable).color.defaultColor
+        val backgroundColor = ContextCompat.getColor(ruleActivity.activity,buttonStyleFactory.getCustomColorFromType(button.getType()).backgroundColor)
 
         // Then
         Assert.assertEquals(expectedColor, backgroundColor)
@@ -67,7 +66,7 @@ class CustomButtonTest : MockActivityTest() {
         }
 
         // When
-        val backgroundColor = ((((button.background as StateListDrawable).current) as LayerDrawable).getDrawable(0) as GradientDrawable).color.defaultColor
+        val backgroundColor = ContextCompat.getColor(ruleActivity.activity,buttonStyleFactory.getCustomColorFromType(button.getType()).backgroundColor)
 
         // Then
         Assert.assertEquals(expectedColor, backgroundColor)
@@ -85,7 +84,7 @@ class CustomButtonTest : MockActivityTest() {
         }
 
         // When
-        val backgroundColor = ((((button.background as StateListDrawable).current) as LayerDrawable).getDrawable(0) as GradientDrawable).color.defaultColor
+        val backgroundColor = ContextCompat.getColor(ruleActivity.activity,buttonStyleFactory.getCustomColorFromType(button.getType()).backgroundColor)
 
         // Then
         Assert.assertEquals(expectedColor, backgroundColor)
@@ -103,7 +102,7 @@ class CustomButtonTest : MockActivityTest() {
         }
 
         // When
-        val backgroundColor = ((((button.background as StateListDrawable).current) as LayerDrawable).getDrawable(0) as GradientDrawable).color.defaultColor
+        val backgroundColor = ContextCompat.getColor(ruleActivity.activity,buttonStyleFactory.getCustomColorFromType(button.getType()).backgroundColor)
 
         // Then
         Assert.assertEquals(expectedColor, backgroundColor)
@@ -121,7 +120,7 @@ class CustomButtonTest : MockActivityTest() {
         }
 
         // When
-        val backgroundColor = ((((button.background as StateListDrawable).current) as LayerDrawable).getDrawable(0) as GradientDrawable).color.defaultColor
+        val backgroundColor = ContextCompat.getColor(ruleActivity.activity,buttonStyleFactory.getCustomColorFromType(button.getType()).backgroundColor)
 
         // Then
         Assert.assertEquals(expectedColor, backgroundColor)

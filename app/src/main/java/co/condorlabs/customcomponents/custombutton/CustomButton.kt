@@ -38,6 +38,8 @@ class CustomButton(context: Context, attrs: AttributeSet) : Button(context, attr
         setup()
     }
 
+    fun getType(): ButtonType = type
+
     private fun setup() {
         renderStyle()
         setFont()

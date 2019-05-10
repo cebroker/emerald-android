@@ -14,7 +14,7 @@ import co.condorlabs.customcomponents.R
  */
 
 sealed class CustomButtonStyle(
-    private val backgroundColor: Int,
+    val backgroundColor: Int,
     private val textColor: Int,
     private val rippleColor: Int = R.color.rippleColor,
     private val strokeColor: Int = backgroundColor,
