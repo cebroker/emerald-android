@@ -190,4 +190,13 @@ class CustomDatePickerTest : MockActivityTest() {
         // Then
         Assert.assertEquals(true, editText?.isValid()?.isValid)
     }
+
+    @Test
+    fun shouldGetRightMonthAndYear() {
+        // When
+        onView(editTextRef).perform(ViewActions.typeText("12/2006"))
+        // Then
+        Assert.assertEquals(11, editText?.getMonth())
+        Assert.assertEquals(2006, editText?.getYear())
+    }
 }
