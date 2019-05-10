@@ -69,6 +69,8 @@ dependencies {
 
     implementation project(':app')
     androidTestImplementation project(':app')
+    debugImplementation 'androidx.fragment:fragment-testing:1.1.0-alpha07'
+
 }
 repositories {
     mavenCentral()
