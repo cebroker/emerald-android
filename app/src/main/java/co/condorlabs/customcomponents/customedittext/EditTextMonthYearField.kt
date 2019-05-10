@@ -28,6 +28,7 @@ class EditTextMonthYearField(
     private var monthYearWatcherMark: MonthYearWatcherMark? = null
     private var simpleDateFormat: SimpleDateFormat? = null
     private var dateFormat = MONTH_YEAR_FORMAT
+    var upperLimit: Calendar? = null
 
     init {
         currentContext.theme.obtainStyledAttributes(
@@ -122,17 +123,16 @@ class EditTextMonthYearField(
                                 SimpleDateFormat(showDateFormat, Locale.US).parse(receiver.text.toString())
                         }
 
-                        val datePicker = MonthYearPickerDialog().apply {
+                        MonthYearPickerDialog().apply {
                             year = calendar.get(Calendar.YEAR)
                             month = calendar.get(Calendar.MONTH)
+                            setListener(this@EditTextMonthYearField)
+                            upperLimit = this@EditTextMonthYearField.upperLimit
+                            show(
+                                (currentContext as? AppCompatActivity)?.supportFragmentManager,
+                                MONTH_YEAR_PICKER_DIALOG_TAG
+                            )
                         }
-
-                        datePicker.setListener(this)
-
-                        datePicker.show(
-                            (currentContext as? AppCompatActivity)?.supportFragmentManager,
-                            MONTH_YEAR_PICKER_DIALOG_TAG
-                        )
 
                         true
                     } else {
@@ -160,6 +160,45 @@ class EditTextMonthYearField(
         val eventRawX = event.rawX
 
         return eventRawX >= editTextRightPosition - drawableWidth - COMPOUND_DRAWABLE_TOUCH_OFF_SET
+    }
+
+    private fun getMonth(): Int {
+        return editText?.text?.substring(
+            MONTH_YEAR_MASK_MONTH_INITIAL_INDEX,
+            MONTH_YEAR_MASK_MONTH_FINAL_INDEX
+        )?.toInt() ?: 0
+    }
+
+    private fun getYear() : Int {
+        return editText?.text?.substring(
+            MONTH_YEAR_MASK_YEAR_INITIAL_INDEX + 1,
+            MONTH_YEAR_MASK_YEAR_FINAL_INDEX + 1
+        )?.toInt() ?: 0
+    }
+
+    override fun isValid(): ValidationResult {
+        val result = super.isValid()
+        if (result.isValid) {
+            upperLimit?.let {
+                val upperLimitYear = it.get(Calendar.YEAR)
+                val upperLimitMonth = it.get(Calendar.MONTH) + 1
+                val typedYear = getYear()
+                val typedMonth = getMonth()
+                if (typedYear > upperLimitYear
+                    || (typedYear == upperLimitYear && typedMonth > upperLimitMonth)) {
+                    return ValidationResult(
+                        false,
+                        String.format(
+                            VALIDATE_UPPER_LIMIT_DATE_ERROR,
+                            mHint,
+                            String.format(MONTH_YEAR_STRING_TO_REPLACE, upperLimitMonth, upperLimitYear)
+                        )
+                    )
+                }
+            }
+
+        }
+        return result
     }
 
 }

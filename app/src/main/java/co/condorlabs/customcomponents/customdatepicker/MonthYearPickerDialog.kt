@@ -16,6 +16,7 @@ class MonthYearPickerDialog: DialogFragment() {
     private var listener: DatePickerDialog.OnDateSetListener? = null
     var year: Int? = null
     var month: Int? = null
+    var upperLimit: Calendar? = null
 
     fun setListener(listener: DatePickerDialog.OnDateSetListener) {
         this.listener = listener
@@ -48,7 +49,7 @@ class MonthYearPickerDialog: DialogFragment() {
     private fun initializeMonthPicker(dialog: View?, currentDate: Calendar) =
         dialog?.findViewById<NumberPicker>(R.id.monthPicker)?.apply {
             minValue = DATE_PICKER_MIN_MONTH
-            maxValue = DATE_PICKER_MAX_MONTH
+            maxValue = upperLimit?.get(Calendar.MONTH) ?: DATE_PICKER_MAX_MONTH
             displayedValues = MONTHS
             value = month ?: currentDate.get(Calendar.MONTH)
         }
@@ -56,7 +57,7 @@ class MonthYearPickerDialog: DialogFragment() {
     private fun initializeYearPicker(dialog: View?, currentDate: Calendar) =
         dialog?.findViewById<NumberPicker>(R.id.yearPicker)?.apply {
             minValue = DATE_PICKER_MIN_YEAR
-            maxValue = DATE_PICKER_MAX_YEAR
+            maxValue = upperLimit?.get(Calendar.YEAR) ?: DATE_PICKER_MAX_YEAR
             value = year ?: currentDate.get(Calendar.YEAR)
         }
 }

@@ -11,6 +11,7 @@ import co.condorlabs.customcomponents.test.util.text
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
+import java.util.Calendar
 
 class CustomDatePickerTest : MockActivityTest() {
 
@@ -135,6 +136,57 @@ class CustomDatePickerTest : MockActivityTest() {
         editText?.isRequired = false
         // When
         onView(editTextRef).perform(ViewActions.typeText(""))
+        // Then
+        Assert.assertEquals(true, editText?.isValid()?.isValid)
+    }
+
+    @Test
+    fun shouldNotAllowYearGreaterThanUpperLimit() {
+        // Given
+        editText?.upperLimit = Calendar.getInstance().apply {
+            set(2007, Calendar.JULY, 1)
+        }
+        // When
+        onView(editTextRef).perform(ViewActions.typeText("01/2008"))
+        // Then
+        Assert.assertEquals(false, editText?.isValid()?.isValid)
+        Assert.assertEquals("The Enter some text can't be after the 6/2007", editText?.isValid()?.error)
+
+    }
+
+    @Test
+    fun shouldNotAllowMonthGreaterThanUpperLimit() {
+        // Given
+        editText?.upperLimit = Calendar.getInstance().apply {
+            set(2007, Calendar.JULY, 1)
+        }
+        // When
+        onView(editTextRef).perform(ViewActions.typeText("11/2007"))
+        // Then
+        Assert.assertEquals(false, editText?.isValid()?.isValid)
+        Assert.assertEquals("The Enter some text can't be after the 6/2007", editText?.isValid()?.error)
+    }
+
+    @Test
+    fun shouldAllowDateEqualsThanUpperLimit() {
+        // Given
+        editText?.upperLimit = Calendar.getInstance().apply {
+            set(2007, Calendar.JULY, 1)
+        }
+        // When
+        onView(editTextRef).perform(ViewActions.typeText("07/2007"))
+        // Then
+        Assert.assertEquals(true, editText?.isValid()?.isValid)
+    }
+
+    @Test
+    fun shouldAllowDateLessThanUpperLimit() {
+        // Given
+        editText?.upperLimit = Calendar.getInstance().apply {
+            set(2007, Calendar.JULY, 1)
+        }
+        // When
+        onView(editTextRef).perform(ViewActions.typeText("12/2006"))
         // Then
         Assert.assertEquals(true, editText?.isValid()?.isValid)
     }
