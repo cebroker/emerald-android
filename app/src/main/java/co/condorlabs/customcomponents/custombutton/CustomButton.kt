@@ -27,6 +27,11 @@ class CustomButton(context: Context, attrs: AttributeSet) : Button(context, attr
         typedArray.recycle()
     }
 
+    override fun onFinishInflate() {
+        super.onFinishInflate()
+        isAllCaps = false
+    }
+
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
         renderStyle()
@@ -34,7 +39,6 @@ class CustomButton(context: Context, attrs: AttributeSet) : Button(context, attr
 
     fun setType(type: ButtonType) {
         this.type = type
-        isAllCaps = false
         setup()
     }
 
