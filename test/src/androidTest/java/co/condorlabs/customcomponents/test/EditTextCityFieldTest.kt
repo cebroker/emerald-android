@@ -64,7 +64,7 @@ class EditTextCityFieldTest : MockActivityTest() {
     fun shouldDisplayACustomHint() {
         restartActivity()
 
-        ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlCity).hi@Ignorent = "Custom Hint"
+        ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlCity).hint = "Custom Hint"
 
         // Given
         val view = Espresso.onView(ViewMatchers.withId(R.id.tlCity))
