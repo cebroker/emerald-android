@@ -32,10 +32,9 @@ class EditTextPasswordField(context: Context, attrs: AttributeSet) : BaseEditTex
 
     override fun setup() {
         super.setup()
-
-        mEditText?.id = R.id.etPassword
-        mEditText?.transformationMethod = PasswordTransformationMethod.getInstance()
-        mEditText?.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
-        isPasswordVisibilityToggleEnabled = true
+        editText?.id = R.id.etPassword
+        editText?.transformationMethod = PasswordTransformationMethod.getInstance()
+        editText?.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
+        textInputLayout?.isPasswordVisibilityToggleEnabled = true
     }
 }

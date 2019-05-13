@@ -59,8 +59,8 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
             }
         }
 
-        if (mRegex == null) {
-            mRegex = DATE_REGEX
+        if (_regex == null) {
+            _regex = DATE_REGEX
         }
 
         mSimpleDateFormat = SimpleDateFormat(mDateFormat, Locale.getDefault())
@@ -68,7 +68,7 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
 
     override fun setup() {
         super.setup()
-        mEditText?.id = R.id.etDate
+        editText?.id = R.id.etDate
         setupPicker()
     }
 
@@ -78,7 +78,7 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
 
     override fun onDateSet(view: DatePicker?, year: Int, monthOfYear: Int, dayOfMonth: Int) {
 
-        val receiver = mEditText?.let { it } ?: return
+        val receiver = editText?.let { it } ?: return
         val dateTextWatcherMask = mDateTextWatcherMask?.let { it } ?: return
 
         val calendar = Calendar.getInstance()
@@ -93,7 +93,7 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
             ).format(calendar.time)
         )
 
-        mValueChangeListener?.onValueChange(getValue())
+        _valueChangeListener?.onValueChange(getValue())
 
         receiver.addTextChangedListener(dateTextWatcherMask)
         receiver.setSelection(receiver.text.length)
@@ -134,7 +134,7 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
                     false,
                     String.format(
                         VALIDATE_LOWER_LIMIT_DATE_ERROR,
-                        mHint,
+                        hint,
                         getFormatedDateFromMilliseconds(mLowerLimit ?: ZERO.toLong())
                     )
                 )
@@ -145,7 +145,7 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
                     false,
                     String.format(
                         VALIDATE_UPPER_LIMIT_DATE_ERROR,
-                        mHint,
+                        hint,
                         getFormatedDateFromMilliseconds(mUpperLimit ?: ZERO.toLong())
                     )
                 )
@@ -187,7 +187,7 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
 
     private fun setupPicker() {
 
-        val receiver = mEditText?.let { it } ?: return
+        val receiver = editText?.let { it } ?: return
 
         mDateTextWatcherMask = DateTextWatcherMask(receiver).apply {
             receiver.addTextChangedListener(this)

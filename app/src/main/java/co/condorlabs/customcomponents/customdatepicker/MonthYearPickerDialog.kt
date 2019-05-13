@@ -40,7 +40,7 @@ class MonthYearPickerDialog: DialogFragment() {
                 )
             }
             .setNegativeButton(R.string.date_picker_cancel
-            ) { _, _ -> this@MonthYearPickerDialog.dialog.cancel() }
+            ) { _, _ -> this@MonthYearPickerDialog.dialog?.cancel() }
         return builder.create()
     }
 

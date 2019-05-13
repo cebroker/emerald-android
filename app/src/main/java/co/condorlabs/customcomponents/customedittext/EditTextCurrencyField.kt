@@ -36,7 +36,7 @@ class EditTextCurrencyField(context: Context, attrs: AttributeSet) : BaseEditTex
     override fun setup() {
         super.setup()
 
-        val _editText = mEditText?.let { it } ?: return
+        val _editText = editText?.let { it } ?: return
         _editText.id = R.id.etCurrency
         _editText.addTextChangedListener(PriceTextWatcherMask(_editText))
         _editText.setText(DOLLAR_SYMBOL)
@@ -44,12 +44,12 @@ class EditTextCurrencyField(context: Context, attrs: AttributeSet) : BaseEditTex
 
     override fun isValid(): ValidationResult {
         return when {
-            isFieldEmpty(mEditText?.text.toString()) && isRequired -> ValidationResult(
+            isFieldEmpty(editText?.text.toString()) && isRequired -> ValidationResult(
                 false,
-                String.format(VALIDATE_EMPTY_ERROR, mHint)
+                String.format(VALIDATE_EMPTY_ERROR, hint)
             )
-            mEditText?.text.toString().isNotEmpty() && mRegex != null &&
-                    !Pattern.compile(mRegex).matcher(mEditText?.text.toString()).matches() -> getErrorValidateResult()
+            editText?.text.toString().isNotEmpty() && _regex != null &&
+                    !Pattern.compile(_regex).matcher(editText?.text.toString()).matches() -> getErrorValidateResult()
             else -> ValidationResult(true, EMPTY)
         }
     }

@@ -27,13 +27,13 @@ class EditTextEmailField(context: Context, attrs: AttributeSet) : BaseEditTextFo
 
     override fun setup() {
         super.setup()
-        mEditText?.id = R.id.etEmail
+        editText?.id = R.id.etEmail
         setInputType()
         setRegex(android.util.Patterns.EMAIL_ADDRESS.toString())
     }
 
     private fun setInputType() {
-        mEditText?.inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
+        editText?.inputType = InputType.TYPE_TEXT_VARIATION_EMAIL_ADDRESS
     }
 
     override fun getErrorValidateResult(): ValidationResult {

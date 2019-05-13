@@ -54,7 +54,7 @@ class EditTextCityField(context: Context, attrs: AttributeSet) : BaseEditTextFor
 
     override fun setup() {
         super.setup()
-        mEditText?.id = R.id.etCity
+        editText?.id = R.id.etCity
     }
 
     fun setCities(cities: List<String>) {

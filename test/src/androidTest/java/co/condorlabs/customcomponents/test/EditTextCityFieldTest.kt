@@ -16,18 +16,19 @@
 
 package co.condorlabs.customcomponents.test
 
-import com.google.android.material.textfield.TextInputLayout
+import android.view.View
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.runner.AndroidJUnit4
-import android.view.View
-import co.condorlabs.customcomponents.customedittext.EditTextCityField
-import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.EMPTY
 import co.condorlabs.customcomponents.VALIDATE_CITY_ERROR
 import co.condorlabs.customcomponents.VALIDATE_EMPTY_ERROR
+import co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
+import co.condorlabs.customcomponents.customedittext.EditTextCityField
+import co.condorlabs.customcomponents.formfield.ValidationResult
+import com.google.android.material.textfield.TextInputLayout
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -62,7 +63,7 @@ class EditTextCityFieldTest : MockActivityTest() {
     fun shouldDisplayACustomHint() {
         restartActivity()
 
-        ruleActivity.activity.findViewById<TextInputLayout>(R.id.tlCity).hint = "Custom Hint"
+        ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlCity).hint = "Custom Hint"
 
         // Given
         val view = Espresso.onView(ViewMatchers.withId(R.id.tlCity))
@@ -135,7 +136,7 @@ class EditTextCityFieldTest : MockActivityTest() {
         editTextCityField?.setCities(arrayListOf("Medellin", "Sabaneta"))
         editTextCityField?.setStateName("Antioquia")
         editTextCityField?.let {
-            showErrorInInputLayout(it, it.isValid().error)
+            showErrorInInputLayout(it.textInputLayout!!, it.isValid().error)
         }
 
         // Then
