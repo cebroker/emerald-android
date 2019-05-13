@@ -16,6 +16,7 @@
 
 package co.condorlabs.customcomponents.test
 
+import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions
@@ -78,9 +79,13 @@ class EditTextPasswordFieldTest : MockActivityTest() {
         // Given
         val view = (ruleActivity.activity.findViewById<View>(R.id.tlPassword) as? EditTextPasswordField)
         val textInpuntLayout = view!!.textInputLayout!!
+        var drawable: Drawable? = null
 
         // When
-        val drawable = textInpuntLayout.passwordVisibilityToggleDrawable
+        ruleActivity.runOnUiThread {
+            drawable = textInpuntLayout.passwordVisibilityToggleDrawable
+        }
+
 
         //Then
         Assert.assertNotNull(drawable)
@@ -97,7 +102,10 @@ class EditTextPasswordFieldTest : MockActivityTest() {
 
         // When
         editTextView.perform(ViewActions.typeText("1234567890"))
-        textInpuntLayout.editText!!.transformationMethod = null
+
+        ruleActivity.runOnUiThread {
+            textInpuntLayout.editText!!.transformationMethod = null
+        }
 
         // Then
         isTextDisplayed("1234567890")
