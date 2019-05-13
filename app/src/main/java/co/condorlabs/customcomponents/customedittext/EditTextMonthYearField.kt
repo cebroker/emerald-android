@@ -162,10 +162,16 @@ class EditTextMonthYearField(
     }
 
     fun getMonth(): Int {
-        val month = editText?.text?.substring(
-            MONTH_YEAR_MASK_MONTH_INITIAL_INDEX,
-            MONTH_YEAR_MASK_MONTH_FINAL_INDEX
-        )?.toInt() ?: ZERO
+        val month = editText?.text?.toString()?.let {
+            if(it.isNotEmpty()) {
+                it.substring(
+                    MONTH_YEAR_MASK_MONTH_INITIAL_INDEX,
+                    MONTH_YEAR_MASK_MONTH_FINAL_INDEX
+                )?.toInt()
+            } else {
+                ZERO
+            }
+        } ?: ZERO
         return if (month == ZERO) {
             ZERO
         } else {
@@ -174,10 +180,16 @@ class EditTextMonthYearField(
     }
 
     fun getYear() =
-        editText?.text?.toString()?.replace(SLASH, EMPTY)?.substring(
-            MONTH_YEAR_MASK_YEAR_INITIAL_INDEX,
-            MONTH_YEAR_MASK_YEAR_FINAL_INDEX
-        )?.toInt() ?: ZERO
+        editText?.text?.toString()?.let {
+            if(it.isNotEmpty()) {
+                it.replace(SLASH, EMPTY)?.substring(
+                    MONTH_YEAR_MASK_YEAR_INITIAL_INDEX,
+                    MONTH_YEAR_MASK_YEAR_FINAL_INDEX
+                )?.toInt()
+            } else {
+                ZERO
+            }
+        } ?: ZERO
 
 
     override fun isValid(): ValidationResult {
