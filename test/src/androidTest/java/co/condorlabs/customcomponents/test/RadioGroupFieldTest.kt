@@ -31,8 +31,10 @@ import co.condorlabs.customcomponents.EMPTY
 import co.condorlabs.customcomponents.MESSAGE_FORMAT_ERROR
 import org.junit.Assert
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Test
 
+@Ignore
 class RadioGroupFieldTest : MockActivityTest() {
 
     @Before

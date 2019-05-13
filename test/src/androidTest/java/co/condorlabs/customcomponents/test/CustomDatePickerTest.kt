@@ -11,8 +11,10 @@ import co.condorlabs.customcomponents.customedittext.EditTextMonthYearField
 import co.condorlabs.customcomponents.test.util.text
 import org.junit.Assert
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Test
 
+@Ignore
 class CustomDatePickerTest : MockActivityTest() {
 
     private var editTextRef = ViewMatchers.withId(R.id.etMonthYear)

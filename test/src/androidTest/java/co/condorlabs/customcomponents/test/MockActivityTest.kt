@@ -23,8 +23,10 @@ import android.view.View
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
+import org.junit.Ignore
 import org.junit.Rule
 
+@Ignore
 /**
  * @author Oscar Gallon on 2/25/19.
  */

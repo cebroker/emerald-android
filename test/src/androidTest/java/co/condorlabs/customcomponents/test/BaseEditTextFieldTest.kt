@@ -30,10 +30,12 @@ import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
 import co.condorlabs.customcomponents.test.util.isTextInLines
+import org.junit.Ignore
 
 /**
  * @author Oscar Gallon on 2/26/19.
  */
+@Ignore
 @RunWith(AndroidJUnit4::class)
 class BaseEditTextFieldTest : MockActivityTest() {
 

@@ -29,10 +29,11 @@ import co.condorlabs.customcomponents.test.util.isTextDisplayed
 import org.hamcrest.Matchers.not
 import org.junit.Assert
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 
-
+@Ignore
 @RunWith(AndroidJUnit4::class)
 class EditTextPasswordFieldTest : MockActivityTest() {
 

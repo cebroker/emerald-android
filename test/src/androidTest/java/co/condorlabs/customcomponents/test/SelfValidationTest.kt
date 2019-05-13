@@ -4,8 +4,10 @@ import co.condorlabs.customcomponents.customedittext.*
 import co.condorlabs.customcomponents.customspinner.SpinnerData
 import co.condorlabs.customcomponents.customspinner.SpinnerFormField
 import co.condorlabs.customcomponents.test.util.isTextDisplayed
+import org.junit.Ignore
 import org.junit.Test
 
+@Ignore
 class SelfValidationTest : MockActivityTest() {
 
     @Test
