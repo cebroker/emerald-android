@@ -8,6 +8,7 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.runner.AndroidJUnit4
 import android.view.View
 import android.widget.TextView
+import androidx.test.filters.SmallTest
 import co.condorlabs.customcomponents.fileselectorview.FileSelectorClickListener
 import co.condorlabs.customcomponents.fileselectorview.FileSelectorOption
 import co.condorlabs.customcomponents.fileselectorview.FileSelectorField
@@ -21,7 +22,6 @@ import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 
-@Ignore
 @RunWith(AndroidJUnit4::class)
 class FileSelectorFieldTest : MockActivityTest() {
 
@@ -30,6 +30,7 @@ class FileSelectorFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_file_selector_view_test
     }
 
+    @SmallTest
     @Test
     fun shouldHaveDefaultText() {
         restartActivity()
@@ -45,6 +46,7 @@ class FileSelectorFieldTest : MockActivityTest() {
         addAction.check(matches(isDisplayed()))
     }
 
+    @SmallTest
     @Test
     fun shouldOpenFileSelectorDialog() {
         restartActivity()
@@ -62,6 +64,7 @@ class FileSelectorFieldTest : MockActivityTest() {
         isTextDisplayed("Photo")
     }
 
+    @SmallTest
     @Test
     fun shouldReturnPhotoAsOptionClicked() {
         restartActivity()
@@ -86,6 +89,7 @@ class FileSelectorFieldTest : MockActivityTest() {
         Assert.assertTrue(result is FileSelectorOption.Photo)
     }
 
+    @SmallTest
     @Test
     fun shouldReturnGalleryAsOptionClicked() {
         restartActivity()
@@ -110,6 +114,7 @@ class FileSelectorFieldTest : MockActivityTest() {
         Assert.assertTrue(result is FileSelectorOption.Gallery)
     }
 
+    @SmallTest
     @Test
     fun shouldNotBeValid() {
         restartActivity()
@@ -130,6 +135,7 @@ class FileSelectorFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldShowError() {
         restartActivity()
@@ -146,6 +152,7 @@ class FileSelectorFieldTest : MockActivityTest() {
         Espresso.onView(withText("This error should be displayed")).check(matches(isDisplayed()))
     }
 
+    @SmallTest
     @Test
     fun shouldClearError() {
         restartActivity()
@@ -164,6 +171,7 @@ class FileSelectorFieldTest : MockActivityTest() {
         Assert.assertTrue(errorView.visibility == View.GONE)
     }
 
+    @SmallTest
     @Test
     fun shouldChangeTitle() {
         MockActivity.layout = R.layout.activity_file_selector_title

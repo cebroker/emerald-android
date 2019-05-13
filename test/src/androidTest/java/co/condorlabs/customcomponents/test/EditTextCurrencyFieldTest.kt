@@ -25,6 +25,7 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.runner.AndroidJUnit4
 import android.view.KeyEvent
 import android.view.View
+import androidx.test.filters.SmallTest
 import co.condorlabs.customcomponents.customedittext.EditTextCurrencyField
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.DOLLAR_SYMBOL
@@ -36,7 +37,6 @@ import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 
-@Ignore
 @RunWith(AndroidJUnit4::class)
 class EditTextCurrencyFieldTest : MockActivityTest() {
 
@@ -50,6 +50,7 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
         editText = ruleActivity.activity.findViewById<View>(R.id.tlCurrency) as? EditTextCurrencyField
     }
 
+    @SmallTest
     @Test
     fun shouldShowAndErrorWithEmptyCurrency() {
         // Given
@@ -65,6 +66,7 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldFormatCurrency() {
         // When
@@ -93,6 +95,7 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
         Assert.assertEquals("$112,233", editText?.text())
     }
 
+    @SmallTest
     @Test
     fun shouldFormatCurrencyWithMax2Decimals() {
         // When
@@ -121,6 +124,7 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
         Assert.assertEquals("$0.05", editText?.text())
     }
 
+    @SmallTest
     @Test
     fun shouldAllowToWriteZeroAsLastDecimal() {
         // When
@@ -129,6 +133,7 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
         Assert.assertEquals("$1.40", editText?.text())
     }
 
+    @SmallTest
     @Test
     fun shouldAllowMax1_000_000() {
         // When
@@ -157,6 +162,7 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
         Assert.assertEquals("$1,000,000,000,000", editText?.text())
     }
 
+    @SmallTest
     @Test
     fun shouldNotAllowPasteNumberBiggerThanMax() {
         // When
@@ -165,6 +171,7 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
         Assert.assertEquals(DOLLAR_SYMBOL, editText?.text())
     }
 
+    @SmallTest
     @Test
     fun shouldDeleteDecimalPart() {
         // When
@@ -188,6 +195,7 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
         Assert.assertEquals("$2,333", editText?.text())
     }
 
+    @SmallTest
     @Test
     fun shouldFormatDeleting() {
         // Given
@@ -204,12 +212,14 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
         Assert.assertEquals("$1,112,223", editText?.text())
     }
 
+    @SmallTest
     @Test
     fun shouldShowDollarSymbolOnStart() {
         // Then
         Assert.assertEquals(DOLLAR_SYMBOL, editText?.text())
     }
 
+    @SmallTest
     @Test
     fun shouldShowDollarSymbolWhenType() {
         // Given
@@ -222,6 +232,7 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
         view.check(matches(ViewMatchers.withSubstring("$")))
     }
 
+    @SmallTest
     @Test
     fun shouldShowDollarSymbolOnDelete() {
         // Given

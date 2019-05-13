@@ -1,6 +1,7 @@
 package co.condorlabs.customcomponents.test
 
 import androidx.core.content.ContextCompat
+import androidx.test.filters.SmallTest
 import androidx.test.runner.AndroidJUnit4
 import co.condorlabs.customcomponents.custombutton.CustomButton
 import co.condorlabs.customcomponents.custombutton.CustomButtonStyleFactory
@@ -13,7 +14,6 @@ import org.junit.runner.RunWith
 /**
  * @author Oscar Gallon on 2019-04-26.
  */
-@Ignore
 @RunWith(AndroidJUnit4::class)
 class CustomButtonTest : MockActivityTest() {
 
@@ -23,6 +23,7 @@ class CustomButtonTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_custom_button
     }
 
+    @SmallTest
     @Test
     fun shouldBeDefaultButton() {
         restartActivity()
@@ -38,6 +39,7 @@ class CustomButtonTest : MockActivityTest() {
         Assert.assertEquals(expectedColor, backgroundColor)
     }
 
+    @SmallTest
     @Test
     fun shouldBeSuccessButton() {
         restartActivity()
@@ -56,6 +58,7 @@ class CustomButtonTest : MockActivityTest() {
         Assert.assertEquals(expectedColor, backgroundColor)
     }
 
+    @SmallTest
     @Test
     fun shouldBeDangerButton() {
         restartActivity()
@@ -74,6 +77,7 @@ class CustomButtonTest : MockActivityTest() {
         Assert.assertEquals(expectedColor, backgroundColor)
     }
 
+    @SmallTest
     @Test
     fun shouldBePrimaryButton() {
         restartActivity()
@@ -92,6 +96,7 @@ class CustomButtonTest : MockActivityTest() {
         Assert.assertEquals(expectedColor, backgroundColor)
     }
 
+    @SmallTest
     @Test
     fun shouldBeInfoButton() {
         restartActivity()
@@ -110,6 +115,7 @@ class CustomButtonTest : MockActivityTest() {
         Assert.assertEquals(expectedColor, backgroundColor)
     }
 
+    @SmallTest
     @Test
     fun shouldBeWarningButton() {
         restartActivity()

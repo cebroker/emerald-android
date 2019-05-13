@@ -5,6 +5,7 @@ import android.view.View
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.filters.SmallTest
 import co.condorlabs.customcomponents.DATE_PICKER_MAX_YEAR
 import co.condorlabs.customcomponents.DATE_PICKER_MIN_YEAR
 import co.condorlabs.customcomponents.customedittext.EditTextMonthYearField
@@ -14,7 +15,6 @@ import org.junit.Before
 import org.junit.Ignore
 import org.junit.Test
 
-@Ignore
 class CustomDatePickerTest : MockActivityTest() {
 
     private var editTextRef = ViewMatchers.withId(R.id.etMonthYear)
@@ -27,6 +27,7 @@ class CustomDatePickerTest : MockActivityTest() {
         editText = ruleActivity.activity.findViewById<View>(R.id.etMonthYearField) as? EditTextMonthYearField
     }
 
+    @SmallTest
     @Test
     fun shouldFormatOnTextChanged() {
         // When
@@ -56,6 +57,7 @@ class CustomDatePickerTest : MockActivityTest() {
 
     }
 
+    @SmallTest
     @Test
     fun shouldNotAllowMonthGreaterThan12() {
         // When
@@ -64,6 +66,7 @@ class CustomDatePickerTest : MockActivityTest() {
         Assert.assertEquals("12/2001", editText?.text())
     }
 
+    @SmallTest
     @Test
     fun shouldNotAllowMonthEqualsToZero() {
         // When
@@ -72,6 +75,7 @@ class CustomDatePickerTest : MockActivityTest() {
         Assert.assertEquals("01/2001", editText?.text())
     }
 
+    @SmallTest
     @Test
     fun shouldNotAllowYearLessThanMinYear() {
         // When
@@ -80,6 +84,7 @@ class CustomDatePickerTest : MockActivityTest() {
         Assert.assertEquals("01/$DATE_PICKER_MIN_YEAR", editText?.text())
     }
 
+    @SmallTest
     @Test
     fun shouldNotAllowYearGreaterThanMaxYear() {
         // When
@@ -88,6 +93,7 @@ class CustomDatePickerTest : MockActivityTest() {
         Assert.assertEquals("01/$DATE_PICKER_MAX_YEAR", editText?.text())
     }
 
+    @SmallTest
     @Test
     fun shouldNotAllowTypeText() {
         // When
@@ -96,6 +102,7 @@ class CustomDatePickerTest : MockActivityTest() {
         Assert.assertEquals("", editText?.text())
     }
 
+    @SmallTest
     @Test
     fun shouldReturnIsValid() {
         // When
@@ -104,6 +111,7 @@ class CustomDatePickerTest : MockActivityTest() {
         Assert.assertEquals(true, editText?.isValid()?.isValid)
     }
 
+    @SmallTest
     @Test
     fun shouldNotAllowMoreThan4DigitsYear() {
         // When
@@ -113,6 +121,7 @@ class CustomDatePickerTest : MockActivityTest() {
         Assert.assertEquals(true, editText?.isValid()?.isValid)
     }
 
+    @SmallTest
     @Test
     fun shouldNotAllowMoreThan2DigitsMonth() {
         // When
@@ -122,6 +131,7 @@ class CustomDatePickerTest : MockActivityTest() {
         Assert.assertEquals(true, editText?.isValid()?.isValid)
     }
 
+    @SmallTest
     @Test
     fun shouldReturnIsNotValidIfFieldIsEmptyAndIsRequired() {
         // Given
@@ -132,6 +142,7 @@ class CustomDatePickerTest : MockActivityTest() {
         Assert.assertEquals(false, editText?.isValid()?.isValid)
     }
 
+    @SmallTest
     @Test
     fun shouldReturnIsValidIfFieldIsEmptyAndIsNotRequired() {
         // Given

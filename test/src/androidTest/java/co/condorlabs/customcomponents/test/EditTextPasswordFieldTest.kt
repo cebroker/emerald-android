@@ -21,6 +21,7 @@ import android.view.View
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.filters.SmallTest
 import androidx.test.runner.AndroidJUnit4
 import co.condorlabs.customcomponents.VALIDATE_EMPTY_ERROR
 import co.condorlabs.customcomponents.customedittext.EditTextPasswordField
@@ -33,7 +34,6 @@ import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 
-@Ignore
 @RunWith(AndroidJUnit4::class)
 class EditTextPasswordFieldTest : MockActivityTest() {
 
@@ -42,6 +42,7 @@ class EditTextPasswordFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_passwordtestfield_test
     }
 
+    @SmallTest
     @Test
     fun shouldShowAndErrorWithEmptyPassword() {
         restartActivity()
@@ -60,6 +61,7 @@ class EditTextPasswordFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldNotSeePassword() {
         restartActivity()
@@ -74,6 +76,7 @@ class EditTextPasswordFieldTest : MockActivityTest() {
         not(isTextDisplayed("1234567890"))
     }
 
+    @SmallTest
     @Test
     fun eyeIconIsDisplay() {
         restartActivity()
@@ -93,6 +96,7 @@ class EditTextPasswordFieldTest : MockActivityTest() {
 
     }
 
+    @SmallTest
     @Test
     fun tapEyeToSeePassword() {
         restartActivity()
@@ -112,6 +116,7 @@ class EditTextPasswordFieldTest : MockActivityTest() {
         isTextDisplayed("1234567890")
     }
 
+    @SmallTest
     @Test
     fun tapEyeToHidePassword() {
         restartActivity()

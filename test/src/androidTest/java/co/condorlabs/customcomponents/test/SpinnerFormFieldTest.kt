@@ -22,6 +22,7 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import android.widget.Spinner
+import androidx.test.filters.SmallTest
 import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.customspinner.SpinnerData
 import co.condorlabs.customcomponents.customspinner.SpinnerFormField
@@ -34,7 +35,6 @@ import org.junit.Before
 import org.junit.Ignore
 import org.junit.Test
 
-@Ignore
 /**
  * @author Oscar Gallon on 2/26/19.
  */
@@ -45,6 +45,7 @@ class SpinnerFormFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_statespinnerformfield_test
     }
 
+    @SmallTest
     @Test
     fun shouldDisplayLabel() {
         restartActivity()
@@ -59,6 +60,7 @@ class SpinnerFormFieldTest : MockActivityTest() {
         view.check(matches(isDisplayed()))
     }
 
+    @SmallTest
     @Test
     fun shouldFindLabelById() {
         restartActivity()
@@ -73,6 +75,7 @@ class SpinnerFormFieldTest : MockActivityTest() {
         view.check(matches(isDisplayed()))
     }
 
+    @SmallTest
     @Test
     fun shouldDisplaySpinner() {
         restartActivity()
@@ -86,6 +89,7 @@ class SpinnerFormFieldTest : MockActivityTest() {
         view.check(matches(isDisplayed()))
     }
 
+    @SmallTest
     @Test
     fun shouldDisplayHint() {
         MockActivity.layout = R.layout.activity_spinner_with_hint
@@ -115,6 +119,7 @@ class SpinnerFormFieldTest : MockActivityTest() {
         Espresso.onView(withText("Cundinamarca")).check(matches(isDisplayed()))
     }
 
+    @SmallTest
     @Test
     fun shouldClickOnSpinnerCustomView() {
         MockActivity.layout = R.layout.activity_spinner_with_hint
@@ -143,6 +148,7 @@ class SpinnerFormFieldTest : MockActivityTest() {
         Espresso.onView(withText("Cundinamarca")).check(matches(isDisplayed()))
     }
 
+    @SmallTest
     @Test
     fun shouldShowStatesOnSpinner() {
         restartActivity()
@@ -166,6 +172,7 @@ class SpinnerFormFieldTest : MockActivityTest() {
         Espresso.onView(withText("Cundinamarca")).check(matches(isDisplayed()))
     }
 
+    @SmallTest
     @Test
     fun shouldShowStatesSorted() {
         restartActivity()
@@ -190,6 +197,7 @@ class SpinnerFormFieldTest : MockActivityTest() {
         Assert.assertEquals(3, spinner.selectedItemPosition)
     }
 
+    @SmallTest
     @Test
     fun shouldShowErrorIfNotElementIsSelected() {
         restartActivity()
@@ -218,6 +226,7 @@ class SpinnerFormFieldTest : MockActivityTest() {
         Assert.assertEquals(error, formField.error)
     }
 
+    @SmallTest
     @Test
     fun shouldShowErrorIfNotElementIsSelectedWithIsRequiredInXml() {
         MockActivity.layout = R.layout.activity_spinner_with_is_required
@@ -246,6 +255,7 @@ class SpinnerFormFieldTest : MockActivityTest() {
         Assert.assertEquals(error, formField.error)
     }
 
+    @SmallTest
     @Test
     fun shouldNotShowErrorIfNotElementIsSelected() {
         restartActivity()
@@ -270,6 +280,7 @@ class SpinnerFormFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldGetEmptyValueWithOutSelection() {
         restartActivity()
@@ -293,6 +304,7 @@ class SpinnerFormFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldGetValueWithSelection() {
         restartActivity()
@@ -319,6 +331,7 @@ class SpinnerFormFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldBeAbleToSelectAnSpinnerElement() {
         restartActivity()
@@ -343,6 +356,7 @@ class SpinnerFormFieldTest : MockActivityTest() {
         Espresso.onView(withText("Atlantico")).check(matches(isDisplayed()))
     }
 
+    @SmallTest
     @Test
     fun shouldBeAbleToGetValueSetWithValueSelectListener() {
         restartActivity()

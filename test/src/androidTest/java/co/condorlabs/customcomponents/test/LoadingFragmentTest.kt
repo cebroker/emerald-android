@@ -7,6 +7,7 @@ import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.filters.LargeTest
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner
 import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.loadingfragment.LoadingFragment
@@ -26,6 +27,7 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4ClassRunner::class)
 class LoadingFragmentTest {
 
+    @LargeTest
     @Test
     fun shouldInitWithElementsAndTitle() {
         //given
@@ -61,6 +63,7 @@ class LoadingFragmentTest {
         element4.check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
+    @LargeTest
     @Test
     fun shouldInitForSuccess() {
 
@@ -108,6 +111,7 @@ class LoadingFragmentTest {
     }
 
 
+    @LargeTest
     @Test
     fun shouldInitForError() {
 
@@ -155,6 +159,7 @@ class LoadingFragmentTest {
         actionButton.check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
+    @LargeTest
     @Test
     fun shouldCallMyActionOnButtonPressedSuccessScenario() {
         //Given
@@ -190,6 +195,7 @@ class LoadingFragmentTest {
         Assert.assertEquals(1, count)
     }
 
+    @LargeTest
     @Test
     fun shouldCallMyActionOnButtonPressedErrorScenario() {
         //Given
@@ -225,6 +231,7 @@ class LoadingFragmentTest {
         Assert.assertEquals(2, count)
     }
 
+    @LargeTest
     @Test
     fun shouldMarkOneElementAsCompleted() {
         //Given
@@ -272,6 +279,7 @@ class LoadingFragmentTest {
         }
     }
 
+    @LargeTest
     @Test
     fun shouldMarkTwoElementAsCompleted() {
         //Given
@@ -319,6 +327,7 @@ class LoadingFragmentTest {
         }
     }
 
+    @LargeTest
     @Test
     fun shouldMarkThreeElementAsCompleted() {
         //Given
@@ -366,6 +375,7 @@ class LoadingFragmentTest {
         }
     }
 
+    @LargeTest
     @Test
     fun shouldMarkFourElementAsCompleted() {
         //Given
@@ -413,6 +423,7 @@ class LoadingFragmentTest {
         }
     }
 
+    @LargeTest
     @Test
     fun shouldShowErrorOnItems() {
         //Given

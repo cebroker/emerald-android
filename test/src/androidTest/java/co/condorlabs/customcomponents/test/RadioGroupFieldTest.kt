@@ -23,6 +23,7 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import android.widget.RadioGroup
+import androidx.test.filters.SmallTest
 import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.customradiogroup.RadioGroupFormField
 import co.condorlabs.customcomponents.formfield.Selectable
@@ -34,7 +35,6 @@ import org.junit.Before
 import org.junit.Ignore
 import org.junit.Test
 
-@Ignore
 class RadioGroupFieldTest : MockActivityTest() {
 
     @Before
@@ -42,6 +42,7 @@ class RadioGroupFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_baseradiogroup_test
     }
 
+    @SmallTest
     @Test
     fun shouldShowMessageIfNoSelected() {
         restartActivity()
@@ -69,6 +70,7 @@ class RadioGroupFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldShowMessageIfNoSelected1() {
         MockActivity.layout = R.layout.activity_baseradiogroup_is_required_test
@@ -96,6 +98,7 @@ class RadioGroupFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldShowMessageInLabelIfNoSelected() {
         restartActivity()
@@ -125,6 +128,7 @@ class RadioGroupFieldTest : MockActivityTest() {
             .matches(formField.getChildAt(0))
     }
 
+    @SmallTest
     @Test
     fun shouldValidateIfSelected() {
         restartActivity()
@@ -154,6 +158,7 @@ class RadioGroupFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldDisplayTitle() {
         restartActivity()
@@ -168,6 +173,7 @@ class RadioGroupFieldTest : MockActivityTest() {
         view.check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
+    @SmallTest
     @Test
     fun shouldBeInitWithSelectableOption() {
         restartActivity()
@@ -195,6 +201,7 @@ class RadioGroupFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldReturnEmptyWithoutSelection() {
         restartActivity()
@@ -221,6 +228,7 @@ class RadioGroupFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldReturnValueSelected() {
         restartActivity()
@@ -249,6 +257,7 @@ class RadioGroupFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldBeAbleToGetSelectedValues() {
         restartActivity()
@@ -284,6 +293,7 @@ class RadioGroupFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldBeValidatedOnValueChange() {
         restartActivity()

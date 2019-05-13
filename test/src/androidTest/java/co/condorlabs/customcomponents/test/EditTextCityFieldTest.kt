@@ -21,6 +21,7 @@ import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.filters.SmallTest
 import androidx.test.runner.AndroidJUnit4
 import co.condorlabs.customcomponents.EMPTY
 import co.condorlabs.customcomponents.VALIDATE_CITY_ERROR
@@ -30,14 +31,12 @@ import co.condorlabs.customcomponents.customedittext.EditTextCityField
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import org.junit.Assert
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 
 /**
  * @author Oscar Gallon on 2/25/19.
  */
-@Ignore
 @RunWith(AndroidJUnit4::class)
 class EditTextCityFieldTest : MockActivityTest() {
 
@@ -46,6 +45,7 @@ class EditTextCityFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_edittextcityfield_test
     }
 
+    @SmallTest
     @Test
     fun shouldHaveDefaultHint() {
         restartActivity()
@@ -60,6 +60,7 @@ class EditTextCityFieldTest : MockActivityTest() {
         ViewMatchers.withHint("City").matches(view)
     }
 
+    @SmallTest
     @Test
     fun shouldDisplayACustomHint() {
         restartActivity()
@@ -76,6 +77,7 @@ class EditTextCityFieldTest : MockActivityTest() {
         ViewMatchers.withHint("Custom Hint").matches(view)
     }
 
+    @SmallTest
     @Test
     fun shouldReturnErrorIfCityNotBelongToTheState() {
         restartActivity()
@@ -94,6 +96,7 @@ class EditTextCityFieldTest : MockActivityTest() {
         Assert.assertEquals(ValidationResult(false, "$VALIDATE_CITY_ERROR Antioquia"), editTextCityField?.isValid())
     }
 
+    @SmallTest
     @Test
     fun shouldReturnErrorWithEmptyCity() {
         restartActivity()
@@ -109,6 +112,7 @@ class EditTextCityFieldTest : MockActivityTest() {
         Assert.assertEquals(ValidationResult(false, String.format(VALIDATE_EMPTY_ERROR, "City")), result)
     }
 
+    @SmallTest
     @Test
     fun shouldNotReturnErrorWithEmptyCity() {
         restartActivity()
@@ -123,6 +127,7 @@ class EditTextCityFieldTest : MockActivityTest() {
         Assert.assertEquals(ValidationResult(true, EMPTY), result)
     }
 
+    @SmallTest
     @Test
     fun shouldDisplayErrorWithStateName() {
         restartActivity()
