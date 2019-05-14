@@ -8,7 +8,7 @@
     <co.condorlabs.customcomponents.customspinner.SpinnerFormField
             android:layout_width="match_parent"
             app:is_required="true"
-            app:hint="Select an State"
+            app:hint="State"
             android:id="@+id/tlState"
             android:layout_height="wrap_content"/>
 
