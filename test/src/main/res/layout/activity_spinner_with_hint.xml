@@ -24,7 +24,6 @@
 
     <co.condorlabs.customcomponents.customspinner.SpinnerFormField
             android:layout_width="match_parent"
-            app:label="State"
             app:hint="State"
             android:id="@+id/tlState"
             android:layout_height="wrap_content"/>
