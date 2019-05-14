@@ -30,7 +30,6 @@ import co.condorlabs.customcomponents.test.util.isTextDisplayed
 import org.hamcrest.Matchers.not
 import org.junit.Assert
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -82,7 +81,7 @@ class EditTextPasswordFieldTest : MockActivityTest() {
         restartActivity()
         // Given
         val view = (ruleActivity.activity.findViewById<View>(R.id.tlPassword) as? EditTextPasswordField)
-        val textInpuntLayout = view!!.textInputLayout!!
+        val textInpuntLayout = view?.textInputLayout ?: throw NullPointerException()
         var drawable: Drawable? = null
 
         // When
@@ -102,7 +101,7 @@ class EditTextPasswordFieldTest : MockActivityTest() {
         restartActivity()
         // Given
         val view = (ruleActivity.activity.findViewById<View>(R.id.tlPassword) as? EditTextPasswordField)
-        val textInpuntLayout = view!!.textInputLayout!!
+        val textInpuntLayout = view?.textInputLayout ?: throw NullPointerException()
         val editTextView = Espresso.onView(ViewMatchers.withId(R.id.etPassword))
 
         // When

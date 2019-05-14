@@ -1,7 +1,7 @@
 
 # Loading Screen
 
-Emerald provides a month and year date picker.
+Loading screen, this screen show an spinner with the ability to select multiple items of the list with an animation
 
 ## Basic Usage
 

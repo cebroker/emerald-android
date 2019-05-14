@@ -1,11 +1,12 @@
 
 # Custom Button
 
-Emerald provides a month and year date picker.
+Provides a Button with the defined style 
 
 ## Basic Usage
 
 Create a new instance in your layout
+
 ```
  <co.condorlabs.customcomponents.custombutton.CustomButton android:layout_width="0dp"
                                                               app:layout_constraintTop_toTopOf="parent"
@@ -18,8 +19,6 @@ Create a new instance in your layout
 ```
 
 ## Attributes
-
-
 
 | Name | Description  |
 | -| - |

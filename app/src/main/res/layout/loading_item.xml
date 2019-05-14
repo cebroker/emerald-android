@@ -3,7 +3,7 @@
               xmlns:app="http://schemas.android.com/apk/res-auto"
               xmlns:tools="http://schemas.android.com/tools"
               android:layout_width="match_parent"
-              android:padding="8dp"
+              android:padding="@dimen/padding_small"
               android:weightSum="1"
               android:orientation="horizontal"
               android:layout_height="wrap_content">
@@ -19,14 +19,14 @@
                android:layout_height="wrap_content"
     />
 
-    <TextView android:layout_width="0dp"
+    <TextView android:layout_width="@dimen/zero"
               android:id="@+id/tvTitle"
               app:layout_constraintTop_toTopOf="parent"
               app:layout_constraintStart_toEndOf="@+id/ivIndicator"
               app:layout_constraintEnd_toEndOf="parent"
               android:textColor="@color/textColor"
               android:layout_weight="0.9"
-              android:layout_marginStart="8dp"
+              android:layout_marginStart="@dimen/padding_small"
               tools:text="4 Employment history entries"
               android:layout_height="wrap_content"
               android:fontFamily="@font/open_sans"/>
