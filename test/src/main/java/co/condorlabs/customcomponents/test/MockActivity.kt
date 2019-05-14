@@ -18,6 +18,8 @@ package co.condorlabs.customcomponents.test
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import co.condorlabs.customcomponents.customspinner.SpinnerData
+import co.condorlabs.customcomponents.customspinner.SpinnerFormField
 
 /**
  * @author Oscar Gallon on 2/21/19.
@@ -26,7 +28,9 @@ class MockActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(layout)
+        setContentView(R.layout.activity_spinner_with_hint)
+        findViewById<SpinnerFormField>(R.id.tlState).setData(arrayListOf(SpinnerData("1","1"),
+            SpinnerData("2","2")))
     }
 
     companion object {

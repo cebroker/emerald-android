@@ -18,6 +18,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
+              android:padding="16dp"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
@@ -27,5 +28,13 @@
                                                                    app:hint="Select an State"
                                                                    android:id="@+id/tlState"
                                                                    android:layout_height="wrap_content"/>
+
+    <co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tlBase"
+            android:textSize="@dimen/default_text_size"
+            app:hint="@string/zip_hint"
+            app:input_type="number"/>
 
 </LinearLayout>

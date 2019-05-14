@@ -21,6 +21,7 @@ import android.graphics.Color
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import android.widget.Filter
 import android.widget.TextView
 import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.STATE_SPINNER_HINT_POSITION
@@ -31,14 +32,14 @@ import co.condorlabs.customcomponents.STATE_SPINNER_HINT_POSITION
 class SpinnerFormFieldAdapter(
     context: Context,
     resourceId: Int,
-    private var mHint: String = context.getString(R.string.spinner_default_hint),
-    private val mData: ArrayList<SpinnerData> = ArrayList()
-) : ArrayAdapter<SpinnerData>(context, resourceId, mData) {
+    private var hint: String = context.getString(R.string.spinner_default_hint),
+    private val spinnerItems: ArrayList<SpinnerData> = ArrayList()
+) : ArrayAdapter<SpinnerData>(context, resourceId, spinnerItems), FilterListeners {
 
     fun replaceStates(data: List<SpinnerData>) {
-        mData.clear()
-        mData.add(SpinnerData(mHint, mHint))
-        mData.addAll(data)
+        spinnerItems.clear()
+        spinnerItems.add(SpinnerData(hint, hint))
+        spinnerItems.addAll(data)
         notifyDataSetChanged()
     }
 
@@ -61,7 +62,12 @@ class SpinnerFormFieldAdapter(
         return optionTextView
     }
 
-    fun getData(): List<SpinnerData> = mData
+    override fun getFilter(): Filter {
+        return NoFilter(this, spinnerItems)
+    }
+
+    fun getData(): List<SpinnerData> = spinnerItems
 
     private fun isHintPosition(position: Int): Boolean = position == STATE_SPINNER_HINT_POSITION
+
 }

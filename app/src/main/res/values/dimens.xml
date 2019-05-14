@@ -26,4 +26,5 @@
     <dimen name="title_margin_top">16dp</dimen>
     <dimen name="month_picker_margin">20dp</dimen>
     <dimen name="zero">0dp</dimen>
+    <dimen name="spinner_corner_radius">4dp</dimen>
 </resources>

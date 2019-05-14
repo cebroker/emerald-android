@@ -17,7 +17,6 @@
 package co.condorlabs.customcomponents.customedittext
 
 import android.content.Context
-import android.content.res.ColorStateList
 import android.graphics.Typeface
 import android.text.Editable
 import android.text.InputFilter
@@ -25,12 +24,10 @@ import android.text.InputType
 import android.text.TextWatcher
 import android.util.AttributeSet
 import android.util.TypedValue
-import android.view.ContextThemeWrapper
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
-import androidx.core.content.ContextCompat
 import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
@@ -102,20 +99,21 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
 
     override fun setup() {
         textInputLayout =
-            LayoutInflater.from(context).inflate(R.layout.base_edit_text_form_field, null) as? TextInputLayout
+            LayoutInflater.from(context).inflate(R.layout.base_edit_text_form_field,  null) as? TextInputLayout
         editText = textInputLayout?.editText
         editText?.inputType = inputType
 
         setFont(OPEN_SANS_REGULAR)
 
-        val wrappedEditText = editText?.let { it } ?: return
         val wrappedTextInputLayout = textInputLayout ?: return
+        val wrappedEditText = editText?.let { it } ?: return
 
         wrappedEditText.onFocusChangeListener = this
         wrappedTextInputLayout.hint = this@BaseEditTextFormField.hint
 
         wrappedEditText.apply {
             id = R.id.etBase
+            hint = this@BaseEditTextFormField.hint
             setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.default_text_size))
             isMultiline(wrappedEditText)
             backgroundAlpha?.let { background.alpha = it }

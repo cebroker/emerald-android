@@ -17,44 +17,37 @@
 package co.condorlabs.customcomponents.customspinner
 
 import android.content.Context
-import com.google.android.material.textfield.TextInputLayout
+import android.graphics.Typeface
 import android.util.AttributeSet
+import android.view.LayoutInflater
 import android.view.View
-import android.widget.AdapterView
+import android.widget.AutoCompleteTextView
 import android.widget.LinearLayout
-import android.widget.Spinner
 import android.widget.TextView
-import co.condorlabs.customcomponents.R
+import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.DEFAULT_STYLE_ATTR
-import co.condorlabs.customcomponents.DEFAULT_STYLE_RES
-import co.condorlabs.customcomponents.EMPTY
-import co.condorlabs.customcomponents.MESSAGE_FORMAT_ERROR
+import com.google.android.material.textfield.TextInputLayout
 
 /**
  * @author Oscar Gallon on 2/26/19.
  */
 abstract class BaseSpinnerFormField(context: Context, private val mAttrs: AttributeSet) :
-    TextInputLayout(context, mAttrs),
+    LinearLayout(context, mAttrs),
     FormField<SpinnerData?>, View.OnClickListener {
 
-    protected var mSpinner: Spinner? = null
+    var textInputLayout: TextInputLayout? = null
+
+    protected var autoCompleteTextView: AutoCompleteTextView? = null
     protected var mAdapterHint: String
     protected var mValueChangeListener: ValueChangeListener<SpinnerData?>? = null
 
-    private val mLayoutParams = LinearLayout.LayoutParams(
-        LinearLayout.LayoutParams.MATCH_PARENT,
-        LinearLayout.LayoutParams.WRAP_CONTENT
+    private var labelText = EMPTY
+    private var layoutParams = LayoutParams(
+        LayoutParams.MATCH_PARENT,
+        LayoutParams.WRAP_CONTENT
     )
-
-    private val mTVLabel = TextView(context, mAttrs)?.apply {
-        id = R.id.tvLabel
-        isClickable = true
-    }
-
-    private var mLabelText = EMPTY
 
     init {
         val typedArray = context.obtainStyledAttributes(
@@ -63,7 +56,7 @@ abstract class BaseSpinnerFormField(context: Context, private val mAttrs: Attrib
             DEFAULT_STYLE_ATTR, DEFAULT_STYLE_RES
         )
 
-        mLabelText = typedArray.getString(R.styleable.SpinnerFormField_label)
+        labelText = typedArray.getString(R.styleable.SpinnerFormField_label)
             ?: context.getString(R.string.default_base_hint)
         mAdapterHint = typedArray.getString(R.styleable.SpinnerFormField_hint)
             ?: context.getString(R.string.spinner_default_hint)
@@ -71,43 +64,47 @@ abstract class BaseSpinnerFormField(context: Context, private val mAttrs: Attrib
         typedArray.recycle()
     }
 
-    override fun onAttachedToWindow() {
-        super.onAttachedToWindow()
+    override fun onFinishInflate() {
+        super.onFinishInflate()
         setup()
     }
 
     override fun setup() {
-        mTVLabel.text = mLabelText
-        addView(mTVLabel, mLayoutParams)
-        mSpinner = Spinner(context, mAttrs)
-        addView(mSpinner)
+        textInputLayout =
+            LayoutInflater.from(context).inflate(R.layout.base_spinner_form_field, null) as? TextInputLayout
+        autoCompleteTextView = textInputLayout?.findViewById(R.id.actvBase)
+        textInputLayout?.hint = labelText
+        addView(textInputLayout, layoutParams)
+
     }
 
     override fun getErrorValidateResult(): ValidationResult {
-        return ValidationResult(false, String.format(MESSAGE_FORMAT_ERROR, mLabelText))
+        return ValidationResult(false, String.format(MESSAGE_FORMAT_ERROR, labelText))
     }
 
     override fun isValid(): ValidationResult {
-        mSpinner?.let {
-            if (it.selectedItemPosition == AdapterView.INVALID_POSITION) {
-                getErrorValidateResult()
-            }
-        }
+        if (autoCompleteTextView!!.text.toString() == EMPTY) return getErrorValidateResult()
+
 
         return ValidationResult(true, EMPTY)
     }
 
     override fun showError(message: String) {
-        this.isErrorEnabled = true
-        this.error = message
+        textInputLayout?.isErrorEnabled = true
+        textInputLayout?.error = message
     }
 
     override fun clearError() {
-        this.isErrorEnabled = false
-        this.error = EMPTY
+        textInputLayout?.isErrorEnabled = false
+        textInputLayout?.error = EMPTY
     }
 
     override fun setValueChangeListener(valueChangeListener: ValueChangeListener<SpinnerData?>) {
         mValueChangeListener = valueChangeListener
+    }
+
+    private fun setFont(fontName: String) {
+        val font = Typeface.createFromAsset(context.assets, fontName)
+        autoCompleteTextView?.typeface = font
     }
 }
