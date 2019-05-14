@@ -28,7 +28,11 @@ class MockActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(layout)
+        setContentView(R.layout.activity_spinner_with_hint)
+        findViewById<SpinnerFormField>(R.id.tlState)?.setData(arrayListOf(
+            SpinnerData("1","a"),
+            SpinnerData("2","b")
+        ))
     }
 
     companion object {

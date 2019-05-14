@@ -59,7 +59,7 @@ class SpinnerFormField(
                 SpinnerFormFieldAdapter(
                     context,
                     android.R.layout.simple_spinner_dropdown_item,
-                    hint = mAdapterHint
+                    hint = context.getString(R.string.spinner_default_hint)
                 )
             )
             onItemSelectedListener = this@SpinnerFormField
@@ -94,6 +94,7 @@ class SpinnerFormField(
         if((autoCompleteTextView?.text?.isEmpty() == true || selectedItem == null) && isRequired) {
             return getErrorValidateResult()
         }
+
         return ValidationResult(true, EMPTY)
     }
 

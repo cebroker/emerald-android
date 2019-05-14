@@ -39,10 +39,8 @@ abstract class BaseSpinnerFormField(context: Context, private val mAttrs: Attrib
     var textInputLayout: TextInputLayout? = null
 
     protected var autoCompleteTextView: AutoCompleteTextView? = null
-    protected var mAdapterHint: String
+    protected var hint: String
     protected var mValueChangeListener: ValueChangeListener<SpinnerData?>? = null
-
-    private var labelText = EMPTY
 
     private var layoutParams = LayoutParams(
         LayoutParams.MATCH_PARENT,
@@ -56,9 +54,7 @@ abstract class BaseSpinnerFormField(context: Context, private val mAttrs: Attrib
             DEFAULT_STYLE_ATTR, DEFAULT_STYLE_RES
         )
 
-        labelText = typedArray.getString(R.styleable.SpinnerFormField_label)
-            ?: context.getString(R.string.default_base_hint)
-        mAdapterHint = typedArray.getString(R.styleable.SpinnerFormField_hint)
+        hint = typedArray.getString(R.styleable.SpinnerFormField_hint)
             ?: context.getString(R.string.spinner_default_hint)
 
         typedArray.recycle()
@@ -73,20 +69,17 @@ abstract class BaseSpinnerFormField(context: Context, private val mAttrs: Attrib
         textInputLayout =
             LayoutInflater.from(context).inflate(R.layout.base_spinner_form_field, null) as? TextInputLayout
         autoCompleteTextView = textInputLayout?.findViewById(R.id.actvBase)
-        textInputLayout?.hint = labelText
+        textInputLayout?.hint = hint
         setFont(OPEN_SANS_REGULAR)
         addView(textInputLayout, layoutParams)
 
     }
 
     override fun getErrorValidateResult(): ValidationResult {
-        return ValidationResult(false, String.format(MESSAGE_FORMAT_ERROR, labelText))
+        return ValidationResult(false, String.format(MESSAGE_FORMAT_ERROR, hint))
     }
 
     override fun isValid(): ValidationResult {
-        if (autoCompleteTextView!!.text.toString() == EMPTY) return getErrorValidateResult()
-
-
         return ValidationResult(true, EMPTY)
     }
 
