@@ -23,7 +23,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.AutoCompleteTextView
 import android.widget.LinearLayout
-import android.widget.TextView
 import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.formfield.FormField
@@ -44,6 +43,7 @@ abstract class BaseSpinnerFormField(context: Context, private val mAttrs: Attrib
     protected var mValueChangeListener: ValueChangeListener<SpinnerData?>? = null
 
     private var labelText = EMPTY
+
     private var layoutParams = LayoutParams(
         LayoutParams.MATCH_PARENT,
         LayoutParams.WRAP_CONTENT

@@ -32,7 +32,7 @@ import co.condorlabs.customcomponents.formfield.ValidationResult
 class SpinnerFormField(
     context: Context,
     attrs: AttributeSet
-) : BaseSpinnerFormField(context, attrs), ItemSelectedListenerAdapter {
+) : BaseSpinnerFormField(context, attrs), ItemSelectedListenerAdapter, AdapterView.OnItemClickListener {
 
     override var isRequired: Boolean = false
     private var firstEvaluation: Boolean = true
@@ -53,8 +53,8 @@ class SpinnerFormField(
         super.setup()
         this.setOnClickListener(this)
 
+        autoCompleteTextView?.onItemClickListener = this
         autoCompleteTextView?.apply {
-            id = R.id.spState
             setAdapter(
                 SpinnerFormFieldAdapter(
                     context,
@@ -64,6 +64,10 @@ class SpinnerFormField(
             )
             onItemSelectedListener = this@SpinnerFormField
         }
+    }
+
+    override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        onItemSelected(parent, view, position, id)
     }
 
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
@@ -87,8 +91,9 @@ class SpinnerFormField(
     }
 
     override fun isValid(): ValidationResult {
-
-
+        if((autoCompleteTextView?.text?.isEmpty() == true || selectedItem == null) && isRequired) {
+            return getErrorValidateResult()
+        }
         return ValidationResult(true, EMPTY)
     }
 
@@ -115,6 +120,7 @@ class SpinnerFormField(
     fun setItemSelectedById(id: String) {
         val data = (autoCompleteTextView?.adapter as? SpinnerFormFieldAdapter)?.getData()?.let { it } ?: return
         val item = data.find { it.id == id }?.let { it } ?: return
-        autoCompleteTextView?.setSelection(data.indexOf(item))
+        autoCompleteTextView?.setText(item.label, false)
+        selectedItem = item
     }
 }

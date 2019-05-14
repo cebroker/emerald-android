@@ -16,23 +16,23 @@
 
 package co.condorlabs.customcomponents.test
 
+import android.widget.AutoCompleteTextView
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.RootMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
-import android.widget.Spinner
 import androidx.test.filters.SmallTest
+import co.condorlabs.customcomponents.EMPTY
+import co.condorlabs.customcomponents.MESSAGE_FORMAT_ERROR
 import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.customspinner.SpinnerData
 import co.condorlabs.customcomponents.customspinner.SpinnerFormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.EMPTY
-import co.condorlabs.customcomponents.MESSAGE_FORMAT_ERROR
 import org.hamcrest.CoreMatchers.*
 import org.junit.Assert
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Test
 
 /**
@@ -51,28 +51,13 @@ class SpinnerFormFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val view = Espresso.onView(withText("State"))
+        val field = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
 
         // When
-        view.perform(click())
+        val hint = field?.textInputLayout?.hint
 
         // Then
-        view.check(matches(isDisplayed()))
-    }
-
-    @SmallTest
-    @Test
-    fun shouldFindLabelById() {
-        restartActivity()
-
-        // Given
-        val view = Espresso.onView(withId(R.id.tvLabel))
-
-        // When
-        view.perform(click())
-
-        // Then
-        view.check(matches(isDisplayed()))
+        Assert.assertNotNull(hint)
     }
 
     @SmallTest
@@ -81,7 +66,7 @@ class SpinnerFormFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val view = Espresso.onView(withId(R.id.spState))
+        val view = Espresso.onView(withId(R.id.actvBase))
 
         // When
 
@@ -97,7 +82,7 @@ class SpinnerFormFieldTest : MockActivityTest() {
 
         // Given
         val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
-        val view = Espresso.onView(withId(R.id.spState))
+        val view = Espresso.onView(withId(R.id.actvBase))
         val data = SpinnerData("1", "Antioquia")
         val data1 = SpinnerData("2", "Cundinamarca")
         val data3 = SpinnerData("3", "Atlantico")
@@ -110,9 +95,9 @@ class SpinnerFormFieldTest : MockActivityTest() {
         onData(
             allOf(
                 `is`(instanceOf(SpinnerData::class.java)),
-                `is`(SpinnerData("Select an State", "Select an State"))
+                `is`(SpinnerData("2", "Cundinamarca"))
             )
-        ).perform(click())
+        ).inRoot(RootMatchers.isPlatformPopup()).perform(click())
 
         // Then
 
@@ -140,9 +125,9 @@ class SpinnerFormFieldTest : MockActivityTest() {
         onData(
             allOf(
                 `is`(instanceOf(SpinnerData::class.java)),
-                `is`(SpinnerData("Select an State", "Select an State"))
+                `is`(SpinnerData("2", "Cundinamarca"))
             )
-        ).perform(click())
+        ).inRoot(RootMatchers.isPlatformPopup()).perform(click())
 
         // Then
         Espresso.onView(withText("Cundinamarca")).check(matches(isDisplayed()))
@@ -155,7 +140,7 @@ class SpinnerFormFieldTest : MockActivityTest() {
 
         // Given
         val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
-        val view = Espresso.onView(withId(R.id.spState))
+        val view = Espresso.onView(withId(R.id.actvBase))
         val data = SpinnerData("1", "Antioquia")
         val data1 = SpinnerData("2", "Cundinamarca")
         val data3 = SpinnerData("3", "Atlantico")
@@ -165,7 +150,8 @@ class SpinnerFormFieldTest : MockActivityTest() {
             formField.setData(arrayListOf(data, data1, data3))
         }
         view.perform(click())
-        onData(allOf(`is`(instanceOf(SpinnerData::class.java)), `is`(data1))).perform(click())
+        onData(allOf(`is`(instanceOf(SpinnerData::class.java)), `is`(data1))).inRoot(RootMatchers.isPlatformPopup())
+            .perform(click())
 
         // Then
 
@@ -179,8 +165,8 @@ class SpinnerFormFieldTest : MockActivityTest() {
 
         // Given
         val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
-        val spinner = ruleActivity.activity.findViewById<Spinner>(R.id.spState)
-        val view = Espresso.onView(withId(R.id.spState))
+        val spinner = ruleActivity.activity.findViewById<AutoCompleteTextView>(R.id.actvBase)
+        val view = Espresso.onView(withId(R.id.actvBase))
         val data = SpinnerData("1", "Antioquia")
         val data1 = SpinnerData("2", "Cundinamarca")
         val data2 = SpinnerData("3", "Atlantico")
@@ -190,11 +176,12 @@ class SpinnerFormFieldTest : MockActivityTest() {
             formField.setData(arrayListOf(data, data1, data2))
         }
         view.perform(click())
-        onData(allOf(`is`(instanceOf(SpinnerData::class.java)), `is`(data1))).perform(click())
+        onData(allOf(`is`(instanceOf(SpinnerData::class.java)), `is`(data1))).inRoot(RootMatchers.isPlatformPopup())
+            .perform(click())
 
         // Then
         Espresso.onView(withText("Cundinamarca")).check(matches(isDisplayed()))
-        Assert.assertEquals(3, spinner.selectedItemPosition)
+        Assert.assertEquals(data1, spinner.adapter.getItem(3))
     }
 
     @SmallTest
@@ -215,7 +202,8 @@ class SpinnerFormFieldTest : MockActivityTest() {
             formField.setData(arrayListOf(data, data1, data2))
         }
         val result = formField.isValid()
-        showErrorInInputLayout(formField, result.error)
+        val textInputLayout = formField.textInputLayout ?: throw NullPointerException()
+        showErrorInInputLayout(textInputLayout, result.error)
 
         // Then
         Assert.assertEquals(
@@ -223,7 +211,7 @@ class SpinnerFormFieldTest : MockActivityTest() {
             result
         )
 
-        Assert.assertEquals(error, formField.error)
+        Assert.assertEquals(error, textInputLayout.error)
     }
 
     @SmallTest
@@ -244,7 +232,8 @@ class SpinnerFormFieldTest : MockActivityTest() {
             formField.setData(arrayListOf(data, data1, data2))
         }
         val result = formField.isValid()
-        showErrorInInputLayout(formField, result.error)
+        val textInputLayout = formField.textInputLayout ?: throw NullPointerException()
+        showErrorInInputLayout(textInputLayout, result.error)
 
         // Then
         Assert.assertEquals(
@@ -252,7 +241,7 @@ class SpinnerFormFieldTest : MockActivityTest() {
             result
         )
 
-        Assert.assertEquals(error, formField.error)
+        Assert.assertEquals(error, textInputLayout.error)
     }
 
     @SmallTest
@@ -270,8 +259,10 @@ class SpinnerFormFieldTest : MockActivityTest() {
         ruleActivity.runOnUiThread {
             formField.setData(arrayListOf(data, data1, data2))
         }
+
         val result = formField.isValid()
-        showErrorInInputLayout(formField, result.error)
+        val textInputLayout = formField.textInputLayout ?: throw NullPointerException()
+        showErrorInInputLayout(textInputLayout, result.error)
 
         // Then
         Assert.assertEquals(
@@ -311,7 +302,7 @@ class SpinnerFormFieldTest : MockActivityTest() {
 
         // Given
         val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
-        val view = Espresso.onView(withId(R.id.spState))
+        val view = Espresso.onView(withId(R.id.actvBase))
         val data = SpinnerData("1", "Antioquia")
         val data1 = SpinnerData("2", "Cundinamarca")
         val data2 = SpinnerData("3", "Atlantico")
@@ -321,7 +312,14 @@ class SpinnerFormFieldTest : MockActivityTest() {
             formField.setData(arrayListOf(data, data1, data2))
         }
         view.perform(click())
-        onData(allOf(`is`(instanceOf(SpinnerData::class.java)), `is`(data2))).perform(click())
+        onData(
+            allOf(
+                `is`(instanceOf(SpinnerData::class.java)),
+                `is`(data2)
+            )
+        ).inRoot(RootMatchers.isPlatformPopup())
+            .perform(click())
+
         val result = formField.getValue()
 
         // Then
@@ -338,7 +336,7 @@ class SpinnerFormFieldTest : MockActivityTest() {
 
         // Given
         val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
-        val view = Espresso.onView(withId(R.id.spState))
+        val view = Espresso.onView(withId(R.id.actvBase))
         val data = SpinnerData("1", "Antioquia")
         val data1 = SpinnerData("2", "Cundinamarca")
         val data2 = SpinnerData("3", "Atlantico")
@@ -350,7 +348,8 @@ class SpinnerFormFieldTest : MockActivityTest() {
         }
 
         view.perform(click())
-        onData(allOf(`is`(instanceOf(SpinnerData::class.java)), `is`(data2))).perform(click())
+        onData(allOf(`is`(instanceOf(SpinnerData::class.java)), `is`(data2))).inRoot(RootMatchers.isPlatformPopup())
+            .perform(click())
 
         // Then
         Espresso.onView(withText("Atlantico")).check(matches(isDisplayed()))
@@ -363,7 +362,7 @@ class SpinnerFormFieldTest : MockActivityTest() {
 
         // Given
         val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
-        val view = Espresso.onView(withId(R.id.spState))
+        val view = Espresso.onView(withId(R.id.actvBase))
         val data = SpinnerData("1", "Antioquia")
         val data1 = SpinnerData("2", "Cundinamarca")
         val data2 = SpinnerData("3", "Atlantico")
@@ -381,7 +380,8 @@ class SpinnerFormFieldTest : MockActivityTest() {
         }
 
         view.perform(click())
-        onData(allOf(`is`(instanceOf(SpinnerData::class.java)), `is`(data2))).perform(click())
+        onData(allOf(`is`(instanceOf(SpinnerData::class.java)), `is`(data2))).inRoot(RootMatchers.isPlatformPopup())
+            .perform(click())
 
         // Then
         Assert.assertEquals(data2, result)
