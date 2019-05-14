@@ -3,29 +3,29 @@ jdk: oraclejdk8
 
 branches:
   only:
-  - master
+    - master
 
 notifications:
-    slack:
-      rooms:
-        - secure: "b1sQQd8oK/jQ5Yxd3pS5LnuKD73nbIjtILWk+OAvcc1AchrNgosY7OuE/MfMaAbJFgDIb0M0VMTZdWoJHuZ3abhIQ6hpOmK8GK3wLKtN9tjrks6CRWabYi7F+eQqz8gYtvusLJJ3Do8GCqFBWXcGTSRThYC8MX//V9gDFAYGo5BMoXSLhPX9v3yZuLvKWeMDXdxID3nE/WmLJQv/UX9mTmVyAPLSIwkVvmsZ8+O7wRzB7rzBYs+YsxbJTv95LYe2CsAPDP8YCiBBnBhQilIdIvG+K/5QUcg1EpFQL9z3K3XlsdgpiZ/pA5uRhv2JkKHZGUER6CgEb4a0nSy2RY4f5keYUiq7XcNkfGV5yNz83WXufouK+megtDr1OHoO232bCnD3kDEdjfhmxak7nqRSXUn4AY/zC8Al+RYSogmcO81BznqQ22/8fgi6ape3MsBopBYDNDX4fJSg+fVASZySHB8d65Z1CNkqKnhig5vZrf0xbrw67xah2CYkDJiB2nawbwHo3Z6ewMn3fzcIDH8c5rcYf1rFmqb/2B367hoknHRx4+PnULPhkErzOTqjdIqHB/CJ863+fE5cGvFj1S0Q4whNbm37vLpymppKlUcfj5AIQ9HXe/eIBbhMCGW39D5kp6oVCi8kFjnuhYgxg4N+wxDgLYfTgPKGj91o3HLlVHA="
-      on_success: always
-      on_failure: always
+  slack:
+    rooms:
+      - secure: "b1sQQd8oK/jQ5Yxd3pS5LnuKD73nbIjtILWk+OAvcc1AchrNgosY7OuE/MfMaAbJFgDIb0M0VMTZdWoJHuZ3abhIQ6hpOmK8GK3wLKtN9tjrks6CRWabYi7F+eQqz8gYtvusLJJ3Do8GCqFBWXcGTSRThYC8MX//V9gDFAYGo5BMoXSLhPX9v3yZuLvKWeMDXdxID3nE/WmLJQv/UX9mTmVyAPLSIwkVvmsZ8+O7wRzB7rzBYs+YsxbJTv95LYe2CsAPDP8YCiBBnBhQilIdIvG+K/5QUcg1EpFQL9z3K3XlsdgpiZ/pA5uRhv2JkKHZGUER6CgEb4a0nSy2RY4f5keYUiq7XcNkfGV5yNz83WXufouK+megtDr1OHoO232bCnD3kDEdjfhmxak7nqRSXUn4AY/zC8Al+RYSogmcO81BznqQ22/8fgi6ape3MsBopBYDNDX4fJSg+fVASZySHB8d65Z1CNkqKnhig5vZrf0xbrw67xah2CYkDJiB2nawbwHo3Z6ewMn3fzcIDH8c5rcYf1rFmqb/2B367hoknHRx4+PnULPhkErzOTqjdIqHB/CJ863+fE5cGvFj1S0Q4whNbm37vLpymppKlUcfj5AIQ9HXe/eIBbhMCGW39D5kp6oVCi8kFjnuhYgxg4N+wxDgLYfTgPKGj91o3HLlVHA="
+    on_success: always
+    on_failure: always
 
 android:
   components:
-  - extra-google-google_play_services
-  - extra-google-m2repository
-  - extra-android-m2repository
-  - addon-google_apis-google-27
-  - android-22
-  - sys-img-armeabi-v7a-android-22
+    - extra-google-google_play_services
+    - extra-google-m2repository
+    - extra-android-m2repository
+    - addon-google_apis-google-27
+    - android-22
+    - sys-img-armeabi-v7a-android-22
 
   licenses:
-  - 'android-sdk-preview-license-52d11cd2'
-  - 'android-sdk-license-e6a904e8'
-  - 'android-sdk-license-.+'
-  - 'google-gdk-license-.+'
+    - 'android-sdk-preview-license-52d11cd2'
+    - 'android-sdk-license-e6a904e8'
+    - 'android-sdk-license-.+'
+    - 'google-gdk-license-.+'
 
 before_install:
   - yes | sdkmanager "platforms;android-27"
@@ -40,4 +40,4 @@ before_script:
   - adb shell input keyevent 82 &
 
 script:
-- ./gradlew --no-daemon --parallel test:connectedAndroidTest --stacktrace
+  - ./gradlew --no-daemon --parallel test:connectedAndroidTest --stacktrace

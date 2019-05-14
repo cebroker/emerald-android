@@ -1,10 +1,10 @@
 package co.condorlabs.customcomponents.test.util
 
-import android.support.test.espresso.AmbiguousViewMatcherException
-import android.support.test.espresso.Espresso
-import android.support.test.espresso.action.ViewActions
-import android.support.test.espresso.assertion.ViewAssertions
-import android.support.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.AmbiguousViewMatcherException
+import androidx.test.espresso.Espresso
+import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.matcher.ViewMatchers
 import android.view.View
 import android.widget.TextView
 import co.condorlabs.customcomponents.customedittext.BaseEditTextFormField

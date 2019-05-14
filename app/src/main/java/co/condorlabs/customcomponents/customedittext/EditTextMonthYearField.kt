@@ -3,8 +3,6 @@ package co.condorlabs.customcomponents.customedittext
 import android.app.DatePickerDialog
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.support.v4.content.ContextCompat
-import android.support.v7.app.AppCompatActivity
 import android.text.InputType
 import android.text.TextUtils
 import android.util.AttributeSet
@@ -12,10 +10,11 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.DatePicker
 import android.widget.TextView
-import co.condorlabs.customcomponents.R
+import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContextCompat
+import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.customdatepicker.MonthYearPickerDialog
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.helper.*
 import co.condorlabs.customcomponents.helper.masks.MonthYearWatcherMark
 import java.text.SimpleDateFormat
 import java.util.*
@@ -42,8 +41,8 @@ class EditTextMonthYearField(
             }
         }
 
-        if (mRegex == null) {
-            mRegex = MONTH_YEAR_REGEX
+        if (_regex == null) {
+            _regex = MONTH_YEAR_REGEX
         }
 
         simpleDateFormat = SimpleDateFormat(dateFormat, Locale.getDefault())
@@ -51,7 +50,7 @@ class EditTextMonthYearField(
 
     override fun setup() {
         super.setup()
-        mEditText?.id = R.id.etMonthYear
+        editText?.id = R.id.etMonthYear
         setupPicker()
     }
 
@@ -61,7 +60,7 @@ class EditTextMonthYearField(
 
     override fun onDateSet(view: DatePicker?, year: Int, monthOfYear: Int, dayOfMonth: Int) {
 
-        val receiver = mEditText?.let { it } ?: return
+        val receiver = editText?.let { it } ?: return
         val dateTextWatcherMask = monthYearWatcherMark?.let { it } ?: return
 
         val calendar = Calendar.getInstance()
@@ -75,7 +74,7 @@ class EditTextMonthYearField(
             ).format(calendar.time)
         )
 
-        mValueChangeListener?.onValueChange(getValue())
+        _valueChangeListener?.onValueChange(getValue())
 
         receiver.addTextChangedListener(dateTextWatcherMask)
         receiver.setSelection(receiver.text.length)
@@ -83,7 +82,7 @@ class EditTextMonthYearField(
 
     private fun setupPicker() {
 
-        val receiver = mEditText?.let { it } ?: return
+        val receiver = editText?.let { it } ?: return
 
         monthYearWatcherMark = MonthYearWatcherMark(receiver).apply {
             receiver.addTextChangedListener(this)
@@ -129,8 +128,10 @@ class EditTextMonthYearField(
 
                         datePicker.setListener(this)
 
+                        val manager =
+                            (currentContext as? AppCompatActivity)?.supportFragmentManager ?: return@setOnTouchListener true
                         datePicker.show(
-                            (currentContext as? AppCompatActivity)?.supportFragmentManager,
+                            manager,
                             MONTH_YEAR_PICKER_DIALOG_TAG
                         )
 

@@ -16,20 +16,21 @@
 
 package co.condorlabs.customcomponents.test
 
-import android.support.test.espresso.Espresso
-import android.support.test.espresso.action.ViewActions.typeText
-import android.support.test.espresso.assertion.ViewAssertions.matches
-import android.support.test.espresso.matcher.ViewMatchers
-import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
-import android.support.test.espresso.matcher.ViewMatchers.withId
-import android.support.test.runner.AndroidJUnit4
+import androidx.test.espresso.Espresso
+import androidx.test.espresso.action.ViewActions.typeText
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.filters.SmallTest
+import androidx.test.runner.AndroidJUnit4
+import co.condorlabs.customcomponents.VALIDATE_EMPTY_ERROR
+import co.condorlabs.customcomponents.VALIDATE_INCORRECT_ERROR
 import co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
-import co.condorlabs.customcomponents.helper.VALIDATE_EMPTY_ERROR
-import co.condorlabs.customcomponents.helper.VALIDATE_INCORRECT_ERROR
+import co.condorlabs.customcomponents.test.util.isTextInLines
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
-import co.condorlabs.customcomponents.test.util.isTextInLines
 
 /**
  * @author Oscar Gallon on 2/26/19.
@@ -37,6 +38,7 @@ import co.condorlabs.customcomponents.test.util.isTextInLines
 @RunWith(AndroidJUnit4::class)
 class BaseEditTextFieldTest : MockActivityTest() {
 
+    @SmallTest
     @Test
     fun shouldDisplayDefaultHint() {
         MockActivity.layout = R.layout.activity_baseedittextfield_test
@@ -51,6 +53,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
         Assert.assertEquals("Enter some text", formField?.hint)
     }
 
+    @SmallTest
     @Test
     fun shouldDisplayZipHint() {
         MockActivity.layout = R.layout.activity_baseedittextfield_with_hint_test
@@ -65,6 +68,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
         Assert.assertEquals("Zip", formField?.hint)
     }
 
+    @SmallTest
     @Test
     fun shouldDisplayTextWithMultiline() {
         MockActivity.layout = R.layout.activity_baseedittextfield_multiline_test
@@ -80,6 +84,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
         isTextInLines(3)
     }
 
+    @SmallTest
     @Test
     fun shouldNotBeInvalidIfItsNotRequired() {
         MockActivity.layout = R.layout.activity_baseedittext_no_required_test
@@ -99,6 +104,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
         Assert.assertTrue(result.isValid)
     }
 
+    @SmallTest
     @Test
     fun shouldReturnEmptyIfNothingIsType() {
         MockActivity.layout = R.layout.activity_baseedittext_no_required_test
@@ -114,14 +120,16 @@ class BaseEditTextFieldTest : MockActivityTest() {
         Assert.assertEquals("", result)
     }
 
+    @SmallTest
     @Test
     fun shouldReturnValueTyped() {
         MockActivity.layout = R.layout.activity_baseedittext_no_required_test
         restartActivity()
 
         // Given
-        val editText = Espresso.onView(withId(R.id.etBase))
         val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
+        val editText = Espresso.onView(withId(R.id.etBase))
+
 
         // When
         editText.perform(typeText("156"))
@@ -130,6 +138,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
         Assert.assertEquals("156", formField.getValue())
     }
 
+    @SmallTest
     @Test
     fun shouldHaveRegexAndHint() {
         MockActivity.layout = R.layout.activity_baseedittext_with_hint_and_regex_test
@@ -152,6 +161,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
         Assert.assertTrue(result.isValid)
     }
 
+    @SmallTest
     @Test
     fun shouldBeAbleToGetTheInputTypeSetOnTheLayout() {
         MockActivity.layout = R.layout.activity_baseedittextfield_with_hint_test
@@ -167,6 +177,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
         Espresso.onView(ViewMatchers.withText("")).check(matches(isDisplayed()))
     }
 
+    @SmallTest
     @Test
     fun lengthShouldBeMatch() {
         MockActivity.layout = R.layout.activity_baseedittextfield_with_hint_test
@@ -186,6 +197,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
         ViewMatchers.withText("12345").matches(view)
     }
 
+    @SmallTest
     @Test
     fun shouldValidateRegex() {
         MockActivity.layout = R.layout.activity_baseedittextfield_with_hint_test
@@ -206,6 +218,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
         Assert.assertTrue(result.isValid)
     }
 
+    @SmallTest
     @Test
     fun shouldNotBeValidIfTextDoesNotMatchRegex() {
         MockActivity.layout = R.layout.activity_baseedittextfield_with_hint_test
@@ -226,6 +239,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
         Assert.assertEquals(String.format(VALIDATE_INCORRECT_ERROR, "Zip"), result.error)
     }
 
+    @SmallTest
     @Test
     fun shouldShowErrorWithHintWithoutValidateRegex() {
         MockActivity.layout = R.layout.activity_baseedittextfield_with_hint_test
@@ -243,6 +257,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
         Assert.assertEquals(String.format(VALIDATE_EMPTY_ERROR, "Zip"), result.error)
     }
 
+    @SmallTest
     @Test
     fun shouldSetMaxLinesMinLinesAndAlpha() {
         MockActivity.layout = R.layout.activity_baseedittextfield_with_hint_test

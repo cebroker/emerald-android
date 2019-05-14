@@ -17,6 +17,7 @@
 package co.condorlabs.customcomponents.helper
 
 import android.text.TextUtils
+import co.condorlabs.customcomponents.MONEY_FORMAT
 import java.math.BigDecimal
 import java.text.DecimalFormat
 import java.text.NumberFormat

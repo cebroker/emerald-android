@@ -16,18 +16,19 @@
 
 package co.condorlabs.customcomponents.test
 
-import android.support.design.widget.TextInputLayout
-import android.support.test.espresso.Espresso
-import android.support.test.espresso.action.ViewActions.click
-import android.support.test.espresso.action.ViewActions.typeText
-import android.support.test.espresso.matcher.ViewMatchers
-import android.support.test.runner.AndroidJUnit4
 import android.view.View
+import androidx.test.espresso.Espresso
+import androidx.test.espresso.action.ViewActions.click
+import androidx.test.espresso.action.ViewActions.typeText
+import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.filters.SmallTest
+import androidx.test.runner.AndroidJUnit4
+import co.condorlabs.customcomponents.EMPTY
+import co.condorlabs.customcomponents.VALIDATE_CITY_ERROR
+import co.condorlabs.customcomponents.VALIDATE_EMPTY_ERROR
+import co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
 import co.condorlabs.customcomponents.customedittext.EditTextCityField
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.helper.EMPTY
-import co.condorlabs.customcomponents.helper.VALIDATE_CITY_ERROR
-import co.condorlabs.customcomponents.helper.VALIDATE_EMPTY_ERROR
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -44,6 +45,7 @@ class EditTextCityFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_edittextcityfield_test
     }
 
+    @SmallTest
     @Test
     fun shouldHaveDefaultHint() {
         restartActivity()
@@ -58,11 +60,12 @@ class EditTextCityFieldTest : MockActivityTest() {
         ViewMatchers.withHint("City").matches(view)
     }
 
+    @SmallTest
     @Test
     fun shouldDisplayACustomHint() {
         restartActivity()
 
-        ruleActivity.activity.findViewById<TextInputLayout>(R.id.tlCity).hint = "Custom Hint"
+        ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlCity).hint = "Custom Hint"
 
         // Given
         val view = Espresso.onView(ViewMatchers.withId(R.id.tlCity))
@@ -74,6 +77,7 @@ class EditTextCityFieldTest : MockActivityTest() {
         ViewMatchers.withHint("Custom Hint").matches(view)
     }
 
+    @SmallTest
     @Test
     fun shouldReturnErrorIfCityNotBelongToTheState() {
         restartActivity()
@@ -92,6 +96,7 @@ class EditTextCityFieldTest : MockActivityTest() {
         Assert.assertEquals(ValidationResult(false, "$VALIDATE_CITY_ERROR Antioquia"), editTextCityField?.isValid())
     }
 
+    @SmallTest
     @Test
     fun shouldReturnErrorWithEmptyCity() {
         restartActivity()
@@ -107,6 +112,7 @@ class EditTextCityFieldTest : MockActivityTest() {
         Assert.assertEquals(ValidationResult(false, String.format(VALIDATE_EMPTY_ERROR, "City")), result)
     }
 
+    @SmallTest
     @Test
     fun shouldNotReturnErrorWithEmptyCity() {
         restartActivity()
@@ -121,6 +127,7 @@ class EditTextCityFieldTest : MockActivityTest() {
         Assert.assertEquals(ValidationResult(true, EMPTY), result)
     }
 
+    @SmallTest
     @Test
     fun shouldDisplayErrorWithStateName() {
         restartActivity()
@@ -135,7 +142,7 @@ class EditTextCityFieldTest : MockActivityTest() {
         editTextCityField?.setCities(arrayListOf("Medellin", "Sabaneta"))
         editTextCityField?.setStateName("Antioquia")
         editTextCityField?.let {
-            showErrorInInputLayout(it, it.isValid().error)
+            showErrorInInputLayout(it.textInputLayout!!, it.isValid().error)
         }
 
         // Then

@@ -20,12 +20,11 @@ import android.content.Context
 import android.util.AttributeSet
 import android.view.View
 import android.widget.AdapterView
+import co.condorlabs.customcomponents.DEFAULT_STYLE_ATTR
+import co.condorlabs.customcomponents.DEFAULT_STYLE_RES
+import co.condorlabs.customcomponents.EMPTY
 import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.helper.DEFAULT_STYLE_ATTR
-import co.condorlabs.customcomponents.helper.DEFAULT_STYLE_RES
-import co.condorlabs.customcomponents.helper.EMPTY
-import co.condorlabs.customcomponents.helper.STATE_SPINNER_HINT_POSITION
 
 /**
  * @author Oscar Gallon on 2/26/19.
@@ -33,10 +32,11 @@ import co.condorlabs.customcomponents.helper.STATE_SPINNER_HINT_POSITION
 class SpinnerFormField(
     context: Context,
     attrs: AttributeSet
-) : BaseSpinnerFormField(context, attrs), ItemSelectedListenerAdapter {
+) : BaseSpinnerFormField(context, attrs), ItemSelectedListenerAdapter, AdapterView.OnItemClickListener {
 
     override var isRequired: Boolean = false
     private var firstEvaluation: Boolean = true
+    private var selectedItem: SpinnerData? = null
 
     init {
         val typedArray = context.obtainStyledAttributes(
@@ -53,20 +53,28 @@ class SpinnerFormField(
         super.setup()
         this.setOnClickListener(this)
 
-        mSpinner?.apply {
-            id = R.id.spState
-            adapter = SpinnerFormFieldAdapter(
-                context,
-                android.R.layout.simple_spinner_dropdown_item,
-                mHint = mAdapterHint
+        autoCompleteTextView?.onItemClickListener = this
+        autoCompleteTextView?.apply {
+            setAdapter(
+                SpinnerFormFieldAdapter(
+                    context,
+                    android.R.layout.simple_spinner_dropdown_item,
+                    hint = context.getString(R.string.spinner_default_hint)
+                )
             )
             onItemSelectedListener = this@SpinnerFormField
         }
     }
 
+    override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        onItemSelected(parent, view, position, id)
+    }
+
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         super.onItemSelected(parent, view, position, id)
-        val spinnerData = (mSpinner?.getItemAtPosition(position) as? SpinnerData)?.let { it } ?: return
+
+        val spinnerData = (autoCompleteTextView?.adapter?.getItem(position) as? SpinnerData)?.let { it } ?: return
+        selectedItem = spinnerData
         mValueChangeListener?.onValueChange(spinnerData)
 
         if (firstEvaluation) {
@@ -83,22 +91,18 @@ class SpinnerFormField(
     }
 
     override fun isValid(): ValidationResult {
-        mSpinner?.let {
-            if (it.selectedItemPosition <= STATE_SPINNER_HINT_POSITION && isRequired) {
-                return getErrorValidateResult()
-            }
+        if((autoCompleteTextView?.text?.isEmpty() == true || selectedItem == null) && isRequired) {
+            return getErrorValidateResult()
         }
 
         return ValidationResult(true, EMPTY)
     }
 
     override fun getValue(): SpinnerData? {
-        val spinner = mSpinner?.let { it } ?: return null
-
         return if (!isValid().isValid) {
             null
         } else {
-            spinner.selectedItem as? SpinnerData
+            selectedItem
         }
     }
 
@@ -107,16 +111,17 @@ class SpinnerFormField(
     }
 
     override fun onClick(v: View?) {
-        mSpinner?.performClick()
+        autoCompleteTextView?.performClick()
     }
 
     fun setData(data: List<SpinnerData>) {
-        (mSpinner?.adapter as? SpinnerFormFieldAdapter)?.replaceStates(data.sortedBy { it.label })
+        (autoCompleteTextView?.adapter as? SpinnerFormFieldAdapter)?.replaceStates(data.sortedBy { it.label })
     }
 
     fun setItemSelectedById(id: String) {
-        val data = (mSpinner?.adapter as? SpinnerFormFieldAdapter)?.getData()?.let { it } ?: return
+        val data = (autoCompleteTextView?.adapter as? SpinnerFormFieldAdapter)?.getData()?.let { it } ?: return
         val item = data.find { it.id == id }?.let { it } ?: return
-        mSpinner?.setSelection(data.indexOf(item))
+        autoCompleteTextView?.setText(item.label, false)
+        selectedItem = item
     }
 }

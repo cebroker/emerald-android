@@ -16,20 +16,22 @@
 
 package co.condorlabs.customcomponents.test
 
-import android.support.test.espresso.Espresso
-import android.support.test.espresso.action.ViewActions
-import android.support.test.espresso.action.ViewActions.typeText
-import android.support.test.espresso.matcher.ViewMatchers
-import android.support.test.runner.AndroidJUnit4
+import androidx.test.espresso.Espresso
+import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.action.ViewActions.typeText
+import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.runner.AndroidJUnit4
 import android.view.View
+import androidx.test.filters.SmallTest
 import co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
 import co.condorlabs.customcomponents.customedittext.EditTextEmailField
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.helper.EMPTY
-import co.condorlabs.customcomponents.helper.VALIDATE_EMAIL_ERROR
-import co.condorlabs.customcomponents.helper.VALIDATE_EMPTY_ERROR
+import co.condorlabs.customcomponents.EMPTY
+import co.condorlabs.customcomponents.VALIDATE_EMAIL_ERROR
+import co.condorlabs.customcomponents.VALIDATE_EMPTY_ERROR
 import org.junit.Assert
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -44,6 +46,7 @@ class EditTextEmailFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_emailtestfield_test
     }
 
+    @SmallTest
     @Test
     fun shouldHaveDefaultHint() {
         restartActivity()
@@ -58,6 +61,7 @@ class EditTextEmailFieldTest : MockActivityTest() {
         ViewMatchers.withHint("Email").matches(view)
     }
 
+    @SmallTest
     @Test
     fun shouldShowAndErrorWithEmptyEmail() {
         restartActivity()
@@ -74,6 +78,7 @@ class EditTextEmailFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldShowErrorWitheEmailIncorrectPart1() {
         restartActivity()
@@ -93,6 +98,7 @@ class EditTextEmailFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldShowErrorWitheEmailIncorrectPart2() {
         restartActivity()
@@ -112,6 +118,7 @@ class EditTextEmailFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldShowErrorWitheEmailIncorrectPart3() {
         restartActivity()
@@ -131,6 +138,7 @@ class EditTextEmailFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldShowErrorWitheEmailIncorrectPart4() {
         restartActivity()
@@ -150,6 +158,7 @@ class EditTextEmailFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldMatch() {
         restartActivity()

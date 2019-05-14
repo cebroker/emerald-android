@@ -1,7 +1,6 @@
 <p align="center"><img src="https://github.com/cebroker/emerald-ios/blob/develop/emerald.svg" align="middle" width="25%" /></p>
 
 # Emerald Android
-[![Build Status](https://travis-ci.com/cebroker/emerald-android.svg?branch=develop)](https://travis-ci.com/cebroker/emerald-android)
 ![Platform](https://img.shields.io/badge/platform-Android-green.svg)
 ![Kotlin version](https://img.shields.io/badge/Kotlin_version-1.3.21-orange.svg)
 
@@ -16,9 +15,10 @@ Emerald UI for Android Apps
 - Kotlin 1.3.21+
 
 ### Documentation
-<ul class="icon-list">
-  <li class="icon-list-item icon-list-item--spec"><a href="https://github.com/cebroker/emerald-android/tree/feature/readme/app/src/main/java/co/condorlabs/customcomponents/customdatepicker">Custom Date Picker</a></li>
- </ul>
+
+- [Custom Date Picker](/app/src/main/java/co/condorlabs/customcomponents/customdatepicker)
+- [Custom Button](/app/src/main/java/co/condorlabs/customcomponents/custombutton)
+- [Loading Screen](/app/src/main/java/co/condorlabs/customcomponents/loadingfragment)
 
 ## Contribute
 - If you've __found a bug__, open an issue;

@@ -16,19 +16,17 @@
 
 package co.condorlabs.customcomponents.test
 
-import android.support.test.espresso.Espresso
-import android.support.test.espresso.Espresso.onView
-import android.support.test.espresso.action.ViewActions
-import android.support.test.espresso.matcher.ViewMatchers
-import android.support.test.espresso.matcher.ViewMatchers.isDisplayed
-import android.support.test.espresso.matcher.ViewMatchers.withId
-import android.support.test.runner.AndroidJUnit4
+import android.graphics.drawable.Drawable
 import android.view.View
+import androidx.test.espresso.Espresso
+import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.filters.SmallTest
+import androidx.test.runner.AndroidJUnit4
+import co.condorlabs.customcomponents.VALIDATE_EMPTY_ERROR
 import co.condorlabs.customcomponents.customedittext.EditTextPasswordField
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.helper.VALIDATE_EMPTY_ERROR
 import co.condorlabs.customcomponents.test.util.isTextDisplayed
-import org.hamcrest.Matchers.allOf
 import org.hamcrest.Matchers.not
 import org.junit.Assert
 import org.junit.Before
@@ -43,6 +41,7 @@ class EditTextPasswordFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_passwordtestfield_test
     }
 
+    @SmallTest
     @Test
     fun shouldShowAndErrorWithEmptyPassword() {
         restartActivity()
@@ -61,6 +60,7 @@ class EditTextPasswordFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldNotSeePassword() {
         restartActivity()
@@ -75,34 +75,59 @@ class EditTextPasswordFieldTest : MockActivityTest() {
         not(isTextDisplayed("1234567890"))
     }
 
+    @SmallTest
     @Test
     fun eyeIconIsDisplay() {
-        Espresso.onView(allOf(withId(R.id.text_input_password_toggle), isDisplayed()))
-    }
-
-    @Test
-    fun tapEyeToSeePassword() {
+        restartActivity()
         // Given
-        shouldNotSeePassword()
-        val checkableImageButton = Espresso.onView(withId(R.id.text_input_password_toggle))
+        val view = (ruleActivity.activity.findViewById<View>(R.id.tlPassword) as? EditTextPasswordField)
+        val textInpuntLayout = view?.textInputLayout ?: throw NullPointerException()
+        var drawable: Drawable? = null
 
         // When
-        checkableImageButton.perform(ViewActions.click())
+        ruleActivity.runOnUiThread {
+            drawable = textInpuntLayout.passwordVisibilityToggleDrawable
+        }
+
+
+        //Then
+        Assert.assertNotNull(drawable)
+
+    }
+
+    @SmallTest
+    @Test
+    fun tapEyeToSeePassword() {
+        restartActivity()
+        // Given
+        val view = (ruleActivity.activity.findViewById<View>(R.id.tlPassword) as? EditTextPasswordField)
+        val textInpuntLayout = view?.textInputLayout ?: throw NullPointerException()
+        val editTextView = Espresso.onView(ViewMatchers.withId(R.id.etPassword))
+
+        // When
+        editTextView.perform(ViewActions.typeText("1234567890"))
+
+        ruleActivity.runOnUiThread {
+            textInpuntLayout.editText!!.transformationMethod = null
+        }
 
         // Then
         isTextDisplayed("1234567890")
     }
 
+    @SmallTest
     @Test
     fun tapEyeToHidePassword() {
+        restartActivity()
+
         // Given
-        shouldNotSeePassword()
-        val checkableImageButton = Espresso.onView(withId(R.id.text_input_password_toggle))
+        val editTextView = Espresso.onView(ViewMatchers.withId(R.id.etPassword))
 
         // When
-        checkableImageButton.perform(ViewActions.doubleClick())
+        editTextView.perform(ViewActions.typeText("1234567890"))
 
         // Then
         not(isTextDisplayed("1234567890"))
     }
+
 }

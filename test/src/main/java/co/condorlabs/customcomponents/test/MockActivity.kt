@@ -17,7 +17,9 @@
 package co.condorlabs.customcomponents.test
 
 import android.os.Bundle
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
+import co.condorlabs.customcomponents.customspinner.SpinnerData
+import co.condorlabs.customcomponents.customspinner.SpinnerFormField
 
 /**
  * @author Oscar Gallon on 2/21/19.
