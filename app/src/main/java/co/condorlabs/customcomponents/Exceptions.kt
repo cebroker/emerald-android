@@ -12,4 +12,4 @@ class ViewHolderNotFoundForPositionException(private val position: Int) :
 class ArgumentsNotFoundException: NullPointerException()
 class ArgumentNotFoundException(private val argument: String): NullPointerException("The argument $argument need to be specified")
 class LoadingFragmentListGreaterThatLimitException: IndexOutOfBoundsException("List should only contains 4 elements")
-class MonthYearPickerDialogNotFoundException : java.lang.NullPointerException()
+class MonthYearPickerDialogNotFoundException : NullPointerException()
