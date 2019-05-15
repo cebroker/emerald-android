@@ -21,9 +21,7 @@ import androidx.test.espresso.ViewAction
 import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
 import org.hamcrest.Matchers.allOf
 import android.widget.NumberPicker
-import co.condorlabs.customcomponents.CLICK_DRAWABLE_DESCRIPTION
-import co.condorlabs.customcomponents.NUMBER_PICKER_VALUE_SETTER_DESCRIPTION
-import co.condorlabs.customcomponents.CLICK_DRAWABLE_DESCRIPTION_APPEND
+import co.condorlabs.customcomponents.*
 
 fun isTextDisplayed(resourceId: Int) {
     var isDisplayed = true
@@ -81,10 +79,10 @@ fun clickDrawable(): ViewAction {
             return allOf(
                 isAssignableFrom(TextView::class.java),
                 object : BoundedMatcher<View, TextView>(TextView::class.java) {
-                    override fun matchesSafely(tv: TextView): Boolean {
-                        if (tv.requestFocusFromTouch())
-                            for (d in tv.compoundDrawables)
-                                if (d != null)
+                    override fun matchesSafely(aTextView: TextView): Boolean {
+                        if (aTextView.requestFocusFromTouch())
+                            for (drawableItem in aTextView.compoundDrawables)
+                                if (drawableItem != null)
                                     return true
 
                         return false
@@ -97,46 +95,46 @@ fun clickDrawable(): ViewAction {
         }
 
         override fun perform(uiController: UiController?, view: View?) {
-            val tv = view as TextView
-            if (tv != null && tv.requestFocusFromTouch())
+            val aTextView = view as TextView
+            if (aTextView != null && aTextView.requestFocusFromTouch())
             {
-                val drawables = tv.compoundDrawables
+                val drawables = aTextView.compoundDrawables
 
                 val tvLocation = Rect()
-                tv.getHitRect(tvLocation)
+                aTextView.getHitRect(tvLocation)
 
-                val tvBounds = arrayOfNulls<Point>(4)
-                tvBounds[0] = Point(tvLocation.left, tvLocation.centerY())
-                tvBounds[1] = Point(tvLocation.centerX(), tvLocation.top)
-                tvBounds[2] = Point(tvLocation.right, tvLocation.centerY())
-                tvBounds[3] = Point(tvLocation.centerX(), tvLocation.bottom)
+                val textViewBounds = arrayOfNulls<Point>(TEXTVIEW_BOUNDS_SIDES)
+                textViewBounds[0] = Point(tvLocation.left, tvLocation.centerY())
+                textViewBounds[1] = Point(tvLocation.centerX(), tvLocation.top)
+                textViewBounds[2] = Point(tvLocation.right, tvLocation.centerY())
+                textViewBounds[3] = Point(tvLocation.centerX(), tvLocation.bottom)
 
-                for (location in 0..3)
+                for (location in DRAWABLE_START_INDEX..DRAWABLE_END_INDEX)
                     if (drawables[location] != null) {
                         val bounds = drawables[location].bounds
-                        tvBounds[location]?.offset(
+                        textViewBounds[location]?.offset(
                             bounds.width() / 2,
                             bounds.height() / 2
                         )
-                        if (tv.dispatchTouchEvent(
+                        if (aTextView.dispatchTouchEvent(
                                 MotionEvent.obtain(
                                     android.os.SystemClock.uptimeMillis(),
                                     android.os.SystemClock.uptimeMillis(),
                                     MotionEvent.ACTION_DOWN,
-                                    tvBounds[location]?.x?.toFloat() ?: 0.0F,
-                                    tvBounds[location]?.y?.toFloat() ?: 0.0F,
-                                    0
+                                    textViewBounds[location]?.x?.toFloat() ?: ZERO_FLOAT,
+                                    textViewBounds[location]?.y?.toFloat() ?: ZERO_FLOAT,
+                                    ZERO
                                 )
                             )
                         )
-                            tv.dispatchTouchEvent(
+                            aTextView.dispatchTouchEvent(
                                 MotionEvent.obtain(
                                     android.os.SystemClock.uptimeMillis(),
                                     android.os.SystemClock.uptimeMillis(),
                                     MotionEvent.ACTION_UP,
-                                    tvBounds[location]?.x?.toFloat() ?: 0.0F,
-                                    tvBounds[location]?.y?.toFloat() ?: 0.0F,
-                                    0
+                                    textViewBounds[location]?.x?.toFloat() ?: ZERO_FLOAT,
+                                    textViewBounds[location]?.y?.toFloat() ?: ZERO_FLOAT,
+                                    ZERO
                                 )
                             )
                     }
