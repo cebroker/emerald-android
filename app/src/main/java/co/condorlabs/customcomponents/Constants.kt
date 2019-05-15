@@ -152,9 +152,9 @@ const val HUMAN_READABLE_MONTH_INDEX = 1
 const val CLICK_DRAWABLE_DESCRIPTION = "click drawable"
 const val CLICK_DRAWABLE_DESCRIPTION_APPEND = "has drawable"
 const val NUMBER_PICKER_VALUE_SETTER_DESCRIPTION = "Set the value of a Number Picker"
-const val TEXTVIEW_BOUNDS_SIDES = 4
+const val TEXT_VIEW_BOUNDS_SIDES = 4
 const val DRAWABLE_START_INDEX = 0
-const val DRAWABLE_END_INDEX = 0
+const val DRAWABLE_END_INDEX = 3
 const val ZERO_FLOAT = 0.0F
 
 

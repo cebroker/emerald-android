@@ -1,27 +1,27 @@
 package co.condorlabs.customcomponents.test.util
 
+import android.graphics.Point
+import android.graphics.Rect
+import android.view.MotionEvent
+import android.view.View
+import android.widget.NumberPicker
+import android.widget.TextView
 import androidx.test.espresso.AmbiguousViewMatcherException
 import androidx.test.espresso.Espresso
+import androidx.test.espresso.UiController
+import androidx.test.espresso.ViewAction
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.matcher.BoundedMatcher
 import androidx.test.espresso.matcher.ViewMatchers
-import android.view.View
-import android.widget.TextView
+import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
+import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
 import junit.framework.Assert
 import org.hamcrest.Description
 import org.hamcrest.Matcher
-import org.hamcrest.TypeSafeMatcher
-import androidx.test.espresso.matcher.BoundedMatcher
-import android.view.MotionEvent
-import android.graphics.Point
-import android.graphics.Rect
-import androidx.test.espresso.UiController
-import androidx.test.espresso.ViewAction
-import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
 import org.hamcrest.Matchers.allOf
-import android.widget.NumberPicker
-import co.condorlabs.customcomponents.*
+import org.hamcrest.TypeSafeMatcher
 
 fun isTextDisplayed(resourceId: Int) {
     var isDisplayed = true
@@ -70,7 +70,7 @@ fun BaseEditTextFormField.text(): String {
 }
 
 fun clickDrawable(): ViewAction {
-    return object: ViewAction {
+    return object : ViewAction {
         override fun getDescription(): String {
             return CLICK_DRAWABLE_DESCRIPTION
         }
@@ -96,14 +96,13 @@ fun clickDrawable(): ViewAction {
 
         override fun perform(uiController: UiController?, view: View?) {
             val aTextView = view as TextView
-            if (aTextView != null && aTextView.requestFocusFromTouch())
-            {
+            if (aTextView != null && aTextView.requestFocusFromTouch()) {
                 val drawables = aTextView.compoundDrawables
 
                 val tvLocation = Rect()
                 aTextView.getHitRect(tvLocation)
 
-                val textViewBounds = arrayOfNulls<Point>(TEXTVIEW_BOUNDS_SIDES)
+                val textViewBounds = arrayOfNulls<Point>(TEXT_VIEW_BOUNDS_SIDES)
                 textViewBounds[0] = Point(tvLocation.left, tvLocation.centerY())
                 textViewBounds[1] = Point(tvLocation.centerX(), tvLocation.top)
                 textViewBounds[2] = Point(tvLocation.right, tvLocation.centerY())
@@ -144,7 +143,7 @@ fun clickDrawable(): ViewAction {
 }
 
 fun setNumberPickerValue(value: Int): ViewAction {
-    return object: ViewAction {
+    return object : ViewAction {
         override fun getDescription(): String {
             return NUMBER_PICKER_VALUE_SETTER_DESCRIPTION
         }

@@ -226,7 +226,6 @@ class CustomDatePickerTest : MockActivityTest() {
             .check(ViewAssertions.matches(isDisplayed()))
             .perform(ViewActions.click())
 
-
         // Then
         Assert.assertEquals(11, editText?.getMonth())
         Assert.assertEquals(2008, editText?.getYear())

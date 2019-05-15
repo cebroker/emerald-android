@@ -1,11 +1,11 @@
 package co.condorlabs.customcomponents.customdatepicker
 
-import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.os.Bundle
 import android.view.View
 import android.widget.NumberPicker
+import androidx.appcompat.app.AlertDialog
 import androidx.fragment.app.DialogFragment
 import co.condorlabs.customcomponents.*
 import java.util.*
@@ -22,15 +22,15 @@ class MonthYearPickerDialog: DialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        val builder = AlertDialog.Builder(activity)
+        val builder = activity?.let { AlertDialog.Builder(it) }
         val inflater = activity?.layoutInflater
         val currentDate = Calendar.getInstance()
         val dialog = inflater?.inflate(R.layout.dialog_month_year_picker, null)
         val monthPicker = initializeMonthPicker(dialog, currentDate)
         val yearPicker = initializeYearPicker(dialog, currentDate)
 
-        builder.setView(dialog)
-            .setPositiveButton(
+        builder?.setView(dialog)
+            ?.setPositiveButton(
                 R.string.date_picker_confirm
             ) { _, _ ->
                 listener?.onDateSet(
@@ -40,9 +40,9 @@ class MonthYearPickerDialog: DialogFragment() {
                     0
                 )
             }
-            .setNegativeButton(R.string.date_picker_cancel
+            ?.setNegativeButton(R.string.date_picker_cancel
             ) { _, _ -> this@MonthYearPickerDialog.dialog?.cancel() }
-        return builder.create()
+        return builder?.create() ?: throw MonthYearPickerDialogNotFoundException()
     }
 
     private fun initializeMonthPicker(dialog: View?, currentDate: Calendar) =
