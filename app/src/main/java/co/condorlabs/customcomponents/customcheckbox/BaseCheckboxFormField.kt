@@ -19,20 +19,19 @@ package co.condorlabs.customcomponents.customcheckbox
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Typeface
-import android.support.design.widget.TextInputLayout
-import android.support.v4.content.ContextCompat
+import com.google.android.material.textfield.TextInputLayout
+import androidx.core.content.ContextCompat
 import android.util.AttributeSet
 import android.view.Gravity
 import android.widget.CheckBox
 import android.widget.CompoundButton
 import android.widget.LinearLayout
 import android.widget.TextView
-import co.condorlabs.customcomponents.R
+import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.Selectable
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.helper.*
 
 abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
     TextInputLayout(context, attrs), FormField<List<Selectable>>, CompoundButton.OnCheckedChangeListener {
@@ -171,7 +170,11 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
                 text = selectable.label
                 isChecked = selectable.value
                 gravity = Gravity.TOP
-                setPadding(DEFAULT_PADDING, setPaddingTop(), DEFAULT_PADDING, DEFAULT_PADDING)
+                setPadding(
+                    DEFAULT_PADDING, setPaddingTop(),
+                    DEFAULT_PADDING,
+                    DEFAULT_PADDING
+                )
                 buttonTintList = setStyleCheckBox()
                 setOnCheckedChangeListener(this@BaseCheckboxFormField)
             }, mLayoutParams)

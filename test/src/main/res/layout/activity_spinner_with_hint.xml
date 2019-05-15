@@ -18,14 +18,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
               xmlns:app="http://schemas.android.com/apk/res-auto"
               android:orientation="vertical"
+              android:padding="16dp"
               android:layout_width="match_parent"
               android:layout_height="match_parent">
 
-
-    <co.condorlabs.customcomponents.customspinner.SpinnerFormField android:layout_width="match_parent"
-                                                                   app:label="State"
-                                                                   app:hint="Select an State"
-                                                                   android:id="@+id/tlState"
-                                                                   android:layout_height="wrap_content"/>
-
+    <co.condorlabs.customcomponents.customspinner.SpinnerFormField
+            android:layout_width="match_parent"
+            app:hint="State"
+            android:id="@+id/tlState"
+            android:layout_height="wrap_content"/>
 </LinearLayout>

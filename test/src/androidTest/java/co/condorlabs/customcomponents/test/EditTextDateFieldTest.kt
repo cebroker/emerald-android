@@ -16,16 +16,18 @@
 
 package co.condorlabs.customcomponents.test
 
-import android.support.test.espresso.Espresso
-import android.support.test.espresso.action.ViewActions
-import android.support.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.Espresso
+import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.matcher.ViewMatchers
 import android.view.View
+import androidx.test.filters.SmallTest
+import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.customedittext.EditTextDateField
 import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.helper.*
 import org.junit.Assert
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Test
 import java.text.SimpleDateFormat
 import java.util.*
@@ -44,6 +46,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_edittextdatefield_test
     }
 
+    @SmallTest
     @Test
     fun shouldShowErrorWitheDateIncorrectPart1() {
         MockActivity.layout = R.layout.activity_edittextdatefield_test
@@ -62,6 +65,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldShowErrorWitheDateIncorrectPart2() {
         MockActivity.layout = R.layout.activity_baseedittextdate_with_out_is_required
@@ -82,6 +86,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldReturnTrueIsNotRequired() {
         MockActivity.layout = R.layout.activity_baseedittextdate_with_out_is_required
@@ -94,6 +99,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldReturnTrueWitheCorrectDate() {
         MockActivity.layout = R.layout.activity_edittextdatefield_test
@@ -112,6 +118,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldShowErrorWithMask() {
         MockActivity.layout = R.layout.activity_edittextdatefield_test
@@ -130,6 +137,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldParseValidLowerLimit() {
         MockActivity.layout = R.layout.activity_edittextdatefield_test
@@ -151,6 +159,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldNotParseInvalidLowerLimit() {
         MockActivity.layout = R.layout.activity_edittextdatefield_test
@@ -170,6 +179,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldParseValidUpperLimit() {
         MockActivity.layout = R.layout.activity_edittextdatefield_test
@@ -191,6 +201,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldNotParseInvalidUpperLimit() {
         MockActivity.layout = R.layout.activity_edittextdatefield_test
@@ -210,6 +221,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldShowAndErrorWithEmptyDate() {
         MockActivity.layout = R.layout.activity_edittextdatefield_test
@@ -227,6 +239,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldReturnErrorIfDateBeforeMinDateIsEntered() {
         MockActivity.layout = R.layout.activity_edittextdatefield_test
@@ -254,6 +267,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldBeValidIfDateAfterMinDateIsEntered() {
         MockActivity.layout = R.layout.activity_edittextdatefield_test
@@ -281,6 +295,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldReturnErrorOnValueChangedAsMinDate() {
         MockActivity.layout = R.layout.activity_edittextdatefield_lower_limit_test
@@ -313,6 +328,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldBeValidAfterOnValueChangedAsMinDate() {
         MockActivity.layout = R.layout.activity_edittextdatefield_lower_limit_test
@@ -345,6 +361,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldReturnErrorIfDateAfterMaxDateIsEntered() {
         restartActivity()
@@ -372,6 +389,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldBeValidIfDateBeforeMaxDateIsEntered() {
         restartActivity()
@@ -399,6 +417,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldNotBeValidIfDateInsideLimitIsEntered() {
         MockActivity.layout = R.layout.activity_edittextdatefield_lower_and_upper_limit_test
@@ -441,6 +460,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldNotBeValidIfDateBeforeLowerLimitIsEntered() {
         MockActivity.layout = R.layout.activity_edittextdatefield_lower_and_upper_limit_test
@@ -483,6 +503,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldNotBeValidIfDateAfterUpperLimitIsEntered() {
         MockActivity.layout = R.layout.activity_edittextdatefield_lower_and_upper_limit_test

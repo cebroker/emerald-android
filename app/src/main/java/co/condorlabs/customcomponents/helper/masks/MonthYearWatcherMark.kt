@@ -1,6 +1,7 @@
 package co.condorlabs.customcomponents.helper.masks
 
 import android.widget.EditText
+import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.helper.*
 import java.util.*
 

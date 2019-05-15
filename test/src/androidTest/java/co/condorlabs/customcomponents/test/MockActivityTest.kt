@@ -17,12 +17,13 @@
 package co.condorlabs.customcomponents.test
 
 import android.content.Intent
-import android.support.design.widget.TextInputLayout
-import android.support.test.rule.ActivityTestRule
+import com.google.android.material.textfield.TextInputLayout
+import androidx.test.rule.ActivityTestRule
 import android.view.View
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
+import org.junit.Ignore
 import org.junit.Rule
 
 /**

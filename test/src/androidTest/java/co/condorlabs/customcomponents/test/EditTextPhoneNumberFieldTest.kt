@@ -16,18 +16,20 @@
 
 package co.condorlabs.customcomponents.test
 
-import android.support.test.espresso.Espresso
-import android.support.test.espresso.action.ViewActions
-import android.support.test.espresso.assertion.ViewAssertions
-import android.support.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.Espresso
+import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.matcher.ViewMatchers
 import android.view.View
+import androidx.test.filters.SmallTest
 import co.condorlabs.customcomponents.customedittext.EditTextPhoneField
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.helper.PHONE_NUMBER_REGEX
-import co.condorlabs.customcomponents.helper.VALIDATE_EMPTY_ERROR
-import co.condorlabs.customcomponents.helper.VALIDATE_LENGTH_ERROR
+import co.condorlabs.customcomponents.PHONE_NUMBER_REGEX
+import co.condorlabs.customcomponents.VALIDATE_EMPTY_ERROR
+import co.condorlabs.customcomponents.VALIDATE_LENGTH_ERROR
 import org.junit.Assert
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Test
 
 /**
@@ -40,6 +42,7 @@ class EditTextPhoneNumberFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_phoneedittext_test
     }
 
+    @SmallTest
     @Test
     fun shouldHaveDefaultHint() {
         restartActivity()
@@ -54,6 +57,7 @@ class EditTextPhoneNumberFieldTest : MockActivityTest() {
         ViewMatchers.withHint("Phone").matches(view)
     }
 
+    @SmallTest
     @Test
     fun shouldFormatPhoneNumber() {
         restartActivity()
@@ -68,6 +72,7 @@ class EditTextPhoneNumberFieldTest : MockActivityTest() {
         view.check(ViewAssertions.matches(ViewMatchers.withText("123-456-7890")))
     }
 
+    @SmallTest
     @Test
     fun shouldShowAndErrorWithEmptyText() {
         restartActivity()
@@ -88,6 +93,7 @@ class EditTextPhoneNumberFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldShowAndErrorWithLessDigits() {
         restartActivity()
@@ -107,6 +113,7 @@ class EditTextPhoneNumberFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldNotBeValidIfNotRequiredAndRegexNotMatch() {
         restartActivity()
@@ -126,6 +133,7 @@ class EditTextPhoneNumberFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldBeValidIfNotRequiredAndRegexMatch() {
         restartActivity()

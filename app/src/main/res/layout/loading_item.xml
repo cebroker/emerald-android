@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+              xmlns:app="http://schemas.android.com/apk/res-auto"
+              xmlns:tools="http://schemas.android.com/tools"
+              android:layout_width="match_parent"
+              android:padding="@dimen/padding_small"
+              android:weightSum="1"
+              android:orientation="horizontal"
+              android:layout_height="wrap_content">
+
+
+    <ImageView android:layout_width="wrap_content"
+               app:layout_constraintTop_toTopOf="parent"
+               android:src="@drawable/ic_circle"
+               android:id="@+id/ivIndicator"
+               android:layout_weight="0.1"
+               android:layout_gravity="center"
+               app:layout_constraintStart_toStartOf="parent"
+               android:layout_height="wrap_content"
+    />
+
+    <TextView android:layout_width="@dimen/zero"
+              android:id="@+id/tvTitle"
+              app:layout_constraintTop_toTopOf="parent"
+              app:layout_constraintStart_toEndOf="@+id/ivIndicator"
+              app:layout_constraintEnd_toEndOf="parent"
+              android:textColor="@color/textColor"
+              android:layout_weight="0.9"
+              android:layout_marginStart="@dimen/padding_small"
+              tools:text="4 Employment history entries"
+              android:layout_height="wrap_content"
+              android:fontFamily="@font/open_sans"/>
+
+</LinearLayout>

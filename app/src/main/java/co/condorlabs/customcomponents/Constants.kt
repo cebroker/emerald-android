@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package co.condorlabs.customcomponents.helper
+package co.condorlabs.customcomponents
 
-const val VALIDATE_EMPTY_ERROR = "Field %s must not be empty."
+const val VALIDATE_EMPTY_ERROR = "Must not be empty."
 const val VALIDATE_LOWER_LIMIT_DATE_ERROR = "The %s can't be before the %s"
 const val VALIDATE_UPPER_LIMIT_DATE_ERROR = "The %s can't be after the %s"
 const val VALIDATE_LENGTH_ERROR = "This field must have ten digits."
@@ -112,6 +112,7 @@ const val BUTTON_DANGER_TYPE = "danger"
 const val BUTTON_WARNING_TYPE = "warning"
 const val BUTTON_INFO_TYPE = "info"
 const val BUTTON_SUCCESS_TYPE = "success"
+const val BUTTON_OVERLAY_TYPE = "overlay"
 
 typealias ButtonType = String
 
@@ -145,9 +146,34 @@ const val MONTH_YEAR_MASK_JUST_DIGITS_LENGTH = 4
 const val MONTH_YEAR_MASK_DIGITS_STRING_FORMAT = "%02d%02d"
 const val MONTH_YEAR_FORMAT = "MM/yyyy"
 const val MONTH_YEAR_STRING_TO_REPLACE = "%d/%d"
+const val HUMAN_READABLE_MONTH_INDEX = 1
 
 const val CLICK_DRAWABLE_DESCRIPTION = "click drawable"
 const val CLICK_DRAWABLE_DESCRIPTION_APPEND = "has drawable"
 const val NUMBER_PICKER_VALUE_SETTER_DESCRIPTION = "Set the value of a Number Picker"
 
-const val HUMAN_READABLE_MONTH_INDEX = 1
+
+
+/**Loading Fragment**/
+const val DEFAULT_TIME_BETWEEN_OBJECT_ANIMATION = 500.toLong()
+const val ERROR_TIME_BETWEEN_OBJECT_ANIMATION = 500.toLong()
+const val LOADING_ADAPTER_FIRST_POSITION = 0
+const val ARGUMENT_LOADING_ITEM_LIST = "ARGUMENT_LOADING_ITEM_LIST"
+const val ARGUMENT_TITLE = "ARGUMENT_TITLE"
+const val LOADING_FRAGMENT_MAX_ELEMENTS = 4
+const val ARGUMENT_SUCCESS_TITLE = "ARGUMENT_SUCCESS_TITLE"
+const val ARGUMENT_ERROR_TITLE = "ARGUMENT_ERROR_TITLE"
+const val ARGUMENT_SUCCESS_MESSAGE = "ARGUMENT_SUCCESS_MESSAGE"
+const val ARGUMENT_ERROR_MESSAGE = "ARGUMENT_ERROR_MESSAGE"
+const val ARGUMENT_LOADING_ACTIVITY_TEST_INIT_OPTION = "ARGUMENT_LOADING_ACTIVITY_TEST_INIT_OPTION"
+
+const val INIT_WITH_TITLE = 0
+const val INIT_WITH_ELEMENTS = 1
+const val INIT_FOR_SUCCESS = 2
+const val INIT_FOR_ERROR = 3
+const val INIT_FOR_SUCCESS_WITH_ACTION = 4
+const val INIT_FOR_ERROR_WITH_ACTION = 5
+const val INIT_FOR_SUCCES_WITHOUT_TRIGGER_ACTION =6
+
+const val TEXT_FIELD_CORNER_RADIOUS = 16.toFloat()
+const val DEFAULT_STROKE_WIDTH = 3

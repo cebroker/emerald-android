@@ -4,11 +4,10 @@ import android.app.AlertDialog
 import android.app.DatePickerDialog
 import android.app.Dialog
 import android.os.Bundle
-import android.support.v4.app.DialogFragment
 import android.view.View
 import android.widget.NumberPicker
-import co.condorlabs.customcomponents.R
-import co.condorlabs.customcomponents.helper.*
+import androidx.fragment.app.DialogFragment
+import co.condorlabs.customcomponents.*
 import java.util.*
 
 class MonthYearPickerDialog: DialogFragment() {
@@ -42,7 +41,7 @@ class MonthYearPickerDialog: DialogFragment() {
                 )
             }
             .setNegativeButton(R.string.date_picker_cancel
-            ) { _, _ -> this@MonthYearPickerDialog.dialog.cancel() }
+            ) { _, _ -> this@MonthYearPickerDialog.dialog?.cancel() }
         return builder.create()
     }
 

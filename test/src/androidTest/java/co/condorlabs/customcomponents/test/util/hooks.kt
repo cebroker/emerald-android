@@ -1,12 +1,10 @@
 package co.condorlabs.customcomponents.test.util
 
-import android.support.test.espresso.AmbiguousViewMatcherException
-import android.support.test.espresso.Espresso
-import android.support.test.espresso.UiController
-import android.support.test.espresso.ViewAction
-import android.support.test.espresso.action.ViewActions
-import android.support.test.espresso.assertion.ViewAssertions
-import android.support.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.AmbiguousViewMatcherException
+import androidx.test.espresso.Espresso
+import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.matcher.ViewMatchers
 import android.view.View
 import android.widget.TextView
 import co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
@@ -14,17 +12,18 @@ import junit.framework.Assert
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
-import android.support.test.espresso.matcher.BoundedMatcher
+import androidx.test.espresso.matcher.BoundedMatcher
 import android.view.MotionEvent
 import android.graphics.Point
 import android.graphics.Rect
-import android.support.test.espresso.matcher.ViewMatchers.isAssignableFrom
+import androidx.test.espresso.UiController
+import androidx.test.espresso.ViewAction
+import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
 import org.hamcrest.Matchers.allOf
 import android.widget.NumberPicker
-import co.condorlabs.customcomponents.helper.CLICK_DRAWABLE_DESCRIPTION
-import co.condorlabs.customcomponents.helper.CLICK_DRAWABLE_DESCRIPTION_APPEND
-import co.condorlabs.customcomponents.helper.NUMBER_PICKER_VALUE_SETTER_DESCRIPTION
-
+import co.condorlabs.customcomponents.CLICK_DRAWABLE_DESCRIPTION
+import co.condorlabs.customcomponents.NUMBER_PICKER_VALUE_SETTER_DESCRIPTION
+import co.condorlabs.customcomponents.CLICK_DRAWABLE_DESCRIPTION_APPEND
 
 fun isTextDisplayed(resourceId: Int) {
     var isDisplayed = true

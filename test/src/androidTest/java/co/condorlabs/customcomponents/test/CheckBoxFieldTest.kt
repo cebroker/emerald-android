@@ -16,19 +16,21 @@
 
 package co.condorlabs.customcomponents.test
 
-import android.support.test.espresso.Espresso
-import android.support.test.espresso.action.ViewActions
-import android.support.test.espresso.assertion.ViewAssertions.matches
-import android.support.test.espresso.matcher.ViewMatchers
-import android.support.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.Espresso
+import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.filters.SmallTest
 import co.condorlabs.customcomponents.customcheckbox.CheckboxFormField
 import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.formfield.Selectable
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.helper.EMPTY
-import co.condorlabs.customcomponents.helper.MESSAGE_FORMAT_ERROR
+import co.condorlabs.customcomponents.EMPTY
+import co.condorlabs.customcomponents.MESSAGE_FORMAT_ERROR
 import org.junit.Assert
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Test
 
 class CheckBoxFieldTest : MockActivityTest() {
@@ -38,6 +40,7 @@ class CheckBoxFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_basechecbox_test
     }
 
+    @SmallTest
     @Test
     fun shouldShowMessageIfNoSelectedWhenIsRequired1() {
         restartActivity()
@@ -55,6 +58,7 @@ class CheckBoxFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldShowMessageIfNoSelectedWhenIsRequired2() {
         MockActivity.layout = R.layout.activity_basechecbox_is_required_test
@@ -72,6 +76,7 @@ class CheckBoxFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldShowErrorMessageInLabelIfNoSelected() {
         restartActivity()
@@ -99,6 +104,7 @@ class CheckBoxFieldTest : MockActivityTest() {
             )
     }
 
+    @SmallTest
     @Test
     fun shouldShowErrorMessageIfNothingIsSelected() {
         restartActivity()
@@ -126,6 +132,7 @@ class CheckBoxFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldBeValidIfItsNotRequired() {
         restartActivity()
@@ -143,6 +150,7 @@ class CheckBoxFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldBeInitFromValues() {
         restartActivity()
@@ -180,6 +188,7 @@ class CheckBoxFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldReturnEmptyListWithNoSelectables() {
         restartActivity()
@@ -197,6 +206,7 @@ class CheckBoxFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldBeAbleToGetSelectedValues() {
         restartActivity()
@@ -234,6 +244,7 @@ class CheckBoxFieldTest : MockActivityTest() {
         )
     }
 
+    @SmallTest
     @Test
     fun shouldBeValidatedOnValueChanged() {
         restartActivity()

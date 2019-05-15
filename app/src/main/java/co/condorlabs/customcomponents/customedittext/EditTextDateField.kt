@@ -18,8 +18,10 @@ package co.condorlabs.customcomponents.customedittext
 
 import android.app.DatePickerDialog
 import android.content.Context
+import android.graphics.Rect
+import android.graphics.RectF
 import android.graphics.drawable.Drawable
-import android.support.v4.content.ContextCompat
+import androidx.core.content.ContextCompat
 import android.text.InputType
 import android.text.TextUtils
 import android.util.AttributeSet
@@ -27,9 +29,8 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.DatePicker
 import android.widget.TextView
-import co.condorlabs.customcomponents.R
+import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.helper.*
 import co.condorlabs.customcomponents.helper.masks.DateTextWatcherMask
 import java.text.ParseException
 import java.text.SimpleDateFormat
@@ -58,8 +59,8 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
             }
         }
 
-        if (mRegex == null) {
-            mRegex = DATE_REGEX
+        if (_regex == null) {
+            _regex = DATE_REGEX
         }
 
         mSimpleDateFormat = SimpleDateFormat(mDateFormat, Locale.getDefault())
@@ -67,7 +68,7 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
 
     override fun setup() {
         super.setup()
-        mEditText?.id = R.id.etDate
+        editText?.id = R.id.etDate
         setupPicker()
     }
 
@@ -77,7 +78,7 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
 
     override fun onDateSet(view: DatePicker?, year: Int, monthOfYear: Int, dayOfMonth: Int) {
 
-        val receiver = mEditText?.let { it } ?: return
+        val receiver = editText?.let { it } ?: return
         val dateTextWatcherMask = mDateTextWatcherMask?.let { it } ?: return
 
         val calendar = Calendar.getInstance()
@@ -92,7 +93,7 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
             ).format(calendar.time)
         )
 
-        mValueChangeListener?.onValueChange(getValue())
+        _valueChangeListener?.onValueChange(getValue())
 
         receiver.addTextChangedListener(dateTextWatcherMask)
         receiver.setSelection(receiver.text.length)
@@ -133,7 +134,7 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
                     false,
                     String.format(
                         VALIDATE_LOWER_LIMIT_DATE_ERROR,
-                        mHint,
+                        hint,
                         getFormatedDateFromMilliseconds(mLowerLimit ?: ZERO.toLong())
                     )
                 )
@@ -144,7 +145,7 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
                     false,
                     String.format(
                         VALIDATE_UPPER_LIMIT_DATE_ERROR,
-                        mHint,
+                        hint,
                         getFormatedDateFromMilliseconds(mUpperLimit ?: ZERO.toLong())
                     )
                 )
@@ -186,7 +187,7 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
 
     private fun setupPicker() {
 
-        val receiver = mEditText?.let { it } ?: return
+        val receiver = editText?.let { it } ?: return
 
         mDateTextWatcherMask = DateTextWatcherMask(receiver).apply {
             receiver.addTextChangedListener(this)
@@ -214,7 +215,10 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
                         val calendar = Calendar.getInstance()
 
                         val dialogCanBeOpenOnEditTextText = if (receiver.text?.isEmpty() == false) {
-                            val dateTyped = receiver.text?.replace(SLASH.toRegex(), EMPTY)
+                            val dateTyped = receiver.text?.replace(
+                                SLASH.toRegex(),
+                                EMPTY
+                            )
                             TextUtils.isDigitsOnly(dateTyped)
                         } else {
                             false
