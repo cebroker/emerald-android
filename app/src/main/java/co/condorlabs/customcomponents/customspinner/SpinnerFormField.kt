@@ -18,6 +18,7 @@ package co.condorlabs.customcomponents.customspinner
 
 import android.content.Context
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.View
 import android.widget.AdapterView
 import co.condorlabs.customcomponents.DEFAULT_STYLE_ATTR
@@ -62,6 +63,7 @@ class SpinnerFormField(
                     hint = context.getString(R.string.spinner_default_hint)
                 )
             )
+            setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.default_text_size))
             onItemSelectedListener = this@SpinnerFormField
         }
     }
@@ -91,7 +93,7 @@ class SpinnerFormField(
     }
 
     override fun isValid(): ValidationResult {
-        if((autoCompleteTextView?.text?.isEmpty() == true || selectedItem == null) && isRequired) {
+        if ((autoCompleteTextView?.text?.isEmpty() == true || selectedItem == null) && isRequired) {
             return getErrorValidateResult()
         }
 

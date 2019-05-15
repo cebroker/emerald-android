@@ -113,7 +113,6 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
 
         wrappedEditText.apply {
             id = R.id.etBase
-            hint = this@BaseEditTextFormField.hint
             setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.default_text_size))
             isMultiline(wrappedEditText)
             backgroundAlpha?.let { background.alpha = it }
