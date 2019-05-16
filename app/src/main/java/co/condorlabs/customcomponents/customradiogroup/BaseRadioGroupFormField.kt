@@ -32,7 +32,6 @@ import co.condorlabs.customcomponents.formfield.Selectable
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import com.google.android.material.textfield.TextInputLayout
 
-
 abstract class BaseRadioGroupFormField(
     context: Context, private val attrs: AttributeSet
 ) : TextInputLayout(context, attrs), FormField<String> {
@@ -42,10 +41,7 @@ abstract class BaseRadioGroupFormField(
     private var radioGroup: RadioGroup? = null
     private var labelText = EMPTY
     private var spaceBetweenItems = DEFAULT_SPACE_BETWEEN_ITEMS
-    private val layoutParams = LayoutParams(
-        LayoutParams.MATCH_PARENT,
-        LayoutParams.WRAP_CONTENT
-    )
+    private val layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
     private val tvLabel = TextView(context, attrs).apply {
         id = R.id.tvLabelRadioGroup
     }
@@ -134,7 +130,6 @@ abstract class BaseRadioGroupFormField(
         this.selectables = selectables
         addRadioButtons()
     }
-
 
     private fun setDefaultPadding(): Int {
         val paddingDp = DEFAULT_PADDING_RADIO_BUTTON
