@@ -33,4 +33,7 @@
     <dimen name="loading_fragment_progress_dialog_margin_top">64dp</dimen>
     <dimen name="status_margin_top">32dp</dimen>
     <dimen name="status_icon_size">64dp</dimen>
+    <dimen name="signature_height">120dp</dimen>
+    <dimen name="signature_canvas_height">200dp</dimen>
+    <dimen name="signature_button_margin">8dp</dimen>
 </resources>
