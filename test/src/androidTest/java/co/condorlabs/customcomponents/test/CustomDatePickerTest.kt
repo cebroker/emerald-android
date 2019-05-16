@@ -1,20 +1,27 @@
 package co.condorlabs.customcomponents.test
 
-import android.support.test.espresso.Espresso.onView
-import android.support.test.espresso.action.ViewActions
-import android.support.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.Espresso.onView
+import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.assertion.ViewAssertions
+import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.filters.SmallTest
 import android.view.View
+import co.condorlabs.customcomponents.DATE_PICKER_MAX_YEAR
+import co.condorlabs.customcomponents.DATE_PICKER_MIN_YEAR
 import co.condorlabs.customcomponents.customedittext.EditTextMonthYearField
-import co.condorlabs.customcomponents.helper.DATE_PICKER_MAX_YEAR
-import co.condorlabs.customcomponents.helper.DATE_PICKER_MIN_YEAR
+import co.condorlabs.customcomponents.test.util.clickDrawable
+import co.condorlabs.customcomponents.test.util.setNumberPickerValue
 import co.condorlabs.customcomponents.test.util.text
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
+import java.util.*
 
 class CustomDatePickerTest : MockActivityTest() {
 
-    private var editTextRef = ViewMatchers.withId(R.id.etMonthYear)
+    private var editTextRef = withId(R.id.etMonthYear)
+    private var dpMonthRef = withId(R.id.monthPicker)
+    private var dpYearRef = withId(R.id.yearPicker)
     private var editText: EditTextMonthYearField? = null
 
     @Before
@@ -24,6 +31,7 @@ class CustomDatePickerTest : MockActivityTest() {
         editText = ruleActivity.activity.findViewById<View>(R.id.etMonthYearField) as? EditTextMonthYearField
     }
 
+    @SmallTest
     @Test
     fun shouldFormatOnTextChanged() {
         // When
@@ -53,6 +61,7 @@ class CustomDatePickerTest : MockActivityTest() {
 
     }
 
+    @SmallTest
     @Test
     fun shouldNotAllowMonthGreaterThan12() {
         // When
@@ -61,6 +70,7 @@ class CustomDatePickerTest : MockActivityTest() {
         Assert.assertEquals("12/2001", editText?.text())
     }
 
+    @SmallTest
     @Test
     fun shouldNotAllowMonthEqualsToZero() {
         // When
@@ -69,6 +79,7 @@ class CustomDatePickerTest : MockActivityTest() {
         Assert.assertEquals("01/2001", editText?.text())
     }
 
+    @SmallTest
     @Test
     fun shouldNotAllowYearLessThanMinYear() {
         // When
@@ -77,6 +88,7 @@ class CustomDatePickerTest : MockActivityTest() {
         Assert.assertEquals("01/$DATE_PICKER_MIN_YEAR", editText?.text())
     }
 
+    @SmallTest
     @Test
     fun shouldNotAllowYearGreaterThanMaxYear() {
         // When
@@ -85,6 +97,7 @@ class CustomDatePickerTest : MockActivityTest() {
         Assert.assertEquals("01/$DATE_PICKER_MAX_YEAR", editText?.text())
     }
 
+    @SmallTest
     @Test
     fun shouldNotAllowTypeText() {
         // When
@@ -93,6 +106,7 @@ class CustomDatePickerTest : MockActivityTest() {
         Assert.assertEquals("", editText?.text())
     }
 
+    @SmallTest
     @Test
     fun shouldReturnIsValid() {
         // When
@@ -101,6 +115,7 @@ class CustomDatePickerTest : MockActivityTest() {
         Assert.assertEquals(true, editText?.isValid()?.isValid)
     }
 
+    @SmallTest
     @Test
     fun shouldNotAllowMoreThan4DigitsYear() {
         // When
@@ -110,6 +125,7 @@ class CustomDatePickerTest : MockActivityTest() {
         Assert.assertEquals(true, editText?.isValid()?.isValid)
     }
 
+    @SmallTest
     @Test
     fun shouldNotAllowMoreThan2DigitsMonth() {
         // When
@@ -119,6 +135,7 @@ class CustomDatePickerTest : MockActivityTest() {
         Assert.assertEquals(true, editText?.isValid()?.isValid)
     }
 
+    @SmallTest
     @Test
     fun shouldReturnIsNotValidIfFieldIsEmptyAndIsRequired() {
         // Given
@@ -137,5 +154,80 @@ class CustomDatePickerTest : MockActivityTest() {
         onView(editTextRef).perform(ViewActions.typeText(""))
         // Then
         Assert.assertEquals(true, editText?.isValid()?.isValid)
+    }
+
+    @Test
+    fun shouldNotAllowYearGreaterThanUpperLimit() {
+        // Given
+        editText?.upperLimit = Calendar.getInstance().apply {
+            set(2007, Calendar.JULY, 1)
+        }
+        // When
+        onView(editTextRef).perform(ViewActions.typeText("01/2008"))
+        // Then
+        Assert.assertEquals(false, editText?.isValid()?.isValid)
+        Assert.assertEquals("The Enter some text can't be after the 7/2007", editText?.isValid()?.error)
+
+    }
+
+    @Test
+    fun shouldNotAllowMonthGreaterThanUpperLimit() {
+        // Given
+        editText?.upperLimit = Calendar.getInstance().apply {
+            set(2007, Calendar.JULY, 1)
+        }
+        // When
+        onView(editTextRef).perform(ViewActions.typeText("11/2007"))
+        // Then
+        Assert.assertEquals(false, editText?.isValid()?.isValid)
+        Assert.assertEquals("The Enter some text can't be after the 7/2007", editText?.isValid()?.error)
+    }
+
+    @Test
+    fun shouldAllowDateEqualsThanUpperLimit() {
+        // Given
+        editText?.upperLimit = Calendar.getInstance().apply {
+            set(2007, Calendar.JULY, 1)
+        }
+        // When
+        onView(editTextRef).perform(ViewActions.typeText("07/2007"))
+        // Then
+        Assert.assertEquals(true, editText?.isValid()?.isValid)
+    }
+
+    @Test
+    fun shouldAllowDateLessThanUpperLimit() {
+        // Given
+        editText?.upperLimit = Calendar.getInstance().apply {
+            set(2007, Calendar.JULY, 1)
+        }
+        // When
+        onView(editTextRef).perform(ViewActions.typeText("12/2006"))
+        // Then
+        Assert.assertEquals(true, editText?.isValid()?.isValid)
+    }
+
+    @Test
+    fun shouldGetRightMonthAndYear() {
+        // When
+        onView(editTextRef).perform(ViewActions.typeText("12/2006"))
+        // Then
+        Assert.assertEquals(11, editText?.getMonth())
+        Assert.assertEquals(2006, editText?.getYear())
+    }
+
+    @Test
+    fun shouldOpenDialog() {
+        // When
+        onView(editTextRef).perform(clickDrawable())
+        onView(dpMonthRef).perform(setNumberPickerValue(11))
+        onView(dpYearRef).perform(setNumberPickerValue(2008))
+        onView(withSubstring("OK"))
+            .check(ViewAssertions.matches(isDisplayed()))
+            .perform(ViewActions.click())
+
+        // Then
+        Assert.assertEquals(11, editText?.getMonth())
+        Assert.assertEquals(2008, editText?.getYear())
     }
 }

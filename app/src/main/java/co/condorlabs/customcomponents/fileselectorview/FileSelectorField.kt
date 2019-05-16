@@ -2,9 +2,9 @@ package co.condorlabs.customcomponents.fileselectorview
 
 import android.app.AlertDialog
 import android.content.Context
-import android.support.constraint.ConstraintLayout
-import android.support.v7.widget.AppCompatImageView
-import android.support.v7.widget.AppCompatTextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatTextView
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -12,9 +12,9 @@ import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.helper.EMPTY
-import co.condorlabs.customcomponents.helper.FILE_SELECTOR_GALLERY_OPTION_INDEX
-import co.condorlabs.customcomponents.helper.NOT_DEFINED_ATTRIBUTE_DEFAULT_VALUE
+import co.condorlabs.customcomponents.EMPTY
+import co.condorlabs.customcomponents.FILE_SELECTOR_GALLERY_OPTION_INDEX
+import co.condorlabs.customcomponents.NOT_DEFINED_ATTRIBUTE_DEFAULT_VALUE
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.file_selector_view.view.*
 import kotlinx.coroutines.CoroutineScope
@@ -162,7 +162,9 @@ class FileSelectorField @JvmOverloads constructor(
         }
 
         if (attrsArray.hasValue(R.styleable.FileSelectorField_src_tap_button)) {
-            attrsArray.getResourceId(R.styleable.FileSelectorField_src_tap_button, NOT_DEFINED_ATTRIBUTE_DEFAULT_VALUE)
+            attrsArray.getResourceId(R.styleable.FileSelectorField_src_tap_button,
+                NOT_DEFINED_ATTRIBUTE_DEFAULT_VALUE
+            )
                 .let { imageResourceId ->
                     mIconResourceId = imageResourceId
                 }

@@ -1,6 +1,6 @@
 package co.condorlabs.customcomponents.custombutton
 
-import co.condorlabs.customcomponents.helper.*
+import co.condorlabs.customcomponents.*
 
 /**
  * @author Oscar Gallon on 2019-04-26.
@@ -14,6 +14,7 @@ class CustomButtonStyleFactory {
             BUTTON_WARNING_TYPE -> CustomButtonStyle.WarningButtonStyle
             BUTTON_INFO_TYPE -> CustomButtonStyle.InfoButtonStyle
             BUTTON_SUCCESS_TYPE -> CustomButtonStyle.SuccessButtonStyle
+            BUTTON_OVERLAY_TYPE -> CustomButtonStyle.OverlayButtonStyle
             else -> CustomButtonStyle.DefaultButtonStyle
         }
     }

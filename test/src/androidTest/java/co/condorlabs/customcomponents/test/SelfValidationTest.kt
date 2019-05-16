@@ -1,13 +1,16 @@
 package co.condorlabs.customcomponents.test
 
+import androidx.test.filters.SmallTest
 import co.condorlabs.customcomponents.customedittext.*
 import co.condorlabs.customcomponents.customspinner.SpinnerData
 import co.condorlabs.customcomponents.customspinner.SpinnerFormField
 import co.condorlabs.customcomponents.test.util.isTextDisplayed
+import org.junit.Ignore
 import org.junit.Test
 
 class SelfValidationTest : MockActivityTest() {
 
+    @SmallTest
     @Test
     fun shouldEvaluateItSelfWhenLoseFocusEditTextPhone() {
         MockActivity.layout = R.layout.selft_validate_edit_text_phone_test
@@ -28,6 +31,7 @@ class SelfValidationTest : MockActivityTest() {
         isTextDisplayed(required.isValid().error)
     }
 
+    @SmallTest
     @Test
     fun shouldEvaluateItSelfWhenLoseFocusEditTextEmail() {
         MockActivity.layout = R.layout.selft_validate_edit_text_email_test
@@ -48,6 +52,7 @@ class SelfValidationTest : MockActivityTest() {
         isTextDisplayed(required.isValid().error)
     }
 
+    @SmallTest
     @Test
     fun shouldEvaluateItSelfWhenLoseFocusEditTextDate() {
         MockActivity.layout = R.layout.selft_validate_edit_text_date_test
@@ -68,6 +73,7 @@ class SelfValidationTest : MockActivityTest() {
         isTextDisplayed(required.isValid().error)
     }
 
+    @SmallTest
     @Test
     fun shouldEvaluateItSelfWhenLoseFocusEditTextCurrency() {
         MockActivity.layout = R.layout.selft_validate_edit_text_currency_test
@@ -88,6 +94,7 @@ class SelfValidationTest : MockActivityTest() {
         isTextDisplayed(required.isValid().error)
     }
 
+    @SmallTest
     @Test
     fun shouldEvaluateItSelfWhenLoseFocusEditTextCity() {
         MockActivity.layout = R.layout.selft_validate_edit_text_city_test
@@ -108,6 +115,7 @@ class SelfValidationTest : MockActivityTest() {
         isTextDisplayed(required.isValid().error)
     }
 
+    @SmallTest
     @Test
     fun shouldEvaluateItSelfWhenLoseFocusSpinner() {
         MockActivity.layout = R.layout.selft_validate_spinner_test

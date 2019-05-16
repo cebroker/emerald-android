@@ -17,6 +17,7 @@
 package co.condorlabs.customcomponents.helper.masks
 
 import android.widget.EditText
+import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.helper.*
 import java.util.*
 
@@ -33,9 +34,15 @@ class DateTextWatcherMask(private val mReceiver: EditText) : TextWatcherAdapter(
 
         if (!s.isNullOrBlank() && s.toString() != mCurrentDate) {
             var digitsFromDateTyped = s.toString()
-                    .replace(NO_DIGITS_REGEX.toRegex(), EMPTY)
+                    .replace(
+                        NO_DIGITS_REGEX.toRegex(),
+                        EMPTY
+                    )
             val digitsFromCurrentDateOnReceiver = mCurrentDate
-                    .replace(NO_DIGITS_REGEX.toRegex(), EMPTY)
+                    .replace(
+                        NO_DIGITS_REGEX.toRegex(),
+                        EMPTY
+                    )
 
             val digitsFromDateTypedLength = digitsFromDateTyped.length
             var sel = digitsFromDateTypedLength
@@ -53,11 +60,20 @@ class DateTextWatcherMask(private val mReceiver: EditText) : TextWatcherAdapter(
             } else {
 
                 var day = Integer.parseInt(digitsFromDateTyped
-                        .substring(DATE_MASK_DAY_INITIAL_INDEX, DATE_MASK_DAY_FINAL_INDEX))
+                        .substring(
+                            DATE_MASK_DAY_INITIAL_INDEX,
+                            DATE_MASK_DAY_FINAL_INDEX
+                        ))
                 var mon = Integer.parseInt(digitsFromDateTyped
-                        .substring(DATE_MASK_MONTH_INITIAL_INDEX, DATE_MASK_MONTH_FINAL_INDEX))
+                        .substring(
+                            DATE_MASK_MONTH_INITIAL_INDEX,
+                            DATE_MASK_MONTH_FINAL_INDEX
+                        ))
                 var year = Integer.parseInt(digitsFromDateTyped
-                        .substring(DATE_MASK_YEAR_INITIAL_INDEX, DATE_MASK_YEAR_FINAL_INDEX))
+                        .substring(
+                            DATE_MASK_YEAR_INITIAL_INDEX,
+                            DATE_MASK_YEAR_FINAL_INDEX
+                        ))
 
                 mon = when {
                     mon < DATE_MASK_MIN_MONTH_INDEX -> DATE_MASK_MIN_MONTH_INDEX
@@ -86,15 +102,15 @@ class DateTextWatcherMask(private val mReceiver: EditText) : TextWatcherAdapter(
 
             digitsFromDateTyped = "${digitsFromDateTyped.substring(
                 DATE_MASK_MONTH_INITIAL_INDEX,
-                    DATE_MASK_MONTH_FINAL_INDEX
+                DATE_MASK_MONTH_FINAL_INDEX
             )}$SLASH" +
                     "${digitsFromDateTyped.substring(
                         DATE_MASK_DAY_INITIAL_INDEX,
-                            DATE_MASK_DAY_FINAL_INDEX
+                        DATE_MASK_DAY_FINAL_INDEX
                     )}$SLASH" +
                     digitsFromDateTyped.substring(
                         DATE_MASK_YEAR_INITIAL_INDEX,
-                            DATE_MASK_YEAR_FINAL_INDEX
+                        DATE_MASK_YEAR_FINAL_INDEX
                     )
 
             sel = if (sel < DATE_MASK_SELECTION_MIN_INDEX) DATE_MASK_SELECTION_MIN_INDEX else sel

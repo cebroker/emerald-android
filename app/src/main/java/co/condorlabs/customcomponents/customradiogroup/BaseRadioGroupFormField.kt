@@ -20,25 +20,24 @@ import android.annotation.SuppressLint
 import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Build
-import android.support.design.widget.TextInputLayout
-import android.support.v4.content.res.ResourcesCompat
-import android.support.v7.widget.AppCompatRadioButton
 import android.util.AttributeSet
 import android.widget.RadioGroup
 import android.widget.TextView
-import co.condorlabs.customcomponents.R
+import androidx.appcompat.widget.AppCompatRadioButton
+import androidx.core.content.res.ResourcesCompat
+import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.Selectable
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.helper.*
+import com.google.android.material.textfield.TextInputLayout
 
 
 abstract class BaseRadioGroupFormField(
     context: Context, private val attrs: AttributeSet
 ) : TextInputLayout(context, attrs), FormField<String> {
 
-    protected var mValueChangeListener: ValueChangeListener<String>? = null
+    private var mValueChangeListener: ValueChangeListener<String>? = null
     private var selectables: List<Selectable>? = null
     private var radioGroup: RadioGroup? = null
     private var labelText = EMPTY

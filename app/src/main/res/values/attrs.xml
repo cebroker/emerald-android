@@ -37,7 +37,6 @@
     </declare-styleable>
 
     <declare-styleable name="SpinnerFormField">
-        <attr name="label" format="string"/>
         <attr name="hint"/>
         <attr name="is_required"/>
     </declare-styleable>
@@ -63,4 +62,5 @@
     <declare-styleable name="CustomButton">
         <attr name="type" format="string"/>
     </declare-styleable>
+    <attr name="textInputLayoutTheme" format="reference"/>
 </resources>

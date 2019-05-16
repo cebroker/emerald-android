@@ -21,5 +21,5 @@ package co.condorlabs.customcomponents.formfield
  */
 data class Selectable(
     val label: String,
-    var value: Boolean
+    var value: Boolean = false
 )
