@@ -1,5 +1,6 @@
 package co.condorlabs.customcomponents.customedittext
 
+import android.annotation.SuppressLint
 import android.app.DatePickerDialog
 import android.content.Context
 import android.graphics.drawable.Drawable
@@ -27,6 +28,7 @@ class EditTextMonthYearField(
     private var monthYearWatcherMark: MonthYearWatcherMark? = null
     private var simpleDateFormat: SimpleDateFormat? = null
     private var dateFormat = MONTH_YEAR_FORMAT
+    var upperLimit: Calendar? = null
 
     init {
         currentContext.theme.obtainStyledAttributes(
@@ -80,6 +82,7 @@ class EditTextMonthYearField(
         receiver.setSelection(receiver.text.length)
     }
 
+    @SuppressLint("ClickableViewAccessibility")
     private fun setupPicker() {
 
         val receiver = editText?.let { it } ?: return
@@ -121,20 +124,16 @@ class EditTextMonthYearField(
                                 SimpleDateFormat(showDateFormat, Locale.US).parse(receiver.text.toString())
                         }
 
-                        val datePicker = MonthYearPickerDialog().apply {
+                        MonthYearPickerDialog().apply {
                             year = calendar.get(Calendar.YEAR)
                             month = calendar.get(Calendar.MONTH)
+                            setListener(this@EditTextMonthYearField)
+                            upperLimit = this@EditTextMonthYearField.upperLimit
+                            (currentContext as? AppCompatActivity)?.supportFragmentManager
+                                ?.beginTransaction()
+                                ?.add(this, MonthYearPickerDialog::class.java.name)
+                                ?.commitAllowingStateLoss()
                         }
-
-                        datePicker.setListener(this)
-
-                        val manager =
-                            (currentContext as? AppCompatActivity)?.supportFragmentManager ?: return@setOnTouchListener true
-                        datePicker.show(
-                            manager,
-                            MONTH_YEAR_PICKER_DIALOG_TAG
-                        )
-
                         true
                     } else {
                         false
@@ -163,4 +162,71 @@ class EditTextMonthYearField(
         return eventRawX >= editTextRightPosition - drawableWidth - COMPOUND_DRAWABLE_TOUCH_OFF_SET
     }
 
+    fun getMonth(): Int {
+        return editText?.text?.toString()?.let {
+            if(it.isNotEmpty()) {
+                it.substring(
+                    MONTH_YEAR_MASK_MONTH_INITIAL_INDEX,
+                    MONTH_YEAR_MASK_MONTH_FINAL_INDEX
+                ).toInt() - HUMAN_READABLE_MONTH_INDEX
+            } else {
+                DATE_PICKER_MIN_MONTH
+            }
+        } ?: DATE_PICKER_MIN_MONTH
+    }
+
+    fun getYear() =
+        editText?.text?.toString()?.let {
+            if(it.isNotEmpty()) {
+                it.replace(SLASH, EMPTY).substring(
+                    MONTH_YEAR_MASK_YEAR_INITIAL_INDEX,
+                    MONTH_YEAR_MASK_YEAR_FINAL_INDEX
+                ).toInt()
+            } else {
+                DATE_PICKER_MIN_YEAR
+            }
+        } ?: DATE_PICKER_MIN_YEAR
+
+
+    override fun isValid(): ValidationResult {
+        val result = super.isValid()
+        if (result.isValid) {
+            return validateUpperLimit() ?: result
+        }
+        return result
+    }
+
+    private fun validateUpperLimit(): ValidationResult? {
+        return upperLimit?.let {
+            val upperLimitYear = it.get(Calendar.YEAR)
+            val upperLimitMonth = it.get(Calendar.MONTH)
+            if (isTypeDateGreaterThanUpperLimit(upperLimitYear, upperLimitMonth)) {
+                ValidationResult(
+                    false,
+                    String.format(
+                        VALIDATE_UPPER_LIMIT_DATE_ERROR,
+                        hint,
+                        String.format(
+                            MONTH_YEAR_STRING_TO_REPLACE,
+                            upperLimitMonth + HUMAN_READABLE_MONTH_INDEX,
+                            upperLimitYear
+                        )
+                    )
+                )
+            } else null
+        }
+    }
+
+    private fun isTypeDateGreaterThanUpperLimit(
+        upperLimitYear: Int,
+        upperLimitMonth: Int
+    ): Boolean {
+        val typedYear = getYear()
+        val typedMonth = getMonth()
+        return when {
+            typedYear > upperLimitYear -> true
+            typedYear == upperLimitYear && typedMonth > upperLimitMonth -> true
+            else -> false
+        }
+    }
 }
