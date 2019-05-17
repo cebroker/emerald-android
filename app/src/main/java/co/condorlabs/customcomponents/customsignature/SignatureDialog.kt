@@ -11,17 +11,16 @@ import android.widget.ImageView
 import androidx.fragment.app.DialogFragment
 import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.custombutton.CustomButton
-import kotlinx.android.synthetic.main.signature_dialog.*
 
-class SignatureDialog : DialogFragment() {
+class SignatureDialog : DialogFragment(), OnActionMoveListener {
 
-    private var onSignatureDoneListener: OnSignatureDoneListener? = null
     private var signatureView: SignatureView? = null
     private var btnDone: CustomButton? = null
     private var btnClear: CustomButton? = null
     private var ivClose: ImageView? = null
+    private var onSignatureDoneListener: OnSignatureDoneListener? = null
 
-    fun setListener(onSignatureDoneListener: OnSignatureDoneListener) {
+    fun setOnSignatureDoneListener(onSignatureDoneListener: OnSignatureDoneListener) {
         this.onSignatureDoneListener = onSignatureDoneListener
     }
 
@@ -45,15 +44,16 @@ class SignatureDialog : DialogFragment() {
         }
     }
 
+    override fun onDrawnSignature() {
+        btnDone?.isEnabled = true
+    }
+
     private fun initComponents() {
-        signatureView?.setOnActionMoveListener(object : OnActionMoveListener {
-            override fun onActionMove() {
-                btnDoneSigning?.isEnabled = true
-            }
-        })
+        signatureView?.setOnActionMoveListener(this)
         btnClear?.setOnClickListener {
             signatureView?.clearCanvas()
             btnDone?.isEnabled = false
+            signatureView?.setOnActionMoveListener(this)
         }
         btnDone?.setOnClickListener { performConfirmAction() }
         ivClose?.setOnClickListener { dialog?.cancel() }

@@ -56,8 +56,8 @@ class SignatureInputField @JvmOverloads constructor(
 
     private fun openSignatureDialog() {
         SignatureDialog().apply {
-            setListener(this@SignatureInputField)
-            (this@SignatureInputField.currentContext as? AppCompatActivity)?.supportFragmentManager
+            setOnSignatureDoneListener(this@SignatureInputField)
+            (currentContext as? AppCompatActivity)?.supportFragmentManager
                 ?.beginTransaction()
                 ?.add(this, SignatureDialog::class.java.name)
                 ?.commitAllowingStateLoss()
@@ -102,5 +102,4 @@ class SignatureInputField @JvmOverloads constructor(
         clContent?.visibility = View.VISIBLE
         btnSign?.visibility = View.GONE
     }
-
 }
