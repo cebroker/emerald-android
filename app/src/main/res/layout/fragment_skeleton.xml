@@ -106,7 +106,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="start"
                 android:background="@color/shimmerColor"
-                android:id="@+id/tvContent9"
+                android:id="@+id/tvContent4"
                 android:layout_marginTop="@dimen/small_margin"
                 android:textSize="@dimen/subtitle_textsize"
                 android:layout_marginBottom="32dp"
