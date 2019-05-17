@@ -18,4 +18,4 @@ Create a new instance of the fragment
 
 
 ## Examples
-<img src="/Images/customradiogroup/skeleton_fragment.png" width="400" heigth="400"/>
+<img src="/Images/skeletonview/skeleton_fragment.png" width="400" heigth="400"/>
