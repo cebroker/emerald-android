@@ -44,7 +44,9 @@
     </string-array>
 
     <string name="date_picker_confirm">OK</string>
-    <string name="date_picker_cancel">CANCEL</string> 
+    <string name="date_picker_cancel">CANCEL</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="lorem_ipsum">On the other hand, we denounce with righteous</string>
+    <string name="lorem_ipsum_shorter">On the other hand hand</string>
 </resources>

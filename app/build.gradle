@@ -72,6 +72,7 @@ dependencies {
     //Mix
     implementation applicationDependencies.lottie
     implementation applicationDependencies.picasso
+    implementation applicationDependencies.skeleton
 
     //Tests
     androidTestImplementation acceptanceTesting.androidAnnotations
@@ -83,5 +84,7 @@ dependencies {
     androidTestImplementation acceptanceTesting.uiAutomator
     androidTestImplementation testDependencies.mockitoCore
     androidTestImplementation testDependencies.mockk
+
+    implementation 'com.facebook.shimmer:shimmer:0.4.0'
 
 }
