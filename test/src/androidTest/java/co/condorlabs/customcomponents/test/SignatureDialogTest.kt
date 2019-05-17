@@ -8,7 +8,6 @@ import androidx.test.espresso.action.ViewActions.swipeDown
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
-import co.condorlabs.customcomponents.customsignature.OnSignatureDoneListener
 import co.condorlabs.customcomponents.customsignature.SignatureDialog
 import junit.framework.Assert.assertNotNull
 import org.junit.Assert
@@ -48,8 +47,8 @@ class SignatureDialogTest {
     @Test
     fun shouldReturnBitmap() {
         var bitmapResult: Bitmap? = null
-        val listener = object : OnSignatureDoneListener {
-            override fun onSignatureDone(bitmap: Bitmap) {
+        val listener = object : SignatureDialog.OnDoneSignatureListener {
+            override fun onDoneSignature(bitmap: Bitmap) {
                 bitmapResult = bitmap
             }
         }

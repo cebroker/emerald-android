@@ -12,16 +12,16 @@ import androidx.fragment.app.DialogFragment
 import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.custombutton.CustomButton
 
-class SignatureDialog : DialogFragment(), OnActionMoveListener {
+class SignatureDialog : DialogFragment(), SignatureView.OnDrawnSignatureListener {
 
     private var signatureView: SignatureView? = null
     private var btnDone: CustomButton? = null
     private var btnClear: CustomButton? = null
     private var ivClose: ImageView? = null
-    private var onSignatureDoneListener: OnSignatureDoneListener? = null
+    private var onDoneSignatureListener: OnDoneSignatureListener? = null
 
-    fun setOnSignatureDoneListener(onSignatureDoneListener: OnSignatureDoneListener) {
-        this.onSignatureDoneListener = onSignatureDoneListener
+    fun setOnSignatureDoneListener(onDoneSignatureListener: OnDoneSignatureListener) {
+        this.onDoneSignatureListener = onDoneSignatureListener
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -63,7 +63,7 @@ class SignatureDialog : DialogFragment(), OnActionMoveListener {
         signatureView?.let {
             it.stopDrawingLineAndText()
             val bitmap = getBitmapFromView(it)
-            onSignatureDoneListener?.onSignatureDone(bitmap)
+            onDoneSignatureListener?.onDoneSignature(bitmap)
         }
         dialog?.cancel()
     }
@@ -78,5 +78,10 @@ class SignatureDialog : DialogFragment(), OnActionMoveListener {
             canvas.drawColor(Color.WHITE)
         view.draw(canvas)
         return returnedBitmap
+    }
+
+    interface OnDoneSignatureListener {
+
+        fun onDoneSignature(bitmap: Bitmap)
     }
 }

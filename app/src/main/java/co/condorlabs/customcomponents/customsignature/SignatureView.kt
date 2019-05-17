@@ -11,8 +11,7 @@ import android.view.MotionEvent
 import android.view.View
 import co.condorlabs.customcomponents.*
 
-
-class SignatureView(context: Context, attrs: AttributeSet) : View(context, attrs) {
+internal class SignatureView (context: Context, attrs: AttributeSet) : View(context, attrs) {
 
     private var paint = Paint()
     private var path = Path()
@@ -22,7 +21,7 @@ class SignatureView(context: Context, attrs: AttributeSet) : View(context, attrs
     private var startX = 0f
     private var startY = 0f
     var canvas: Canvas? = null
-    private var onActionMoveListener: OnActionMoveListener? = null
+    private var onDrawnSignatureListener: OnDrawnSignatureListener? = null
 
     init {
         setUpPaint()
@@ -39,9 +38,9 @@ class SignatureView(context: Context, attrs: AttributeSet) : View(context, attrs
         }
     }
 
-    fun setOnActionMoveListener(listener: OnActionMoveListener) {
-        if(onActionMoveListener == null) {
-            onActionMoveListener = listener
+    fun setOnActionMoveListener(listener: OnDrawnSignatureListener) {
+        if(onDrawnSignatureListener == null) {
+            onDrawnSignatureListener = listener
         }
     }
 
@@ -57,9 +56,9 @@ class SignatureView(context: Context, attrs: AttributeSet) : View(context, attrs
         path.moveTo(x, y)
         currentX = x
         currentY = y
-        if(onActionMoveListener != null) {
-            onActionMoveListener?.onDrawnSignature()
-            onActionMoveListener = null
+        if(onDrawnSignatureListener != null) {
+            onDrawnSignatureListener?.onDrawnSignature()
+            onDrawnSignatureListener = null
         }
     }
 
@@ -135,5 +134,10 @@ class SignatureView(context: Context, attrs: AttributeSet) : View(context, attrs
         drawLineAndText = false
         setBackgroundColor(Color.WHITE)
         background = null
+    }
+
+    interface OnDrawnSignatureListener {
+
+        fun onDrawnSignature()
     }
 }
