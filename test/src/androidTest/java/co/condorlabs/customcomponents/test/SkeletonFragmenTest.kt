@@ -11,11 +11,9 @@ import co.condorlabs.customcomponents.skeletonview.SkeletonFactory
 import co.condorlabs.customcomponents.skeletonview.SkeletonFragment
 import org.junit.Test
 
-
 /**
  * @author Oscar Gallon on 2019-05-17.
  */
-
 class SkeletonFragmenTest {
 
     @Test
@@ -54,6 +52,5 @@ class SkeletonFragmenTest {
         factory.getSkeletonTypeFromValue("completion")
 
         //then
-
     }
 }
