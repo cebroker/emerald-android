@@ -9,8 +9,9 @@ import co.condorlabs.customcomponents.ARGUMENT_SKELETON_TYPE
 import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.SkeletonFragmentNoArgumentsProvidedException
 import com.facebook.shimmer.ShimmerFrameLayout
+import kotlinx.android.synthetic.main.card_view_template.*
 
-class SkeletonFragment : Fragment() {
+open class SkeletonFragment : Fragment() {
 
     private val skeletonFactory = SkeletonFactory()
 
@@ -34,12 +35,16 @@ class SkeletonFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(layout, container, false)
+        return inflater.inflate(R.layout.card_view_template, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        (view as ShimmerFrameLayout).startShimmer()
+        includeLayout?.apply {
+            layoutResource = layout
+            inflate()
+        }
+        view.findViewById<ShimmerFrameLayout>(R.id.shimmer_view_container)?.startShimmer()
     }
 
     companion object {

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/signatureDialog"
+        android:background="@color/gray_signature_dialog"
+        android:padding="@dimen/signature_button_margin">
+
+    <ImageView
+            android:id="@+id/ivClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/close_x"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:paddingEnd="@dimen/signature_button_margin"
+            android:paddingBottom="@dimen/signature_button_margin"/>
+
+    <co.condorlabs.customcomponents.customsignature.SignatureView
+            android:id="@+id/signatureView"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/signature_canvas_height"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:background="@drawable/bg_signature_canvas"/>
+
+    <co.condorlabs.customcomponents.custombutton.CustomButton
+            android:id="@+id/btnClearSignature"
+            android:text="@string/signature_clear_signature_button"
+            android:layout_width="@dimen/zero"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/signature_button_margin"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/btnDoneSigning"/>
+
+    <co.condorlabs.customcomponents.custombutton.CustomButton
+            android:id="@+id/btnDoneSigning"
+            app:type="primary"
+            android:text="@string/signature_done_signing_button"
+            android:layout_width="@dimen/zero"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toEndOf="@+id/btnClearSignature"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:enabled="false"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

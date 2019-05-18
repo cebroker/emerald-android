@@ -18,8 +18,7 @@ package co.condorlabs.customcomponents.test
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import co.condorlabs.customcomponents.customspinner.SpinnerData
-import co.condorlabs.customcomponents.customspinner.SpinnerFormField
+import co.condorlabs.customcomponents.skeletonview.SkeletonFragment
 
 /**
  * @author Oscar Gallon on 2/21/19.
@@ -29,6 +28,8 @@ class MockActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout)
+        supportFragmentManager.beginTransaction().replace(R.id.fm,SkeletonFragment.newInstance("Completion"))
+            .commitNow()
     }
 
     companion object {

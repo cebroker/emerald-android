@@ -1,5 +1,4 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <com.facebook.shimmer.ShimmerFrameLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
@@ -8,10 +7,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
 >
-
     <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:padding="@dimen/default_padding"
             tools:context=".skeletonview.SkeletonFragment">
 
         <TextView
@@ -25,7 +24,7 @@
                 android:id="@+id/tvTitle"
                 android:textColor="@color/shimmerColor"
                 android:textSize="@dimen/default_text_size"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="@dimen/skeleton_title_margin_top"
                 android:text="@string/hello_blank_fragment"/>
 
         <TextView
@@ -53,7 +52,7 @@
                 android:id="@+id/tvContent"
                 android:textSize="@dimen/subtitle_textsize"
                 android:textColor="@color/shimmerColor"
-                android:layout_marginTop="86dp"
+                android:layout_marginTop="@dimen/content_skeleton_margin_top"
                 android:text="@string/lorem_ipsum"/>
 
         <TextView
@@ -107,7 +106,7 @@
                 android:id="@+id/tvContent4"
                 android:layout_marginTop="@dimen/small_margin"
                 android:textSize="@dimen/subtitle_textsize"
-                android:layout_marginBottom="32dp"
+                android:layout_marginBottom="@dimen/bottom_content_skeleton_margin_bottom"
                 android:textColor="@color/shimmerColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 android:text="@string/lorem_ipsum_shorter"/>

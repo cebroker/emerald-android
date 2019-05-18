@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<co.condorlabs.customcomponents.skeletonview.LockableScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+                                                     xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                     android:id="@+id/myScrollView"
+                                                     android:layout_width="match_parent"
+                                                     android:layout_height="match_parent"
+                                                     android:fillViewport="true"
+                                                     android:orientation="vertical"
+                                                     android:scrollbars="none">
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+        <androidx.cardview.widget.CardView
+                android:id="@+id/myGeneralCardView"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="@dimen/default_view_pager_margin_start"
+                android:layout_marginTop="@dimen/default_view_pager_margin_top"
+                android:layout_marginEnd="@dimen/default_view_pager_margin_end"
+                android:layout_marginBottom="@dimen/default_view_pager_margin_bottom"
+                android:layout_weight="1"
+                app:cardCornerRadius="@dimen/default_view_pager_corner_radius"
+                app:cardUseCompatPadding="true"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
+
+                <ViewStub
+                        android:id="@+id/includeLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+            </LinearLayout>
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+</co.condorlabs.customcomponents.skeletonview.LockableScrollView>
