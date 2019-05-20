@@ -44,7 +44,11 @@
     </string-array>
 
     <string name="date_picker_confirm">OK</string>
-    <string name="date_picker_cancel">CANCEL</string> 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="date_picker_cancel">CANCEL</string>
+
+    <string name="signature_empty_error">You have not signed yet</string>
+    <string name="signature_change">Change</string>
+    <string name="signature_clear_signature_button">Clear signature</string>
+    <string name="signature_done_signing_button">Done signing</string>
+    <string name="signature_tap_to_sign">Tap To Sign</string>
 </resources>

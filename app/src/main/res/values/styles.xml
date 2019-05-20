@@ -39,4 +39,9 @@
         <item name="android:colorControlHighlight">@color/defaultHintColor</item>
         <item name="android:textColorHighlight">@color/defaultHighlightColor</item>
     </style>
+
+    <style name="FullScreenDialogStyle" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsFloating">false</item>
+    </style>
 </resources>

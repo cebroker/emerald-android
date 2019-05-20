@@ -41,6 +41,7 @@
     <color name="black">#000000</color>
     <color name="defaultButtonBorderColor">#bec6c6</color>
     <color name="field_border_color">#9e9e9e</color>
+    <color name="gray_signature_dialog">#e7eff2</color>
 
     <color name="rippleColor">#20FFFFFF</color>
     <color name="defaultButtonStyleRippleColor">#10000000</color>
