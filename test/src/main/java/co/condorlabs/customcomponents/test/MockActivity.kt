@@ -28,8 +28,6 @@ class MockActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout)
-        supportFragmentManager.beginTransaction().replace(R.id.fm,SkeletonFragment.newInstance("Completion"))
-            .commitNow()
     }
 
     companion object {
