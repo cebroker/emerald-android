@@ -20,7 +20,8 @@ Emerald UI for Android Apps
 - [Custom Button](/app/src/main/java/co/condorlabs/customcomponents/custombutton)
 - [Loading Screen](/app/src/main/java/co/condorlabs/customcomponents/loadingfragment)
 - [Custom Spinner](/app/src/main/java/co/condorlabs/customcomponents/customspinner)
-- [Skeleton View](/app/src/main/java/co/condorlabs/customcomponents/skeletonview)
+- [Custom RadioGroup](/app/src/main/java/co/condorlabs/customcomponents/customradiogroup) 
+- [Skeleton View](/app/src/main/java/co/condorlabs/customcomponents/skeletonview) 
 
 ## Contribute
 - If you've __found a bug__, open an issue;

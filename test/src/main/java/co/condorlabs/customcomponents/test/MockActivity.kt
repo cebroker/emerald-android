@@ -18,7 +18,6 @@ package co.condorlabs.customcomponents.test
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import co.condorlabs.customcomponents.skeletonview.SkeletonFragment
 
 /**
  * @author Oscar Gallon on 2/21/19.

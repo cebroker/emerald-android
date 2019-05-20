@@ -16,32 +16,32 @@
 
 package co.condorlabs.customcomponents.customradiogroup
 
+import android.annotation.SuppressLint
 import android.content.Context
-import com.google.android.material.textfield.TextInputLayout
+import android.content.res.ColorStateList
+import android.os.Build
 import android.util.AttributeSet
-import android.view.ContextThemeWrapper
-import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatRadioButton
+import androidx.core.content.res.ResourcesCompat
 import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.Selectable
 import co.condorlabs.customcomponents.formfield.ValidationResult
+import com.google.android.material.textfield.TextInputLayout
 
 abstract class BaseRadioGroupFormField(
     context: Context, private val attrs: AttributeSet
 ) : TextInputLayout(context, attrs), FormField<String> {
 
-    protected var mValueChangeListener: ValueChangeListener<String>? = null
+    private var mValueChangeListener: ValueChangeListener<String>? = null
     private var selectables: List<Selectable>? = null
     private var radioGroup: RadioGroup? = null
     private var labelText = EMPTY
     private var spaceBetweenItems = DEFAULT_SPACE_BETWEEN_ITEMS
-    private val layoutParams = LayoutParams(
-        LayoutParams.MATCH_PARENT,
-        LayoutParams.WRAP_CONTENT
-    )
+    private val layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
     private val tvLabel = TextView(context, attrs).apply {
         id = R.id.tvLabelRadioGroup
     }
@@ -131,19 +131,49 @@ abstract class BaseRadioGroupFormField(
         addRadioButtons()
     }
 
-
     private fun setDefaultPadding(): Int {
         val paddingDp = DEFAULT_PADDING_RADIO_BUTTON
         val density = context.resources.displayMetrics.density
         return (paddingDp * density).toInt()
     }
 
+    @SuppressLint("ResourceType")
     private fun addRadioButtons() {
         val resultDefaultPadding = setDefaultPadding()
         radioGroup?.removeAllViews()
         selectables?.forEachIndexed { index, selectable ->
             radioGroup?.addView(
-                RadioButton(ContextThemeWrapper(context, R.style.radio_button_custom_style), null).apply {
+                AppCompatRadioButton(context).apply {
+                    isClickable = true
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        val colorStateList = ColorStateList(
+                            arrayOf(
+                                intArrayOf(-android.R.attr.state_checked),
+                                intArrayOf(android.R.attr.state_checked)
+                            ),
+                            intArrayOf(
+                                resources.getColor(R.color.gray_color_with_alpha),
+                                resources.getColor(R.color.blueFillColor)
+                            )
+                        )
+
+                        this.buttonTintList = colorStateList
+                        this.invalidate()
+                    }
+
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                        val attrs = intArrayOf(R.attr.selectableItemBackground)
+                        val typedArray = context.obtainStyledAttributes(attrs)
+                        val selectableItemBackground = typedArray.getResourceId(0, 0)
+                        typedArray.recycle()
+
+                        this.foreground = context.getDrawable(selectableItemBackground)
+                    }
+
+                    background =
+                        ResourcesCompat.getDrawable(resources, R.drawable.radio_button_selector_background, null)
+
                     id = index
                     text = selectable.label
                     isChecked = selectable.value
