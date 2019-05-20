@@ -19,4 +19,4 @@ SignatureDialog().apply {
 ```
 
 ## Example
-<img src="/Images/custom-signature-example.png" width="400">
+<img src="/Images/signature-dialog-example.png" width="400">
