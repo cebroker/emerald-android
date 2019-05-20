@@ -1,19 +1,22 @@
 # Signature
-Emerald provides a signature dialog.
+Emerald provides a signature dialog, it allows the user to sign in a canvas and returns a bitmap through the implementation of the OnDoneSignatureListener interface.
 
 ## Basic Usage
-
-```xml
-<co.condorlabs.customcomponents.customsignature.SignatureInputField
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-    </co.condorlabs.customcomponents.customsignature.SignatureInputField>
+```
+// Open dialog
+SignatureDialog().apply {
+    setOnSignatureDoneListener(
+        object : SignatureDialog.OnDoneSignatureListener {
+            override fun onDoneSignature(bitmap: Bitmap) {
+                // do something with the bitmap
+        }
+    )
+    (currentContext as? AppCompatActivity)?.supportFragmentManager
+        ?.beginTransaction()
+        ?.add(this, MonthYearPickerDialog::class.java.name)
+        ?.commitAllowingStateLoss()
+}
 ```
 
-## Attributes
-| Name | Description |
-| - | - |
-| app:is_required | Set if the field is required. true / false. |
-
 ## Example
-// TODO put image
+<img src="/Images/signature-dialog-example.png" width="400">

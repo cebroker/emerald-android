@@ -11,21 +11,17 @@ import android.view.MotionEvent
 import android.view.View
 import co.condorlabs.customcomponents.*
 
-
-class SignatureView(context: Context, attrs: AttributeSet) : View(context, attrs) {
+internal class SignatureView (context: Context, attrs: AttributeSet) : View(context, attrs) {
 
     private var paint = Paint()
     private var path = Path()
     private var drawLineAndText = true
-
     private var currentX = 0f
     private var currentY = 0f
     private var startX = 0f
     private var startY = 0f
-
     var canvas: Canvas? = null
-
-    private var onActionMoveListener: OnActionMoveListener? = null
+    private var onDrawnSignatureListener: OnDrawnSignatureListener? = null
 
     init {
         setUpPaint()
@@ -42,8 +38,10 @@ class SignatureView(context: Context, attrs: AttributeSet) : View(context, attrs
         }
     }
 
-    fun setOnActionMoveListener(listener: OnActionMoveListener) {
-        onActionMoveListener = listener
+    fun setOnActionMoveListener(listener: OnDrawnSignatureListener) {
+        if(onDrawnSignatureListener == null) {
+            onDrawnSignatureListener = listener
+        }
     }
 
     override fun onDraw(canvas: Canvas) {
@@ -52,28 +50,26 @@ class SignatureView(context: Context, attrs: AttributeSet) : View(context, attrs
             drawLineAndText(canvas)
         canvas.drawPath(path, paint)
         this.canvas = canvas
-        if (onActionMoveListener != null) {
-            onActionMoveListener?.onActionMove()
-            onActionMoveListener = null
-        }
     }
 
     private fun actionDown(x: Float, y: Float) {
         path.moveTo(x, y)
         currentX = x
         currentY = y
+        if(onDrawnSignatureListener != null) {
+            onDrawnSignatureListener?.onDrawnSignature()
+            onDrawnSignatureListener = null
+        }
     }
 
     private fun actionMove(x: Float, y: Float) {
         path.quadTo(currentX, currentY, (x + currentX) / 2, (y + currentY) / 2)
         currentX = x
         currentY = y
-        onActionMoveListener?.onActionMove()
     }
 
     private fun actionUp() {
         path.lineTo(currentX, currentY)
-
         if (startX == currentX && startY == currentY) {
             path.lineTo(currentX, currentY + 2)
             path.lineTo(currentX + 1, currentY + 2)
@@ -84,7 +80,6 @@ class SignatureView(context: Context, attrs: AttributeSet) : View(context, attrs
     override fun onTouchEvent(event: MotionEvent): Boolean {
         val x = event.x
         val y = event.y
-
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 startX = x
@@ -139,5 +134,10 @@ class SignatureView(context: Context, attrs: AttributeSet) : View(context, attrs
         drawLineAndText = false
         setBackgroundColor(Color.WHITE)
         background = null
+    }
+
+    interface OnDrawnSignatureListener {
+
+        fun onDrawnSignature()
     }
 }
