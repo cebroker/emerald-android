@@ -179,3 +179,7 @@ const val SIGNATURE_CANVAS_HEIGHT_PERCENTAGE = 0.7
 const val SIGNATURE_USE_YOUR_FINGER_TO_DRAW = "Use your finger to draw"
 const val SIGNATURE_CANVAS_FONT = "font-family: sans-serif;"
 const val SIGNATURE_INDICATOR = "X"
+
+const val ARGUMENT_SKELETON_TYPE = "ARGUMENT_SKELETON_TYPE"
+
+const val COMPLETION_TYPE = "completion"

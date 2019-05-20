@@ -72,6 +72,7 @@ dependencies {
     //Mix
     implementation applicationDependencies.lottie
     implementation applicationDependencies.picasso
+    implementation applicationDependencies.skeleton
 
     //Tests
     androidTestImplementation acceptanceTesting.androidAnnotations

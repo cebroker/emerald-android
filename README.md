@@ -22,6 +22,7 @@ Emerald UI for Android Apps
 - [Custom Spinner](/app/src/main/java/co/condorlabs/customcomponents/customspinner)
 - [Custom RadioGroup](/app/src/main/java/co/condorlabs/customcomponents/customradiogroup)
 - [Custom Signature Dialog](/app/src/main/java/co/condorlabs/customcomponents/customsignature)
+- [Skeleton View](/app/src/main/java/co/condorlabs/customcomponents/skeletonview) 
 
 ## Contribute
 - If you've __found a bug__, open an issue;
