@@ -8,7 +8,7 @@ import android.widget.ScrollView
 /**
  * @author Oscar Gallon on 2019-05-17.
  */
-class c : ScrollView {
+class LockableScrollView : ScrollView {
 
     var isScrollable = true
 
