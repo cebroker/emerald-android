@@ -181,3 +181,5 @@ const val SIGNATURE_CANVAS_FONT = "font-family: sans-serif;"
 const val SIGNATURE_INDICATOR = "X"
 
 const val ARGUMENT_SKELETON_TYPE = "ARGUMENT_SKELETON_TYPE"
+
+const val COMPLETION_TYPE = "completion"

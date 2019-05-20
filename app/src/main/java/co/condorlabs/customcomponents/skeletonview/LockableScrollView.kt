@@ -8,7 +8,7 @@ import android.widget.ScrollView
 /**
  * @author Oscar Gallon on 2019-05-17.
  */
-class LockableScrollView : ScrollView {
+class c : ScrollView {
 
     var isScrollable = true
 
@@ -24,10 +24,6 @@ class LockableScrollView : ScrollView {
         attrs: AttributeSet,
         defStyleAttr: Int
     ) : super(context, attrs, defStyleAttr)
-
-    fun setScrollingEnabled(scrollable: Boolean) {
-        this.isScrollable = scrollable
-    }
 
     override fun onTouchEvent(ev: MotionEvent): Boolean {
         return when (ev.action) {

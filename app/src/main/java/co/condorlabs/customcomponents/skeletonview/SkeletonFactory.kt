@@ -1,5 +1,6 @@
 package co.condorlabs.customcomponents.skeletonview
 
+import co.condorlabs.customcomponents.COMPLETION_TYPE
 import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.SkeletonTypeNotSupportedException
 
@@ -9,7 +10,7 @@ import co.condorlabs.customcomponents.SkeletonTypeNotSupportedException
 typealias SkeletonLayout = Int
 
 enum class SkeletonType(val type: String) {
-    Completion("completion")
+    Completion(COMPLETION_TYPE)
 }
 
 class SkeletonFactory {
@@ -21,7 +22,7 @@ class SkeletonFactory {
     fun getFragmentByType(type: SkeletonType): Int {
 
         return when (type.type) {
-            "completion" -> R.layout.fragment_skeleton
+            COMPLETION_TYPE -> R.layout.fragment_skeleton
             else -> throw SkeletonTypeNotSupportedException()
         }
     }

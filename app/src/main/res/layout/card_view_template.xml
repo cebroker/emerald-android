@@ -16,7 +16,7 @@
         <androidx.cardview.widget.CardView
                 android:id="@+id/myGeneralCardView"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="@dimen/zero"
                 android:layout_marginStart="@dimen/default_view_pager_margin_start"
                 android:layout_marginTop="@dimen/default_view_pager_margin_top"
                 android:layout_marginEnd="@dimen/default_view_pager_margin_end"
@@ -37,7 +37,7 @@
                 <ViewStub
                         android:id="@+id/includeLayout"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
+                        android:layout_height="@dimen/zero"
                         android:layout_weight="1" />
 
             </LinearLayout>
