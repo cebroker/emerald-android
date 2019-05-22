@@ -42,6 +42,7 @@ abstract class BaseRadioGroupFormField(
     private var labelText = EMPTY
     private var spaceBetweenItems = DEFAULT_SPACE_BETWEEN_ITEMS
     private val layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
+    private val layoutParamsLabel = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
     private val tvLabel = TextView(context, attrs).apply {
         id = R.id.tvLabelRadioGroup
     }
@@ -93,12 +94,12 @@ abstract class BaseRadioGroupFormField(
     }
 
     override fun setup() {
+        layoutParamsLabel.bottomMargin = DEFAULT_PADDING_RADIO_BUTTON
         tvLabel.text = labelText
-        addView(tvLabel, layoutParams)
+        addView(tvLabel, layoutParamsLabel)
         radioGroup = RadioGroup(context, attrs).apply {
             id = R.id.rgBase
         }
-
         radioGroup?.setOnCheckedChangeListener { _, checkedId ->
             selectables?.forEach { it.value = false }
 

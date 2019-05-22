@@ -8,6 +8,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/co/condorlabs/customcomponents/Constants.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/co/condorlabs/customcomponents/custombutton/CustomButton.kt">
           <value>
             <set />
@@ -19,6 +24,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/co/condorlabs/customcomponents/customedittext/BaseEditTextFormField.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/co/condorlabs/customcomponents/customedittext/CustomTextInputLayout.kt">
           <value>
             <set />
           </value>
@@ -38,12 +48,22 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/co/condorlabs/customcomponents/fileselectorview/FileSelectorField.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/co/condorlabs/customcomponents/formfield/FormField.kt">
           <value>
             <set />
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/co/condorlabs/customcomponents/helper/Constants.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/res/layout/base_edit_text_form_field.xml">
           <value>
             <set />
           </value>
@@ -88,6 +108,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/test/src/androidTest/java/co/condorlabs/customcomponents/test/CheckBoxFieldTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/test/src/androidTest/java/co/condorlabs/customcomponents/test/CustomButtonTest.kt">
           <value>
             <set />
@@ -99,6 +124,11 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/test/src/androidTest/java/co/condorlabs/customcomponents/test/RadioGroupFieldTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/src/androidTest/java/co/condorlabs/customcomponents/test/SignatureDialogTest.kt">
           <value>
             <set />
           </value>
@@ -119,6 +149,16 @@
           </value>
         </entry>
         <entry key="$PROJECT_DIR$/test/src/main/res/layout/activity_baseedittextfield_multiline_test.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/src/main/res/layout/activity_baseedittextfield_test.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/test/src/main/res/layout/activity_custom_button.xml">
           <value>
             <set />
           </value>
