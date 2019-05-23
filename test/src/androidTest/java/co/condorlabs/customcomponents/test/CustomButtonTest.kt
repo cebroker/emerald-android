@@ -3,11 +3,11 @@ package co.condorlabs.customcomponents.test
 import androidx.core.content.ContextCompat
 import androidx.test.filters.SmallTest
 import androidx.test.runner.AndroidJUnit4
+import co.condorlabs.customcomponents.custombutton.ButtonState
 import co.condorlabs.customcomponents.custombutton.CustomButton
 import co.condorlabs.customcomponents.custombutton.CustomButtonStyleFactory
 import org.junit.Assert
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -33,7 +33,10 @@ class CustomButtonTest : MockActivityTest() {
         val button = ruleActivity.activity.findViewById<CustomButton>(R.id.btn)
 
         // When
-        val backgroundColor = ContextCompat.getColor(ruleActivity.activity,buttonStyleFactory.getCustomColorFromType(button.getType()).backgroundColor)
+        val backgroundColor = ContextCompat.getColor(
+            ruleActivity.activity,
+            buttonStyleFactory.getCustomColorFromType(button.getType()).backgroundColor
+        )
 
         // Then
         Assert.assertEquals(expectedColor, backgroundColor)
@@ -52,7 +55,10 @@ class CustomButtonTest : MockActivityTest() {
         }
 
         // When
-        val backgroundColor = ContextCompat.getColor(ruleActivity.activity,buttonStyleFactory.getCustomColorFromType(button.getType()).backgroundColor)
+        val backgroundColor = ContextCompat.getColor(
+            ruleActivity.activity,
+            buttonStyleFactory.getCustomColorFromType(button.getType()).backgroundColor
+        )
 
         // Then
         Assert.assertEquals(expectedColor, backgroundColor)
@@ -71,7 +77,10 @@ class CustomButtonTest : MockActivityTest() {
         }
 
         // When
-        val backgroundColor = ContextCompat.getColor(ruleActivity.activity,buttonStyleFactory.getCustomColorFromType(button.getType()).backgroundColor)
+        val backgroundColor = ContextCompat.getColor(
+            ruleActivity.activity,
+            buttonStyleFactory.getCustomColorFromType(button.getType()).backgroundColor
+        )
 
         // Then
         Assert.assertEquals(expectedColor, backgroundColor)
@@ -90,7 +99,10 @@ class CustomButtonTest : MockActivityTest() {
         }
 
         // When
-        val backgroundColor = ContextCompat.getColor(ruleActivity.activity,buttonStyleFactory.getCustomColorFromType(button.getType()).backgroundColor)
+        val backgroundColor = ContextCompat.getColor(
+            ruleActivity.activity,
+            buttonStyleFactory.getCustomColorFromType(button.getType()).backgroundColor
+        )
 
         // Then
         Assert.assertEquals(expectedColor, backgroundColor)
@@ -109,7 +121,10 @@ class CustomButtonTest : MockActivityTest() {
         }
 
         // When
-        val backgroundColor = ContextCompat.getColor(ruleActivity.activity,buttonStyleFactory.getCustomColorFromType(button.getType()).backgroundColor)
+        val backgroundColor = ContextCompat.getColor(
+            ruleActivity.activity,
+            buttonStyleFactory.getCustomColorFromType(button.getType()).backgroundColor
+        )
 
         // Then
         Assert.assertEquals(expectedColor, backgroundColor)
@@ -128,9 +143,30 @@ class CustomButtonTest : MockActivityTest() {
         }
 
         // When
-        val backgroundColor = ContextCompat.getColor(ruleActivity.activity,buttonStyleFactory.getCustomColorFromType(button.getType()).backgroundColor)
+        val backgroundColor = ContextCompat.getColor(
+            ruleActivity.activity,
+            buttonStyleFactory.getCustomColorFromType(button.getType()).backgroundColor
+        )
 
         // Then
         Assert.assertEquals(expectedColor, backgroundColor)
+    }
+
+    @SmallTest
+    @Test
+    fun shouldShowProgressDialog() {
+        restartActivity()
+
+        //Given
+        val button = ruleActivity.activity.findViewById<CustomButton>(R.id.btn)
+
+        //When
+        ruleActivity.runOnUiThread {
+            button.changeState(ButtonState.Loading)
+        }
+
+        Thread.sleep(500)
+        //Then
+        Assert.assertTrue(button.text.isEmpty())
     }
 }
