@@ -111,11 +111,9 @@ internal class SignatureView (context: Context, attrs: AttributeSet) : View(cont
         val pixel = calculatePixel()
         paint.textSize = pixel
         paint.fontFeatureSettings = SIGNATURE_CANVAS_FONT
-
+        paint.textAlign = Paint.Align.LEFT
         canvas.drawText(SIGNATURE_INDICATOR, lineStartX, lineY - (pixel / 2), paint)
-
         paint.textAlign = Paint.Align.CENTER
-
         canvas.drawText(SIGNATURE_USE_YOUR_FINGER_TO_DRAW, (canvas.width / 2).toFloat(), lineY + (2 * pixel), paint)
         setUpPaint()
     }

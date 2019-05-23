@@ -125,5 +125,6 @@ class SpinnerFormField(
         val item = data.find { it.id == id }?.let { it } ?: return
         autoCompleteTextView?.setText(item.label, false)
         selectedItem = item
+        mValueChangeListener?.onValueChange(selectedItem)
     }
 }
