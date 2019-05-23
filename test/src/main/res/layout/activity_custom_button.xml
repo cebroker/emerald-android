@@ -12,6 +12,6 @@
                                                               app:layout_constraintEnd_toEndOf="parent"
                                                               android:text="Retake"
                                                               android:id="@+id/btn"
-                                                              app:type="success"
+                                                              app:type="default"
                                                               android:layout_height="wrap_content"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
