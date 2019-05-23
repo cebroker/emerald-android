@@ -44,14 +44,27 @@ import org.junit.Test
  */
 class SpinnerFormFieldTest : MockActivityTest() {
 
+    lateinit var data : SpinnerData
+    lateinit var data1: SpinnerData
+    lateinit var data2: SpinnerData
+    lateinit var spinnerDataList: ArrayList<SpinnerData>
+
     @Before
     fun setup() {
         MockActivity.layout = R.layout.activity_statespinnerformfield_test
+        initData()
+    }
+
+    private fun initData(){
+        data = SpinnerData("1", "Antioquia")
+        data1 = SpinnerData("2", "Cundinamarca")
+        data2 = SpinnerData("3", "Atlantico")
+        spinnerDataList = arrayListOf(data, data1, data2)
     }
 
     @SmallTest
     @Test
-    fun shouldDisplayLabel() {
+    fun shouldDisplayHint() {
         restartActivity()
 
         // Given
@@ -80,20 +93,17 @@ class SpinnerFormFieldTest : MockActivityTest() {
 
     @SmallTest
     @Test
-    fun shouldDisplayHint() {
+    fun shouldSelectAnItem() {
         MockActivity.layout = R.layout.activity_spinner_with_hint
         restartActivity()
 
         // Given
         val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
         val view = Espresso.onView(withId(R.id.actvBase))
-        val data = SpinnerData("1", "Antioquia")
-        val data1 = SpinnerData("2", "Cundinamarca")
-        val data3 = SpinnerData("3", "Atlantico")
 
         // When
         ruleActivity.runOnUiThread {
-            formField.setData(arrayListOf(data, data1, data3))
+            formField.setData(spinnerDataList)
         }
         view.perform(click())
         onData(
@@ -117,13 +127,10 @@ class SpinnerFormFieldTest : MockActivityTest() {
         // Given
         val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
         val view = Espresso.onView(withId(R.id.tlState))
-        val data = SpinnerData("1", "Antioquia")
-        val data1 = SpinnerData("2", "Cundinamarca")
-        val data3 = SpinnerData("3", "Atlantico")
 
         // When
         ruleActivity.runOnUiThread {
-            formField.setData(arrayListOf(data, data1, data3))
+            formField.setData(spinnerDataList)
         }
         view.perform(click())
         onData(
@@ -145,13 +152,10 @@ class SpinnerFormFieldTest : MockActivityTest() {
         // Given
         val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
         val view = Espresso.onView(withId(R.id.actvBase))
-        val data = SpinnerData("1", "Antioquia")
-        val data1 = SpinnerData("2", "Cundinamarca")
-        val data3 = SpinnerData("3", "Atlantico")
 
         // When
         ruleActivity.runOnUiThread {
-            formField.setData(arrayListOf(data, data1, data3))
+            formField.setData(spinnerDataList)
         }
         view.perform(click())
         onData(allOf(`is`(instanceOf(SpinnerData::class.java)), `is`(data1))).inRoot(RootMatchers.isPlatformPopup())
@@ -171,13 +175,10 @@ class SpinnerFormFieldTest : MockActivityTest() {
         val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
         val spinner = ruleActivity.activity.findViewById<AutoCompleteTextView>(R.id.actvBase)
         val view = Espresso.onView(withId(R.id.actvBase))
-        val data = SpinnerData("1", "Antioquia")
-        val data1 = SpinnerData("2", "Cundinamarca")
-        val data2 = SpinnerData("3", "Atlantico")
 
         // When
         ruleActivity.runOnUiThread {
-            formField.setData(arrayListOf(data, data1, data2))
+            formField.setData(spinnerDataList)
         }
         view.perform(click())
         onData(allOf(`is`(instanceOf(SpinnerData::class.java)), `is`(data1))).inRoot(RootMatchers.isPlatformPopup())
@@ -196,14 +197,11 @@ class SpinnerFormFieldTest : MockActivityTest() {
         // Given
         val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
         val error = String.format(MESSAGE_FORMAT_ERROR, "State")
-        val data = SpinnerData("1", "Antioquia")
-        val data1 = SpinnerData("2", "Cundinamarca")
-        val data2 = SpinnerData("3", "Atlantico")
 
         // When
         ruleActivity.runOnUiThread {
             formField.setIsRequired(true)
-            formField.setData(arrayListOf(data, data1, data2))
+            formField.setData(spinnerDataList)
         }
         val result = formField.isValid()
         val textInputLayout = formField.textInputLayout ?: throw NullPointerException()
@@ -227,13 +225,10 @@ class SpinnerFormFieldTest : MockActivityTest() {
         // Given
         val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
         val error = String.format(MESSAGE_FORMAT_ERROR, "State")
-        val data = SpinnerData("1", "Antioquia")
-        val data1 = SpinnerData("2", "Cundinamarca")
-        val data2 = SpinnerData("3", "Atlantico")
 
         // When
         ruleActivity.runOnUiThread {
-            formField.setData(arrayListOf(data, data1, data2))
+            formField.setData(spinnerDataList)
         }
         val result = formField.isValid()
         val textInputLayout = formField.textInputLayout ?: throw NullPointerException()
@@ -255,13 +250,10 @@ class SpinnerFormFieldTest : MockActivityTest() {
 
         // Given
         val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
-        val data = SpinnerData("1", "Antioquia")
-        val data1 = SpinnerData("2", "Cundinamarca")
-        val data2 = SpinnerData("3", "Atlantico")
 
         // When
         ruleActivity.runOnUiThread {
-            formField.setData(arrayListOf(data, data1, data2))
+            formField.setData(spinnerDataList)
         }
 
         val result = formField.isValid()
@@ -277,18 +269,15 @@ class SpinnerFormFieldTest : MockActivityTest() {
 
     @SmallTest
     @Test
-    fun shouldGetEmptyValueWithOutSelection() {
+    fun shouldGetEmptyValueWithoutSelection() {
         restartActivity()
 
         // Given
         val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
-        val data = SpinnerData("1", "Antioquia")
-        val data1 = SpinnerData("2", "Cundinamarca")
-        val data2 = SpinnerData("3", "Atlantico")
-
+        initData()
         // When
         ruleActivity.runOnUiThread {
-            formField.setData(arrayListOf(data, data1, data2))
+            formField.setData(spinnerDataList)
         }
         val result = formField.getValue()
 
@@ -307,13 +296,10 @@ class SpinnerFormFieldTest : MockActivityTest() {
         // Given
         val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
         val view = Espresso.onView(withId(R.id.actvBase))
-        val data = SpinnerData("1", "Antioquia")
-        val data1 = SpinnerData("2", "Cundinamarca")
-        val data2 = SpinnerData("3", "Atlantico")
 
         // When
         ruleActivity.runOnUiThread {
-            formField.setData(arrayListOf(data, data1, data2))
+            formField.setData(spinnerDataList)
         }
         view.perform(click())
         onData(
@@ -335,19 +321,16 @@ class SpinnerFormFieldTest : MockActivityTest() {
 
     @SmallTest
     @Test
-    fun shouldBeAbleToSelectAnSpinnerElement() {
+    fun shouldBeAbleToSelectASpinnerElement() {
         restartActivity()
 
         // Given
         val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
         val view = Espresso.onView(withId(R.id.actvBase))
-        val data = SpinnerData("1", "Antioquia")
-        val data1 = SpinnerData("2", "Cundinamarca")
-        val data2 = SpinnerData("3", "Atlantico")
 
         // When
         ruleActivity.runOnUiThread {
-            formField.setData(arrayListOf(data, data1, data2))
+            formField.setData(spinnerDataList)
             formField.setItemSelectedById(data2.id)
         }
 
@@ -367,9 +350,7 @@ class SpinnerFormFieldTest : MockActivityTest() {
         // Given
         val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
         val view = Espresso.onView(withId(R.id.actvBase))
-        val data = SpinnerData("1", "Antioquia")
-        val data1 = SpinnerData("2", "Cundinamarca")
-        val data2 = SpinnerData("3", "Atlantico")
+
         var result: SpinnerData? = null
         formField?.setValueChangeListener(object : ValueChangeListener<SpinnerData?> {
             override fun onValueChange(value: SpinnerData?) {
@@ -379,13 +360,9 @@ class SpinnerFormFieldTest : MockActivityTest() {
 
         // When
         ruleActivity.runOnUiThread {
-            formField.setData(arrayListOf(data, data1, data2))
+            formField.setData(spinnerDataList)
             formField.setItemSelectedById(data2.id)
         }
-
-        view.perform(click())
-        onData(allOf(`is`(instanceOf(SpinnerData::class.java)), `is`(data2))).inRoot(RootMatchers.isPlatformPopup())
-            .perform(click())
 
         // Then
         Assert.assertEquals(data2, result)
