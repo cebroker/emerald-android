@@ -28,6 +28,7 @@ Create a new instance in your layout
 | Return Type | Description |
 | -| - |
 |  Unit | *`fun setType(type: ButtonType)`* <br> Change the button type programatically|
+|  Unit | *`fun changeState(state: ButtonState)`* <br> Change the button state `Normal` or `Loading`|
 
 
 ## Examples
