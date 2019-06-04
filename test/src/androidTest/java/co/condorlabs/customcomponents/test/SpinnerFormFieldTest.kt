@@ -31,6 +31,7 @@ import androidx.test.filters.SmallTest
 import co.condorlabs.customcomponents.EMPTY
 import co.condorlabs.customcomponents.MESSAGE_FORMAT_ERROR
 import co.condorlabs.customcomponents.customedittext.ValueChangeListener
+import co.condorlabs.customcomponents.customspinner.CustomBaseInstantAutoCompleteTextView
 import co.condorlabs.customcomponents.customspinner.SpinnerData
 import co.condorlabs.customcomponents.customspinner.SpinnerFormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
@@ -44,7 +45,7 @@ import org.junit.Test
  */
 class SpinnerFormFieldTest : MockActivityTest() {
 
-    lateinit var data : SpinnerData
+    lateinit var data: SpinnerData
     lateinit var data1: SpinnerData
     lateinit var data2: SpinnerData
     lateinit var spinnerDataList: ArrayList<SpinnerData>
@@ -55,7 +56,7 @@ class SpinnerFormFieldTest : MockActivityTest() {
         initData()
     }
 
-    private fun initData(){
+    private fun initData() {
         data = SpinnerData("1", "Antioquia")
         data1 = SpinnerData("2", "Cundinamarca")
         data2 = SpinnerData("3", "Atlantico")
@@ -366,5 +367,75 @@ class SpinnerFormFieldTest : MockActivityTest() {
 
         // Then
         Assert.assertEquals(data2, result)
+    }
+
+    @SmallTest
+    @Test
+    fun shouldBeDisable() {
+        restartActivity()
+
+        // Given
+        val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
+        val view = Espresso.onView(withId(R.id.actvBase))
+
+        // When
+        ruleActivity.runOnUiThread {
+            formField.setData(spinnerDataList)
+        }
+        view.perform(click())
+        onData(
+            allOf(
+                `is`(instanceOf(SpinnerData::class.java)),
+                `is`(data2)
+            )
+        ).inRoot(RootMatchers.isPlatformPopup())
+            .perform(click())
+
+        formField.setIsEnable(false)
+
+        // Then
+        view.perform(click())
+        Espresso.onView(withText("Atlantico")).check(matches(not(isEnabled())))
+
+    }
+
+    @SmallTest
+    @Test
+    fun shouldBeEnable() {
+        restartActivity()
+
+        // Given
+        val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
+        val view = Espresso.onView(withId(R.id.actvBase))
+
+        // When
+        ruleActivity.runOnUiThread {
+            formField.setData(spinnerDataList)
+        }
+        view.perform(click())
+        onData(
+            allOf(
+                `is`(instanceOf(SpinnerData::class.java)),
+                `is`(data2)
+            )
+        ).inRoot(RootMatchers.isPlatformPopup())
+            .perform(click())
+
+        formField.setIsEnable(false)
+        Espresso.onView(withText("Atlantico")).check(matches(not(isEnabled())))
+        formField.setIsEnable(true)
+
+        view.perform(click())
+        onData(
+            allOf(
+                `is`(instanceOf(SpinnerData::class.java)),
+                `is`(data1)
+            )
+        ).inRoot(RootMatchers.isPlatformPopup())
+            .perform(click())
+
+        // Then
+        Espresso.onView(withText("Cundinamarca")).check(matches(isEnabled()))
+
     }
 }

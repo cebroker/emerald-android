@@ -48,6 +48,16 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/co/condorlabs/customcomponents/customspinner/BaseSpinnerFormField.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/app/src/main/java/co/condorlabs/customcomponents/customspinner/CustomBaseInstantAutoCompleteTextView.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/app/src/main/java/co/condorlabs/customcomponents/customspinner/SpinnerFormField.kt">
           <value>
             <set />
@@ -193,7 +203,52 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/data/src/main/java/com/evercheck/data/repositories/utils/SetupDataRepositoryImpl.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/dependencies.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/sonar.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/build.gradle">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/androidTest/java/com/evercheck/wallet/credentials/deacds/DeaCdsCertificationActivityTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/androidTest/java/com/evercheck/wallet/credentials/hospitalaffiliations/HospitalAffiliationsTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/androidTest/java/com/evercheck/wallet/support/hooks.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/java/com/evercheck/wallet/BaseCustomViewFragment.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/java/com/evercheck/wallet/credentials/CredentialsFragment.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/java/com/evercheck/wallet/credentials/credentialssummaryedit/CredentialsSummaryEditSectionItemViewHolder.kt">
           <value>
             <set />
           </value>
@@ -208,7 +263,122 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/java/com/evercheck/wallet/credentials/sections/providehospitalaffiliation/mappers/ViewHospitalAffiliationViewSummarySectionMapper.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/java/com/evercheck/wallet/credentials/sections/providehospitalaffiliation/mappers/ViewSummarySectionHospitalAffiliationMapper.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/java/com/evercheck/wallet/credentials/sections/providerdeacds/deacdsregister/adddeacdslicense/AddDeaCdsLicenseFragment.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/java/com/evercheck/wallet/credentials/sections/providerdeacds/deacdsregister/deacdsoptions/DeaCdsOptionsFragment.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/java/com/evercheck/wallet/credentials/sections/providerdemographics/demographicssteps/basicinfo/fewmore/FewMoreFragment.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/java/com/evercheck/wallet/credentials/sections/providerdemographics/edit/sections/basicInfo/DemographicsBasicInfoEditFragment.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/java/com/evercheck/wallet/credentials/sections/providerhealth/addhealth/healthsteps/ppdtbvaccine/information/PPDTBVaccineInformationFragment.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/java/com/evercheck/wallet/credentials/sections/providermembershipdues/add/addingfragment/AddMembershipDuesFragment.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/java/com/evercheck/wallet/credentials/sections/providerpracticelocations/sections/add/correspondence/CorrespondencePracticeLocationContract.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/java/com/evercheck/wallet/credentials/sections/providerpracticelocations/sections/add/correspondence/CorrespondencePracticeLocationFragment.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/java/com/evercheck/wallet/credentials/sections/providerpracticelocations/sections/add/correspondence/CorrespondencePracticeLocationPresenter.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/java/com/evercheck/wallet/credentials/sections/providerpracticelocations/sections/add/delegate/DelegatePracticeLocationContract.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/java/com/evercheck/wallet/credentials/sections/providerpracticelocations/sections/add/delegate/DelegatePracticeLocationFragment.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/java/com/evercheck/wallet/credentials/sections/providerpracticelocations/sections/add/delegate/DelegatePracticeLocationPresenter.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/java/com/evercheck/wallet/credentials/sections/providerpracticelocations/sections/add/details/PracticeLocationDetailsContract.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/java/com/evercheck/wallet/credentials/sections/providerpracticelocations/sections/add/details/PracticeLocationDetailsFragment.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/java/com/evercheck/wallet/credentials/sections/providerpracticelocations/sections/add/details/PracticeLocationDetailsPresenter.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/java/com/evercheck/wallet/credentials/sections/providerpracticelocations/sections/add/manager/ManagerPracticeLocationContract.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/java/com/evercheck/wallet/credentials/sections/providerpracticelocations/sections/add/manager/ManagerPracticeLocationFragment.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/java/com/evercheck/wallet/credentials/sections/providerpracticelocations/sections/add/manager/ManagerPracticeLocationPresenter.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/java/com/evercheck/wallet/login/fingerprintauth/FingerprintAuthenticationDialogFragment.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/java/com/evercheck/wallet/signup/wanderercreatepassword/WandererCreatePasswordFragment.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/java/com/evercheck/wallet/summaryedit/SummaryEditSectionItemViewHolder.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/java/com/evercheck/wallet/update/update_options/verifyinfodate/VerifyInfoPaperCardFragment.kt">
           <value>
             <set />
           </value>
@@ -228,7 +398,37 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/res/layout/fragment_correspondence_practice_location.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/res/layout/fragment_delegate_practice_location.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/res/layout/fragment_manager_practice_location.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/res/layout/fragment_practice_location_details.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/res/values/dimens.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/main/res/values/strings.xml">
+          <value>
+            <set />
+          </value>
+        </entry>
+        <entry key="$PROJECT_DIR$/../android-evercheck-wallet-2.0/wallet/src/test/java/com/evercheck/wallet/PracticeLocationTest.kt">
           <value>
             <set />
           </value>
