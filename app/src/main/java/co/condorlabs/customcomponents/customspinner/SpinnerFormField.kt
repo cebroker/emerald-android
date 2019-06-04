@@ -130,6 +130,6 @@ class SpinnerFormField(
 
     fun setIsEnable(enabled: Boolean) {
         textInputLayout?.isEnabled = enabled
-        (autoCompleteTextView as? CustomBaseInstantAutoCompleteTextView)?.setEnable(enabled)
+        (autoCompleteTextView as? CustomBaseInstantAutoCompleteTextView)?.setIsEnable(enabled)
     }
 }
