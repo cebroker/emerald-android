@@ -36,7 +36,7 @@ class CollapsibleView @JvmOverloads constructor(
 
     private var collapsibleViewId: Int = NO_ID
     private var requirementsHeight = ZERO
-    private var elementsAreCollapsing = false
+    private var elementsAreCollapsed = false
     private var collapseListener: OnCollapseListener? = null
     private var textHiddenState: String? = null
     private var textShowState: String? = null
@@ -261,13 +261,13 @@ class CollapsibleView @JvmOverloads constructor(
                 requirementsHeight = containerFrameLayout.measuredHeight
             }
 
-            if (elementsAreCollapsing) {
+            if (elementsAreCollapsed) {
                 updateContainerViewHeight()
                 rotateRowIndicator()
-                callOnCollapse(elementsAreCollapsing)
+                callOnCollapse(elementsAreCollapsed)
             }
 
-            updateFooterText(elementsAreCollapsing)
+            updateFooterText(elementsAreCollapsed)
 
             setOnClickListener { collapseElements(requirementsHeight) }
         }
@@ -282,7 +282,7 @@ class CollapsibleView @JvmOverloads constructor(
         )
 
         collapsibleViewId = typedArray.getResourceId(R.styleable.CollapsibleView_collapsibleContent, NO_ID)
-        elementsAreCollapsing = typedArray.getBoolean(R.styleable.CollapsibleView_startCollapsed, false)
+        elementsAreCollapsed = typedArray.getBoolean(R.styleable.CollapsibleView_startCollapsed, false)
         textHiddenState = typedArray.getString(R.styleable.CollapsibleView_collapsibleHiddenFooterText)
             ?: resources.getString(R.string.hide)
         textShowState = typedArray.getString(R.styleable.CollapsibleView_collapsibleShowFooterText)
@@ -297,15 +297,15 @@ class CollapsibleView @JvmOverloads constructor(
     }
 
     private fun collapseElements(requirementsHeight: Int) {
-        if (elementsAreCollapsing) {
+        if (elementsAreCollapsed) {
             collapseElements(ZERO, requirementsHeight, false)
         } else {
             collapseElements(requirementsHeight, ZERO, true)
         }
 
-        elementsAreCollapsing = !elementsAreCollapsing
+        elementsAreCollapsed = !elementsAreCollapsed
 
-        callOnCollapse(elementsAreCollapsing)
+        callOnCollapse(elementsAreCollapsed)
     }
 
     private fun collapseElements(from: Int, to: Int, isCollapsed: Boolean) {
@@ -369,12 +369,24 @@ class CollapsibleView @JvmOverloads constructor(
         sectionTagTextView.text = sectionTag
     }
 
+    fun getSectionTag(): String? {
+        return sectionTagTextView.text?.toString()
+    }
+
     fun setSectionTitle(sectionTitle: String?) {
         sectionTitleTextView.text = sectionTitle
     }
 
+    fun getSectionTitle(): String? {
+        return sectionTitleTextView.text?.toString()
+    }
+
     fun setSectionSubtitle(sectionSubtitle: String?) {
         sectionSubtitleTextView.text = sectionSubtitle
+    }
+
+    fun getSectionSubtitle(): String? {
+        return sectionSubtitleTextView.text?.toString()
     }
 
     fun setSectionHiddenFooterText(hiddenFooterText: String?) {
@@ -385,8 +397,10 @@ class CollapsibleView @JvmOverloads constructor(
         textShowState = showFooterText
     }
 
-    fun setStartCollapsed() {
-        elementsAreCollapsing = true
+    fun collapse() {
+        if (!elementsAreCollapsed) {
+            collapseElements(requirementsHeight)
+        }
     }
 
     fun setSectionFooterTextColor(footerTextColor: Int?) {

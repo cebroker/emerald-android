@@ -51,7 +51,7 @@ Create a new instance in your layout
 |  Unit | *`setSectionSubtitle(sectionSubtitle: String?)`* <br> Set subtitle text |
 |  Unit | *`setSectionHiddenFooterText(hiddenFooterText: String?)`* <br> Set footer text for hidden state |
 |  Unit | *`setSectionShowFooterText(showFooterText: String?)`* <br> Set footer text for show state |
-|  Unit | *`setStartCollapsed()`* <br> Start view in collapsed mode |
+|  Unit | *`collapse()`* <br> Start view in collapsed mode |
 |  Unit | *`setSectionFooterTextColor(footerTextColor: Int?)`* <br> Set footer text color |
 |  Unit | *`setSectionTagColor(footerTagColor: Int?)`* <br>  Set tag text color|
 |  Unit | *`setOnCollapseListener(collapseListener: OnCollapseListener?)`* <br> Set listener for changes between states |

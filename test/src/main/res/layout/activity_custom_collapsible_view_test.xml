@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#33AFAFAF">
+
+    <co.condorlabs.customcomponents.customcollapsibleview.CollapsibleView
+        android:id="@+id/collapsibleViewTest"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:collapsibleContent="@layout/activity_collapsible_content_view_test"
+        app:collapsibleSubtitle="Collapsible subtitle"
+        app:collapsibleTag="Collapsible tag"
+        app:collapsibleTitle="Collapsible title"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
