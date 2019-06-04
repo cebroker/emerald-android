@@ -28,4 +28,13 @@
     <item type="id" name="tvLabelRadioGroup"/>
     <item type="id" name="rgBase"/>
     <item type="id" name="etMonthYear"/>
+    <item type="id" name="tagId"/>
+    <item type="id" name="titleId"/>
+    <item type="id" name="subtitleId"/>
+    <item type="id" name="cardId"/>
+    <item type="id" name="lineSeparatorId" />
+    <item name="frameLayoutId" type="id" />
+    <item name="footerId" type="id" />
+    <item name="footerTextViewId" type="id" />
+    <item name="footerImageViewId" type="id" />
 </resources>

@@ -53,7 +53,8 @@
 
     <color name="gray_color_with_alpha">#55AAAAAA</color>
     <color name="blueFillColor">#42A5F5</color>
-    <color name="credentials_button_swipe_text_color">#FF42A5F5</color> 
+    <color name="credentials_button_swipe_text_color">#FF42A5F5</color>
     <color name="mtrl_textinput_default_box_stroke_color" tools:override="true">#4b5353</color>
 
+    <color name="background_line_separator_view">#44AFAFAF</color>
 </resources>

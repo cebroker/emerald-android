@@ -56,4 +56,8 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="lorem_ipsum">On the other hand, we denounce with righteous</string>
     <string name="lorem_ipsum_shorter">On the other hand hand</string>
+
+    <string name="empty">…</string>
+    <string name="hide">Hide</string>
+    <string name="show">Show</string>
 </resources>
