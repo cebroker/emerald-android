@@ -30,7 +30,7 @@ class CustomBaseInstantAutoCompleteTextView(context: Context, attrs: AttributeSe
         return super.onTouchEvent(event)
     }
 
-    fun setIsEnable(isEnable: Boolean) {
+    fun setEnable(isEnable: Boolean) {
         this.isEnable = isEnable
     }
 

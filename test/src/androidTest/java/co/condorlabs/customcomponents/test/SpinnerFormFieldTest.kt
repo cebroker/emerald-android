@@ -31,7 +31,6 @@ import androidx.test.filters.SmallTest
 import co.condorlabs.customcomponents.EMPTY
 import co.condorlabs.customcomponents.MESSAGE_FORMAT_ERROR
 import co.condorlabs.customcomponents.customedittext.ValueChangeListener
-import co.condorlabs.customcomponents.customspinner.CustomBaseInstantAutoCompleteTextView
 import co.condorlabs.customcomponents.customspinner.SpinnerData
 import co.condorlabs.customcomponents.customspinner.SpinnerFormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
@@ -391,7 +390,7 @@ class SpinnerFormFieldTest : MockActivityTest() {
         ).inRoot(RootMatchers.isPlatformPopup())
             .perform(click())
 
-        formField.setIsEnable(false)
+        formField.setEnable(false)
 
         // Then
         view.perform(click())
@@ -421,9 +420,9 @@ class SpinnerFormFieldTest : MockActivityTest() {
         ).inRoot(RootMatchers.isPlatformPopup())
             .perform(click())
 
-        formField.setIsEnable(false)
+        formField.setEnable(false)
         Espresso.onView(withText("Atlantico")).check(matches(not(isEnabled())))
-        formField.setIsEnable(true)
+        formField.setEnable(true)
 
         view.perform(click())
         onData(
