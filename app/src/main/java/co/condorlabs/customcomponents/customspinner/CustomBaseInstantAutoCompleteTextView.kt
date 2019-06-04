@@ -12,7 +12,7 @@ import android.widget.AutoCompleteTextView
 class CustomBaseInstantAutoCompleteTextView(context: Context, attrs: AttributeSet) :
     AutoCompleteTextView(context, attrs) {
 
-    private  var enable: Boolean = true
+    private var enable: Boolean = true
 
     init {
         isFocusable = false
@@ -23,17 +23,15 @@ class CustomBaseInstantAutoCompleteTextView(context: Context, attrs: AttributeSe
     }
 
     override fun onTouchEvent(event: MotionEvent?): Boolean {
-        return if (!enable) {
-            super.onTouchEvent(event)
-        } else {
+        if (enable) {
             performFiltering(text, 0)
             showDropDown()
-            super.onTouchEvent(event)
         }
+        return super.onTouchEvent(event)
     }
 
-    fun setEnable(boolean: Boolean){
-        enable = boolean
+    fun setEnable(enable: Boolean) {
+        this.enable = enable
     }
 
     override fun onFocusChanged(focused: Boolean, direction: Int, previouslyFocusedRect: Rect?) {
