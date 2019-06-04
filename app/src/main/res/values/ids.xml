@@ -33,8 +33,8 @@
     <item type="id" name="subtitleId"/>
     <item type="id" name="cardId"/>
     <item type="id" name="lineSeparatorId" />
-    <item name="frameLayoutId" type="id" />
-    <item name="footerId" type="id" />
-    <item name="footerTextViewId" type="id" />
-    <item name="footerImageViewId" type="id" />
+    <item type="id" name="frameLayoutId" />
+    <item type="id" name="footerId" />
+    <item type="id" name="footerTextViewId" />
+    <item type="id" name="footerImageViewId" />
 </resources>

@@ -206,44 +206,41 @@ class CollapsibleView @JvmOverloads constructor(
 
         ConstraintSet().apply {
             clone(this@CollapsibleView)
-
-            sectionTagTextView.let {
+            with(sectionTagTextView) {
                 connect(
-                    it.id,
+                    id,
                     ConstraintSet.START,
                     ConstraintSet.PARENT_ID,
                     ConstraintSet.START,
                     COLLAPSIBLE_TAG_MARGIN
                 )
-                connect(it.id, ConstraintSet.END, this@CollapsibleView.id, ConstraintSet.END, COLLAPSIBLE_TAG_MARGIN)
-                connect(it.id, ConstraintSet.TOP, this@CollapsibleView.id, ConstraintSet.TOP)
+                connect(id, ConstraintSet.END, this@CollapsibleView.id, ConstraintSet.END, COLLAPSIBLE_TAG_MARGIN)
+                connect(id, ConstraintSet.TOP, this@CollapsibleView.id, ConstraintSet.TOP)
             }
-
-            sectionCardView.let {
+            with(sectionCardView) {
                 connect(
-                    it.id,
+                    id,
                     ConstraintSet.TOP,
                     sectionTagTextView.id,
                     ConstraintSet.BOTTOM,
                     COLLAPSIBLE_CARD_VIEW_TOP_MARGIN
                 )
-                connect(it.id, ConstraintSet.BOTTOM, this@CollapsibleView.id, ConstraintSet.BOTTOM)
+                connect(id, ConstraintSet.BOTTOM, this@CollapsibleView.id, ConstraintSet.BOTTOM)
                 connect(
-                    it.id,
+                    id,
                     ConstraintSet.START,
                     ConstraintSet.PARENT_ID,
                     ConstraintSet.START,
                     COLLAPSIBLE_CARD_VIEW_START_MARGIN
                 )
                 connect(
-                    it.id,
+                    id,
                     ConstraintSet.END,
                     this@CollapsibleView.id,
                     ConstraintSet.END,
                     COLLAPSIBLE_CARD_VIEW_END_MARGIN
                 )
             }
-
             applyTo(this@CollapsibleView)
         }
 
