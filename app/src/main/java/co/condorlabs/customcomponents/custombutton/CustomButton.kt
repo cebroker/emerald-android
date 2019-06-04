@@ -1,10 +1,13 @@
 package co.condorlabs.customcomponents.custombutton
 
 import android.content.Context
+import android.graphics.Canvas
 import android.graphics.Typeface
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.widget.Button
 import co.condorlabs.customcomponents.*
+
 
 /**
  * @author Oscar Gallon on 2019-04-26.
@@ -13,6 +16,10 @@ class CustomButton(context: Context, attrs: AttributeSet) : Button(context, attr
 
     private var type: ButtonType = BUTTON_DEFAULT_TYPE
     private val customButtonStyleFactory = CustomButtonStyleFactory()
+    private var state: ButtonState = ButtonState.Normal
+    private var normalStateText: String? = null
+    private var loadingStateBackground: Drawable? = null
+    private var normalStateBackground: Drawable? = null
 
     init {
         val typedArray = context.obtainStyledAttributes(
@@ -37,6 +44,25 @@ class CustomButton(context: Context, attrs: AttributeSet) : Button(context, attr
         renderStyle()
     }
 
+    override fun draw(canvas: Canvas?) {
+        super.draw(canvas)
+        when (state) {
+            ButtonState.Loading -> {
+                background = loadingStateBackground
+                if (normalStateText == null) {
+                    normalStateText = text.toString()
+                }
+                text = EMPTY
+            }
+            else -> {
+                background = normalStateBackground
+                if (normalStateText != null) {
+                    text = normalStateText
+                }
+            }
+        }
+    }
+
     fun setType(type: ButtonType) {
         this.type = type
         setup()
@@ -44,15 +70,32 @@ class CustomButton(context: Context, attrs: AttributeSet) : Button(context, attr
 
     fun getType(): ButtonType = type
 
+    fun changeState(state: ButtonState) {
+        this.state = state
+        invalidate()
+    }
+
     private fun setup() {
         renderStyle()
         setFont()
     }
 
+    override fun invalidateDrawable(drawable: Drawable) {
+        super.invalidateDrawable(drawable)
+        if(state is  ButtonState.Loading){
+            invalidate()
+        }
+    }
+
     private fun renderStyle() {
-        val style = customButtonStyleFactory.getCustomColorFromType(type)
-        background = style.getBackground(context)
-        setTextColor(style.getTextColor(context))
+        customButtonStyleFactory.getCustomColorFromType(type).apply {
+            normalStateBackground = getBackground(context)
+            background = normalStateBackground
+            loadingStateBackground = getProgressDrawable(context, background).apply {
+                callback = this@CustomButton
+            }
+            setTextColor(getTextColor(context))
+        }
     }
 
     private fun setFont() {

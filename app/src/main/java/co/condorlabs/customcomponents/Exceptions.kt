@@ -15,3 +15,4 @@ class LoadingFragmentListGreaterThatLimitException: IndexOutOfBoundsException("L
 class MonthYearPickerDialogNotFoundException : NullPointerException()
 class SkeletonFragmentNoArgumentsProvidedException: RuntimeException()
 class SkeletonTypeNotSupportedException: RuntimeException("You should provide a valid skeleton type: [Completion]")
+class StyleNotFoundException: NullPointerException()
