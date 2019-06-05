@@ -419,10 +419,13 @@ class SpinnerFormFieldTest : MockActivityTest() {
         ).inRoot(RootMatchers.isPlatformPopup())
             .perform(click())
 
-        formField.setEnable(false)
+        ruleActivity.runOnUiThread {
+            formField.setEnable(false)
+        }
         Espresso.onView(withText("Atlantico")).check(matches(not(isEnabled())))
-        formField.setEnable(true)
-
+        ruleActivity.runOnUiThread {
+            formField.setEnable(true)
+        }
         view.perform(click())
         onData(
             allOf(
