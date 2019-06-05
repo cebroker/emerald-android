@@ -395,7 +395,6 @@ class SpinnerFormFieldTest : MockActivityTest() {
         // Then
         view.perform(click())
         Espresso.onView(withText("Atlantico")).check(matches(not(isEnabled())))
-
     }
 
     @SmallTest
@@ -435,6 +434,5 @@ class SpinnerFormFieldTest : MockActivityTest() {
 
         // Then
         Espresso.onView(withText("Cundinamarca")).check(matches(isEnabled()))
-
     }
 }
