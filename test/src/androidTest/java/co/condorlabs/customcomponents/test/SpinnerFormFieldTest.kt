@@ -390,7 +390,10 @@ class SpinnerFormFieldTest : MockActivityTest() {
         ).inRoot(RootMatchers.isPlatformPopup())
             .perform(click())
 
-        formField.setEnable(false)
+        ruleActivity.runOnUiThread {
+            formField.setEnable(false)
+        }
+
 
         // Then
         view.perform(click())
