@@ -1,21 +1,21 @@
 package co.condorlabs.customcomponents.test
 
+import androidx.appcompat.widget.AppCompatButton
+import androidx.test.filters.MediumTest
 import androidx.test.filters.SmallTest
-import androidx.test.runner.AndroidJUnit4
 import co.condorlabs.customcomponents.customcollapsibleview.CollapsibleView
+import co.condorlabs.customcomponents.test.util.clickWithText
 import co.condorlabs.customcomponents.test.util.isTextDisplayed
 import co.condorlabs.customcomponents.test.util.isTextNotDisplayed
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 
 /**
  * @author Alexis Duque on 2019-06-04.
  * @company Condor Labs
  * @email eduque@condorlabs.io
  */
-@RunWith(AndroidJUnit4::class)
 class CollapsibleViewTest : MockActivityTest() {
 
     @Before
@@ -26,40 +26,147 @@ class CollapsibleViewTest : MockActivityTest() {
 
     @SmallTest
     @Test
-    fun shouldShowCollapsibleTag() {
-        // Given
-        val collapsibleViewTest: CollapsibleView? = ruleActivity.activity.findViewById(R.id.collapsibleViewTest)
-
-        // Then
-        isTextDisplayed("Collapsible tag")
-        Assert.assertEquals("Collapsible tag", collapsibleViewTest?.getSectionTag())
-    }
-
-    @SmallTest
-    @Test
     fun shouldShowCollapsibleTitle() {
-        // Given
+        // given
         val collapsibleViewTest: CollapsibleView? = ruleActivity.activity.findViewById(R.id.collapsibleViewTest)
 
-        // Then
+        // then
         isTextDisplayed("Collapsible title")
-        Assert.assertEquals("Collapsible title", collapsibleViewTest?.getSectionTitle())
+        Assert.assertEquals("Collapsible title", collapsibleViewTest?.getTitle())
     }
 
     @SmallTest
     @Test
     fun shouldShowCollapsibleSubtitle() {
-        // Given
+        // given
         val collapsibleViewTest: CollapsibleView? = ruleActivity.activity.findViewById(R.id.collapsibleViewTest)
 
-        // Then
+        // then
         isTextDisplayed("Collapsible subtitle")
-        Assert.assertEquals("Collapsible subtitle", collapsibleViewTest?.getSectionSubtitle())
+        Assert.assertEquals("Collapsible subtitle", collapsibleViewTest?.getSubtitle())
     }
 
     @SmallTest
     @Test
-    fun shouldBeCollapsedWhenICallCollapsibleFunction() {
+    fun shouldShowCollapsibleHiddenFooterText() {
+        // given
+        val collapsibleViewTest: CollapsibleView? = ruleActivity.activity.findViewById(R.id.collapsibleViewTest)
+
+        // then
+        isTextDisplayed("Hide")
+        Assert.assertEquals("Hide", collapsibleViewTest?.getHiddenFooterText())
+    }
+
+    @MediumTest
+    @Test
+    fun shouldBeCollapsedWhenICallCollapseFunction() {
+        // given
+        collapseView()
+
+        // then
+        isTextNotDisplayed("BUTTON TEST")
+        isTextDisplayed("Show")
+    }
+
+    @SmallTest
+    @Test
+    fun shouldShowCollapsibleShowFooterTextWhenTheViewIsCollapse() {
+        // given
+        val collapsibleViewTest = collapseView()
+
+        // then
+        isTextDisplayed("Show")
+        Assert.assertEquals("Show", collapsibleViewTest?.getShowFooterText())
+    }
+
+    @MediumTest
+    @Test
+    fun shouldCollapseAndExpandTheContentWhenIsClicked() {
+        // given
+        collapseView()
+
+        // then
+        isTextNotDisplayed("BUTTON TEST")
+        clickWithText("Collapsible title")
+        isTextDisplayed("BUTTON TEST")
+    }
+
+    @MediumTest
+    @Test
+    fun shouldGetCollapsibleViewChildAndMakeClick() {
+        // given
+        val collapsibleViewTest: CollapsibleView? = ruleActivity.activity.findViewById(R.id.collapsibleViewTest)
+
+        // when
+        val buttonChild = collapsibleViewTest?.getContent() as? AppCompatButton
+        buttonChild?.performClick()
+
+        // then
+        buttonChild?.text = "BUTTON TEST"
+    }
+
+    @SmallTest
+    @Test
+    fun shouldSetSectionHiddenFooterText() {
+        // given
+        val collapsibleViewTest: CollapsibleView? = ruleActivity.activity.findViewById(R.id.collapsibleViewTest)
+
+        // when
+        collapsibleViewTest?.setHiddenFooterText("NEW HIDE TEXT")
+
+        // then
+        isTextDisplayed("NEW HIDE TEXT")
+        Assert.assertEquals("NEW HIDE TEXT", collapsibleViewTest?.getHiddenFooterText())
+    }
+
+    @SmallTest
+    @Test
+    fun shouldSetSectionShowFooterText() {
+        // given
+        val collapsibleViewTest: CollapsibleView? = ruleActivity.activity.findViewById(R.id.collapsibleViewTest)
+
+        // when
+        ruleActivity.runOnUiThread {
+            collapsibleViewTest?.apply {
+                setShowFooterText("NEW SHOW TEXT")
+                collapse()
+            }
+        }
+
+        // then
+        isTextDisplayed("NEW SHOW TEXT")
+        Assert.assertEquals("NEW SHOW TEXT", collapsibleViewTest?.getShowFooterText())
+    }
+
+    @SmallTest
+    @Test
+    fun shouldSetSectionSubtitle() {
+        // given
+        val collapsibleViewTest: CollapsibleView? = ruleActivity.activity.findViewById(R.id.collapsibleViewTest)
+
+        // when
+        collapsibleViewTest?.setSubtitle("NEW SUBTITLE")
+
+        // then
+        isTextDisplayed("NEW SUBTITLE")
+        Assert.assertEquals("NEW SUBTITLE", collapsibleViewTest?.getSubtitle())
+    }
+
+    @SmallTest
+    @Test
+    fun shouldSetSectionTitle() {
+        // given
+        val collapsibleViewTest: CollapsibleView? = ruleActivity.activity.findViewById(R.id.collapsibleViewTest)
+
+        // when
+        collapsibleViewTest?.setTitle("NEW TITLE")
+
+        // then
+        isTextDisplayed("NEW TITLE")
+        Assert.assertEquals("NEW TITLE", collapsibleViewTest?.getTitle())
+    }
+
+    private fun collapseView(): CollapsibleView? {
         // given
         val collapsibleViewTest = ruleActivity.activity.findViewById<CollapsibleView>(R.id.collapsibleViewTest)
 
@@ -69,6 +176,6 @@ class CollapsibleViewTest : MockActivityTest() {
         }
 
         // then
-        isTextNotDisplayed("SIRVE")
+        return collapsibleViewTest
     }
 }

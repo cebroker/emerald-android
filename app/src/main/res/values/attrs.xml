@@ -65,13 +65,13 @@
 
     <declare-styleable name="CollapsibleView">
         <attr name="collapsibleContent" format="reference" />
-        <attr name="collapsibleTag" format="string" />
         <attr name="collapsibleTitle" format="string" />
         <attr name="collapsibleSubtitle" format="string" />
         <attr name="collapsibleHiddenFooterText" format="string" />
         <attr name="collapsibleShowFooterText" format="string" />
         <attr name="startCollapsed" format="boolean" />
         <attr name="collapsibleFooterTextColor" format="color" />
-        <attr name="collapsibleTagColor" format="color" />
+        <attr name="useAppCompactPadding" format="boolean" />
+        <attr name="collapsibleIcon" format="reference" />
     </declare-styleable>
 </resources>

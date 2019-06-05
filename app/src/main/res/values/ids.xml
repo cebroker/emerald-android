@@ -29,6 +29,7 @@
     <item type="id" name="rgBase"/>
     <item type="id" name="etMonthYear"/>
     <item type="id" name="tagId"/>
+    <item type="id" name="iconImageId"/>
     <item type="id" name="titleId"/>
     <item type="id" name="subtitleId"/>
     <item type="id" name="cardId"/>

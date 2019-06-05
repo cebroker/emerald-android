@@ -14,12 +14,12 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.FrameLayout
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
-import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.MATCH_CONSTRAINT_WRAP
 import androidx.constraintlayout.widget.ConstraintSet
 import co.condorlabs.customcomponents.*
 
@@ -40,7 +40,7 @@ class CollapsibleView @JvmOverloads constructor(
     private var collapseListener: OnCollapseListener? = null
     private var textHiddenState: String? = null
     private var textShowState: String? = null
-    private var sectionTagTextView = AppCompatTextView(context).apply { id = R.id.tagId }
+    private var iconImageView = AppCompatImageView(context).apply { id = R.id.iconImageId }
     private var sectionTitleTextView = AppCompatTextView(context).apply { id = R.id.titleId }
     private var sectionSubtitleTextView = AppCompatTextView(context).apply { id = R.id.subtitleId }
     private var sectionCardView = CardView(context).apply { id = R.id.cardId }
@@ -57,41 +57,38 @@ class CollapsibleView @JvmOverloads constructor(
             val selectableItemBackground = typedArray.getResourceId(ZERO, ZERO)
             typedArray.recycle()
 
-            this.foreground = context.getDrawable(selectableItemBackground)
+            sectionConstraintLayout.foreground = context.getDrawable(selectableItemBackground)
         }
 
         isClickable = true
         isFocusable = true
         setPadding(ZERO, DEFAULT_COLLAPSIBLE_PADDING, ZERO, DEFAULT_COLLAPSIBLE_PADDING)
-        addView(sectionTagTextView)
         addView(sectionCardView)
-
-        sectionTagTextView.apply {
-            layoutParams = LayoutParams(
-                MATCH_CONSTRAINT,
-                LinearLayout.LayoutParams.WRAP_CONTENT
-            )
-            typeface = Typeface.DEFAULT_BOLD
-        }
 
         sectionCardView.apply {
             layoutParams = LayoutParams(
                 LayoutParams.MATCH_PARENT,
                 LayoutParams.WRAP_CONTENT
-            ).apply {
-                useCompatPadding = true
-            }
+            )
             radius = ZERO_FLOAT
             addView(sectionConstraintLayout)
         }
 
         sectionConstraintLayout.apply {
             setPadding(COLLAPSIBLE_PADDING_START, DEFAULT_COLLAPSIBLE_PADDING, COLLAPSIBLE_PADDING_END, ZERO)
+            addView(iconImageView)
             addView(sectionTitleTextView)
             addView(sectionSubtitleTextView)
             addView(lineSeparatorView)
             addView(containerFrameLayout)
             addView(footerConstraintLayout)
+        }
+
+        iconImageView.apply {
+            layoutParams = LayoutParams(
+                DEFAULT_ICON_WIDTH,
+                DEFAULT_ICON_HEIGHT
+            )
         }
 
         sectionTitleTextView.apply {
@@ -114,9 +111,9 @@ class CollapsibleView @JvmOverloads constructor(
         lineSeparatorView.apply {
             layoutParams = LayoutParams(
                 MATCH_CONSTRAINT,
-                MATCH_CONSTRAINT_WRAP
+                LINE_SEPARATOR_HEIGHT
             )
-            setBackgroundResource(R.color.background_line_separator_view)
+            setBackgroundResource(R.color.field_border_color)
         }
 
         containerFrameLayout.apply {
@@ -155,10 +152,10 @@ class CollapsibleView @JvmOverloads constructor(
         ConstraintSet().apply {
             clone(footerConstraintLayout)
             with(footerTextTextView) {
-                connect(id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
+                connect(id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 24)
                 connect(id, ConstraintSet.END, footerIndicatorImageView.id, ConstraintSet.START)
                 connect(id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
-                connect(id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
+                connect(id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, 24)
             }
             with(footerIndicatorImageView) {
                 connect(id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
@@ -170,8 +167,12 @@ class CollapsibleView @JvmOverloads constructor(
 
         ConstraintSet().apply {
             clone(sectionConstraintLayout)
-            with(sectionTitleTextView) {
+            with(iconImageView) {
                 connect(id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
+                connect(id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
+            }
+            with(sectionTitleTextView) {
+                connect(id, ConstraintSet.START, iconImageView.id, ConstraintSet.END, 16)
                 connect(id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
                 connect(id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
             }
@@ -179,7 +180,7 @@ class CollapsibleView @JvmOverloads constructor(
                 connect(id, ConstraintSet.BOTTOM, lineSeparatorView.id, ConstraintSet.TOP, DEFAULT_COLLAPSIBLE_MARGIN)
                 connect(id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
                 connect(id, ConstraintSet.START, sectionTitleTextView.id, ConstraintSet.START)
-                connect(id, ConstraintSet.TOP, sectionTitleTextView.id, ConstraintSet.BOTTOM)
+                connect(id, ConstraintSet.TOP, sectionTitleTextView.id, ConstraintSet.BOTTOM, 8)
             }
             with(lineSeparatorView) {
                 connect(
@@ -198,7 +199,7 @@ class CollapsibleView @JvmOverloads constructor(
             }
             with(footerConstraintLayout) {
                 connect(id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
-                connect(id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
+                connect(id, ConstraintSet.START, sectionTitleTextView.id, ConstraintSet.START)
                 connect(id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
             }
             applyTo(sectionConstraintLayout)
@@ -206,24 +207,13 @@ class CollapsibleView @JvmOverloads constructor(
 
         ConstraintSet().apply {
             clone(this@CollapsibleView)
-            with(sectionTagTextView) {
-                connect(
-                    id,
-                    ConstraintSet.START,
-                    ConstraintSet.PARENT_ID,
-                    ConstraintSet.START,
-                    COLLAPSIBLE_TAG_MARGIN
-                )
-                connect(id, ConstraintSet.END, this@CollapsibleView.id, ConstraintSet.END, COLLAPSIBLE_TAG_MARGIN)
-                connect(id, ConstraintSet.TOP, this@CollapsibleView.id, ConstraintSet.TOP)
-            }
+
             with(sectionCardView) {
                 connect(
                     id,
                     ConstraintSet.TOP,
-                    sectionTagTextView.id,
-                    ConstraintSet.BOTTOM,
-                    COLLAPSIBLE_CARD_VIEW_TOP_MARGIN
+                    ConstraintSet.PARENT_ID,
+                    ConstraintSet.BOTTOM
                 )
                 connect(id, ConstraintSet.BOTTOM, this@CollapsibleView.id, ConstraintSet.BOTTOM)
                 connect(
@@ -253,7 +243,7 @@ class CollapsibleView @JvmOverloads constructor(
         if (collapsibleViewId != NO_ID) {
             (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as? LayoutInflater)
                 ?.inflate(collapsibleViewId, null, false)?.let {
-                    setCollapsibleContent(it)
+                    setContent(it)
                 }
 
             (context as? AppCompatActivity)?.windowManager?.defaultDisplay?.let { display ->
@@ -281,17 +271,18 @@ class CollapsibleView @JvmOverloads constructor(
             DEFAULT_STYLE_RES
         )
 
+
+        setImage(typedArray.getResourceId(R.styleable.CollapsibleView_collapsibleIcon, NO_ID))
+        sectionCardView.useCompatPadding = typedArray.getBoolean(R.styleable.CollapsibleView_useAppCompactPadding, true)
         collapsibleViewId = typedArray.getResourceId(R.styleable.CollapsibleView_collapsibleContent, NO_ID)
         elementsAreCollapsed = typedArray.getBoolean(R.styleable.CollapsibleView_startCollapsed, false)
         textHiddenState = typedArray.getString(R.styleable.CollapsibleView_collapsibleHiddenFooterText)
             ?: resources.getString(R.string.hide)
         textShowState = typedArray.getString(R.styleable.CollapsibleView_collapsibleShowFooterText)
             ?: resources.getString(R.string.show)
-        setSectionTag(typedArray.getString(R.styleable.CollapsibleView_collapsibleTag))
-        setSectionTitle(typedArray.getString(R.styleable.CollapsibleView_collapsibleTitle))
-        setSectionSubtitle(typedArray.getString(R.styleable.CollapsibleView_collapsibleSubtitle))
-        setSectionFooterTextColor(typedArray.getColor(R.styleable.CollapsibleView_collapsibleFooterTextColor, NO_ID))
-        setSectionTagColor(typedArray.getColor(R.styleable.CollapsibleView_collapsibleTagColor, NO_ID))
+        setTitle(typedArray.getString(R.styleable.CollapsibleView_collapsibleTitle))
+        setSubtitle(typedArray.getString(R.styleable.CollapsibleView_collapsibleSubtitle))
+        setFooterTextColor(typedArray.getColor(R.styleable.CollapsibleView_collapsibleFooterTextColor, NO_ID))
 
         typedArray.recycle()
     }
@@ -353,11 +344,21 @@ class CollapsibleView @JvmOverloads constructor(
         footerTextTextView.text = if (isCollapsed) textShowState else textHiddenState
     }
 
-    fun setCollapsibleContent(collapsibleContent: View) {
+    fun setImage(imageIconResourceId: Int) {
+        if (imageIconResourceId != NO_ID) {
+            val imageDrawableResource = AppCompatResources.getDrawable(context, imageIconResourceId)
+            iconImageView.setImageDrawable(imageDrawableResource)
+            iconImageView.visibility = View.VISIBLE
+        } else {
+            iconImageView.visibility = View.GONE
+        }
+    }
+
+    fun setContent(collapsibleContent: View) {
         containerFrameLayout.addView(collapsibleContent)
     }
 
-    fun getCollapsibleContent(): View? {
+    fun getContent(): View? {
         return if (containerFrameLayout.childCount > ZERO) {
             containerFrameLayout.getChildAt(ZERO)
         } else {
@@ -365,53 +366,43 @@ class CollapsibleView @JvmOverloads constructor(
         }
     }
 
-    fun setSectionTag(sectionTag: String?) {
-        sectionTagTextView.text = sectionTag
-    }
-
-    fun getSectionTag(): String? {
-        return sectionTagTextView.text?.toString()
-    }
-
-    fun setSectionTitle(sectionTitle: String?) {
+    fun setTitle(sectionTitle: String?) {
         sectionTitleTextView.text = sectionTitle
     }
 
-    fun getSectionTitle(): String? {
+    fun getTitle(): String? {
         return sectionTitleTextView.text?.toString()
     }
 
-    fun setSectionSubtitle(sectionSubtitle: String?) {
+    fun setSubtitle(sectionSubtitle: String?) {
         sectionSubtitleTextView.text = sectionSubtitle
     }
 
-    fun getSectionSubtitle(): String? {
+    fun getSubtitle(): String? {
         return sectionSubtitleTextView.text?.toString()
     }
 
-    fun setSectionHiddenFooterText(hiddenFooterText: String?) {
+    fun setHiddenFooterText(hiddenFooterText: String?) {
         textHiddenState = hiddenFooterText
+        updateFooterText(elementsAreCollapsed)
     }
 
-    fun setSectionShowFooterText(showFooterText: String?) {
+    fun getHiddenFooterText(): String? {
+        return textHiddenState
+    }
+
+    fun setShowFooterText(showFooterText: String?) {
         textShowState = showFooterText
+        updateFooterText(elementsAreCollapsed)
     }
 
-    fun collapse() {
-        if (!elementsAreCollapsed) {
-            collapseElements(requirementsHeight)
-        }
+    fun getShowFooterText(): String? {
+        return textShowState
     }
 
-    fun setSectionFooterTextColor(footerTextColor: Int?) {
+    fun setFooterTextColor(footerTextColor: Int?) {
         if (footerTextColor != null && footerTextColor != NO_ID) {
             footerTextTextView.setTextColor(footerTextColor)
-        }
-    }
-
-    fun setSectionTagColor(footerTagColor: Int?) {
-        if (footerTagColor != null && footerTagColor != NO_ID) {
-            sectionTagTextView.setTextColor(footerTagColor)
         }
     }
 
@@ -421,6 +412,16 @@ class CollapsibleView @JvmOverloads constructor(
 
     fun callOnCollapse(isCollapsed: Boolean): Boolean {
         return collapseListener?.let { it.onCollapse(isCollapsed); true } ?: false
+    }
+
+    fun startCollapsed() {
+        elementsAreCollapsed = true
+    }
+
+    fun collapse() {
+        if (!elementsAreCollapsed) {
+            collapseElements(requirementsHeight)
+        }
     }
 
     /**

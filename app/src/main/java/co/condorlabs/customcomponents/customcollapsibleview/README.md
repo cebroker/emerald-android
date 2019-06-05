@@ -2,9 +2,9 @@
 Provides a collapsible view with the style
 
 ## Anatomy
-<img src="/Images/customcollapsibleview/collapsible_anatomy.png" width="400" heigth="400"/>
+<img src="/Images/customcollapsibleview/collapsible_view_anatomy.png" width="400" heigth="400"/>
 
-1. Tag
+1. Icon
 2. Title
 3. Subtitle
 4. View collapsible
@@ -24,7 +24,6 @@ Create a new instance in your layout
         app:collapsibleHiddenFooterText="Hide"
         app:collapsibleShowFooterText="Show"
         app:collapsibleSubtitle="Collapsible Subtitle"
-        app:collapsibleTag="Collapsible Tag"
         app:collapsibleTitle="Collapsible Title" />
 ```
 
@@ -32,30 +31,34 @@ Create a new instance in your layout
 | Name | Description  |
 | - | - |
 | collapsibleContent | add the layout resource file to collapse |
-| collapsibleTag | the label for the collapsible view |
 | collapsibleTitle | the title for the collapsible view |
 | collapsibleSubtitle | the subtitle for the collapsible view |
 | collapsibleHiddenFooterText | the text of the footer when the view is collapsed |
 | collapsibleShowFooterText | the text of the footer when the view is displayed |
 | startCollapsed | start collapsed view when this attribute is `true` |
 | collapsibleFooterTextColor | the text color of the footer |
-| collapsibleTagColor | the text color of the tag |
+| useAppCompactPadding | use compact padding |
+| collapsibleIcon | the collapsing icon |
 
 ## Public methods
 | Return Type | Description |
 | -| - |
-|  Unit | *`fun setCollapsibleContent(collapsibleContent: View)`* <br> Add the collapsible view to the container |
-|  View? | *`getCollapsibleContent()`* <br> Get collapsible view from the container |
-|  Unit | *`setSectionTag(sectionTag: String?)`* <br> Set tag text |
-|  Unit | *`setSectionTitle(sectionTitle: String?)`* <br> Set title text |
-|  Unit | *`setSectionSubtitle(sectionSubtitle: String?)`* <br> Set subtitle text |
-|  Unit | *`setSectionHiddenFooterText(hiddenFooterText: String?)`* <br> Set footer text for hidden state |
-|  Unit | *`setSectionShowFooterText(showFooterText: String?)`* <br> Set footer text for show state |
-|  Unit | *`collapse()`* <br> Start view in collapsed mode |
-|  Unit | *`setSectionFooterTextColor(footerTextColor: Int?)`* <br> Set footer text color |
-|  Unit | *`setSectionTagColor(footerTagColor: Int?)`* <br>  Set tag text color|
-|  Unit | *`setOnCollapseListener(collapseListener: OnCollapseListener?)`* <br> Set listener for changes between states |
-|  Boolean | *`callOnCollapse(isCollapsed: Boolean)`* <br> Call listener event |
+|  Unit | *`fun setImage(imageIconResourceId: Int)`* <br> . |
+|  Unit | *`fun setContent(collapsibleContent: View)`* <br> . |
+|  View? | *`fun getContent()`* <br> . |
+|  Unit | *`fun setTitle(sectionTitle: String?)`* <br> . |
+|  String? | *`fun getTitle()`* <br> . |
+|  Unit | *`fun setSubtitle(sectionSubtitle: String?)`* <br> . |
+|  String? | *`fun getSubtitle()`* <br> . |
+|  Unit | *`fun setHiddenFooterText(hiddenFooterText: String?)`* <br> . |
+|  String? | *`fun getHiddenFooterText()`* <br> . |
+|  Unit | *`fun setShowFooterText(showFooterText: String?)`* <br> . |
+|  String? | *`fun getShowFooterText()`* <br> . |
+|  Unit | *`fun setFooterTextColor(footerTextColor: Int?)`* <br> . |
+|  Unit | *`fun setOnCollapseListener(collapseListener: OnCollapseListener?)`* <br> . |
+|  Boolean | *`fun callOnCollapse(isCollapsed: Boolean)`* <br> . |
+|  Unit | *`fun startCollapsed()`* <br> . |
+|  Unit | *`fun collapse()`* <br> . |
 
 ## Examples
-<img src="/Images/customcollapsibleview/collapsible_view.gif" width="400" heigth="400"/>
+<img src="/Images/customcollapsibleview/collapsible_animation.gif" width="400" heigth="400"/>
