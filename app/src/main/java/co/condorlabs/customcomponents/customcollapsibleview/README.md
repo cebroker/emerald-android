@@ -38,27 +38,27 @@ Create a new instance in your layout
 | startCollapsed | start collapsed view when this attribute is `true` |
 | collapsibleFooterTextColor | the text color of the footer |
 | useAppCompactPadding | use compact padding |
-| collapsibleIcon | the collapsing icon |
+| collapsibleIcon | the collapsible icon |
 
 ## Public methods
 | Return Type | Description |
 | -| - |
-|  Unit | *`fun setImage(imageIconResourceId: Int)`* <br> . |
-|  Unit | *`fun setContent(collapsibleContent: View)`* <br> . |
-|  View? | *`fun getContent()`* <br> . |
-|  Unit | *`fun setTitle(sectionTitle: String?)`* <br> . |
-|  String? | *`fun getTitle()`* <br> . |
-|  Unit | *`fun setSubtitle(sectionSubtitle: String?)`* <br> . |
-|  String? | *`fun getSubtitle()`* <br> . |
-|  Unit | *`fun setHiddenFooterText(hiddenFooterText: String?)`* <br> . |
-|  String? | *`fun getHiddenFooterText()`* <br> . |
-|  Unit | *`fun setShowFooterText(showFooterText: String?)`* <br> . |
-|  String? | *`fun getShowFooterText()`* <br> . |
-|  Unit | *`fun setFooterTextColor(footerTextColor: Int?)`* <br> . |
-|  Unit | *`fun setOnCollapseListener(collapseListener: OnCollapseListener?)`* <br> . |
-|  Boolean | *`fun callOnCollapse(isCollapsed: Boolean)`* <br> . |
-|  Unit | *`fun startCollapsed()`* <br> . |
-|  Unit | *`fun collapse()`* <br> . |
+|  Unit | *`fun setImage(imageIconResourceId: Int)`* <br> Add an image icon |
+|  Unit | *`fun setContent(collapsibleContent: View)`* <br> Add view to collapse |
+|  View? | *`fun getContent()`* <br> Get view |
+|  Unit | *`fun setTitle(sectionTitle: String?)`* <br> Set title |
+|  String? | *`fun getTitle()`* <br> Get subtitle |
+|  Unit | *`fun setSubtitle(sectionSubtitle: String?)`* <br> Set subtitle |
+|  String? | *`fun getSubtitle()`* <br> Get subtitle |
+|  Unit | *`fun setHiddenFooterText(hiddenFooterText: String?)`* <br> Set text when the view is collapsed |
+|  String? | *`fun getHiddenFooterText()`* <br> Get hide text |
+|  Unit | *`fun setShowFooterText(showFooterText: String?)`* <br> Set text when the view is displayed |
+|  String? | *`fun getShowFooterText()`* <br> Get show text |
+|  Unit | *`fun setFooterTextColor(footerTextColor: Int?)`* <br> Set color to footer text |
+|  Unit | *`fun setOnCollapseListener(collapseListener: OnCollapseListener?)`* <br> Add listener to collapse event |
+|  Boolean | *`fun callOnCollapse(isCollapsed: Boolean)`* <br> Call OnCollapse event when the view is collapse or expanded |
+|  Unit | *`fun startCollapsed()`* <br> Init the view in collapse mode |
+|  Unit | *`fun collapse()`* <br> Collapse the view |
 
 ## Examples
 <img src="/Images/customcollapsibleview/collapsible_animation.gif" width="400" heigth="400"/>
