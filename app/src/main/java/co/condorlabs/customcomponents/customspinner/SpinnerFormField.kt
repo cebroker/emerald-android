@@ -127,4 +127,9 @@ class SpinnerFormField(
         selectedItem = item
         mValueChangeListener?.onValueChange(selectedItem)
     }
+
+    fun setEnable(isEnable: Boolean) {
+        textInputLayout?.isEnabled = isEnable
+        (autoCompleteTextView as? CustomBaseInstantAutoCompleteTextView)?.setEnable(isEnable)
+    }
 }
