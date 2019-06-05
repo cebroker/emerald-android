@@ -40,6 +40,7 @@ class CollapsibleView @JvmOverloads constructor(
     private var collapseListener: OnCollapseListener? = null
     private var textHiddenState: String? = null
     private var textShowState: String? = null
+
     private var iconImageView = AppCompatImageView(context).apply { id = R.id.iconImageId }
     private var sectionTitleTextView = AppCompatTextView(context).apply { id = R.id.titleId }
     private var sectionSubtitleTextView = AppCompatTextView(context).apply { id = R.id.subtitleId }
@@ -86,8 +87,8 @@ class CollapsibleView @JvmOverloads constructor(
 
         iconImageView.apply {
             layoutParams = LayoutParams(
-                DEFAULT_ICON_WIDTH,
-                DEFAULT_ICON_HEIGHT
+                DEFAULT_COLLAPSIBLE_ICON_WIDTH,
+                DEFAULT_COLLAPSIBLE_ICON_HEIGHT
             )
         }
 
@@ -111,7 +112,7 @@ class CollapsibleView @JvmOverloads constructor(
         lineSeparatorView.apply {
             layoutParams = LayoutParams(
                 MATCH_CONSTRAINT,
-                LINE_SEPARATOR_HEIGHT
+                COLLAPSIBLE_LINE_SEPARATOR_HEIGHT
             )
             setBackgroundResource(R.color.field_border_color)
         }
@@ -152,10 +153,10 @@ class CollapsibleView @JvmOverloads constructor(
         ConstraintSet().apply {
             clone(footerConstraintLayout)
             with(footerTextTextView) {
-                connect(id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, 24)
+                connect(id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, DEFAULT_COLLAPSIBLE_MARGIN_FOOTER_TEXT)
                 connect(id, ConstraintSet.END, footerIndicatorImageView.id, ConstraintSet.START)
                 connect(id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
-                connect(id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, 24)
+                connect(id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, DEFAULT_COLLAPSIBLE_MARGIN_FOOTER_TEXT)
             }
             with(footerIndicatorImageView) {
                 connect(id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
@@ -172,7 +173,7 @@ class CollapsibleView @JvmOverloads constructor(
                 connect(id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
             }
             with(sectionTitleTextView) {
-                connect(id, ConstraintSet.START, iconImageView.id, ConstraintSet.END, 16)
+                connect(id, ConstraintSet.START, iconImageView.id, ConstraintSet.END, DEFAULT_COLLAPSIBLE_MARGIN)
                 connect(id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
                 connect(id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
             }
@@ -180,7 +181,7 @@ class CollapsibleView @JvmOverloads constructor(
                 connect(id, ConstraintSet.BOTTOM, lineSeparatorView.id, ConstraintSet.TOP, DEFAULT_COLLAPSIBLE_MARGIN)
                 connect(id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
                 connect(id, ConstraintSet.START, sectionTitleTextView.id, ConstraintSet.START)
-                connect(id, ConstraintSet.TOP, sectionTitleTextView.id, ConstraintSet.BOTTOM, 8)
+                connect(id, ConstraintSet.TOP, sectionTitleTextView.id, ConstraintSet.BOTTOM, DEFAULT_COLLAPSIBLE_SUBTITLE_TOP_MARGIN)
             }
             with(lineSeparatorView) {
                 connect(
@@ -270,7 +271,6 @@ class CollapsibleView @JvmOverloads constructor(
             DEFAULT_STYLE_ATTR,
             DEFAULT_STYLE_RES
         )
-
 
         setImage(typedArray.getResourceId(R.styleable.CollapsibleView_collapsibleIcon, NO_ID))
         sectionCardView.useCompatPadding = typedArray.getBoolean(R.styleable.CollapsibleView_useAppCompactPadding, true)
