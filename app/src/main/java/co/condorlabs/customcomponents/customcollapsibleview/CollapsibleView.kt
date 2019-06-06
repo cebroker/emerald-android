@@ -97,7 +97,7 @@ class CollapsibleView @JvmOverloads constructor(
                 MATCH_CONSTRAINT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
-            typeface = Typeface.DEFAULT_BOLD
+            typeface = Typeface.createFromAsset(context.assets, OPEN_SANS_SEMI_BOLD)
             setTextColor(Color.BLACK)
             setTextSize(TypedValue.COMPLEX_UNIT_SP, DEFAULT_COLLAPSIBLE_TITLE_TEXT_SIZE)
         }
@@ -443,15 +443,8 @@ class CollapsibleView @JvmOverloads constructor(
         }
     }
 
-    /**
-     * Interface definition for a callback to be invoked when a collapsible view is collapsed.
-     */
     interface OnCollapseListener {
-        /**
-         * Called when a collapsible view has been collapsed.
-         *
-         * @param isCollapsed The Boolean that indicates if the view is collapsed.
-         */
+
         fun onCollapse(isCollapsed: Boolean)
     }
 }
