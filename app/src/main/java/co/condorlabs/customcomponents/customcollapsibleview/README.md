@@ -56,7 +56,6 @@ Create a new instance in your layout
 |  String? | *`fun getShowFooterText()`* <br> Get show text |
 |  Unit | *`fun setFooterTextColor(footerTextColor: Int?)`* <br> Set color to footer text |
 |  Unit | *`fun setOnCollapseListener(collapseListener: OnCollapseListener?)`* <br> Add listener to collapse event |
-|  Boolean | *`fun callOnCollapse(isCollapsed: Boolean)`* <br> Call OnCollapse event when the view is collapse or expanded |
 |  Unit | *`fun startCollapsed()`* <br> Init the view in collapse mode |
 |  Unit | *`fun collapse()`* <br> Collapse the view |
 

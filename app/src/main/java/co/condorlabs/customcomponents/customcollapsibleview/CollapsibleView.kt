@@ -7,6 +7,7 @@ import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Build
 import android.util.AttributeSet
+import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
@@ -40,7 +41,6 @@ class CollapsibleView @JvmOverloads constructor(
     private var collapseListener: OnCollapseListener? = null
     private var textHiddenState: String? = null
     private var textShowState: String? = null
-
     private var iconImageView = AppCompatImageView(context).apply { id = R.id.iconImageId }
     private var sectionTitleTextView = AppCompatTextView(context).apply { id = R.id.titleId }
     private var sectionSubtitleTextView = AppCompatTextView(context).apply { id = R.id.subtitleId }
@@ -153,10 +153,22 @@ class CollapsibleView @JvmOverloads constructor(
         ConstraintSet().apply {
             clone(footerConstraintLayout)
             with(footerTextTextView) {
-                connect(id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM, DEFAULT_COLLAPSIBLE_MARGIN_FOOTER_TEXT)
+                connect(
+                    id,
+                    ConstraintSet.BOTTOM,
+                    ConstraintSet.PARENT_ID,
+                    ConstraintSet.BOTTOM,
+                    DEFAULT_COLLAPSIBLE_MARGIN_FOOTER_TEXT
+                )
                 connect(id, ConstraintSet.END, footerIndicatorImageView.id, ConstraintSet.START)
                 connect(id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
-                connect(id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP, DEFAULT_COLLAPSIBLE_MARGIN_FOOTER_TEXT)
+                connect(
+                    id,
+                    ConstraintSet.TOP,
+                    ConstraintSet.PARENT_ID,
+                    ConstraintSet.TOP,
+                    DEFAULT_COLLAPSIBLE_MARGIN_FOOTER_TEXT
+                )
             }
             with(footerIndicatorImageView) {
                 connect(id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
@@ -181,7 +193,13 @@ class CollapsibleView @JvmOverloads constructor(
                 connect(id, ConstraintSet.BOTTOM, lineSeparatorView.id, ConstraintSet.TOP, DEFAULT_COLLAPSIBLE_MARGIN)
                 connect(id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
                 connect(id, ConstraintSet.START, sectionTitleTextView.id, ConstraintSet.START)
-                connect(id, ConstraintSet.TOP, sectionTitleTextView.id, ConstraintSet.BOTTOM, DEFAULT_COLLAPSIBLE_SUBTITLE_TOP_MARGIN)
+                connect(
+                    id,
+                    ConstraintSet.TOP,
+                    sectionTitleTextView.id,
+                    ConstraintSet.BOTTOM,
+                    DEFAULT_COLLAPSIBLE_SUBTITLE_TOP_MARGIN
+                )
             }
             with(lineSeparatorView) {
                 connect(
@@ -246,21 +264,6 @@ class CollapsibleView @JvmOverloads constructor(
                 ?.inflate(collapsibleViewId, null, false)?.let {
                     setContent(it)
                 }
-
-            (context as? AppCompatActivity)?.windowManager?.defaultDisplay?.let { display ->
-                containerFrameLayout.measure(display.width, display.height)
-                requirementsHeight = containerFrameLayout.measuredHeight
-            }
-
-            if (elementsAreCollapsed) {
-                updateContainerViewHeight()
-                rotateRowIndicator()
-                callOnCollapse(elementsAreCollapsed)
-            }
-
-            updateFooterText(elementsAreCollapsed)
-
-            setOnClickListener { collapseElements(requirementsHeight) }
         }
     }
 
@@ -344,6 +347,10 @@ class CollapsibleView @JvmOverloads constructor(
         footerTextTextView.text = if (isCollapsed) textShowState else textHiddenState
     }
 
+    private fun callOnCollapse(isCollapsed: Boolean): Boolean {
+        return collapseListener?.let { it.onCollapse(isCollapsed); true } ?: false
+    }
+
     fun setImage(imageIconResourceId: Int) {
         if (imageIconResourceId != NO_ID) {
             val imageDrawableResource = AppCompatResources.getDrawable(context, imageIconResourceId)
@@ -356,6 +363,22 @@ class CollapsibleView @JvmOverloads constructor(
 
     fun setContent(collapsibleContent: View) {
         containerFrameLayout.addView(collapsibleContent)
+
+        val displayMetrics = DisplayMetrics()
+        (context as? AppCompatActivity)?.windowManager?.defaultDisplay?.getMetrics(displayMetrics)?.let {
+            containerFrameLayout.measure(displayMetrics.widthPixels, displayMetrics.heightPixels)
+            requirementsHeight = containerFrameLayout.measuredHeight
+        }
+
+        if (elementsAreCollapsed) {
+            updateContainerViewHeight()
+            rotateRowIndicator()
+            callOnCollapse(elementsAreCollapsed)
+        }
+
+        updateFooterText(elementsAreCollapsed)
+
+        setOnClickListener { collapseElements(requirementsHeight) }
     }
 
     fun getContent(): View? {
@@ -408,10 +431,6 @@ class CollapsibleView @JvmOverloads constructor(
 
     fun setOnCollapseListener(collapseListener: OnCollapseListener?) {
         this.collapseListener = collapseListener
-    }
-
-    fun callOnCollapse(isCollapsed: Boolean): Boolean {
-        return collapseListener?.let { it.onCollapse(isCollapsed); true } ?: false
     }
 
     fun startCollapsed() {
