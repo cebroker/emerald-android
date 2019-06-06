@@ -142,7 +142,7 @@ class CollapsibleView @JvmOverloads constructor(
                 MATCH_CONSTRAINT,
                 LayoutParams.WRAP_CONTENT
             )
-            setTextColor(resources.getColor(android.R.color.holo_blue_light))
+            setTextColor(resources.getColor(R.color.primaryColor))
         }
 
         footerIndicatorImageView.apply {
