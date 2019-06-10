@@ -160,21 +160,6 @@ fun setNumberPickerValue(value: Int): ViewAction {
     }
 }
 
-fun customWithHint(matcher: Matcher<String>): Matcher<View> =
-    object : BoundedMatcher<View, BaseEditTextFormField>(BaseEditTextFormField::class.java) {
-        override fun describeTo(description: Description) {
-            description.appendText("with hint: ")
-            matcher.describeTo(description)
-        }
-
-        override fun matchesSafely(item: BaseEditTextFormField): Boolean {
-            val parent = item.parent.parent
-            return if (parent is BaseEditTextFormField) matcher.matches(
-                parent.hint
-            ) else matcher.matches(item.hint)
-        }
-    }
-
 fun fontSizeMatcher(size: Float, font: Typeface): Matcher<View> =
     object : BoundedMatcher<View, CustomTextView>(CustomTextView::class.java) {
 

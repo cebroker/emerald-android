@@ -188,6 +188,11 @@
             <set />
           </value>
         </entry>
+        <entry key="$PROJECT_DIR$/test/src/androidTest/java/co/condorlabs/customcomponents/test/SkeletonFragmenTest.kt">
+          <value>
+            <set />
+          </value>
+        </entry>
         <entry key="$PROJECT_DIR$/test/src/androidTest/java/co/condorlabs/customcomponents/test/SpinnerFormFieldTest.kt">
           <value>
             <set />

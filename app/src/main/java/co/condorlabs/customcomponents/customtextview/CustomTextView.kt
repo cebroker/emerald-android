@@ -29,7 +29,6 @@ class CustomTextView(context: Context, private val attrs: AttributeSet) : AppCom
 
     private fun setup() {
         typeface = Typeface.createFromAsset(context.assets, OPEN_SANS_SEMI_BOLD)
-
         when (typeFont) {
             TEXT_VIEW_TITLE -> showTitle()
             TEXT_VIEW_SUBTITLE -> showSubtitle()
