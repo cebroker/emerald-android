@@ -8,7 +8,6 @@ import android.util.AttributeSet
 import android.widget.Button
 import co.condorlabs.customcomponents.*
 
-
 /**
  * @author Oscar Gallon on 2019-04-26.
  */
@@ -82,7 +81,7 @@ class CustomButton(context: Context, attrs: AttributeSet) : Button(context, attr
 
     override fun invalidateDrawable(drawable: Drawable) {
         super.invalidateDrawable(drawable)
-        if(state is  ButtonState.Loading){
+        if (state is ButtonState.Loading) {
             invalidate()
         }
     }

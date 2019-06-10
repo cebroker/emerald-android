@@ -63,4 +63,8 @@
         <attr name="type" format="string"/>
     </declare-styleable>
     <attr name="textInputLayoutTheme" format="reference"/>
+
+    <declare-styleable name="CustomTextView">
+        <attr name="type_text" format="string"/>
+    </declare-styleable>
 </resources>

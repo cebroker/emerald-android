@@ -2,6 +2,7 @@ package co.condorlabs.customcomponents.test.util
 
 import android.graphics.Point
 import android.graphics.Rect
+import android.graphics.Typeface
 import android.view.MotionEvent
 import android.view.View
 import android.widget.NumberPicker
@@ -17,6 +18,7 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
 import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
+import co.condorlabs.customcomponents.customtextview.CustomTextView
 import junit.framework.Assert
 import org.hamcrest.Description
 import org.hamcrest.Matcher
@@ -155,5 +157,32 @@ fun setNumberPickerValue(value: Int): ViewAction {
         override fun perform(uiController: UiController?, view: View?) {
             (view as NumberPicker).value = value
         }
+    }
+}
+
+fun customWithHint(matcher: Matcher<String>): Matcher<View> =
+    object : BoundedMatcher<View, BaseEditTextFormField>(BaseEditTextFormField::class.java) {
+        override fun describeTo(description: Description) {
+            description.appendText("with hint: ")
+            matcher.describeTo(description)
+        }
+
+        override fun matchesSafely(item: BaseEditTextFormField): Boolean {
+            val parent = item.parent.parent
+            return if (parent is BaseEditTextFormField) matcher.matches(
+                parent.hint
+            ) else matcher.matches(item.hint)
+        }
+    }
+
+fun fontSizeMatcher(size: Float, font: Typeface): Matcher<View> =
+    object : BoundedMatcher<View, CustomTextView>(CustomTextView::class.java) {
+
+    override fun describeTo(description: Description) {
+        description.appendText("with size: ").appendText(size.toString())
+    }
+
+    override fun matchesSafely(item: CustomTextView): Boolean {
+        return item.textSize == size && item.typeface == font
     }
 }

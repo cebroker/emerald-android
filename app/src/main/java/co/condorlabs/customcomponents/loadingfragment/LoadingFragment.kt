@@ -1,6 +1,5 @@
 package co.condorlabs.customcomponents.loadingfragment
 
-
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,7 +11,6 @@ import co.condorlabs.customcomponents.*
 import kotlinx.android.synthetic.main.fragment_loading.*
 import kotlinx.coroutines.delay
 
-
 class LoadingFragment : Fragment(), LoadingItemsScreen {
 
     private lateinit var successTitle: String
@@ -21,7 +19,8 @@ class LoadingFragment : Fragment(), LoadingItemsScreen {
     private lateinit var errorMessage: String
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.fragment_loading, container, false)

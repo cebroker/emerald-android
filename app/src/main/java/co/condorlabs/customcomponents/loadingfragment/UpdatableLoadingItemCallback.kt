@@ -11,5 +11,5 @@ interface UpdatableLoadingItem {
 sealed class Status {
     object Pending : Status()
     object Loaded : Status()
-    object Error: Status()
+    object Error : Status()
 }

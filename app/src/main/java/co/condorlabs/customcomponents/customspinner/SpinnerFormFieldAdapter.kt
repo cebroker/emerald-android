@@ -69,5 +69,4 @@ class SpinnerFormFieldAdapter(
     fun getData(): List<SpinnerData> = spinnerItems
 
     private fun isHintPosition(position: Int): Boolean = position == STATE_SPINNER_HINT_POSITION
-
 }

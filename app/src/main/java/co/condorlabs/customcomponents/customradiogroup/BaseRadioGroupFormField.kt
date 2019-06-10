@@ -33,7 +33,8 @@ import co.condorlabs.customcomponents.formfield.ValidationResult
 import com.google.android.material.textfield.TextInputLayout
 
 abstract class BaseRadioGroupFormField(
-    context: Context, private val attrs: AttributeSet
+    context: Context,
+    private val attrs: AttributeSet
 ) : TextInputLayout(context, attrs), FormField<String> {
 
     private var mValueChangeListener: ValueChangeListener<String>? = null

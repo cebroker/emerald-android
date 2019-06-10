@@ -130,7 +130,6 @@ class BaseEditTextFieldTest : MockActivityTest() {
         val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
         val editText = Espresso.onView(withId(R.id.etBase))
 
-
         // When
         editText.perform(typeText("156"))
 

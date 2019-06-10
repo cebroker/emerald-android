@@ -27,7 +27,6 @@ import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import org.junit.Assert
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Test
 import java.text.SimpleDateFormat
 import java.util.*

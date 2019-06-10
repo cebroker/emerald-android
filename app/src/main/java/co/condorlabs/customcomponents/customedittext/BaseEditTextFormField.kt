@@ -99,7 +99,7 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
 
     override fun setup() {
         textInputLayout =
-            LayoutInflater.from(context).inflate(R.layout.base_edit_text_form_field,  null) as? TextInputLayout
+            LayoutInflater.from(context).inflate(R.layout.base_edit_text_form_field, null) as? TextInputLayout
         editText = textInputLayout?.editText
         editText?.inputType = inputType
 
