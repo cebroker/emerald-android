@@ -3,6 +3,7 @@ package co.condorlabs.customcomponents.customcollapsibleview
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
 import android.content.Context
+import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Build
@@ -13,6 +14,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.FrameLayout
+import android.widget.ImageView
 import android.widget.LinearLayout
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
@@ -22,6 +24,8 @@ import androidx.cardview.widget.CardView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.MATCH_CONSTRAINT
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.core.content.ContextCompat
+import androidx.core.widget.ImageViewCompat
 import co.condorlabs.customcomponents.*
 
 /**
@@ -90,6 +94,7 @@ class CollapsibleView @JvmOverloads constructor(
                 DEFAULT_COLLAPSIBLE_ICON_WIDTH,
                 DEFAULT_COLLAPSIBLE_ICON_HEIGHT
             )
+            scaleType = ImageView.ScaleType.CENTER
         }
 
         sectionTitleTextView.apply {
@@ -142,7 +147,7 @@ class CollapsibleView @JvmOverloads constructor(
                 MATCH_CONSTRAINT,
                 LayoutParams.WRAP_CONTENT
             )
-            setTextColor(resources.getColor(R.color.primaryColor))
+            setTextColor(ContextCompat.getColor(context, R.color.primaryColor))
         }
 
         footerIndicatorImageView.apply {
@@ -286,6 +291,7 @@ class CollapsibleView @JvmOverloads constructor(
         setTitle(typedArray.getString(R.styleable.CollapsibleView_collapsibleTitle))
         setSubtitle(typedArray.getString(R.styleable.CollapsibleView_collapsibleSubtitle))
         setFooterTextColor(typedArray.getColor(R.styleable.CollapsibleView_collapsibleFooterTextColor, NO_ID))
+        setImageTint(typedArray.getColor(R.styleable.CollapsibleView_imageTintColor, NO_ID))
 
         typedArray.recycle()
     }
@@ -358,6 +364,12 @@ class CollapsibleView @JvmOverloads constructor(
             iconImageView.visibility = View.VISIBLE
         } else {
             iconImageView.visibility = View.GONE
+        }
+    }
+
+    fun setImageTint(colorTint: Int) {
+        if (colorTint != NO_ID) {
+            ImageViewCompat.setImageTintList(iconImageView, ColorStateList.valueOf(colorTint))
         }
     }
 

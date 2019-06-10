@@ -39,6 +39,7 @@ Create a new instance in your layout
 | collapsibleFooterTextColor | the text color of the footer |
 | useAppCompactPadding | use compact padding |
 | collapsibleIcon | the collapsible icon |
+| imageTintColor | the tint color for the icon |
 
 ## Public methods
 | Return Type | Description |
@@ -58,6 +59,7 @@ Create a new instance in your layout
 |  Unit | *`fun setOnCollapseListener(collapseListener: OnCollapseListener?)`* <br> Add listener to collapse event |
 |  Unit | *`fun startCollapsed()`* <br> Init the view in collapse mode |
 |  Unit | *`fun collapse()`* <br> Collapse the view |
+|  Unit | *`setImageTint(colorTint: Int)`* <br> Set color tint to CollapsibleView icon |
 
 ## Examples
 <img src="/Images/customcollapsibleview/collapsible_animation.gif" width="400" heigth="400"/>

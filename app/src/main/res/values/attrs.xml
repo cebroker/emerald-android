@@ -73,5 +73,6 @@
         <attr name="collapsibleFooterTextColor" format="color" />
         <attr name="useAppCompactPadding" format="boolean" />
         <attr name="collapsibleIcon" format="reference" />
+        <attr name="imageTintColor" format="color" />
     </declare-styleable>
 </resources>
