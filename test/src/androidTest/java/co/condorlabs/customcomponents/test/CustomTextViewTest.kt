@@ -16,11 +16,11 @@ class CustomTextViewTest : MockActivityTest() {
     @SmallTest
     @Test
     fun shouldShowTextTypeTitle() {
-        MockActivity.layout = R.layout.activity_custom_text_view_title
-        restartActivity()
         // Given
+        MockActivity.layout = R.layout.activity_custom_text_view_title
 
         // When
+        restartActivity()
 
         // Then
         onView(withId(R.id.tvTitle)).check(matches(hasTextColor(R.color.textColor)))
@@ -37,11 +37,11 @@ class CustomTextViewTest : MockActivityTest() {
     @SmallTest
     @Test
     fun shouldShowTextTypeSubtitle() {
-        MockActivity.layout = R.layout.activity_custom_text_view_subtitle
-        restartActivity()
         // Given
+        MockActivity.layout = R.layout.activity_custom_text_view_subtitle
 
         // When
+        restartActivity()
 
         // Then
         onView(withId(R.id.tvSubtitle)).check(matches(hasTextColor(R.color.subtitleColor)))
@@ -58,11 +58,11 @@ class CustomTextViewTest : MockActivityTest() {
     @SmallTest
     @Test
     fun shouldShowTextTypeDefault() {
-        MockActivity.layout = R.layout.activity_custom_text_view_default_text
-        restartActivity()
         // Given
+        MockActivity.layout = R.layout.activity_custom_text_view_default_text
 
         // When
+        restartActivity()
 
         // Then
         onView(withId(R.id.tvDefault)).check(matches(hasTextColor(R.color.subtitleColor)))
