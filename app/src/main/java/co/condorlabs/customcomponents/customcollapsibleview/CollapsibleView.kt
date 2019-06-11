@@ -3,7 +3,6 @@ package co.condorlabs.customcomponents.customcollapsibleview
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
 import android.content.Context
-import android.content.res.ColorStateList
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Build
@@ -119,7 +118,7 @@ class CollapsibleView @JvmOverloads constructor(
                 MATCH_CONSTRAINT,
                 COLLAPSIBLE_LINE_SEPARATOR_HEIGHT
             )
-            setBackgroundResource(R.color.field_border_color)
+            setBackgroundResource(R.color.linear_separator)
         }
 
         containerFrameLayout.apply {
@@ -177,7 +176,13 @@ class CollapsibleView @JvmOverloads constructor(
             }
             with(footerIndicatorImageView) {
                 connect(id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
-                connect(id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
+                connect(
+                    id,
+                    ConstraintSet.END,
+                    ConstraintSet.PARENT_ID,
+                    ConstraintSet.END,
+                    DEFAULT_COLLAPSIBLE_INDICATOR_MARGIN_END
+                )
                 connect(id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
             }
             applyTo(footerConstraintLayout)
@@ -187,15 +192,28 @@ class CollapsibleView @JvmOverloads constructor(
             clone(sectionConstraintLayout)
             with(iconImageView) {
                 connect(id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
-                connect(id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
+                connect(id, ConstraintSet.TOP, sectionTitleTextView.id, ConstraintSet.TOP)
+                connect(id, ConstraintSet.BOTTOM, sectionTitleTextView.id, ConstraintSet.BOTTOM)
             }
             with(sectionTitleTextView) {
                 connect(id, ConstraintSet.START, iconImageView.id, ConstraintSet.END, DEFAULT_COLLAPSIBLE_MARGIN)
                 connect(id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
-                connect(id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
+                connect(
+                    id,
+                    ConstraintSet.TOP,
+                    ConstraintSet.PARENT_ID,
+                    ConstraintSet.TOP,
+                    DEFAULT_COLLAPSIBLE_TITLE_MARGIN_TOP
+                )
             }
             with(sectionSubtitleTextView) {
-                connect(id, ConstraintSet.BOTTOM, lineSeparatorView.id, ConstraintSet.TOP, DEFAULT_COLLAPSIBLE_MARGIN)
+                connect(
+                    id,
+                    ConstraintSet.BOTTOM,
+                    lineSeparatorView.id,
+                    ConstraintSet.TOP,
+                    DEFAULT_COLLAPSIBLE_SUBTITLE_MARGIN_BOTTOM
+                )
                 connect(id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
                 connect(id, ConstraintSet.START, sectionTitleTextView.id, ConstraintSet.START)
                 connect(
@@ -210,7 +228,7 @@ class CollapsibleView @JvmOverloads constructor(
                 connect(
                     id,
                     ConstraintSet.START,
-                    sectionSubtitleTextView.id,
+                    ConstraintSet.PARENT_ID,
                     ConstraintSet.START,
                     COLLAPSIBLE_LINE_SEPARATOR_START_MARGIN
                 )
@@ -369,7 +387,7 @@ class CollapsibleView @JvmOverloads constructor(
 
     fun setImageTint(colorTint: Int) {
         if (colorTint != NO_ID) {
-            ImageViewCompat.setImageTintList(iconImageView, ColorStateList.valueOf(colorTint))
+            ImageViewCompat.setImageTintList(iconImageView, AppCompatResources.getColorStateList(context, colorTint))
         }
     }
 

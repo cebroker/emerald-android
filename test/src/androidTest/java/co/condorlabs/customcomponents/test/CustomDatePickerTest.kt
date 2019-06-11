@@ -58,7 +58,6 @@ class CustomDatePickerTest : MockActivityTest() {
         onView(editTextRef).perform(ViewActions.typeText("8"))
         // Then
         Assert.assertEquals("08/2008", editText?.text())
-
     }
 
     @SmallTest
@@ -167,7 +166,6 @@ class CustomDatePickerTest : MockActivityTest() {
         // Then
         Assert.assertEquals(false, editText?.isValid()?.isValid)
         Assert.assertEquals("The Enter some text can't be after the 7/2007", editText?.isValid()?.error)
-
     }
 
     @Test

@@ -12,6 +12,8 @@
         app:collapsibleContent="@layout/activity_collapsible_content_view_test"
         app:collapsibleSubtitle="Collapsible subtitle"
         app:collapsibleTitle="Collapsible title"
+        app:collapsibleIcon="@drawable/circle_shape"
+        app:imageTintColor="@color/blueFillColor"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />

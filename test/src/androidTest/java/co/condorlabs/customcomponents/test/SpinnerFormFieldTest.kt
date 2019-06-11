@@ -19,7 +19,6 @@ package co.condorlabs.customcomponents.test
  * limitations under the License.
  */
 
-
 import android.widget.AutoCompleteTextView
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onData
@@ -393,7 +392,6 @@ class SpinnerFormFieldTest : MockActivityTest() {
         ruleActivity.runOnUiThread {
             formField.setEnable(false)
         }
-
 
         // Then
         view.perform(click())

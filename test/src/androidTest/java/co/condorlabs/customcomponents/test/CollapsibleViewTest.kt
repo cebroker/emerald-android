@@ -35,7 +35,6 @@ class CollapsibleViewTest : MockActivityTest(), CollapsibleView.OnCollapseListen
     fun shouldShowCollapsibleTitle() {
         // given
         val collapsibleViewTest: CollapsibleView? = ruleActivity.activity.findViewById(R.id.collapsibleViewTest)
-
         // then
         isTextDisplayed("Collapsible title")
         Assert.assertEquals("Collapsible title", collapsibleViewTest?.getTitle())
@@ -180,7 +179,6 @@ class CollapsibleViewTest : MockActivityTest(), CollapsibleView.OnCollapseListen
     fun shouldSetFooterTextColor() {
         // given
         val collapsibleViewTest: CollapsibleView? = ruleActivity.activity.findViewById(R.id.collapsibleViewTest)
-
 
         // when
         ruleActivity.runOnUiThread {

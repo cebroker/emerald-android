@@ -36,7 +36,7 @@ class CustomBaseInstantAutoCompleteTextView(context: Context, attrs: AttributeSe
 
     override fun onFocusChanged(focused: Boolean, direction: Int, previouslyFocusedRect: Rect?) {
         super.onFocusChanged(focused, direction, previouslyFocusedRect)
-        super.onFocusChanged(focused, direction, previouslyFocusedRect);
+        super.onFocusChanged(focused, direction, previouslyFocusedRect)
         if (focused && adapter != null) {
             performFiltering(text, 0)
         }

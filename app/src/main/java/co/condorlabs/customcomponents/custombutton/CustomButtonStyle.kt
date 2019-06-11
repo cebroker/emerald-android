@@ -8,7 +8,6 @@ import androidx.core.content.ContextCompat
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import co.condorlabs.customcomponents.*
 
-
 /**
  * @author Oscar Gallon on 2019-04-26.
  */
