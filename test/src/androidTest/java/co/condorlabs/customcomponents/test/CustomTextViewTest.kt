@@ -5,6 +5,9 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.hasTextColor
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.filters.SmallTest
+import co.condorlabs.customcomponents.TYPE_SUBTITLE
+import co.condorlabs.customcomponents.TYPE_TITLE
+import co.condorlabs.customcomponents.customtextview.CustomTextView
 import co.condorlabs.customcomponents.test.util.withFontSize
 import org.junit.Test
 
@@ -54,6 +57,50 @@ class CustomTextViewTest : MockActivityTest() {
 
         // When
         restartActivity()
+
+        // Then
+        onView(withId(R.id.tvDefault)).check(matches(hasTextColor(R.color.subtitleColor)))
+        onView(withId(R.id.tvDefault)).check(
+            matches(
+                withFontSize(14f)
+            )
+        )
+    }
+
+    @SmallTest
+    @Test
+    fun shouldShowTextTypeTitleProgrammatically() {
+        // Given
+        MockActivity.layout = R.layout.activity_custom_text_view_default_text
+        restartActivity()
+        val formField = ruleActivity.activity.findViewById<CustomTextView>(R.id.tvDefault)
+
+        // When
+        ruleActivity.runOnUiThread {
+            formField.setCustomTextViewType(TYPE_TITLE)
+        }
+
+        // Then
+        onView(withId(R.id.tvDefault)).check(matches(hasTextColor(R.color.textColor)))
+        onView(withId(R.id.tvDefault)).check(
+            matches(
+                withFontSize(16f)
+            )
+        )
+    }
+
+    @SmallTest
+    @Test
+    fun shouldShowTextTypeSubtitleProgrammatically() {
+        // Given
+        MockActivity.layout = R.layout.activity_custom_text_view_default_text
+        restartActivity()
+        val formField = ruleActivity.activity.findViewById<CustomTextView>(R.id.tvDefault)
+
+        // When
+        ruleActivity.runOnUiThread {
+            formField.setCustomTextViewType(TYPE_SUBTITLE)
+        }
 
         // Then
         onView(withId(R.id.tvDefault)).check(matches(hasTextColor(R.color.subtitleColor)))

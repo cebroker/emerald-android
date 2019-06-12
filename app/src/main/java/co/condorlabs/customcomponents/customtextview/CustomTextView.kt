@@ -11,7 +11,7 @@ import co.condorlabs.customcomponents.*
 
 class CustomTextView(context: Context, private val attrs: AttributeSet) : AppCompatTextView(context, attrs) {
 
-    private var typeFont: Int = NO_ID
+    private var typeText: Int = NO_ID
 
     init {
         val typedArray = context.obtainStyledAttributes(
@@ -19,20 +19,21 @@ class CustomTextView(context: Context, private val attrs: AttributeSet) : AppCom
             R.styleable.CustomTextView,
             DEFAULT_STYLE_ATTR, DEFAULT_STYLE_RES
         )
-        typeFont = typedArray.getInt(R.styleable.CustomTextView_type_text, View.NO_ID)
+        typeText = typedArray.getInt(R.styleable.CustomTextView_type_text, View.NO_ID)
         typedArray.recycle()
     }
 
     override fun onFinishInflate() {
         super.onFinishInflate()
         setup()
+        val DEFAULT_BOLD: Typeface
     }
 
     private fun setup() {
         typeface = Typeface.createFromAsset(context.assets, OPEN_SANS_SEMI_BOLD)
-        when (typeFont) {
-            TEXT_VIEW_TITLE -> showTitle()
-            TEXT_VIEW_SUBTITLE -> showSubtitle()
+        when (typeText) {
+            TYPE_TITLE -> showTitle()
+            TYPE_SUBTITLE -> showSubtitle()
             else -> defaultText()
         }
     }
@@ -52,4 +53,10 @@ class CustomTextView(context: Context, private val attrs: AttributeSet) : AppCom
         setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.default_title_size))
         setTextColor(ContextCompat.getColor(context, R.color.textColor))
     }
+
+    fun setCustomTextViewType(typeText: Int){
+        this.typeText = typeText
+        setup()
+    }
 }
+
