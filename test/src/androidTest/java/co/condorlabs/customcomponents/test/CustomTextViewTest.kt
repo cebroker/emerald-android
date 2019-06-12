@@ -9,6 +9,7 @@ import androidx.test.filters.SmallTest
 import co.condorlabs.customcomponents.OPEN_SANS_REGULAR
 import co.condorlabs.customcomponents.OPEN_SANS_SEMI_BOLD
 import co.condorlabs.customcomponents.test.util.fontSizeMatcher
+import co.condorlabs.customcomponents.test.util.withFontSize
 import org.junit.Test
 
 class CustomTextViewTest : MockActivityTest() {
@@ -68,10 +69,7 @@ class CustomTextViewTest : MockActivityTest() {
         onView(withId(R.id.tvDefault)).check(matches(hasTextColor(R.color.subtitleColor)))
         onView(withId(R.id.tvDefault)).check(
             matches(
-                fontSizeMatcher(
-                    ruleActivity.activity.resources.getDimension(co.condorlabs.customcomponents.R.dimen.default_text_size),
-                    Typeface.createFromAsset(ruleActivity.activity.assets, OPEN_SANS_REGULAR)
-                )
+                withFontSize(14f)
             )
         )
     }

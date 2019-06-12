@@ -171,3 +171,19 @@ fun fontSizeMatcher(size: Float, font: Typeface): Matcher<View> =
         return item.textSize == size && item.typeface == font
     }
 }
+
+fun withFontSize(expectedSize: Float): Matcher<View> {
+    return object : BoundedMatcher<View, CustomTextView>(CustomTextView::class.java) {
+
+        public override fun matchesSafely(target: CustomTextView): Boolean {
+            val pixels = target.textSize
+            val actualSize = pixels / target.resources.displayMetrics.scaledDensity
+            return java.lang.Float.compare(actualSize, expectedSize) == 0
+        }
+
+        override fun describeTo(description: Description) {
+            description.appendText("with fontSize: ")
+            description.appendValue(expectedSize)
+        }
+    }
+}
