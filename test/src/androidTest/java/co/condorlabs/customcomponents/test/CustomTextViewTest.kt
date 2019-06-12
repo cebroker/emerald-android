@@ -1,14 +1,10 @@
 package co.condorlabs.customcomponents.test
 
-import android.graphics.Typeface
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.hasTextColor
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.filters.SmallTest
-import co.condorlabs.customcomponents.OPEN_SANS_REGULAR
-import co.condorlabs.customcomponents.OPEN_SANS_SEMI_BOLD
-import co.condorlabs.customcomponents.test.util.typeFontMatcher
 import co.condorlabs.customcomponents.test.util.withFontSize
 import org.junit.Test
 
@@ -30,11 +26,6 @@ class CustomTextViewTest : MockActivityTest() {
                 withFontSize(16f)
             )
         )
-        onView(withId(R.id.tvTitle)).check(
-            matches(
-                typeFontMatcher( Typeface.createFromAsset(ruleActivity.activity.assets, OPEN_SANS_SEMI_BOLD))
-            )
-        )
     }
 
     @SmallTest
@@ -53,11 +44,6 @@ class CustomTextViewTest : MockActivityTest() {
                 withFontSize(14f)
             )
         )
-        onView(withId(R.id.tvSubtitle)).check(
-            matches(
-                typeFontMatcher( Typeface.createFromAsset(ruleActivity.activity.assets, OPEN_SANS_SEMI_BOLD))
-            )
-        )
     }
 
     @SmallTest
@@ -74,11 +60,6 @@ class CustomTextViewTest : MockActivityTest() {
         onView(withId(R.id.tvDefault)).check(
             matches(
                 withFontSize(14f)
-            )
-        )
-        onView(withId(R.id.tvDefault)).check(
-            matches(
-                typeFontMatcher( Typeface.createFromAsset(ruleActivity.activity.assets, OPEN_SANS_REGULAR))
             )
         )
     }
