@@ -4,13 +4,14 @@ import android.content.Context
 import android.graphics.Typeface
 import android.util.AttributeSet
 import android.util.TypedValue
+import android.view.View
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import co.condorlabs.customcomponents.*
 
 class CustomTextView(context: Context, private val attrs: AttributeSet) : AppCompatTextView(context, attrs) {
 
-    private var typeFont: String? = null
+    private var typeFont: Int = NO_ID
 
     init {
         val typedArray = context.obtainStyledAttributes(
@@ -18,7 +19,7 @@ class CustomTextView(context: Context, private val attrs: AttributeSet) : AppCom
             R.styleable.CustomTextView,
             DEFAULT_STYLE_ATTR, DEFAULT_STYLE_RES
         )
-        typeFont = typedArray.getString(R.styleable.CustomTextView_type_text)
+        typeFont = typedArray.getInt(R.styleable.CustomTextView_type_text, View.NO_ID)
         typedArray.recycle()
     }
 

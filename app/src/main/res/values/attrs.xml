@@ -65,6 +65,9 @@
     <attr name="textInputLayoutTheme" format="reference"/>
 
     <declare-styleable name="CustomTextView">
-        <attr name="type_text" format="string"/>
+        <attr name="type_text" format="enum">
+            <enum name="title" value="0"/>
+            <enum name="subtitle" value="1"/>
+        </attr>
     </declare-styleable>
 </resources>

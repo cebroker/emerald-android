@@ -160,17 +160,17 @@ fun setNumberPickerValue(value: Int): ViewAction {
     }
 }
 
-fun fontSizeMatcher(size: Float, font: Typeface): Matcher<View> =
+fun typeFontMatcher(font: Typeface): Matcher<View> =
     object : BoundedMatcher<View, CustomTextView>(CustomTextView::class.java) {
 
-    override fun describeTo(description: Description) {
-        description.appendText("with size: ").appendText(size.toString())
-    }
+        override fun describeTo(description: Description) {
+            description.appendText("with font: ").appendValue(font)
+        }
 
-    override fun matchesSafely(item: CustomTextView): Boolean {
-        return item.textSize == size && item.typeface == font
+        override fun matchesSafely(item: CustomTextView): Boolean {
+            return item.typeface == font
+        }
     }
-}
 
 fun withFontSize(expectedSize: Float): Matcher<View> {
     return object : BoundedMatcher<View, CustomTextView>(CustomTextView::class.java) {
@@ -187,3 +187,4 @@ fun withFontSize(expectedSize: Float): Matcher<View> {
         }
     }
 }
+

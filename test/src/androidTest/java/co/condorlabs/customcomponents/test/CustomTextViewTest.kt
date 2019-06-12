@@ -8,7 +8,7 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.filters.SmallTest
 import co.condorlabs.customcomponents.OPEN_SANS_REGULAR
 import co.condorlabs.customcomponents.OPEN_SANS_SEMI_BOLD
-import co.condorlabs.customcomponents.test.util.fontSizeMatcher
+import co.condorlabs.customcomponents.test.util.typeFontMatcher
 import co.condorlabs.customcomponents.test.util.withFontSize
 import org.junit.Test
 
@@ -27,10 +27,12 @@ class CustomTextViewTest : MockActivityTest() {
         onView(withId(R.id.tvTitle)).check(matches(hasTextColor(R.color.textColor)))
         onView(withId(R.id.tvTitle)).check(
             matches(
-                fontSizeMatcher(
-                    ruleActivity.activity.resources.getDimension(co.condorlabs.customcomponents.R.dimen.default_title_size),
-                    Typeface.createFromAsset(ruleActivity.activity.assets, OPEN_SANS_SEMI_BOLD)
-                )
+                withFontSize(16f)
+            )
+        )
+        onView(withId(R.id.tvTitle)).check(
+            matches(
+                typeFontMatcher( Typeface.createFromAsset(ruleActivity.activity.assets, OPEN_SANS_SEMI_BOLD))
             )
         )
     }
@@ -48,10 +50,12 @@ class CustomTextViewTest : MockActivityTest() {
         onView(withId(R.id.tvSubtitle)).check(matches(hasTextColor(R.color.subtitleColor)))
         onView(withId(R.id.tvSubtitle)).check(
             matches(
-                fontSizeMatcher(
-                    ruleActivity.activity.resources.getDimension(co.condorlabs.customcomponents.R.dimen.default_text_size),
-                    Typeface.createFromAsset(ruleActivity.activity.assets, OPEN_SANS_SEMI_BOLD)
-                )
+                withFontSize(14f)
+            )
+        )
+        onView(withId(R.id.tvSubtitle)).check(
+            matches(
+                typeFontMatcher( Typeface.createFromAsset(ruleActivity.activity.assets, OPEN_SANS_SEMI_BOLD))
             )
         )
     }
@@ -70,6 +74,11 @@ class CustomTextViewTest : MockActivityTest() {
         onView(withId(R.id.tvDefault)).check(
             matches(
                 withFontSize(14f)
+            )
+        )
+        onView(withId(R.id.tvDefault)).check(
+            matches(
+                typeFontMatcher( Typeface.createFromAsset(ruleActivity.activity.assets, OPEN_SANS_REGULAR))
             )
         )
     }
