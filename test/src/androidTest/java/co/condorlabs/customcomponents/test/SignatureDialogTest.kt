@@ -46,20 +46,21 @@ class SignatureDialogTest {
 
     @Test
     fun shouldReturnBitmap() {
-        var bitmapResult: Bitmap? = null
-        val listener = object : SignatureDialog.OnDoneSignatureListener {
-            override fun onDoneSignature(bitmap: Bitmap) {
-                bitmapResult = bitmap
+        with(launchFragment<SignatureDialog>()) {
+            var bitmapResult: Bitmap? = null
+            val listener = object : SignatureDialog.OnDoneSignatureListener {
+                override fun onDoneSignature(bitmap: Bitmap) {
+                    bitmapResult = bitmap
+                }
             }
-        }
-        launchFragment<SignatureDialog>().apply {
             onFragment {
                 it.setOnSignatureDoneListener(listener)
             }
+            onView(withId(R.id.signatureView)).perform(swipeDown())
+            onView(withId(R.id.btnDoneSigning)).perform(click())
+            Thread.sleep(3000)
+            assertNotNull(bitmapResult)
         }
-        onView(withId(R.id.signatureView)).perform(swipeDown())
-        onView(withId(R.id.btnDoneSigning)).perform(click())
-        assertNotNull(bitmapResult)
     }
 
     @Test
