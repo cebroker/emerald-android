@@ -31,5 +31,20 @@
 | largeButton | 20 |
 | sectionTitle | 14 |
 
+## Public methods
+| Return Type | Description |
+| -| - |
+|  Unit | *`fun setCustomTextViewType(typeText: Int)`* <br> Change type text programatically|
+
+## Constants to defined CustomTextViewType
+| Constants | Value |
+| -| - |
+|  BODY_TYPE | 0 |
+|  TITLE_TYPE | 1 |
+|  SUBTITLE_TYPE | 2 |
+|  SECTION_TITLE_TYPE | 3 |
+
+
+
 ## Example
 <img src="/Images/custom_textview..png" width="400" heigth="400">
