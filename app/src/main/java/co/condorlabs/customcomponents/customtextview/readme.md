@@ -14,7 +14,7 @@
 
 | Name | Description |
 | - | - |
-| app:type_text | Should be **title**, **subtitle**, **body**, **sectionTitle** |
+| type_text | Should be **title**, **subtitle**, **body**, **sectionTitle** |
 
 | FontType | FontSize |
 | - | - |
@@ -47,4 +47,4 @@
 
 
 ## Example
-<img src="/Images/custom_textview..png" width="400" heigth="400">
+<img src="/Images/custom_textview.png" width="400" heigth="400">

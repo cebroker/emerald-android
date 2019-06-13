@@ -3,7 +3,7 @@ package co.condorlabs.customcomponents.customtextview
 import android.util.SparseArray
 import co.condorlabs.customcomponents.*
 
-class CustomTextViewStyleFactory {
+object CustomTextViewStyleFactory {
 
     private val styles = SparseArray<CustomTextViewStyle>().apply {
         put(BODY_TYPE, CustomTextViewStyle.BodyTextViewStyle)
