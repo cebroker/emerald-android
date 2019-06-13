@@ -14,7 +14,7 @@
 
 | Name | Description |
 | - | - |
-| app:type_text | Should be **title** or **subtitle** |
+| app:type_text | Should be **title**, **subtitle**, **body**, **sectionTitle** |
 
 ## Example
-<img src="/Images/custom_text_view.png" width="400" heigth="400">
+<img src="/Images/custom_textview..png" width="400" heigth="400">
