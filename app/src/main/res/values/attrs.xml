@@ -66,8 +66,9 @@
 
     <declare-styleable name="CustomTextView">
         <attr name="type_text" format="enum">
-            <enum name="title" value="0"/>
-            <enum name="subtitle" value="1"/>
+            <enum name="body" value="0"/>
+            <enum name="title" value="1"/>
+            <enum name="subtitle" value="2"/>
         </attr>
     </declare-styleable>
 </resources>

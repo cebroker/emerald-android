@@ -2,7 +2,6 @@ package co.condorlabs.customcomponents.test.util
 
 import android.graphics.Point
 import android.graphics.Rect
-import android.graphics.Typeface
 import android.view.MotionEvent
 import android.view.View
 import android.widget.NumberPicker
@@ -175,4 +174,3 @@ fun withFontSize(expectedSize: Float): Matcher<View> {
         }
     }
 }
-

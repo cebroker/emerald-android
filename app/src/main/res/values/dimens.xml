@@ -17,7 +17,10 @@
 
 <resources>
     <dimen name="default_text_size">14sp</dimen>
-    <dimen name="default_title_size">16sp</dimen>
+    <dimen name="title_size">16sp</dimen>
+    <dimen name="button_size">18sp</dimen>
+    <dimen name="small_button_size">14sp</dimen>
+    <dimen name="large_button_size">20sp</dimen>
 
     <!-- FILE SELECTOR VIEW -->
     <dimen name="default_layout_padding">26dp</dimen>
