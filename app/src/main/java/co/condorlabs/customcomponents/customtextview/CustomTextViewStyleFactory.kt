@@ -5,13 +5,14 @@ import co.condorlabs.customcomponents.*
 
 class CustomTextViewStyleFactory {
 
-    private val styles = SparseArray<CustomTextViewStyle>()
+    private val styles = SparseArray<CustomTextViewStyle>().apply {
+        put(BODY_TYPE, CustomTextViewStyle.BodyTextViewStyle)
+        put(TITLE_TYPE, CustomTextViewStyle.TitleTextViewStyle)
+        put(SUBTITLE_TYPE, CustomTextViewStyle.SubTitleTextViewStyle)
+        put(SECTION_TITLE_TYPE, CustomTextViewStyle.SectionTitleTextViewStyle)
+    }
 
     fun getStyleFromType(type: Int): CustomTextViewStyle {
-        styles.put(TYPE_BODY, CustomTextViewStyle.BodyTextViewStyle)
-        styles.put(TYPE_TITLE, CustomTextViewStyle.TitleTextViewStyle)
-        styles.put(TYPE_SUBTITLE, CustomTextViewStyle.SubTitleTextViewStyle)
-        styles.put(TYPE_SECTION_TITLE, CustomTextViewStyle.SectionTitleTextViewStyle)
         return styles[type] ?: throw StyleNotFoundForType(type)
     }
 }

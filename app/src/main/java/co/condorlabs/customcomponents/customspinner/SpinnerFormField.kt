@@ -63,7 +63,7 @@ class SpinnerFormField(
                     hint = context.getString(R.string.spinner_default_hint)
                 )
             )
-            setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.default_text_size))
+            setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.body))
             onItemSelectedListener = this@SpinnerFormField
         }
     }

@@ -5,10 +5,7 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.hasTextColor
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.filters.SmallTest
-import co.condorlabs.customcomponents.TYPE_BODY
-import co.condorlabs.customcomponents.TYPE_SECTION_TITLE
-import co.condorlabs.customcomponents.TYPE_SUBTITLE
-import co.condorlabs.customcomponents.TYPE_TITLE
+import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.customtextview.CustomTextView
 import co.condorlabs.customcomponents.test.util.withFontSize
 import org.junit.Test
@@ -97,7 +94,7 @@ class CustomTextViewTest : MockActivityTest() {
 
         // When
         ruleActivity.runOnUiThread {
-            formField.setCustomTextViewType(TYPE_TITLE)
+            formField.setCustomTextViewType(TITLE_TYPE)
         }
 
         // Then
@@ -119,7 +116,7 @@ class CustomTextViewTest : MockActivityTest() {
 
         // When
         ruleActivity.runOnUiThread {
-            formField.setCustomTextViewType(TYPE_SUBTITLE)
+            formField.setCustomTextViewType(SUBTITLE_TYPE)
         }
 
         // Then
@@ -141,7 +138,7 @@ class CustomTextViewTest : MockActivityTest() {
 
         // When
         ruleActivity.runOnUiThread {
-            formField.setCustomTextViewType(TYPE_BODY)
+            formField.setCustomTextViewType(BODY_TYPE)
         }
 
         // Then
@@ -163,7 +160,7 @@ class CustomTextViewTest : MockActivityTest() {
 
         // When
         ruleActivity.runOnUiThread {
-            formField.setCustomTextViewType(TYPE_SECTION_TITLE)
+            formField.setCustomTextViewType(SECTION_TITLE_TYPE)
         }
 
         // Then
