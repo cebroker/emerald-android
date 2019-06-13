@@ -142,11 +142,13 @@ class CollapsibleView @JvmOverloads constructor(
         }
 
         footerTextTextView.apply {
+
             layoutParams = LayoutParams(
                 MATCH_CONSTRAINT,
                 LayoutParams.WRAP_CONTENT
             )
             setTextColor(ContextCompat.getColor(context, R.color.primaryColor))
+            typeface = Typeface.createFromAsset(context.assets, OPEN_SANS_SEMI_BOLD)
         }
 
         footerIndicatorImageView.apply {
@@ -175,7 +177,12 @@ class CollapsibleView @JvmOverloads constructor(
                 )
             }
             with(footerIndicatorImageView) {
-                connect(id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
+                connect(
+                    id,
+                    ConstraintSet.BOTTOM,
+                    ConstraintSet.PARENT_ID,
+                    ConstraintSet.BOTTOM
+                )
                 connect(
                     id,
                     ConstraintSet.END,
