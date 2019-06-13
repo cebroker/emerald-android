@@ -164,8 +164,9 @@ class CustomDatePickerTest : MockActivityTest() {
         // When
         onView(editTextRef).perform(ViewActions.typeText("01/2008"))
         // Then
-        Assert.assertEquals(false, editText?.isValid()?.isValid)
-        Assert.assertEquals("The Enter some text can't be after the 7/2007", editText?.isValid()?.error)
+        val result = editText?.isValid()
+        Assert.assertEquals(false, result?.isValid)
+        Assert.assertEquals("The Enter some text can't be after 7/2007", result?.error)
     }
 
     @Test
@@ -177,8 +178,9 @@ class CustomDatePickerTest : MockActivityTest() {
         // When
         onView(editTextRef).perform(ViewActions.typeText("11/2007"))
         // Then
-        Assert.assertEquals(false, editText?.isValid()?.isValid)
-        Assert.assertEquals("The Enter some text can't be after the 7/2007", editText?.isValid()?.error)
+        val result = editText?.isValid()
+        Assert.assertEquals(false, result?.isValid)
+        Assert.assertEquals("The Enter some text can't be after 7/2007", result?.error)
     }
 
     @Test
@@ -227,5 +229,17 @@ class CustomDatePickerTest : MockActivityTest() {
         // Then
         Assert.assertEquals(11, editText?.getMonth())
         Assert.assertEquals(2008, editText?.getYear())
+    }
+
+    @Test
+    fun shouldNotAllowDateGreaterThanCurrentDate() {
+        // Given
+        editText?.isRequired = true
+        // When
+        onView(editTextRef).perform(ViewActions.typeText("12/2021"))
+        // Then
+        val result = editText?.isValid()
+        Assert.assertEquals(false, result?.isValid)
+        Assert.assertEquals("The Enter some text can't be after the current date", result?.error)
     }
 }

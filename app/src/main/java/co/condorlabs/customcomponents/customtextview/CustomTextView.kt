@@ -25,10 +25,10 @@ class CustomTextView(context: Context, private val attrs: AttributeSet) : AppCom
 
     override fun onFinishInflate() {
         super.onFinishInflate()
-        setup()
+        setStyle()
     }
 
-    private fun setup() {
+    private fun setStyle() {
         customTextViewStyleFactory.getStyleFromType(typeText).apply {
             typeface = Typeface.createFromAsset(context.assets, getFontType())
             setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(getFontSize()))
@@ -38,6 +38,6 @@ class CustomTextView(context: Context, private val attrs: AttributeSet) : AppCom
 
     fun setCustomTextViewType(typeText: Int) {
         this.typeText = typeText
-        setup()
+        setStyle()
     }
 }
