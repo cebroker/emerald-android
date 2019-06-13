@@ -10,7 +10,8 @@ sealed class CustomTextViewStyle(
 
     object TitleTextViewStyle : CustomTextViewStyle(R.dimen.title_size, R.color.textColor, OPEN_SANS_SEMI_BOLD)
     object SubTitleTextViewStyle : CustomTextViewStyle(R.dimen.default_text_size, R.color.subtitleColor, OPEN_SANS_SEMI_BOLD)
-    object BodyTextViewStyle : CustomTextViewStyle(R.dimen.default_text_size, R.color.subtitleColor, OPEN_SANS_REGULAR)
+    object BodyTextViewStyle : CustomTextViewStyle(R.dimen.default_text_size, R.color.labelColor, OPEN_SANS_REGULAR)
+    object SectionTitleTextViewStyle : CustomTextViewStyle(R.dimen.section_title_size, R.color.textColor, OPEN_SANS_SEMI_BOLD)
 
     fun getFontSize(): FontSize {
         return fontSize

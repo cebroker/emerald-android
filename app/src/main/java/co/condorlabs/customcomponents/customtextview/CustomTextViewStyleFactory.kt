@@ -1,10 +1,7 @@
 package co.condorlabs.customcomponents.customtextview
 
 import android.util.SparseArray
-import co.condorlabs.customcomponents.StyleNotFoundForType
-import co.condorlabs.customcomponents.TYPE_BODY
-import co.condorlabs.customcomponents.TYPE_SUBTITLE
-import co.condorlabs.customcomponents.TYPE_TITLE
+import co.condorlabs.customcomponents.*
 
 class CustomTextViewStyleFactory {
 
@@ -14,6 +11,7 @@ class CustomTextViewStyleFactory {
         styles.put(TYPE_BODY, CustomTextViewStyle.BodyTextViewStyle)
         styles.put(TYPE_TITLE, CustomTextViewStyle.TitleTextViewStyle)
         styles.put(TYPE_SUBTITLE, CustomTextViewStyle.SubTitleTextViewStyle)
+        styles.put(TYPE_SECTION_TITLE, CustomTextViewStyle.SectionTitleTextViewStyle)
         return styles[type] ?: throw StyleNotFoundForType(type)
     }
 }

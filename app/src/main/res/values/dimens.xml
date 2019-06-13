@@ -21,6 +21,7 @@
     <dimen name="button_size">18sp</dimen>
     <dimen name="small_button_size">14sp</dimen>
     <dimen name="large_button_size">20sp</dimen>
+    <dimen name="section_title_size">14sp</dimen>
 
     <!-- FILE SELECTOR VIEW -->
     <dimen name="default_layout_padding">26dp</dimen>

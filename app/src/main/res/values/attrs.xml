@@ -69,6 +69,7 @@
             <enum name="body" value="0"/>
             <enum name="title" value="1"/>
             <enum name="subtitle" value="2"/>
+            <enum name="sectionTitle" value="3"/>
         </attr>
     </declare-styleable>
 </resources>
