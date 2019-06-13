@@ -179,16 +179,16 @@ class CustomButtonTest : MockActivityTest() {
     fun shouldShowProgressDialog() {
         restartActivity()
 
-        //Given
+        // Given
         val button = ruleActivity.activity.findViewById<CustomButton>(R.id.btn)
 
-        //When
+        // When
         ruleActivity.runOnUiThread {
             button.changeState(ButtonState.Loading)
         }
 
         Thread.sleep(500)
-        //Then
+        // Then
         Assert.assertTrue(button.text.isEmpty())
     }
 }

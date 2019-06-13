@@ -10,7 +10,7 @@ import androidx.fragment.app.DialogFragment
 import co.condorlabs.customcomponents.*
 import java.util.*
 
-class MonthYearPickerDialog: DialogFragment() {
+class MonthYearPickerDialog : DialogFragment() {
 
     private var listener: DatePickerDialog.OnDateSetListener? = null
     var year: Int? = null

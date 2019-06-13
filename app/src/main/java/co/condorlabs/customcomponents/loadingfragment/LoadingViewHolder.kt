@@ -14,7 +14,6 @@ import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import co.condorlabs.customcomponents.R
 
-
 /**
  * @author Oscar Gallon on 2019-05-03.
  */
@@ -38,7 +37,6 @@ class LoadingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), Upd
         renderStatus()
     }
 
-
     private fun renderStatus() {
         ivIndicator?.apply {
 
@@ -53,7 +51,6 @@ class LoadingViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), Upd
                     ContextCompat.getDrawable(context, R.drawable.ic_error_mark)!!
                 )
             }
-
         }
     }
 

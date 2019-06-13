@@ -11,7 +11,7 @@ import android.view.MotionEvent
 import android.view.View
 import co.condorlabs.customcomponents.*
 
-internal class SignatureView (context: Context, attrs: AttributeSet) : View(context, attrs) {
+internal class SignatureView(context: Context, attrs: AttributeSet) : View(context, attrs) {
 
     private var paint = Paint()
     private var path = Path()
@@ -39,7 +39,7 @@ internal class SignatureView (context: Context, attrs: AttributeSet) : View(cont
     }
 
     fun setOnActionMoveListener(listener: OnDrawnSignatureListener) {
-        if(onDrawnSignatureListener == null) {
+        if (onDrawnSignatureListener == null) {
             onDrawnSignatureListener = listener
         }
     }
@@ -56,7 +56,7 @@ internal class SignatureView (context: Context, attrs: AttributeSet) : View(cont
         path.moveTo(x, y)
         currentX = x
         currentY = y
-        if(onDrawnSignatureListener != null) {
+        if (onDrawnSignatureListener != null) {
             onDrawnSignatureListener?.onDrawnSignature()
             onDrawnSignatureListener = null
         }

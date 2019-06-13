@@ -17,6 +17,7 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
 import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
+import co.condorlabs.customcomponents.customtextview.CustomTextView
 import junit.framework.Assert
 import org.hamcrest.Description
 import org.hamcrest.Matcher
@@ -154,6 +155,22 @@ fun setNumberPickerValue(value: Int): ViewAction {
 
         override fun perform(uiController: UiController?, view: View?) {
             (view as NumberPicker).value = value
+        }
+    }
+}
+
+fun withFontSize(expectedSize: Float): Matcher<View> {
+    return object : BoundedMatcher<View, CustomTextView>(CustomTextView::class.java) {
+
+        public override fun matchesSafely(target: CustomTextView): Boolean {
+            val pixels = target.textSize
+            val actualSize = pixels / target.resources.displayMetrics.scaledDensity
+            return java.lang.Float.compare(actualSize, expectedSize) == 0
+        }
+
+        override fun describeTo(description: Description) {
+            description.appendText("with fontSize: ")
+            description.appendValue(expectedSize)
         }
     }
 }

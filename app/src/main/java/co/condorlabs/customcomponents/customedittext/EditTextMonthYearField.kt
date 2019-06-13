@@ -21,7 +21,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class EditTextMonthYearField(
-    private val currentContext: Context, attrs: AttributeSet
+    private val currentContext: Context,
+    attrs: AttributeSet
 ) : BaseEditTextFormField(currentContext, attrs), DatePickerDialog.OnDateSetListener {
 
     private var iconDrawable: Drawable? = null
@@ -164,7 +165,7 @@ class EditTextMonthYearField(
 
     fun getMonth(): Int {
         return editText?.text?.toString()?.let {
-            if(it.isNotEmpty()) {
+            if (it.isNotEmpty()) {
                 it.substring(
                     MONTH_YEAR_MASK_MONTH_INITIAL_INDEX,
                     MONTH_YEAR_MASK_MONTH_FINAL_INDEX
@@ -177,7 +178,7 @@ class EditTextMonthYearField(
 
     fun getYear() =
         editText?.text?.toString()?.let {
-            if(it.isNotEmpty()) {
+            if (it.isNotEmpty()) {
                 it.replace(SLASH, EMPTY).substring(
                     MONTH_YEAR_MASK_YEAR_INITIAL_INDEX,
                     MONTH_YEAR_MASK_YEAR_FINAL_INDEX
@@ -186,7 +187,6 @@ class EditTextMonthYearField(
                 DATE_PICKER_MIN_YEAR
             }
         } ?: DATE_PICKER_MIN_YEAR
-
 
     override fun isValid(): ValidationResult {
         val result = super.isValid()

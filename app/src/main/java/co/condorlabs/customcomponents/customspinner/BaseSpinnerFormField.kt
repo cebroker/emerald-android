@@ -72,7 +72,6 @@ abstract class BaseSpinnerFormField(context: Context, private val mAttrs: Attrib
         textInputLayout?.hint = hint
         setFont(OPEN_SANS_REGULAR)
         addView(textInputLayout, layoutParams)
-
     }
 
     override fun getErrorValidateResult(): ValidationResult {
