@@ -11,6 +11,7 @@ import co.condorlabs.customcomponents.*
 class CustomTextView(context: Context, private val attrs: AttributeSet) : AppCompatTextView(context, attrs) {
 
     private var typeText: Int = ZERO
+    private val customTextViewStyleFactory = CustomTextViewStyleFactory()
 
     init {
         val typedArray = context.obtainStyledAttributes(
@@ -24,7 +25,7 @@ class CustomTextView(context: Context, private val attrs: AttributeSet) : AppCom
     }
 
     private fun setStyle() {
-        CustomTextViewStyleFactory().getStyleFromType(typeText).apply {
+        customTextViewStyleFactory.getStyleFromType(typeText).apply {
             typeface = Typeface.createFromAsset(context.assets, getFontType())
             setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(getFontSize()))
             setTextColor(ContextCompat.getColor(context, getColorText()))
