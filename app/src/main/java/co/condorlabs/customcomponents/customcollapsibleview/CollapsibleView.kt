@@ -43,6 +43,7 @@ import co.condorlabs.customcomponents.DEFAULT_COLLAPSIBLE_TITLE_MARGIN_TOP
 import co.condorlabs.customcomponents.DEFAULT_COLLAPSIBLE_TITLE_TEXT_SIZE
 import co.condorlabs.customcomponents.DEFAULT_STYLE_ATTR
 import co.condorlabs.customcomponents.DEFAULT_STYLE_RES
+import co.condorlabs.customcomponents.MIN_DEFAULT_PADDING
 import co.condorlabs.customcomponents.ONE_HUNDRED_FLOAT
 import co.condorlabs.customcomponents.OPEN_SANS_SEMI_BOLD
 import co.condorlabs.customcomponents.R
@@ -326,6 +327,15 @@ class CollapsibleView @JvmOverloads constructor(
         }
     }
 
+    override fun setPadding(left: Int, top: Int, right: Int, bottom: Int) {
+        sectionConstraintLayout.setPadding(
+            left.zeroOrGreaterThanZero(),
+            top.zeroOrGreaterThanZero(),
+            right.zeroOrGreaterThanZero(),
+            bottom.zeroOrGreaterThanZero()
+        )
+    }
+
     private fun setupAttrs(attrs: AttributeSet) {
         val typedArray = context.obtainStyledAttributes(
             attrs,
@@ -340,29 +350,23 @@ class CollapsibleView @JvmOverloads constructor(
             val paddingStart = typedArray.getDimension(
                 R.styleable.CollapsibleView_android_paddingStart,
                 ZERO_FLOAT
-            )
+            ).toInt()
             val paddingTop =
                 typedArray.getDimension(R.styleable.CollapsibleView_android_paddingTop, ZERO_FLOAT)
+                    .toInt()
             val paddingEnd =
                 typedArray.getDimension(R.styleable.CollapsibleView_android_paddingEnd, ZERO_FLOAT)
+                    .toInt()
             val paddingBottom = typedArray.getDimension(
                 R.styleable.CollapsibleView_android_paddingBottom,
                 ZERO_FLOAT
-            )
+            ).toInt()
 
-            sectionConstraintLayout.setPadding(
-                paddingStart.toInt(),
-                paddingTop.toInt(),
-                paddingEnd.toInt(),
-                paddingBottom.toInt()
-            )
+            setPadding(paddingStart, paddingTop, paddingEnd, paddingBottom)
         } else {
-            sectionConstraintLayout.setPadding(
-                padding.toInt(),
-                padding.toInt(),
-                padding.toInt(),
-                padding.toInt()
-            )
+            padding.toInt().let {
+                setPadding(it, it, it, it)
+            }
         }
 
         setImage(typedArray.getResourceId(R.styleable.CollapsibleView_collapsibleIcon, NO_ID))
@@ -570,5 +574,12 @@ class CollapsibleView @JvmOverloads constructor(
     interface OnCollapseListener {
 
         fun onCollapse(isCollapsed: Boolean)
+    }
+
+    companion object {
+
+        fun Int.zeroOrGreaterThanZero(): Int {
+            return if (this < MIN_DEFAULT_PADDING) MIN_DEFAULT_PADDING else this
+        }
     }
 }
