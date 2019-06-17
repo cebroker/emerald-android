@@ -23,6 +23,7 @@ Create a new instance in your layout
         app:collapsibleContent="@layout/activity_statespinnerformfield_test"
         app:collapsibleHiddenFooterText="Hide"
         app:collapsibleShowFooterText="Show"
+        app:seeArrowIndicator="true"
         app:collapsibleSubtitle="Collapsible Subtitle"
         app:collapsibleTitle="Collapsible Title" />
 ```
@@ -35,11 +36,12 @@ Create a new instance in your layout
 | collapsibleSubtitle | the subtitle for the collapsible view |
 | collapsibleHiddenFooterText | the text of the footer when the view is collapsed |
 | collapsibleShowFooterText | the text of the footer when the view is displayed |
-| startCollapsed | start collapsed view when this attribute is `true` |
-| collapsibleFooterTextColor | the text color of the footer |
-| useAppCompactPadding | use compact padding |
 | collapsibleIcon | the collapsible icon |
+| collapsibleFooterTextColor | the text color of the footer |
 | imageTintColor | the tint color for the icon |
+| startCollapsed | start collapsed view when this attribute is `true` |
+| seeArrowIndicator | the visibility of the arrow indicator |
+| useAppCompactPadding | use compact padding |
 
 ## Public methods
 | Return Type | Description |
@@ -60,6 +62,7 @@ Create a new instance in your layout
 |  Unit | *`fun startCollapsed()`* <br> Init the view in collapse mode |
 |  Unit | *`fun collapse()`* <br> Collapse the view |
 |  Unit | *`setImageTint(colorTint: Int)`* <br> Set color tint to CollapsibleView icon |
+|  Unit | *`seeArrowIndicator(isVisible: Boolean)`* <br> Set visibility to the arrow indicator |
 
 ## Examples
 <img src="/Images/customcollapsibleview/collapsible_animation.gif" width="400" heigth="400"/>

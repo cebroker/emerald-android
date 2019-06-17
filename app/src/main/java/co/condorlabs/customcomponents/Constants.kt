@@ -17,8 +17,9 @@
 package co.condorlabs.customcomponents
 
 const val VALIDATE_EMPTY_ERROR = "Must not be empty."
-const val VALIDATE_LOWER_LIMIT_DATE_ERROR = "The %s can't be before the %s"
-const val VALIDATE_UPPER_LIMIT_DATE_ERROR = "The %s can't be after the %s"
+const val VALIDATE_LOWER_LIMIT_DATE_ERROR = "The %s can't be before %s"
+const val VALIDATE_UPPER_LIMIT_DATE_ERROR = "The %s can't be after %s"
+const val VALIDATE_UPPER_THAN_CURRENT_DATE = "The %s can't be after the current date"
 const val VALIDATE_LENGTH_ERROR = "This field must have ten digits."
 const val VALIDATE_EMAIL_ERROR = "Email incorrect."
 const val VALIDATE_DATE_ERROR = "Date incorrect."
@@ -187,6 +188,12 @@ const val PROGRESS_DRAWABLE_SIZE_MULTIPLIER = 2
 const val PROGRESS_DRAWABLE_DIAMETER_DIVIDER = 2
 const val PROGRESS_DRAWABLE_LAYER_INSET_INDEX = 1
 
+const val BODY_TYPE = 0
+const val TITLE_TYPE = 1
+const val SUBTITLE_TYPE= 2
+const val SECTION_TITLE_TYPE = 3
+
+
 /** COLLAPSIBLE VIEW **/
 const val DEFAULT_COLLAPSIBLE_SUBTITLE_TOP_MARGIN = 8
 const val DEFAULT_COLLAPSIBLE_MARGIN_FOOTER_TEXT = 34
@@ -194,7 +201,7 @@ const val DEFAULT_COLLAPSIBLE_ANIMATION_TIME = 300L
 const val DEFAULT_COLLAPSIBLE_TITLE_TEXT_SIZE = 16F
 const val DEFAULT_COLLAPSIBLE_ICON_HEIGHT = 100
 const val DEFAULT_COLLAPSIBLE_ICON_WIDTH = 100
-const val DEFAULT_COLLAPSIBLE_PADDING = 0
+const val DEFAULT_COLLAPSIBLE_PADDING = 8
 const val DEFAULT_COLLAPSIBLE_MARGIN = 0
 const val COLLAPSIBLE_LINE_SEPARATOR_START_MARGIN = 60
 const val COLLAPSIBLE_CARD_VIEW_START_MARGIN = -8

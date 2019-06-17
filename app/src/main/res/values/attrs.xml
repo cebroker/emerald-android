@@ -61,18 +61,33 @@
     <declare-styleable name="CustomButton">
         <attr name="type" format="string" />
     </declare-styleable>
-    <attr name="textInputLayoutTheme" format="reference" />
 
     <declare-styleable name="CollapsibleView">
+        <attr name="android:padding" />
+        <attr name="android:paddingStart" />
+        <attr name="android:paddingTop" />
+        <attr name="android:paddingEnd" />
+        <attr name="android:paddingBottom" />
         <attr name="collapsibleContent" format="reference" />
         <attr name="collapsibleTitle" format="string" />
         <attr name="collapsibleSubtitle" format="string" />
         <attr name="collapsibleHiddenFooterText" format="string" />
         <attr name="collapsibleShowFooterText" format="string" />
-        <attr name="startCollapsed" format="boolean" />
         <attr name="collapsibleFooterTextColor" format="color" />
-        <attr name="useAppCompactPadding" format="boolean" />
         <attr name="collapsibleIcon" format="reference" />
+        <attr name="seeArrowIndicator" format="boolean" />
+        <attr name="useAppCompactPadding" format="boolean" />
         <attr name="imageTintColor" format="color" />
+        <attr name="startCollapsed" format="boolean" />
+    </declare-styleable>
+    <attr name="textInputLayoutTheme" format="reference" />
+
+    <declare-styleable name="CustomTextView">
+        <attr name="type_text" format="enum">
+            <enum name="body" value="0" />
+            <enum name="title" value="1" />
+            <enum name="subtitle" value="2" />
+            <enum name="sectionTitle" value="3" />
+        </attr>
     </declare-styleable>
 </resources>

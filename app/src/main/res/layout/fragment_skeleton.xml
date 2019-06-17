@@ -23,7 +23,7 @@
                 android:background="@color/shimmerColor"
                 android:id="@+id/tvTitle"
                 android:textColor="@color/shimmerColor"
-                android:textSize="@dimen/default_text_size"
+                android:textSize="@dimen/body"
                 android:layout_marginTop="@dimen/skeleton_title_margin_top"
                 android:text="@string/hello_blank_fragment"/>
 

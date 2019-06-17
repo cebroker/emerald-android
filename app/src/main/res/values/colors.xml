@@ -50,6 +50,7 @@
     <color name="textHintColor">#8EA7A7</color>
     <color name="textColor">#282e2e</color>
     <color name="shimmerColor">#E2E3E7</color>
+    <color name="subtitleColor">#607B7B</color>
 
     <color name="gray_color_with_alpha">#55AAAAAA</color>
     <color name="blueFillColor">#42A5F5</color>
