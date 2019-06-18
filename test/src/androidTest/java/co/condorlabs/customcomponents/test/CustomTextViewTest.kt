@@ -171,4 +171,42 @@ class CustomTextViewTest : MockActivityTest() {
             )
         )
     }
+
+    @SmallTest
+    @Test
+    fun shouldShowTextTypeLink() {
+        // Given
+        MockActivity.layout = R.layout.activity_custom_text_view_link_text
+        restartActivity()
+
+        // Then
+        onView(withId(R.id.tvLink)).check(matches(hasTextColor(R.color.primaryColor)))
+        onView(withId(R.id.tvLink)).check(
+            matches(
+                withFontSize(14f)
+            )
+        )
+    }
+
+    @SmallTest
+    @Test
+    fun shouldShowTextTypeLinkProgrammatically() {
+        // Given
+        MockActivity.layout = R.layout.activity_custom_text_view_default_text
+        restartActivity()
+        val formField = ruleActivity.activity.findViewById<CustomTextView>(R.id.tvDefault)
+
+        // When
+        ruleActivity.runOnUiThread {
+            formField.setCustomTextViewType(LINK_TYPE)
+        }
+
+        // Then
+        onView(withId(R.id.tvDefault)).check(matches(hasTextColor(R.color.primaryColor)))
+        onView(withId(R.id.tvDefault)).check(
+            matches(
+                withFontSize(14f)
+            )
+        )
+    }
 }
