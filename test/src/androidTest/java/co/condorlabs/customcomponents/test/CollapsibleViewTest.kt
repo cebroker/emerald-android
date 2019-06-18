@@ -10,11 +10,11 @@ import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.filters.MediumTest
 import androidx.test.filters.SmallTest
 import co.condorlabs.customcomponents.customcollapsibleview.CollapsibleView
+import co.condorlabs.customcomponents.customcollapsibleview.OnCollapseListener
 import co.condorlabs.customcomponents.test.util.clickWithText
 import co.condorlabs.customcomponents.test.util.isTextDisplayed
 import co.condorlabs.customcomponents.test.util.isTextNotDisplayed
 import co.condorlabs.customcomponents.test.util.withTextColor
-import junit.framework.Assert.assertTrue
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -24,7 +24,7 @@ import org.junit.Test
  * @company Condor Labs
  * @email eduque@condorlabs.io
  */
-class CollapsibleViewTest : MockActivityTest(), CollapsibleView.OnCollapseListener {
+class CollapsibleViewTest : MockActivityTest(), OnCollapseListener {
 
     @Before
     fun setup() {
@@ -57,46 +57,55 @@ class CollapsibleViewTest : MockActivityTest(), CollapsibleView.OnCollapseListen
 
     @SmallTest
     @Test
-    fun shouldShowCollapsibleHiddenFooterText() {
+    fun shouldShowCollapsibleHideActionLabel() {
         // given
         val collapsibleViewTest: CollapsibleView? =
             ruleActivity.activity.findViewById(R.id.collapsibleViewTest)
 
+        // when
+        ruleActivity.runOnUiThread {
+            collapsibleViewTest?.collapse()
+        }
+
         // then
         isTextDisplayed("Hide")
-        Assert.assertEquals("Hide", collapsibleViewTest?.getHiddenFooterText())
+        Assert.assertEquals("Hide", collapsibleViewTest?.getHideActionLabel())
     }
 
     @MediumTest
     @Test
     fun shouldBeCollapsedWhenICallCollapseFunction() {
         // given
-        collapseView()
+        val collapsibleViewTest =
+            ruleActivity.activity.findViewById<CollapsibleView>(R.id.collapsibleViewTest)
 
         // then
+        isTextDisplayed(collapsibleViewTest.getTitle())
         isTextNotDisplayed("BUTTON TEST")
         isTextDisplayed("Show")
     }
 
     @SmallTest
     @Test
-    fun shouldShowCollapsibleShowFooterTextWhenTheViewIsCollapse() {
+    fun shouldShowCollapsibleShowActionLabelWhenTheViewIsCollapse() {
         // given
-        val collapsibleViewTest = collapseView()
+        val collapsibleViewTest = ruleActivity.activity.findViewById<CollapsibleView>(R.id.collapsibleViewTest)
 
         // then
         isTextDisplayed("Show")
-        Assert.assertEquals("Show", collapsibleViewTest?.getShowFooterText())
+        Assert.assertEquals("Show", collapsibleViewTest?.getShowActionLabel())
     }
 
     @MediumTest
     @Test
     fun shouldCollapseAndExpandTheContentWhenIsClicked() {
         // given
-        collapseView()
+        val collapsibleViewTest =
+            ruleActivity.activity.findViewById<CollapsibleView>(R.id.collapsibleViewTest)
 
         // then
         isTextNotDisplayed("BUTTON TEST")
+        isTextDisplayed(collapsibleViewTest.getTitle())
         clickWithText("Collapsible title")
         isTextDisplayed("BUTTON TEST")
     }
@@ -118,24 +127,7 @@ class CollapsibleViewTest : MockActivityTest(), CollapsibleView.OnCollapseListen
 
     @SmallTest
     @Test
-    fun shouldSetSectionHiddenFooterText() {
-        // given
-        val collapsibleViewTest: CollapsibleView? =
-            ruleActivity.activity.findViewById(R.id.collapsibleViewTest)
-
-        // when
-        ruleActivity.runOnUiThread {
-            collapsibleViewTest?.setHiddenFooterText("NEW HIDE TEXT")
-        }
-
-        // then
-        isTextDisplayed("NEW HIDE TEXT")
-        Assert.assertEquals("NEW HIDE TEXT", collapsibleViewTest?.getHiddenFooterText())
-    }
-
-    @SmallTest
-    @Test
-    fun shouldSetSectionShowFooterText() {
+    fun shouldSetSectionHideActionLabel() {
         // given
         val collapsibleViewTest: CollapsibleView? =
             ruleActivity.activity.findViewById(R.id.collapsibleViewTest)
@@ -143,28 +135,73 @@ class CollapsibleViewTest : MockActivityTest(), CollapsibleView.OnCollapseListen
         // when
         ruleActivity.runOnUiThread {
             collapsibleViewTest?.apply {
-                setShowFooterText("NEW SHOW TEXT")
+                setHideActionLabel("NEW HIDE TEXT")
                 collapse()
             }
         }
 
         // then
+        isTextDisplayed("NEW HIDE TEXT")
+        Assert.assertEquals("NEW HIDE TEXT", collapsibleViewTest?.getHideActionLabel())
+    }
+
+    @SmallTest
+    @Test
+    fun shouldSetSectionShowActionLabel() {
+        // given
+        val collapsibleViewTest: CollapsibleView? =
+            ruleActivity.activity.findViewById(R.id.collapsibleViewTest)
+
+        // when
+        ruleActivity.runOnUiThread {
+            collapsibleViewTest?.setShowActionLabel("NEW SHOW TEXT")
+        }
+
+        // then
         isTextDisplayed("NEW SHOW TEXT")
-        Assert.assertEquals("NEW SHOW TEXT", collapsibleViewTest?.getShowFooterText())
+        Assert.assertEquals("NEW SHOW TEXT", collapsibleViewTest?.getShowActionLabel())
     }
 
     @SmallTest
     @Test
     fun shouldSetOnCollapseListener() {
         // given
-        val collapsibleViewTest: CollapsibleView? =
-            ruleActivity.activity.findViewById(R.id.collapsibleViewTest)
+        val collapsibleViewTest: CollapsibleView? = ruleActivity.activity.findViewById(R.id.collapsibleViewTest)
         collapsibleViewTest?.setOnCollapseListener(this)
 
         // when
         ruleActivity.runOnUiThread {
             collapsibleViewTest?.collapse()
         }
+    }
+
+    @SmallTest
+    @Test
+    fun shouldNotSeeArrowIndicator() {
+        // given
+        val collapsibleViewTest: CollapsibleView? =
+            ruleActivity.activity.findViewById(R.id.collapsibleViewTest)
+
+        //then
+        val arrowIndicatorImageView =
+            collapsibleViewTest?.findViewById<AppCompatImageView>(R.id.actionImageViewId)
+        Assert.assertEquals(arrowIndicatorImageView?.visibility ?: View.NO_ID, View.INVISIBLE)
+    }
+
+    @SmallTest
+    @Test
+    fun shouldSetActionLabelColor() {
+        // given
+        val collapsibleViewTest: CollapsibleView? =
+            ruleActivity.activity.findViewById(R.id.collapsibleViewTest)
+
+        // when
+        ruleActivity.runOnUiThread {
+            collapsibleViewTest?.setActionLabelColor(Color.MAGENTA)
+        }
+
+        // then
+        onView(withId(R.id.actionLabelViewId)).check(matches(withTextColor(Color.MAGENTA)))
     }
 
     @SmallTest
@@ -186,18 +223,20 @@ class CollapsibleViewTest : MockActivityTest(), CollapsibleView.OnCollapseListen
 
     @SmallTest
     @Test
-    fun shouldSetFooterTextColor() {
+    fun shouldSeeArrowIndicator() {
         // given
         val collapsibleViewTest: CollapsibleView? =
             ruleActivity.activity.findViewById(R.id.collapsibleViewTest)
 
         // when
         ruleActivity.runOnUiThread {
-            collapsibleViewTest?.setFooterTextColor(Color.MAGENTA)
+            collapsibleViewTest?.visibleIndicatorArrow(true)
         }
 
-        // then
-        onView(withId(R.id.footerTextViewId)).check(matches(withTextColor(Color.MAGENTA)))
+        //then
+        val arrowIndicatorImageView =
+            collapsibleViewTest?.findViewById<AppCompatImageView>(R.id.actionImageViewId)
+        Assert.assertEquals(arrowIndicatorImageView?.visibility ?: View.NO_ID, View.VISIBLE)
     }
 
     @SmallTest
@@ -219,7 +258,7 @@ class CollapsibleViewTest : MockActivityTest(), CollapsibleView.OnCollapseListen
 
     @SmallTest
     @Test
-    fun shouldStartCollapse() {
+    fun shouldStartExpanded() {
         // given
         val collapsibleViewTest: CollapsibleView? =
             ruleActivity.activity.findViewById(R.id.collapsibleViewTest)
@@ -227,56 +266,11 @@ class CollapsibleViewTest : MockActivityTest(), CollapsibleView.OnCollapseListen
 
         // when
         ruleActivity.runOnUiThread {
-            collapsibleViewTest?.startCollapsed()
+            collapsibleViewTest?.startExpanded()
         }
-    }
-
-    @SmallTest
-    @Test
-    fun shouldSeeArrowIndicator() {
-        // given
-        val collapsibleViewTest: CollapsibleView? =
-            ruleActivity.activity.findViewById(R.id.collapsibleViewTest)
-
-        // when
-        ruleActivity.runOnUiThread {
-            collapsibleViewTest?.seeArrowIndicator(true)
-        }
-
-        //then
-        val arrowIndicatorImageView =
-            collapsibleViewTest?.findViewById<AppCompatImageView>(R.id.footerImageViewId)
-        Assert.assertEquals(arrowIndicatorImageView?.visibility ?: View.NO_ID, View.VISIBLE)
-    }
-
-    @SmallTest
-    @Test
-    fun shouldNotSeeArrowIndicator() {
-        // given
-        val collapsibleViewTest: CollapsibleView? =
-            ruleActivity.activity.findViewById(R.id.collapsibleViewTest)
-
-        //then
-        val arrowIndicatorImageView =
-            collapsibleViewTest?.findViewById<AppCompatImageView>(R.id.footerImageViewId)
-        Assert.assertEquals(arrowIndicatorImageView?.visibility ?: View.NO_ID, View.INVISIBLE)
     }
 
     override fun onCollapse(isCollapsed: Boolean) {
-        assertTrue(isCollapsed)
-    }
-
-    private fun collapseView(): CollapsibleView? {
-        // given
-        val collapsibleViewTest =
-            ruleActivity.activity.findViewById<CollapsibleView>(R.id.collapsibleViewTest)
-
-        // when
-        ruleActivity.runOnUiThread {
-            collapsibleViewTest?.collapse()
-        }
-
-        // then
-        return collapsibleViewTest
+        Assert.assertFalse(isCollapsed)
     }
 }

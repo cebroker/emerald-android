@@ -4,12 +4,12 @@ Provides a collapsible view with the style
 ## Anatomy
 <img src="/Images/customcollapsibleview/collapsible_view_anatomy.png" width="400" heigth="400"/>
 
-1. Icon
+1. Image
 2. Title
 3. Subtitle
 4. View collapsible
-5. Footer text
-6. Footer indicator
+5. Action label
+6. Action indicator arrow
 7. Container
 
 ## Basic Usage
@@ -17,52 +17,49 @@ Create a new instance in your layout
 
 ```
 <co.condorlabs.customcomponents.customcollapsibleview.CollapsibleView
-        android:id="@+id/customCollapsibleView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:collapsibleContent="@layout/activity_statespinnerformfield_test"
-        app:collapsibleHiddenFooterText="Hide"
-        app:collapsibleShowFooterText="Show"
-        app:seeArrowIndicator="true"
-        app:collapsibleSubtitle="Collapsible Subtitle"
-        app:collapsibleTitle="Collapsible Title" />
+    android:id="@+id/collapsibleViewTest"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:content="@layout/activity_collapsible_content_view_test"
+    app:subtitle="Collapsible subtitle"
+    app:collapsibleTitle="Collapsible title"/>
 ```
 
 ## Attributes
 | Name | Description  |
 | - | - |
-| collapsibleContent | add the layout resource file to collapse |
+| actionLabelColor | the text color of the action label |
+| content | add the layout resource file to collapse |
 | collapsibleTitle | the title for the collapsible view |
-| collapsibleSubtitle | the subtitle for the collapsible view |
-| collapsibleHiddenFooterText | the text of the footer when the view is collapsed |
-| collapsibleShowFooterText | the text of the footer when the view is displayed |
-| collapsibleIcon | the collapsible icon |
-| collapsibleFooterTextColor | the text color of the footer |
-| imageTintColor | the tint color for the icon |
-| startCollapsed | start collapsed view when this attribute is `true` |
-| seeArrowIndicator | the visibility of the arrow indicator |
+| hideActionLabel | the text of the action label when the view is expanded |
+| image | the collapsible image |
+| imageTintColor | the tint color for the image |
+| isCollapsed | expand view when this attribute is `false` |
+| subtitle | the subtitle for the collapsible view |
+| showActionLabel | the text of the action label when the view is collapsed |
 | useAppCompactPadding | use compact padding |
+| visibleIndicatorArrow | show the indicator arrow when is `true` |
 
 ## Public methods
 | Return Type | Description |
 | -| - |
-|  Unit | *`fun setImage(imageIconResourceId: Int)`* <br> Add an image icon |
-|  Unit | *`fun setContent(collapsibleContent: View)`* <br> Add view to collapse |
-|  View? | *`fun getContent()`* <br> Get view |
-|  Unit | *`fun setTitle(sectionTitle: String?)`* <br> Set title |
-|  String? | *`fun getTitle()`* <br> Get subtitle |
-|  Unit | *`fun setSubtitle(sectionSubtitle: String?)`* <br> Set subtitle |
-|  String? | *`fun getSubtitle()`* <br> Get subtitle |
-|  Unit | *`fun setHiddenFooterText(hiddenFooterText: String?)`* <br> Set text when the view is collapsed |
-|  String? | *`fun getHiddenFooterText()`* <br> Get hide text |
-|  Unit | *`fun setShowFooterText(showFooterText: String?)`* <br> Set text when the view is displayed |
-|  String? | *`fun getShowFooterText()`* <br> Get show text |
-|  Unit | *`fun setFooterTextColor(footerTextColor: Int?)`* <br> Set color to footer text |
-|  Unit | *`fun setOnCollapseListener(collapseListener: OnCollapseListener?)`* <br> Add listener to collapse event |
-|  Unit | *`fun startCollapsed()`* <br> Init the view in collapse mode |
-|  Unit | *`fun collapse()`* <br> Collapse the view |
+|  Unit | *`collapse()`* <br> Collapse the view |
+|  Unit | *`startExpanded()`* <br> Init the view in expanded mode |
+|  Unit | *`setImage(imageResourceId: Int)`* <br> Add an image |
 |  Unit | *`setImageTint(colorTint: Int)`* <br> Set color tint to CollapsibleView icon |
-|  Unit | *`seeArrowIndicator(isVisible: Boolean)`* <br> Set visibility to the arrow indicator |
+|  Unit | *`setContent(collapsibleContent: View)`* <br> Add view to collapse |
+|  Unit | *`setTitle(title: String?)`* <br> Set title |
+|  Unit | *`setSubtitle(subtitle: String?)`* <br> Set subtitle |
+|  Unit | *`setHideActionLabel(actionLabel: String?)`* <br> Set text when the view is collapsed |
+|  Unit | *`setShowActionLabel(actionLabel: String?)`* <br> Set text when the view is displayed |
+|  Unit | *`setActionLabelColor(actionLabelColor: Int?)`* <br> Set color to action label |
+|  Unit | *`setOnCollapseListener(collapseListener: OnCollapseListener?)`* <br> Add listener to collapse event |
+|  View? | *`getContent()`* <br> Get view |
+|  String? | *`getTitle()`* <br> Get subtitle |
+|  String? | *`getSubtitle()`* <br> Get subtitle |
+|  String? | *`getHideActionLabel()`* <br> Get hide action label |
+|  String? | *`getShowActionLabel()`* <br> Get show action label |
+|  Unit | *`visibleIndicatorArrow(isVisible: Boolean)`* <br> Set visibility to the indicator arrow |
 
 ## Examples
 <img src="/Images/customcollapsibleview/collapsible_animation.gif" width="400" heigth="400"/>

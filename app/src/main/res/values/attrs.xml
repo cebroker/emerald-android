@@ -68,17 +68,17 @@
         <attr name="android:paddingTop" />
         <attr name="android:paddingEnd" />
         <attr name="android:paddingBottom" />
-        <attr name="collapsibleContent" format="reference" />
+        <attr name="content" format="reference" />
         <attr name="collapsibleTitle" format="string" />
-        <attr name="collapsibleSubtitle" format="string" />
-        <attr name="collapsibleHiddenFooterText" format="string" />
-        <attr name="collapsibleShowFooterText" format="string" />
-        <attr name="collapsibleFooterTextColor" format="color" />
-        <attr name="collapsibleIcon" format="reference" />
-        <attr name="seeArrowIndicator" format="boolean" />
+        <attr name="subtitle" format="string" />
+        <attr name="hideActionLabel" format="string" />
+        <attr name="showActionLabel" format="string" />
+        <attr name="actionLabelColor" format="color" />
+        <attr name="image" format="reference" />
+        <attr name="visibleIndicatorArrow" format="boolean" />
         <attr name="useAppCompactPadding" format="boolean" />
         <attr name="imageTintColor" format="color" />
-        <attr name="startCollapsed" format="boolean" />
+        <attr name="isCollapsed" format="boolean" />
     </declare-styleable>
     <attr name="textInputLayoutTheme" format="reference" />
 

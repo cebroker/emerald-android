@@ -25,30 +25,7 @@ import androidx.constraintlayout.widget.ConstraintLayout.LayoutParams.MATCH_CONS
 import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import androidx.core.widget.ImageViewCompat
-import co.condorlabs.customcomponents.COLLAPSIBLE_CARD_VIEW_END_MARGIN
-import co.condorlabs.customcomponents.COLLAPSIBLE_CARD_VIEW_START_MARGIN
-import co.condorlabs.customcomponents.COLLAPSIBLE_INDICATOR_ROTATION
-import co.condorlabs.customcomponents.COLLAPSIBLE_LINE_SEPARATOR_HEIGHT
-import co.condorlabs.customcomponents.COLLAPSIBLE_LINE_SEPARATOR_START_MARGIN
-import co.condorlabs.customcomponents.DEFAULT_COLLAPSIBLE_ANIMATION_TIME
-import co.condorlabs.customcomponents.DEFAULT_COLLAPSIBLE_ICON_HEIGHT
-import co.condorlabs.customcomponents.DEFAULT_COLLAPSIBLE_ICON_WIDTH
-import co.condorlabs.customcomponents.DEFAULT_COLLAPSIBLE_INDICATOR_MARGIN_END
-import co.condorlabs.customcomponents.DEFAULT_COLLAPSIBLE_MARGIN
-import co.condorlabs.customcomponents.DEFAULT_COLLAPSIBLE_MARGIN_FOOTER_TEXT
-import co.condorlabs.customcomponents.DEFAULT_COLLAPSIBLE_PADDING
-import co.condorlabs.customcomponents.DEFAULT_COLLAPSIBLE_SUBTITLE_MARGIN_BOTTOM
-import co.condorlabs.customcomponents.DEFAULT_COLLAPSIBLE_SUBTITLE_TOP_MARGIN
-import co.condorlabs.customcomponents.DEFAULT_COLLAPSIBLE_TITLE_MARGIN_TOP
-import co.condorlabs.customcomponents.DEFAULT_COLLAPSIBLE_TITLE_TEXT_SIZE
-import co.condorlabs.customcomponents.DEFAULT_STYLE_ATTR
-import co.condorlabs.customcomponents.DEFAULT_STYLE_RES
-import co.condorlabs.customcomponents.MIN_DEFAULT_PADDING
-import co.condorlabs.customcomponents.ONE_HUNDRED_FLOAT
-import co.condorlabs.customcomponents.OPEN_SANS_SEMI_BOLD
-import co.condorlabs.customcomponents.R
-import co.condorlabs.customcomponents.ZERO
-import co.condorlabs.customcomponents.ZERO_FLOAT
+import co.condorlabs.customcomponents.*
 
 /**
  * @author Alexis Duque on 2019-05-29.
@@ -61,23 +38,23 @@ class CollapsibleView @JvmOverloads constructor(
     defStyleAttr: Int = ZERO
 ) : ConstraintLayout(context, attrs, defStyleAttr) {
 
-    private var collapsibleViewId: Int = NO_ID
-    private var requirementsHeight = ZERO
-    private var elementsAreCollapsed = false
-    private var collapseListener: OnCollapseListener? = null
-    private var textHiddenState: String? = null
-    private var textShowState: String? = null
-    private var iconImageView = AppCompatImageView(context).apply { id = R.id.iconImageId }
-    private var sectionTitleTextView = AppCompatTextView(context).apply { id = R.id.titleId }
-    private var sectionSubtitleTextView = AppCompatTextView(context).apply { id = R.id.subtitleId }
-    private var sectionCardView = CardView(context).apply { id = R.id.cardId }
-    private var sectionConstraintLayout = ConstraintLayout(context)
-    private var lineSeparatorView = View(context).apply { id = R.id.lineSeparatorId }
-    private var containerFrameLayout = FrameLayout(context).apply { id = R.id.frameLayoutId }
-    private var footerConstraintLayout = ConstraintLayout(context).apply { id = R.id.footerId }
-    private var footerTextTextView = AppCompatTextView(context).apply { id = R.id.footerTextViewId }
-    private var footerIndicatorImageView =
-        AppCompatImageView(context).apply { id = R.id.footerImageViewId }
+    private var contentViewId: Int = NO_ID
+    private var contentHeight = ZERO
+    private var isCollapsedContent = true
+    private var onCollapseListener: OnCollapseListener? = null
+    private var hideActionLabel: String? = null
+    private var showActionLabel: String? = null
+    private var ivCollapsible = AppCompatImageView(context).apply { id = R.id.imageId }
+    private var tvTitle = AppCompatTextView(context).apply { id = R.id.titleId }
+    private var tvSubtitle = AppCompatTextView(context).apply { id = R.id.subtitleId }
+    private var cvContainer = CardView(context).apply { id = R.id.cardId }
+    private var clCardViewContainer = ConstraintLayout(context)
+    private var vLineSeparator = View(context).apply { id = R.id.lineSeparatorId }
+    private var flContent = FrameLayout(context).apply { id = R.id.frameLayoutId }
+    private var clAction = ConstraintLayout(context).apply { id = R.id.actionContainerId }
+    private var tvActionLabel = AppCompatTextView(context).apply { id = R.id.actionLabelViewId }
+    private var ivActionIndicator =
+        AppCompatImageView(context).apply { id = R.id.actionImageViewId }
 
     init {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -86,41 +63,41 @@ class CollapsibleView @JvmOverloads constructor(
             val selectableItemBackground = typedArray.getResourceId(ZERO, ZERO)
             typedArray.recycle()
 
-            sectionConstraintLayout.foreground = context.getDrawable(selectableItemBackground)
+            clCardViewContainer.foreground = context.getDrawable(selectableItemBackground)
         }
 
         isClickable = true
         isFocusable = true
         setPadding(ZERO, ZERO, ZERO, ZERO)
-        addView(sectionCardView)
+        addView(cvContainer)
 
-        sectionCardView.apply {
+        cvContainer.apply {
             layoutParams = LayoutParams(
                 LayoutParams.MATCH_PARENT,
                 LayoutParams.WRAP_CONTENT
             )
             radius = ZERO_FLOAT
-            addView(sectionConstraintLayout)
+            addView(clCardViewContainer)
         }
 
-        sectionConstraintLayout.apply {
-            addView(iconImageView)
-            addView(sectionTitleTextView)
-            addView(sectionSubtitleTextView)
-            addView(lineSeparatorView)
-            addView(containerFrameLayout)
-            addView(footerConstraintLayout)
+        clCardViewContainer.apply {
+            addView(ivCollapsible)
+            addView(tvTitle)
+            addView(tvSubtitle)
+            addView(vLineSeparator)
+            addView(flContent)
+            addView(clAction)
         }
 
-        iconImageView.apply {
+        ivCollapsible.apply {
             layoutParams = LayoutParams(
-                DEFAULT_COLLAPSIBLE_ICON_WIDTH,
-                DEFAULT_COLLAPSIBLE_ICON_HEIGHT
+                DEFAULT_COLLAPSIBLE_IMAGE_WIDTH,
+                DEFAULT_COLLAPSIBLE_IMAGE_HEIGHT
             )
             scaleType = ImageView.ScaleType.CENTER
         }
 
-        sectionTitleTextView.apply {
+        tvTitle.apply {
             layoutParams = LayoutParams(
                 MATCH_CONSTRAINT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
@@ -130,14 +107,14 @@ class CollapsibleView @JvmOverloads constructor(
             setTextSize(TypedValue.COMPLEX_UNIT_SP, DEFAULT_COLLAPSIBLE_TITLE_TEXT_SIZE)
         }
 
-        sectionSubtitleTextView.apply {
+        tvSubtitle.apply {
             layoutParams = LayoutParams(
                 MATCH_CONSTRAINT,
                 LinearLayout.LayoutParams.WRAP_CONTENT
             )
         }
 
-        lineSeparatorView.apply {
+        vLineSeparator.apply {
             layoutParams = LayoutParams(
                 MATCH_CONSTRAINT,
                 COLLAPSIBLE_LINE_SEPARATOR_HEIGHT
@@ -145,14 +122,14 @@ class CollapsibleView @JvmOverloads constructor(
             setBackgroundResource(R.color.linear_separator)
         }
 
-        containerFrameLayout.apply {
+        flContent.apply {
             layoutParams = LayoutParams(
                 MATCH_CONSTRAINT,
                 LayoutParams.WRAP_CONTENT
             )
         }
 
-        footerConstraintLayout.apply {
+        clAction.apply {
             layoutParams = LayoutParams(
                 MATCH_CONSTRAINT,
                 LayoutParams.WRAP_CONTENT
@@ -161,11 +138,11 @@ class CollapsibleView @JvmOverloads constructor(
                 DEFAULT_COLLAPSIBLE_PADDING, DEFAULT_COLLAPSIBLE_PADDING,
                 DEFAULT_COLLAPSIBLE_PADDING, DEFAULT_COLLAPSIBLE_PADDING
             )
-            addView(footerTextTextView)
-            addView(footerIndicatorImageView)
+            addView(tvActionLabel)
+            addView(ivActionIndicator)
         }
 
-        footerTextTextView.apply {
+        tvActionLabel.apply {
 
             layoutParams = LayoutParams(
                 MATCH_CONSTRAINT,
@@ -175,32 +152,32 @@ class CollapsibleView @JvmOverloads constructor(
             typeface = Typeface.createFromAsset(context.assets, OPEN_SANS_SEMI_BOLD)
         }
 
-        footerIndicatorImageView.apply {
+        ivActionIndicator.apply {
             setImageResource(R.drawable.ic_arrow_down)
             rotation = COLLAPSIBLE_INDICATOR_ROTATION
         }
 
         ConstraintSet().apply {
-            clone(footerConstraintLayout)
-            with(footerTextTextView) {
+            clone(clAction)
+            with(tvActionLabel) {
                 connect(
                     id,
                     ConstraintSet.BOTTOM,
                     ConstraintSet.PARENT_ID,
                     ConstraintSet.BOTTOM,
-                    DEFAULT_COLLAPSIBLE_MARGIN_FOOTER_TEXT
+                    DEFAULT_COLLAPSIBLE_MARGIN_ACTION_TEXT
                 )
-                connect(id, ConstraintSet.END, footerIndicatorImageView.id, ConstraintSet.START)
+                connect(id, ConstraintSet.END, ivActionIndicator.id, ConstraintSet.START)
                 connect(id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
                 connect(
                     id,
                     ConstraintSet.TOP,
                     ConstraintSet.PARENT_ID,
                     ConstraintSet.TOP,
-                    DEFAULT_COLLAPSIBLE_MARGIN_FOOTER_TEXT
+                    DEFAULT_COLLAPSIBLE_MARGIN_ACTION_TEXT
                 )
             }
-            with(footerIndicatorImageView) {
+            with(ivActionIndicator) {
                 connect(
                     id,
                     ConstraintSet.BOTTOM,
@@ -216,21 +193,21 @@ class CollapsibleView @JvmOverloads constructor(
                 )
                 connect(id, ConstraintSet.TOP, ConstraintSet.PARENT_ID, ConstraintSet.TOP)
             }
-            applyTo(footerConstraintLayout)
+            applyTo(clAction)
         }
 
         ConstraintSet().apply {
-            clone(sectionConstraintLayout)
-            with(iconImageView) {
+            clone(clCardViewContainer)
+            with(ivCollapsible) {
                 connect(id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
-                connect(id, ConstraintSet.TOP, sectionTitleTextView.id, ConstraintSet.TOP)
-                connect(id, ConstraintSet.BOTTOM, sectionTitleTextView.id, ConstraintSet.BOTTOM)
+                connect(id, ConstraintSet.TOP, tvTitle.id, ConstraintSet.TOP)
+                connect(id, ConstraintSet.BOTTOM, tvTitle.id, ConstraintSet.BOTTOM)
             }
-            with(sectionTitleTextView) {
+            with(tvTitle) {
                 connect(
                     id,
                     ConstraintSet.START,
-                    iconImageView.id,
+                    ivCollapsible.id,
                     ConstraintSet.END,
                     DEFAULT_COLLAPSIBLE_MARGIN
                 )
@@ -243,25 +220,25 @@ class CollapsibleView @JvmOverloads constructor(
                     DEFAULT_COLLAPSIBLE_TITLE_MARGIN_TOP
                 )
             }
-            with(sectionSubtitleTextView) {
+            with(tvSubtitle) {
                 connect(
                     id,
                     ConstraintSet.BOTTOM,
-                    lineSeparatorView.id,
+                    vLineSeparator.id,
                     ConstraintSet.TOP,
                     DEFAULT_COLLAPSIBLE_SUBTITLE_MARGIN_BOTTOM
                 )
                 connect(id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
-                connect(id, ConstraintSet.START, sectionTitleTextView.id, ConstraintSet.START)
+                connect(id, ConstraintSet.START, tvTitle.id, ConstraintSet.START)
                 connect(
                     id,
                     ConstraintSet.TOP,
-                    sectionTitleTextView.id,
+                    tvTitle.id,
                     ConstraintSet.BOTTOM,
                     DEFAULT_COLLAPSIBLE_SUBTITLE_TOP_MARGIN
                 )
             }
-            with(lineSeparatorView) {
+            with(vLineSeparator) {
                 connect(
                     id,
                     ConstraintSet.START,
@@ -269,25 +246,25 @@ class CollapsibleView @JvmOverloads constructor(
                     ConstraintSet.START,
                     COLLAPSIBLE_LINE_SEPARATOR_START_MARGIN
                 )
-                connect(id, ConstraintSet.BOTTOM, containerFrameLayout.id, ConstraintSet.TOP)
+                connect(id, ConstraintSet.BOTTOM, flContent.id, ConstraintSet.TOP)
             }
-            with(containerFrameLayout) {
+            with(flContent) {
                 connect(id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
                 connect(id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
-                connect(id, ConstraintSet.BOTTOM, footerConstraintLayout.id, ConstraintSet.TOP)
+                connect(id, ConstraintSet.BOTTOM, clAction.id, ConstraintSet.TOP)
             }
-            with(footerConstraintLayout) {
+            with(clAction) {
                 connect(id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
-                connect(id, ConstraintSet.START, sectionTitleTextView.id, ConstraintSet.START)
+                connect(id, ConstraintSet.START, tvTitle.id, ConstraintSet.START)
                 connect(id, ConstraintSet.BOTTOM, ConstraintSet.PARENT_ID, ConstraintSet.BOTTOM)
             }
-            applyTo(sectionConstraintLayout)
+            applyTo(clCardViewContainer)
         }
 
         ConstraintSet().apply {
             clone(this@CollapsibleView)
 
-            with(sectionCardView) {
+            with(cvContainer) {
                 connect(
                     id,
                     ConstraintSet.TOP,
@@ -319,20 +296,20 @@ class CollapsibleView @JvmOverloads constructor(
     override fun onAttachedToWindow() {
         super.onAttachedToWindow()
 
-        if (collapsibleViewId != NO_ID) {
+        if (contentViewId != NO_ID) {
             (context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as? LayoutInflater)
-                ?.inflate(collapsibleViewId, null, false)?.let {
+                ?.inflate(contentViewId, null, false)?.let {
                     setContent(it)
                 }
         }
     }
 
     override fun setPadding(left: Int, top: Int, right: Int, bottom: Int) {
-        sectionConstraintLayout.setPadding(
-            left.zeroOrGreaterThanZero(),
-            top.zeroOrGreaterThanZero(),
-            right.zeroOrGreaterThanZero(),
-            bottom.zeroOrGreaterThanZero()
+        clCardViewContainer.setPadding(
+            left.getMinimumCollapsibleContentPadding(),
+            top.getMinimumCollapsibleContentPadding(),
+            right.getMinimumCollapsibleContentPadding(),
+            bottom.getMinimumCollapsibleContentPadding()
         )
     }
 
@@ -368,31 +345,30 @@ class CollapsibleView @JvmOverloads constructor(
                 setPadding(it, it, it, it)
             }
         }
-
-        setImage(typedArray.getResourceId(R.styleable.CollapsibleView_collapsibleIcon, NO_ID))
-        sectionCardView.useCompatPadding =
+        setImage(typedArray.getResourceId(R.styleable.CollapsibleView_image, NO_ID))
+        cvContainer.useCompatPadding =
             typedArray.getBoolean(R.styleable.CollapsibleView_useAppCompactPadding, true)
-        collapsibleViewId =
-            typedArray.getResourceId(R.styleable.CollapsibleView_collapsibleContent, NO_ID)
-        elementsAreCollapsed =
-            typedArray.getBoolean(R.styleable.CollapsibleView_startCollapsed, false)
-        textHiddenState =
-            typedArray.getString(R.styleable.CollapsibleView_collapsibleHiddenFooterText)
+        contentViewId =
+            typedArray.getResourceId(R.styleable.CollapsibleView_content, NO_ID)
+        isCollapsedContent =
+            typedArray.getBoolean(R.styleable.CollapsibleView_isCollapsed, true)
+        hideActionLabel =
+            typedArray.getString(R.styleable.CollapsibleView_hideActionLabel)
                 ?: resources.getString(R.string.hide)
-        textShowState = typedArray.getString(R.styleable.CollapsibleView_collapsibleShowFooterText)
+        showActionLabel = typedArray.getString(R.styleable.CollapsibleView_showActionLabel)
             ?: resources.getString(R.string.show)
         setTitle(typedArray.getString(R.styleable.CollapsibleView_collapsibleTitle))
-        setSubtitle(typedArray.getString(R.styleable.CollapsibleView_collapsibleSubtitle))
-        setFooterTextColor(
+        setSubtitle(typedArray.getString(R.styleable.CollapsibleView_subtitle))
+        setActionLabelColor(
             typedArray.getColor(
-                R.styleable.CollapsibleView_collapsibleFooterTextColor,
+                R.styleable.CollapsibleView_actionLabelColor,
                 NO_ID
             )
         )
         setImageTint(typedArray.getColor(R.styleable.CollapsibleView_imageTintColor, NO_ID))
-        seeArrowIndicator(
+        visibleIndicatorArrow(
             typedArray.getBoolean(
-                R.styleable.CollapsibleView_seeArrowIndicator,
+                R.styleable.CollapsibleView_visibleIndicatorArrow,
                 false
             )
         )
@@ -400,27 +376,27 @@ class CollapsibleView @JvmOverloads constructor(
         typedArray.recycle()
     }
 
-    private fun collapseElements(requirementsHeight: Int) {
-        if (elementsAreCollapsed) {
-            collapseElements(ZERO, requirementsHeight, false)
+    private fun collapseContent(requirementsHeight: Int) {
+        if (isCollapsedContent) {
+            collapseContent(ZERO, requirementsHeight, false)
         } else {
-            collapseElements(requirementsHeight, ZERO, true)
+            collapseContent(requirementsHeight, ZERO, true)
         }
 
-        elementsAreCollapsed = !elementsAreCollapsed
+        isCollapsedContent = !isCollapsedContent
 
-        callOnCollapse(elementsAreCollapsed)
+        callOnCollapse(isCollapsedContent)
     }
 
-    private fun collapseElements(from: Int, to: Int, isCollapsed: Boolean) {
-        updateFooterText(isCollapsed)
+    private fun collapseContent(from: Int, to: Int, isCollapsed: Boolean) {
+        updateActionLabel(isCollapsed)
 
         val animator =
             ValueAnimator.ofInt(from, to).setDuration(DEFAULT_COLLAPSIBLE_ANIMATION_TIME)?.apply {
                 addUpdateListener {
-                    updateContainerViewHeight(it.animatedValue as Int)
-                    rotateRowIndicator(
-                        rotationValue(
+                    updateContentHeight(it.animatedValue as Int)
+                    rotateIndicatorArrow(
+                        rotationIndicatorArrowValue(
                             it.animatedValue as Int,
                             if (from > to) from else to
                         )
@@ -439,147 +415,141 @@ class CollapsibleView @JvmOverloads constructor(
         }
     }
 
-    private fun updateContainerViewHeight(height: Int = ZERO) {
-        containerFrameLayout.apply {
+    private fun updateContentHeight(height: Int = ZERO) {
+        flContent.apply {
             layoutParams?.height = height
             requestLayout()
         }
     }
 
-    private fun rotateRowIndicator(rotation: Float = ZERO_FLOAT) {
-        footerIndicatorImageView.rotation = -rotation
+    private fun rotateIndicatorArrow(rotation: Float = ZERO_FLOAT) {
+        ivActionIndicator.rotation = -rotation
     }
 
-    private fun rotationValue(currentValue: Int, limit: Int): Float {
+    private fun rotationIndicatorArrowValue(currentValue: Int, limit: Int): Float {
         return (COLLAPSIBLE_INDICATOR_ROTATION * ((currentValue * ONE_HUNDRED_FLOAT) / limit)) / ONE_HUNDRED_FLOAT
     }
 
-    private fun updateFooterText(isCollapsed: Boolean) {
-        footerTextTextView.text = if (isCollapsed) textShowState else textHiddenState
+    private fun updateActionLabel(isCollapsed: Boolean) {
+        tvActionLabel.text = if (isCollapsed) {
+            showActionLabel
+        } else {
+            hideActionLabel
+        }
     }
 
     private fun callOnCollapse(isCollapsed: Boolean): Boolean {
-        return collapseListener?.let { it.onCollapse(isCollapsed); true } ?: false
+        return onCollapseListener?.let { it.onCollapse(isCollapsed); true } ?: false
     }
 
-    fun setImage(imageIconResourceId: Int) {
-        if (imageIconResourceId != NO_ID) {
-            val imageDrawableResource = AppCompatResources.getDrawable(context, imageIconResourceId)
-            iconImageView.setImageDrawable(imageDrawableResource)
-            iconImageView.visibility = View.VISIBLE
+    private fun Int.getMinimumCollapsibleContentPadding(): Int {
+        return if (this < MIN_DEFAULT_PADDING) MIN_DEFAULT_PADDING else this
+    }
+
+    fun setImage(imageResourceId: Int) {
+        if (imageResourceId != NO_ID) {
+            val imageDrawableResource = AppCompatResources.getDrawable(context, imageResourceId)
+            ivCollapsible.setImageDrawable(imageDrawableResource)
+            ivCollapsible.visibility = View.VISIBLE
         } else {
-            iconImageView.visibility = View.GONE
+            ivCollapsible.visibility = View.GONE
         }
     }
 
     fun setImageTint(colorTint: Int) {
         if (colorTint != NO_ID) {
             ImageViewCompat.setImageTintList(
-                iconImageView,
+                ivCollapsible,
                 AppCompatResources.getColorStateList(context, colorTint)
             )
         }
     }
 
     fun setContent(collapsibleContent: View) {
-        containerFrameLayout.addView(collapsibleContent)
+        flContent.addView(collapsibleContent)
 
         val displayMetrics = DisplayMetrics()
         (context as? AppCompatActivity)?.windowManager?.defaultDisplay?.getMetrics(displayMetrics)
             ?.let {
-                containerFrameLayout.measure(
+                flContent.measure(
                     displayMetrics.widthPixels,
                     displayMetrics.heightPixels
                 )
-                requirementsHeight = containerFrameLayout.measuredHeight
+                contentHeight = flContent.measuredHeight
             }
 
-        if (elementsAreCollapsed) {
-            updateContainerViewHeight()
-            rotateRowIndicator()
-            callOnCollapse(elementsAreCollapsed)
+        if (isCollapsedContent) {
+            updateContentHeight()
+            rotateIndicatorArrow()
+            callOnCollapse(isCollapsedContent)
         }
 
-        updateFooterText(elementsAreCollapsed)
+        updateActionLabel(isCollapsedContent)
 
-        setOnClickListener { collapseElements(requirementsHeight) }
+        setOnClickListener { collapseContent(contentHeight) }
     }
 
-    fun seeArrowIndicator(isVisible: Boolean) {
-        footerIndicatorImageView.visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
+    fun visibleIndicatorArrow(isVisible: Boolean) {
+        ivActionIndicator.visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
     }
 
     fun getContent(): View? {
-        return if (containerFrameLayout.childCount > ZERO) {
-            containerFrameLayout.getChildAt(ZERO)
+        return if (flContent.childCount > ZERO) {
+            flContent.getChildAt(ZERO)
         } else {
             null
         }
     }
 
-    fun setTitle(sectionTitle: String?) {
-        sectionTitleTextView.text = sectionTitle
+    fun setTitle(title: String?) {
+        tvTitle.text = title
     }
 
     fun getTitle(): String? {
-        return sectionTitleTextView.text?.toString()
+        return tvTitle.text?.toString()
     }
 
-    fun setSubtitle(sectionSubtitle: String?) {
-        sectionSubtitleTextView.text = sectionSubtitle
+    fun setSubtitle(subtitle: String?) {
+        tvSubtitle.text = subtitle
     }
 
     fun getSubtitle(): String? {
-        return sectionSubtitleTextView.text?.toString()
+        return tvSubtitle.text?.toString()
     }
 
-    fun setHiddenFooterText(hiddenFooterText: String?) {
-        textHiddenState = hiddenFooterText
-        updateFooterText(elementsAreCollapsed)
+    fun setHideActionLabel(actionLabel: String?) {
+        hideActionLabel = actionLabel
+        updateActionLabel(isCollapsedContent)
     }
 
-    fun getHiddenFooterText(): String? {
-        return textHiddenState
+    fun getHideActionLabel(): String? {
+        return hideActionLabel
     }
 
-    fun setShowFooterText(showFooterText: String?) {
-        textShowState = showFooterText
-        updateFooterText(elementsAreCollapsed)
+    fun setShowActionLabel(actionLabel: String?) {
+        showActionLabel = actionLabel
+        updateActionLabel(isCollapsedContent)
     }
 
-    fun getShowFooterText(): String? {
-        return textShowState
+    fun getShowActionLabel(): String? {
+        return showActionLabel
     }
 
-    fun setFooterTextColor(footerTextColor: Int?) {
-        if (footerTextColor != null && footerTextColor != NO_ID) {
-            footerTextTextView.setTextColor(footerTextColor)
+    fun setActionLabelColor(actionLabelColor: Int?) {
+        if (actionLabelColor != null && actionLabelColor != NO_ID) {
+            tvActionLabel.setTextColor(actionLabelColor)
         }
     }
 
     fun setOnCollapseListener(collapseListener: OnCollapseListener?) {
-        this.collapseListener = collapseListener
+        this.onCollapseListener = collapseListener
     }
 
-    fun startCollapsed() {
-        elementsAreCollapsed = true
+    fun startExpanded() {
+        isCollapsedContent = false
     }
 
     fun collapse() {
-        if (!elementsAreCollapsed) {
-            collapseElements(requirementsHeight)
-        }
-    }
-
-    interface OnCollapseListener {
-
-        fun onCollapse(isCollapsed: Boolean)
-    }
-
-    companion object {
-
-        fun Int.zeroOrGreaterThanZero(): Int {
-            return if (this < MIN_DEFAULT_PADDING) MIN_DEFAULT_PADDING else this
-        }
+        collapseContent(contentHeight)
     }
 }

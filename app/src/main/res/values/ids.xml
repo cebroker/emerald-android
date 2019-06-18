@@ -29,13 +29,13 @@
     <item type="id" name="rgBase"/>
     <item type="id" name="etMonthYear"/>
     <item type="id" name="tagId"/>
-    <item type="id" name="iconImageId"/>
+    <item type="id" name="imageId"/>
     <item type="id" name="titleId"/>
     <item type="id" name="subtitleId"/>
     <item type="id" name="cardId"/>
     <item type="id" name="lineSeparatorId" />
     <item type="id" name="frameLayoutId" />
-    <item type="id" name="footerId" />
-    <item type="id" name="footerTextViewId" />
-    <item type="id" name="footerImageViewId" />
+    <item type="id" name="actionContainerId" />
+    <item type="id" name="actionLabelViewId" />
+    <item type="id" name="actionImageViewId" />
 </resources>
