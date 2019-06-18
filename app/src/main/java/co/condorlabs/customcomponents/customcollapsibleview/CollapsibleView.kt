@@ -398,7 +398,7 @@ class CollapsibleView @JvmOverloads constructor(
                 addUpdateListener {
                     updateContentHeight(it.animatedValue as Int)
                     rotateIndicatorArrow(
-                        rotationIndicatorArrowValue(
+                        getRotationIndicatorArrowValue(
                             it.animatedValue as Int,
                             if (from > to) {
                                 from
@@ -432,7 +432,7 @@ class CollapsibleView @JvmOverloads constructor(
         ivActionIndicator.rotation = -rotation
     }
 
-    private fun rotationIndicatorArrowValue(currentValue: Int, limit: Int): Float {
+    private fun getRotationIndicatorArrowValue(currentValue: Int, limit: Int): Float {
         return (COLLAPSIBLE_INDICATOR_ROTATION * ((currentValue * ONE_HUNDRED_FLOAT) / limit)) / ONE_HUNDRED_FLOAT
     }
 
