@@ -230,7 +230,7 @@ class CollapsibleViewTest : MockActivityTest(), OnCollapseListener {
 
         // when
         ruleActivity.runOnUiThread {
-            collapsibleViewTest?.visibleIndicatorArrow(true)
+            collapsibleViewTest?.setActionIndicatorVisibility(View.VISIBLE)
         }
 
         //then

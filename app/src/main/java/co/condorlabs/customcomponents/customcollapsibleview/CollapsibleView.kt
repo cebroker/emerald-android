@@ -2,6 +2,7 @@ package co.condorlabs.customcomponents.customcollapsibleview
 
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
+import android.app.Activity
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
@@ -15,7 +16,6 @@ import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.LinearLayout
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.content.res.AppCompatResources
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
@@ -40,7 +40,7 @@ class CollapsibleView @JvmOverloads constructor(
 
     private var contentViewId: Int = NO_ID
     private var contentHeight = ZERO
-    private var isCollapsedContent = true
+    private var isContentCollapsed = true
     private var onCollapseListener: OnCollapseListener? = null
     private var hideActionLabel: String? = null
     private var showActionLabel: String? = null
@@ -306,10 +306,10 @@ class CollapsibleView @JvmOverloads constructor(
 
     override fun setPadding(left: Int, top: Int, right: Int, bottom: Int) {
         clCardViewContainer.setPadding(
-            left.getMinimumCollapsibleContentPadding(),
-            top.getMinimumCollapsibleContentPadding(),
-            right.getMinimumCollapsibleContentPadding(),
-            bottom.getMinimumCollapsibleContentPadding()
+            getMinimumCollapsibleContentPadding(left),
+            getMinimumCollapsibleContentPadding(top),
+            getMinimumCollapsibleContentPadding(right),
+            getMinimumCollapsibleContentPadding(bottom)
         )
     }
 
@@ -350,7 +350,7 @@ class CollapsibleView @JvmOverloads constructor(
             typedArray.getBoolean(R.styleable.CollapsibleView_useAppCompactPadding, true)
         contentViewId =
             typedArray.getResourceId(R.styleable.CollapsibleView_content, NO_ID)
-        isCollapsedContent =
+        isContentCollapsed =
             typedArray.getBoolean(R.styleable.CollapsibleView_isCollapsed, true)
         hideActionLabel =
             typedArray.getString(R.styleable.CollapsibleView_hideActionLabel)
@@ -366,26 +366,28 @@ class CollapsibleView @JvmOverloads constructor(
             )
         )
         setImageTint(typedArray.getColor(R.styleable.CollapsibleView_imageTintColor, NO_ID))
-        visibleIndicatorArrow(
-            typedArray.getBoolean(
-                R.styleable.CollapsibleView_visibleIndicatorArrow,
-                false
-            )
+
+        setActionIndicatorVisibility(
+            if (typedArray.getBoolean(R.styleable.CollapsibleView_visibleIndicatorArrow, false)) {
+                View.VISIBLE
+            } else {
+                View.INVISIBLE
+            }
         )
 
         typedArray.recycle()
     }
 
     private fun collapseContent(requirementsHeight: Int) {
-        if (isCollapsedContent) {
+        if (isContentCollapsed) {
             collapseContent(ZERO, requirementsHeight, false)
         } else {
             collapseContent(requirementsHeight, ZERO, true)
         }
 
-        isCollapsedContent = !isCollapsedContent
+        isContentCollapsed = !isContentCollapsed
 
-        callOnCollapse(isCollapsedContent)
+        onCollapseListener?.onCollapse(isContentCollapsed)
     }
 
     private fun collapseContent(from: Int, to: Int, isCollapsed: Boolean) {
@@ -398,7 +400,11 @@ class CollapsibleView @JvmOverloads constructor(
                     rotateIndicatorArrow(
                         rotationIndicatorArrowValue(
                             it.animatedValue as Int,
-                            if (from > to) from else to
+                            if (from > to) {
+                                from
+                            } else {
+                                to
+                            }
                         )
                     )
                 }
@@ -438,12 +444,8 @@ class CollapsibleView @JvmOverloads constructor(
         }
     }
 
-    private fun callOnCollapse(isCollapsed: Boolean): Boolean {
-        return onCollapseListener?.let { it.onCollapse(isCollapsed); true } ?: false
-    }
-
-    private fun Int.getMinimumCollapsibleContentPadding(): Int {
-        return if (this < MIN_DEFAULT_PADDING) MIN_DEFAULT_PADDING else this
+    private fun getMinimumCollapsibleContentPadding(padding: Int): Int {
+        return if (padding < MIN_DEFAULT_PADDING) MIN_DEFAULT_PADDING else padding
     }
 
     fun setImage(imageResourceId: Int) {
@@ -469,7 +471,7 @@ class CollapsibleView @JvmOverloads constructor(
         flContent.addView(collapsibleContent)
 
         val displayMetrics = DisplayMetrics()
-        (context as? AppCompatActivity)?.windowManager?.defaultDisplay?.getMetrics(displayMetrics)
+        (context as? Activity)?.windowManager?.defaultDisplay?.getMetrics(displayMetrics)
             ?.let {
                 flContent.measure(
                     displayMetrics.widthPixels,
@@ -478,19 +480,19 @@ class CollapsibleView @JvmOverloads constructor(
                 contentHeight = flContent.measuredHeight
             }
 
-        if (isCollapsedContent) {
+        if (isContentCollapsed) {
             updateContentHeight()
             rotateIndicatorArrow()
-            callOnCollapse(isCollapsedContent)
+            onCollapseListener?.onCollapse(isContentCollapsed)
         }
 
-        updateActionLabel(isCollapsedContent)
+        updateActionLabel(isContentCollapsed)
 
         setOnClickListener { collapseContent(contentHeight) }
     }
 
-    fun visibleIndicatorArrow(isVisible: Boolean) {
-        ivActionIndicator.visibility = if (isVisible) View.VISIBLE else View.INVISIBLE
+    fun setActionIndicatorVisibility(visibility: Int) {
+        ivActionIndicator.visibility = visibility
     }
 
     fun getContent(): View? {
@@ -519,7 +521,7 @@ class CollapsibleView @JvmOverloads constructor(
 
     fun setHideActionLabel(actionLabel: String?) {
         hideActionLabel = actionLabel
-        updateActionLabel(isCollapsedContent)
+        updateActionLabel(isContentCollapsed)
     }
 
     fun getHideActionLabel(): String? {
@@ -528,7 +530,7 @@ class CollapsibleView @JvmOverloads constructor(
 
     fun setShowActionLabel(actionLabel: String?) {
         showActionLabel = actionLabel
-        updateActionLabel(isCollapsedContent)
+        updateActionLabel(isContentCollapsed)
     }
 
     fun getShowActionLabel(): String? {
@@ -546,7 +548,7 @@ class CollapsibleView @JvmOverloads constructor(
     }
 
     fun startExpanded() {
-        isCollapsedContent = false
+        isContentCollapsed = false
     }
 
     fun collapse() {
