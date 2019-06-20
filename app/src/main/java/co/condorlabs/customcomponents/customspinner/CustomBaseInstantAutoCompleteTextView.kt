@@ -3,8 +3,10 @@ package co.condorlabs.customcomponents.customspinner
 import android.content.Context
 import android.graphics.Rect
 import android.util.AttributeSet
+import android.util.TypedValue
 import android.view.MotionEvent
 import android.widget.AutoCompleteTextView
+import co.condorlabs.customcomponents.R
 
 /**
  * @author Oscar Gallon on 2019-05-14.
@@ -16,6 +18,7 @@ class CustomBaseInstantAutoCompleteTextView(context: Context, attrs: AttributeSe
 
     init {
         isFocusable = false
+        setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.body))
     }
 
     override fun enoughToFilter(): Boolean {

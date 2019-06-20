@@ -102,7 +102,7 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
             LayoutInflater.from(context).inflate(R.layout.base_edit_text_form_field, null) as? TextInputLayout
         editText = textInputLayout?.editText
         editText?.inputType = inputType
-
+        editText?.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.body))
         setFont(OPEN_SANS_REGULAR)
 
         val wrappedTextInputLayout = textInputLayout ?: return
