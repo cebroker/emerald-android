@@ -10,6 +10,7 @@ object CustomTextViewStyleFactory {
         put(TITLE_TYPE, CustomTextViewStyle.TitleTextViewStyle)
         put(SUBTITLE_TYPE, CustomTextViewStyle.SubTitleTextViewStyle)
         put(SECTION_TITLE_TYPE, CustomTextViewStyle.SectionTitleTextViewStyle)
+        put(LINK_TYPE, CustomTextViewStyle.LinkTextViewStyle)
     }
 
     fun getStyleFromType(type: Int): CustomTextViewStyle {

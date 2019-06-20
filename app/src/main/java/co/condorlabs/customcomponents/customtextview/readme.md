@@ -14,7 +14,7 @@
 
 | Name | Description |
 | - | - |
-| type_text | Should be **title**, **subtitle**, **body**, **sectionTitle** |
+| type_text | Should be **title**, **subtitle**, **body**, **sectionTitle**, **link** |
 
 | FontType | FontSize |
 | - | - |
@@ -30,6 +30,7 @@
 | smallButton | 14 |
 | largeButton | 20 |
 | sectionTitle | 14 |
+| Link | 18 |
 
 ## Public methods
 | Return Type | Description |
@@ -43,7 +44,7 @@
 |  TITLE_TYPE | 1 |
 |  SUBTITLE_TYPE | 2 |
 |  SECTION_TITLE_TYPE | 3 |
-
+|  LINK_TYPE | 4 |
 
 
 ## Example

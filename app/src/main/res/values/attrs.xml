@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ Copyright 2019 CondorLabs
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -88,6 +89,7 @@
             <enum name="title" value="1" />
             <enum name="subtitle" value="2" />
             <enum name="sectionTitle" value="3" />
+            <enum name="link" value="4"/>
         </attr>
     </declare-styleable>
 </resources>
