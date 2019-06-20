@@ -1,17 +1,11 @@
-package co.condorlabs.customcomponents.test.util
+package co.condorlabs.customcomponents.test
 
 import androidx.test.espresso.Espresso
-import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.isEnabled
 import androidx.test.filters.SmallTest
 import co.condorlabs.customcomponents.customspinner.SpinnerFormField
-import co.condorlabs.customcomponents.test.MockActivity
-import co.condorlabs.customcomponents.test.MockActivityTest
-import co.condorlabs.customcomponents.test.R
-import org.hamcrest.Matchers.not
-import org.junit.Assert
+import co.condorlabs.customcomponents.test.util.isDisable
 import org.junit.Before
 import org.junit.Test
 
@@ -51,7 +45,6 @@ class SpinnerFromFieldEnableFromXMLTest : MockActivityTest() {
         val spinner =   ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
 
         //Then
-       // Assert.assertFalse(spinner.isEnabled)
         Espresso.onView(ViewMatchers.withId(R.id.tlState)).check(matches(isDisable()))
     }
 }
