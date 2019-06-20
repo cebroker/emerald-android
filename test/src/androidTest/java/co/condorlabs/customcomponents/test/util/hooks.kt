@@ -15,13 +15,16 @@ import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.BoundedMatcher
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
+import co.condorlabs.customcomponents.customspinner.BaseSpinnerFormField
 import co.condorlabs.customcomponents.customtextview.CustomTextView
 import junit.framework.Assert
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf
+import org.hamcrest.Matchers.not
 import org.hamcrest.TypeSafeMatcher
 
 fun isTextDisplayed(resourceId: Int) {
@@ -42,6 +45,18 @@ fun isTextDisplayed(text: String?) {
         }
         .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     Assert.assertTrue(isDisplayed)
+}
+
+fun isDisable(): Matcher<View>{
+    return object : BoundedMatcher<View, BaseSpinnerFormField>(BaseSpinnerFormField::class.java){
+
+        override fun describeTo(description: Description) {
+            description.appendText("is disable")
+        }
+        override fun matchesSafely(item: BaseSpinnerFormField): Boolean {
+            return item.isEnabled
+        }
+    }
 }
 
 fun isTextNotDisplayed(text: String?) {
