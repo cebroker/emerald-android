@@ -44,9 +44,33 @@ fun isTextDisplayed(text: String?) {
     Assert.assertTrue(isDisplayed)
 }
 
+fun isTextNotDisplayed(text: String?) {
+    var isDisplayed = false
+    Espresso.onView(ViewMatchers.withSubstring(text))
+        .withFailureHandler { error, _ ->
+            isDisplayed = error is AmbiguousViewMatcherException
+        }
+        .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+    Assert.assertFalse(isDisplayed)
+}
+
 fun clickWithId(id: Int) {
     Espresso.onView(ViewMatchers.withId(id))
         .perform(ViewActions.click())
+}
+
+fun withTextColor(expectedId: Int): Matcher<View> {
+    return object : BoundedMatcher<View, TextView>(TextView::class.java) {
+
+        override fun matchesSafely(textView: TextView): Boolean {
+            return expectedId == textView.currentTextColor
+        }
+
+        override fun describeTo(description: Description) {
+            description.appendText("with text color: ")
+            description.appendValue(expectedId)
+        }
+    }
 }
 
 fun clickWithText(text: String) {
