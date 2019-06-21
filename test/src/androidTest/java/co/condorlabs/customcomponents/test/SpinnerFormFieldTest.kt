@@ -444,11 +444,11 @@ class SpinnerFormFieldTest : MockActivityTest() {
     @SmallTest
     @Test
     fun shouldBeDisableFromXML(){
-        MockActivity.layout = R.layout.activity_spinner_disable
-        restartActivity()
-
         //Given
-        val spinner =   ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
+        MockActivity.layout = R.layout.activity_spinner_disable
+
+        //When
+        restartActivity()
 
         //Then
         Espresso.onView(withId(R.id.tlState)).check(matches(not(isEnable())))
