@@ -25,7 +25,6 @@ import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.RootMatchers
-import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.SmallTest
 import co.condorlabs.customcomponents.EMPTY
@@ -445,13 +444,13 @@ class SpinnerFormFieldTest : MockActivityTest() {
     @SmallTest
     @Test
     fun shouldBeDisableFromXML(){
-        MockActivity.layout = R.layout.activity_spinner_enable_from_xml
+        MockActivity.layout = R.layout.activity_spinner_disable
         restartActivity()
 
         //Given
         val spinner =   ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
 
         //Then
-        Espresso.onView(ViewMatchers.withId(R.id.tlState)).check(matches(isEnable()))
+        Espresso.onView(withId(R.id.tlState)).check(matches(not(isEnable())))
     }
 }

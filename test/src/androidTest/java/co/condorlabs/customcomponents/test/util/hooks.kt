@@ -54,7 +54,7 @@ fun isEnable(): Matcher<View>{
             description.appendText("is disable")
         }
         override fun matchesSafely(item: BaseSpinnerFormField): Boolean {
-            return item.isEnabled
+            return item.isRequired
         }
     }
 }
