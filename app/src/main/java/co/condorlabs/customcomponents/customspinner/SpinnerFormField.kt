@@ -66,7 +66,6 @@ class SpinnerFormField(
             setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.body))
             onItemSelectedListener = this@SpinnerFormField
         }
-        setEnable(spinnerEnable)
     }
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
