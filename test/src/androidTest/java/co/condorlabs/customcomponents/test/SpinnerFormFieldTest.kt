@@ -33,6 +33,7 @@ import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.customspinner.SpinnerData
 import co.condorlabs.customcomponents.customspinner.SpinnerFormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
+import co.condorlabs.customcomponents.test.util.isEnable
 import org.hamcrest.CoreMatchers.*
 import org.junit.Assert
 import org.junit.Before
@@ -438,5 +439,31 @@ class SpinnerFormFieldTest : MockActivityTest() {
 
         // Then
         Espresso.onView(withText("Cundinamarca")).check(matches(isEnabled()))
+    }
+
+    @SmallTest
+    @Test
+    fun shouldBeDisableFromXML(){
+        //Given
+        MockActivity.layout = R.layout.activity_spinner_disable
+
+        //When
+        restartActivity()
+
+        //Then
+        Espresso.onView(withId(R.id.tlState)).check(matches(not(isEnable())))
+    }
+
+    @SmallTest
+    @Test
+    fun shouldBeEnableFromXML(){
+        //Given
+        MockActivity.layout = R.layout.activity_spinner_enable
+
+        //When
+        restartActivity()
+
+        //Then
+        Espresso.onView(withId(R.id.tlState)).check(matches(isEnable()))
     }
 }

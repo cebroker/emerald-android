@@ -40,6 +40,7 @@ abstract class BaseSpinnerFormField(context: Context, private val mAttrs: Attrib
 
     protected var autoCompleteTextView: AutoCompleteTextView? = null
     protected var hint: String
+    protected var spinnerEnable: Boolean = true
     protected var mValueChangeListener: ValueChangeListener<SpinnerData?>? = null
 
     private var layoutParams = LayoutParams(
@@ -56,7 +57,7 @@ abstract class BaseSpinnerFormField(context: Context, private val mAttrs: Attrib
 
         hint = typedArray.getString(R.styleable.SpinnerFormField_hint)
             ?: context.getString(R.string.spinner_default_hint)
-
+        spinnerEnable = typedArray.getBoolean(R.styleable.SpinnerFormField_enable, true)
         typedArray.recycle()
     }
 
@@ -72,6 +73,7 @@ abstract class BaseSpinnerFormField(context: Context, private val mAttrs: Attrib
         textInputLayout?.hint = hint
         setFont(OPEN_SANS_REGULAR)
         addView(textInputLayout, layoutParams)
+        isEnabled = spinnerEnable
     }
 
     override fun getErrorValidateResult(): ValidationResult {

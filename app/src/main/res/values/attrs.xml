@@ -39,6 +39,7 @@
     <declare-styleable name="SpinnerFormField">
         <attr name="hint" />
         <attr name="is_required" />
+        <attr name="enable" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="BaseRadioGroupFormField">
