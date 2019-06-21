@@ -453,4 +453,17 @@ class SpinnerFormFieldTest : MockActivityTest() {
         //Then
         Espresso.onView(withId(R.id.tlState)).check(matches(not(isEnable())))
     }
+
+    @SmallTest
+    @Test
+    fun shouldBeEnableFromXML(){
+        //Given
+        MockActivity.layout = R.layout.activity_spinner_enable
+
+        //When
+        restartActivity()
+
+        //Then
+        Espresso.onView(withId(R.id.tlState)).check(matches(isEnable()))
+    }
 }

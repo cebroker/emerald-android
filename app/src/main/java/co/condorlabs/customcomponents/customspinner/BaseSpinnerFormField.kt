@@ -57,7 +57,7 @@ abstract class BaseSpinnerFormField(context: Context, private val mAttrs: Attrib
 
         hint = typedArray.getString(R.styleable.SpinnerFormField_hint)
             ?: context.getString(R.string.spinner_default_hint)
-        spinnerEnable = typedArray.getBoolean(R.styleable.SpinnerFormField_enable,true)
+        spinnerEnable = typedArray.getBoolean(R.styleable.SpinnerFormField_enable, true)
         typedArray.recycle()
     }
 
