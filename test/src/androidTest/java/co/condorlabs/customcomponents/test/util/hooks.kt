@@ -47,7 +47,7 @@ fun isTextDisplayed(text: String?) {
     Assert.assertTrue(isDisplayed)
 }
 
-fun isDisable(): Matcher<View>{
+fun isEnable(): Matcher<View>{
     return object : BoundedMatcher<View, BaseSpinnerFormField>(BaseSpinnerFormField::class.java){
 
         override fun describeTo(description: Description) {

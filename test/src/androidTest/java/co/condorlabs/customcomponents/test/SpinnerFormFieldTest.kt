@@ -25,6 +25,7 @@ import androidx.test.espresso.Espresso.onData
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.RootMatchers
+import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.SmallTest
 import co.condorlabs.customcomponents.EMPTY
@@ -33,6 +34,7 @@ import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.customspinner.SpinnerData
 import co.condorlabs.customcomponents.customspinner.SpinnerFormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
+import co.condorlabs.customcomponents.test.util.isEnable
 import org.hamcrest.CoreMatchers.*
 import org.junit.Assert
 import org.junit.Before
@@ -438,5 +440,18 @@ class SpinnerFormFieldTest : MockActivityTest() {
 
         // Then
         Espresso.onView(withText("Cundinamarca")).check(matches(isEnabled()))
+    }
+
+    @SmallTest
+    @Test
+    fun shouldBeDisableFromXML(){
+        MockActivity.layout = R.layout.activity_spinner_enable_from_xml
+        restartActivity()
+
+        //Given
+        val spinner =   ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
+
+        //Then
+        Espresso.onView(ViewMatchers.withId(R.id.tlState)).check(matches(isEnable()))
     }
 }
