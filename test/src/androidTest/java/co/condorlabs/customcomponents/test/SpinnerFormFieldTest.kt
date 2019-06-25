@@ -30,6 +30,7 @@ import androidx.test.filters.SmallTest
 import co.condorlabs.customcomponents.EMPTY
 import co.condorlabs.customcomponents.MESSAGE_FORMAT_ERROR
 import co.condorlabs.customcomponents.customedittext.ValueChangeListener
+import co.condorlabs.customcomponents.customspinner.BaseSpinnerFormField
 import co.condorlabs.customcomponents.customspinner.SpinnerData
 import co.condorlabs.customcomponents.customspinner.SpinnerFormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
@@ -83,7 +84,9 @@ class SpinnerFormFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val view = Espresso.onView(withId(R.id.actvBase))
+        val base = ruleActivity.activity.findViewById<BaseSpinnerFormField>(R.id.tlState)
+        val realEditText = base.textInputLayout!!.editText!!
+        val view = Espresso.onView(withId(realEditText.id))
 
         // When
 
@@ -99,7 +102,8 @@ class SpinnerFormFieldTest : MockActivityTest() {
 
         // Given
         val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
-        val view = Espresso.onView(withId(R.id.actvBase))
+        val realEditText = formField.textInputLayout!!.editText!!
+        val view = Espresso.onView(withId(realEditText.id))
 
         // When
         ruleActivity.runOnUiThread {
@@ -151,7 +155,8 @@ class SpinnerFormFieldTest : MockActivityTest() {
 
         // Given
         val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
-        val view = Espresso.onView(withId(R.id.actvBase))
+        val realEditText = formField.textInputLayout!!.editText!!
+        val view = Espresso.onView(withId(realEditText.id))
 
         // When
         ruleActivity.runOnUiThread {
@@ -173,8 +178,8 @@ class SpinnerFormFieldTest : MockActivityTest() {
 
         // Given
         val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
-        val spinner = ruleActivity.activity.findViewById<AutoCompleteTextView>(R.id.actvBase)
-        val view = Espresso.onView(withId(R.id.actvBase))
+        val realEditText = formField.textInputLayout!!.editText!!
+        val view = Espresso.onView(withId(realEditText.id))
 
         // When
         ruleActivity.runOnUiThread {
@@ -186,7 +191,7 @@ class SpinnerFormFieldTest : MockActivityTest() {
 
         // Then
         Espresso.onView(withText("Cundinamarca")).check(matches(isDisplayed()))
-        Assert.assertEquals(data1, spinner.adapter.getItem(3))
+        Assert.assertEquals(data1, (realEditText as AutoCompleteTextView).adapter.getItem(3))
     }
 
     @SmallTest
@@ -295,7 +300,8 @@ class SpinnerFormFieldTest : MockActivityTest() {
 
         // Given
         val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
-        val view = Espresso.onView(withId(R.id.actvBase))
+        val realEditText = formField.textInputLayout!!.editText!!
+        val view = Espresso.onView(withId(realEditText.id))
 
         // When
         ruleActivity.runOnUiThread {
@@ -326,7 +332,8 @@ class SpinnerFormFieldTest : MockActivityTest() {
 
         // Given
         val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
-        val view = Espresso.onView(withId(R.id.actvBase))
+        val realEditText = formField.textInputLayout!!.editText!!
+        val view = Espresso.onView(withId(realEditText.id))
 
         // When
         ruleActivity.runOnUiThread {
@@ -375,7 +382,8 @@ class SpinnerFormFieldTest : MockActivityTest() {
 
         // Given
         val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
-        val view = Espresso.onView(withId(R.id.actvBase))
+        val realEditText = formField.textInputLayout!!.editText!!
+        val view = Espresso.onView(withId(realEditText.id))
 
         // When
         ruleActivity.runOnUiThread {
@@ -406,7 +414,8 @@ class SpinnerFormFieldTest : MockActivityTest() {
 
         // Given
         val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
-        val view = Espresso.onView(withId(R.id.actvBase))
+        val realEditText = formField.textInputLayout!!.editText!!
+        val view = Espresso.onView(withId(realEditText.id))
 
         // When
         ruleActivity.runOnUiThread {

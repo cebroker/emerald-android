@@ -79,10 +79,10 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
             "password" -> InputType.TYPE_TEXT_VARIATION_PASSWORD
             else -> InputType.TYPE_CLASS_TEXT
         }
-        maxLines = typedArray.getString(R.styleable.BaseEditTextFormField_max_lines)?.let { it.toInt() }
-        minLines = typedArray.getString(R.styleable.BaseEditTextFormField_min_lines)?.let { it.toInt() }
+        maxLines = typedArray.getString(R.styleable.BaseEditTextFormField_max_lines)?.toInt()
+        minLines = typedArray.getString(R.styleable.BaseEditTextFormField_min_lines)?.toInt()
         backgroundAlpha =
-            typedArray.getString(R.styleable.BaseEditTextFormField_background_alpha)?.let { it.toInt() }
+            typedArray.getString(R.styleable.BaseEditTextFormField_background_alpha)?.toInt()
         isMultiline = typedArray.getBoolean(R.styleable.BaseEditTextFormField_multiline, false)
 
         typedArray.recycle()
@@ -112,9 +112,10 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
         wrappedTextInputLayout.hint = this@BaseEditTextFormField.hint
 
         wrappedEditText.apply {
-            id = R.id.etBase
+            id = View.generateViewId()
             setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.body))
             isMultiline(wrappedEditText)
+            tag = BaseEditTextFormField::class.java.name
             backgroundAlpha?.let { background.alpha = it }
         }
 
