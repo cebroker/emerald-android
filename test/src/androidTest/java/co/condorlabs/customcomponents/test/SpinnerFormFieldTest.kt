@@ -33,7 +33,7 @@ import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.customspinner.SpinnerData
 import co.condorlabs.customcomponents.customspinner.SpinnerFormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.test.util.isEnable
+import co.condorlabs.customcomponents.test.util.isSpinnerEnable
 import org.hamcrest.CoreMatchers.*
 import org.junit.Assert
 import org.junit.Before
@@ -451,7 +451,7 @@ class SpinnerFormFieldTest : MockActivityTest() {
         restartActivity()
 
         //Then
-        Espresso.onView(withId(R.id.tlState)).check(matches(not(isEnable())))
+        Espresso.onView(withId(R.id.tlState)).check(matches(not(isSpinnerEnable())))
     }
 
     @SmallTest
@@ -464,6 +464,6 @@ class SpinnerFormFieldTest : MockActivityTest() {
         restartActivity()
 
         //Then
-        Espresso.onView(withId(R.id.tlState)).check(matches(isEnable()))
+        Espresso.onView(withId(R.id.tlState)).check(matches(isSpinnerEnable()))
     }
 }
