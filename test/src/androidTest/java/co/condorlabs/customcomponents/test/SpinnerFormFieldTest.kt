@@ -19,7 +19,6 @@ package co.condorlabs.customcomponents.test
  * limitations under the License.
  */
 
-
 import android.widget.AutoCompleteTextView
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onData
@@ -34,6 +33,7 @@ import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.customspinner.SpinnerData
 import co.condorlabs.customcomponents.customspinner.SpinnerFormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
+import co.condorlabs.customcomponents.test.util.isSpinnerEnable
 import org.hamcrest.CoreMatchers.*
 import org.junit.Assert
 import org.junit.Before
@@ -394,7 +394,6 @@ class SpinnerFormFieldTest : MockActivityTest() {
             formField.setEnable(false)
         }
 
-
         // Then
         view.perform(click())
         Espresso.onView(withText("Atlantico")).check(matches(not(isEnabled())))
@@ -440,5 +439,31 @@ class SpinnerFormFieldTest : MockActivityTest() {
 
         // Then
         Espresso.onView(withText("Cundinamarca")).check(matches(isEnabled()))
+    }
+
+    @SmallTest
+    @Test
+    fun shouldBeDisableFromXML(){
+        //Given
+        MockActivity.layout = R.layout.activity_spinner_disable
+
+        //When
+        restartActivity()
+
+        //Then
+        Espresso.onView(withId(R.id.tlState)).check(matches(not(isSpinnerEnable())))
+    }
+
+    @SmallTest
+    @Test
+    fun shouldBeEnableFromXML(){
+        //Given
+        MockActivity.layout = R.layout.activity_spinner_enable
+
+        //When
+        restartActivity()
+
+        //Then
+        Espresso.onView(withId(R.id.tlState)).check(matches(isSpinnerEnable()))
     }
 }

@@ -18,7 +18,7 @@ class SkeletonFragmenTest {
 
     @Test
     fun shouldLoadCompletionSkeleton() {
-        //given
+        // given
         launchFragmentInContainer<SkeletonFragment>(Bundle().apply {
             putString(ARGUMENT_SKELETON_TYPE, "Completion")
         })
@@ -31,9 +31,9 @@ class SkeletonFragmenTest {
         val contentView3 = Espresso.onView(ViewMatchers.withId(R.id.tvContent3))
         val contentView4 = Espresso.onView(ViewMatchers.withId(R.id.tvContent4))
 
-        //when
+        // when
 
-        //then
+        // then
         titleView.check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         subtitleView.check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
         contentView.check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
@@ -45,12 +45,12 @@ class SkeletonFragmenTest {
 
     @Test(expected = SkeletonTypeNotSupportedException::class)
     fun shouldThrowExceptionIfSkeletonTypeIsNotSupported() {
-        //given
+        // given
         val factory = SkeletonFactory()
 
-        //when
+        // when
         factory.getSkeletonTypeFromValue("completion")
 
-        //then
+        // then
     }
 }

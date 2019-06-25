@@ -23,6 +23,7 @@ Create a new instance in your layout
 | -| - |
 |  hint  | the label of the spinner  |
 |  is_required  | make the field required or not |
+|  enable  | enable or disable the spinner by default true  |
 
 ## Public methods
 | Return Type | Description |

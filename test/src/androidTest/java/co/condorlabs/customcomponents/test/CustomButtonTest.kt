@@ -132,6 +132,28 @@ class CustomButtonTest : MockActivityTest() {
 
     @SmallTest
     @Test
+    fun shouldBeOverLayButton() {
+        restartActivity()
+
+        // Given
+        val expectedColor = ContextCompat.getColor(ruleActivity.activity, R.color.white)
+        val button = ruleActivity.activity.findViewById<CustomButton>(R.id.btn)
+        ruleActivity.runOnUiThread {
+            button.setType("overlay")
+        }
+
+        // When
+        val backgroundColor = ContextCompat.getColor(
+            ruleActivity.activity,
+            buttonStyleFactory.getCustomColorFromType(button.getType()).backgroundColor
+        )
+
+        // Then
+        Assert.assertEquals(expectedColor, backgroundColor)
+    }
+
+    @SmallTest
+    @Test
     fun shouldBeWarningButton() {
         restartActivity()
 
@@ -157,16 +179,16 @@ class CustomButtonTest : MockActivityTest() {
     fun shouldShowProgressDialog() {
         restartActivity()
 
-        //Given
+        // Given
         val button = ruleActivity.activity.findViewById<CustomButton>(R.id.btn)
 
-        //When
+        // When
         ruleActivity.runOnUiThread {
             button.changeState(ButtonState.Loading)
         }
 
         Thread.sleep(500)
-        //Then
+        // Then
         Assert.assertTrue(button.text.isEmpty())
     }
 }

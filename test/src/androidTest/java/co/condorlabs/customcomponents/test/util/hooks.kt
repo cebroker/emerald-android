@@ -17,6 +17,8 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
 import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
+import co.condorlabs.customcomponents.customspinner.BaseSpinnerFormField
+import co.condorlabs.customcomponents.customtextview.CustomTextView
 import junit.framework.Assert
 import org.hamcrest.Description
 import org.hamcrest.Matcher
@@ -43,9 +45,46 @@ fun isTextDisplayed(text: String?) {
     Assert.assertTrue(isDisplayed)
 }
 
+fun isSpinnerEnable(): Matcher<View> {
+    return object : BoundedMatcher<View, BaseSpinnerFormField>(BaseSpinnerFormField::class.java) {
+
+        override fun describeTo(description: Description) {
+            description.appendText("is disable")
+        }
+
+        override fun matchesSafely(item: BaseSpinnerFormField): Boolean {
+            return item.textInputLayout!!.isEnabled
+        }
+    }
+}
+
+fun isTextNotDisplayed(text: String?) {
+    var isDisplayed = false
+    Espresso.onView(ViewMatchers.withSubstring(text))
+        .withFailureHandler { error, _ ->
+            isDisplayed = error is AmbiguousViewMatcherException
+        }
+        .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+    Assert.assertFalse(isDisplayed)
+}
+
 fun clickWithId(id: Int) {
     Espresso.onView(ViewMatchers.withId(id))
         .perform(ViewActions.click())
+}
+
+fun withTextColor(expectedId: Int): Matcher<View> {
+    return object : BoundedMatcher<View, TextView>(TextView::class.java) {
+
+        override fun matchesSafely(textView: TextView): Boolean {
+            return expectedId == textView.currentTextColor
+        }
+
+        override fun describeTo(description: Description) {
+            description.appendText("with text color: ")
+            description.appendValue(expectedId)
+        }
+    }
 }
 
 fun clickWithText(text: String) {
@@ -154,6 +193,22 @@ fun setNumberPickerValue(value: Int): ViewAction {
 
         override fun perform(uiController: UiController?, view: View?) {
             (view as NumberPicker).value = value
+        }
+    }
+}
+
+fun withFontSize(expectedSize: Float): Matcher<View> {
+    return object : BoundedMatcher<View, CustomTextView>(CustomTextView::class.java) {
+
+        public override fun matchesSafely(target: CustomTextView): Boolean {
+            val pixels = target.textSize
+            val actualSize = pixels / target.resources.displayMetrics.scaledDensity
+            return java.lang.Float.compare(actualSize, expectedSize) == 0
+        }
+
+        override fun describeTo(description: Description) {
+            description.appendText("with fontSize: ")
+            description.appendValue(expectedSize)
         }
     }
 }

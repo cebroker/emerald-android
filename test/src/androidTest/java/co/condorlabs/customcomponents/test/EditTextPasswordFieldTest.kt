@@ -89,10 +89,8 @@ class EditTextPasswordFieldTest : MockActivityTest() {
             drawable = textInpuntLayout.passwordVisibilityToggleDrawable
         }
 
-
-        //Then
+        // Then
         Assert.assertNotNull(drawable)
-
     }
 
     @SmallTest
@@ -129,5 +127,4 @@ class EditTextPasswordFieldTest : MockActivityTest() {
         // Then
         not(isTextDisplayed("1234567890"))
     }
-
 }

@@ -1,4 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?><!--
+<?xml version="1.0" encoding="utf-8"?>
+<!--
   ~ Copyright 2019 CondorLabs
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -38,6 +39,7 @@
     <declare-styleable name="SpinnerFormField">
         <attr name="hint" />
         <attr name="is_required" />
+        <attr name="enable" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="BaseRadioGroupFormField">
@@ -61,17 +63,34 @@
     <declare-styleable name="CustomButton">
         <attr name="type" format="string" />
     </declare-styleable>
-    <attr name="textInputLayoutTheme" format="reference" />
 
     <declare-styleable name="CollapsibleView">
-        <attr name="collapsibleContent" format="reference" />
-        <attr name="collapsibleTag" format="string" />
+        <attr name="android:padding" />
+        <attr name="android:paddingStart" />
+        <attr name="android:paddingTop" />
+        <attr name="android:paddingEnd" />
+        <attr name="android:paddingBottom" />
+        <attr name="content" format="reference" />
         <attr name="collapsibleTitle" format="string" />
-        <attr name="collapsibleSubtitle" format="string" />
-        <attr name="collapsibleHiddenFooterText" format="string" />
-        <attr name="collapsibleShowFooterText" format="string" />
-        <attr name="startCollapsed" format="boolean" />
-        <attr name="collapsibleFooterTextColor" format="color" />
-        <attr name="collapsibleTagColor" format="color" />
+        <attr name="subtitle" format="string" />
+        <attr name="hideActionLabel" format="string" />
+        <attr name="showActionLabel" format="string" />
+        <attr name="actionLabelColor" format="color" />
+        <attr name="image" format="reference" />
+        <attr name="visibleIndicatorArrow" format="boolean" />
+        <attr name="useAppCompactPadding" format="boolean" />
+        <attr name="imageTintColor" format="color" />
+        <attr name="isCollapsed" format="boolean" />
+    </declare-styleable>
+    <attr name="textInputLayoutTheme" format="reference" />
+
+    <declare-styleable name="CustomTextView">
+        <attr name="type_text" format="enum">
+            <enum name="body" value="0" />
+            <enum name="title" value="1" />
+            <enum name="subtitle" value="2" />
+            <enum name="sectionTitle" value="3" />
+            <enum name="link" value="4"/>
+        </attr>
     </declare-styleable>
 </resources>

@@ -21,7 +21,8 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 class EditTextMonthYearField(
-    private val currentContext: Context, attrs: AttributeSet
+    private val currentContext: Context,
+    attrs: AttributeSet
 ) : BaseEditTextFormField(currentContext, attrs), DatePickerDialog.OnDateSetListener {
 
     private var iconDrawable: Drawable? = null
@@ -164,7 +165,7 @@ class EditTextMonthYearField(
 
     fun getMonth(): Int {
         return editText?.text?.toString()?.let {
-            if(it.isNotEmpty()) {
+            if (it.isNotEmpty()) {
                 it.substring(
                     MONTH_YEAR_MASK_MONTH_INITIAL_INDEX,
                     MONTH_YEAR_MASK_MONTH_FINAL_INDEX
@@ -177,7 +178,7 @@ class EditTextMonthYearField(
 
     fun getYear() =
         editText?.text?.toString()?.let {
-            if(it.isNotEmpty()) {
+            if (it.isNotEmpty()) {
                 it.replace(SLASH, EMPTY).substring(
                     MONTH_YEAR_MASK_YEAR_INITIAL_INDEX,
                     MONTH_YEAR_MASK_YEAR_FINAL_INDEX
@@ -186,7 +187,6 @@ class EditTextMonthYearField(
                 DATE_PICKER_MIN_YEAR
             }
         } ?: DATE_PICKER_MIN_YEAR
-
 
     override fun isValid(): ValidationResult {
         val result = super.isValid()
@@ -197,36 +197,49 @@ class EditTextMonthYearField(
     }
 
     private fun validateUpperLimit(): ValidationResult? {
-        return upperLimit?.let {
-            val upperLimitYear = it.get(Calendar.YEAR)
-            val upperLimitMonth = it.get(Calendar.MONTH)
-            if (isTypeDateGreaterThanUpperLimit(upperLimitYear, upperLimitMonth)) {
-                ValidationResult(
+        val typedMonthYear = MonthYear(
+            getMonth(), getYear()
+        )
+        val currentMonthYear = with(Calendar.getInstance()){
+            MonthYear(
+                get(Calendar.MONTH),
+                get(Calendar.YEAR)
+            )
+        }
+        if (isMonthYearGreaterThan(typedMonthYear, currentMonthYear)) {
+            return ValidationResult(
+                false,
+                String.format(
+                    VALIDATE_UPPER_THAN_CURRENT_DATE,
+                    hint
+                )
+            )
+        }
+        upperLimit?.let {
+            val upperLimitMonthYear = MonthYear(it.get(Calendar.MONTH), it.get(Calendar.YEAR))
+            if(isMonthYearGreaterThan(typedMonthYear, upperLimitMonthYear)) {
+                return ValidationResult(
                     false,
                     String.format(
                         VALIDATE_UPPER_LIMIT_DATE_ERROR,
                         hint,
                         String.format(
                             MONTH_YEAR_STRING_TO_REPLACE,
-                            upperLimitMonth + HUMAN_READABLE_MONTH_INDEX,
-                            upperLimitYear
+                            upperLimitMonthYear.month + HUMAN_READABLE_MONTH_INDEX,
+                            upperLimitMonthYear.year
                         )
                     )
                 )
-            } else null
+            }
         }
+        return null
     }
 
-    private fun isTypeDateGreaterThanUpperLimit(
-        upperLimitYear: Int,
-        upperLimitMonth: Int
-    ): Boolean {
-        val typedYear = getYear()
-        val typedMonth = getMonth()
-        return when {
-            typedYear > upperLimitYear -> true
-            typedYear == upperLimitYear && typedMonth > upperLimitMonth -> true
-            else -> false
-        }
+    private fun isMonthYearGreaterThan(monthYear: MonthYear, compareTo: MonthYear) = when {
+        monthYear.year > compareTo.year -> true
+        monthYear.year == compareTo.year && monthYear.month > compareTo.month -> true
+        else -> false
     }
+
+    data class MonthYear(var month: Int, var year: Int)
 }
