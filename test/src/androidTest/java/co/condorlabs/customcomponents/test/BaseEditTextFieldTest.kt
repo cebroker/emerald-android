@@ -75,7 +75,9 @@ class BaseEditTextFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val editText = Espresso.onView(withId(R.id.etBase))
+        val base = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
+        val realEditText = base.editText!!
+        val editText = Espresso.onView(withId(realEditText.id))
 
         // When
         editText.perform(typeText("Amy normally hated Monday mornings, but this year was different. Kamal was in her art class and she liked Kamal. She was waiting outside the classroom when her friend Tara arrived."))
@@ -91,10 +93,12 @@ class BaseEditTextFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val editText = Espresso.onView(withId(R.id.etBase))
+
         val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
         formField.setIsRequired(false)
         formField.setMaxLength(5)
+        val realEditText = formField.editText!!
+        val editText = Espresso.onView(withId(realEditText.id))
 
         // When
         editText.perform(typeText("12345"))
@@ -128,7 +132,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
 
         // Given
         val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
-        val editText = Espresso.onView(withId(R.id.etBase))
+        val editText = Espresso.onView(withId(formField.editText!!.id))
 
         // When
         editText.perform(typeText("156"))
@@ -139,13 +143,14 @@ class BaseEditTextFieldTest : MockActivityTest() {
 
     @SmallTest
     @Test
-    fun shouldHaveRegexAndHint() {
+    fun shouldOnlyAllowToTypeUntilMaxLength() {
         MockActivity.layout = R.layout.activity_baseedittext_with_hint_and_regex_test
         restartActivity()
 
         // Given
-        val view = Espresso.onView(withId(R.id.tlBase))
-        val editText = Espresso.onView(withId(R.id.etBase))
+        val base = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
+        val realEditText = base.editText!!
+        val editText = Espresso.onView(withId(realEditText.id))
         val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
         formField.setIsRequired(true)
         formField.setMaxLength(5)
@@ -162,15 +167,17 @@ class BaseEditTextFieldTest : MockActivityTest() {
 
     @SmallTest
     @Test
-    fun shouldBeAbleToGetTheInputTypeSetOnTheLayout() {
+    fun shouldOnlyLetTypeAccordingTheInputType() {
         MockActivity.layout = R.layout.activity_baseedittextfield_with_hint_test
         restartActivity()
 
         // Given
-        val view = Espresso.onView(withId(R.id.etBase))
+        val base = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
+        val realEditText = base.editText!!
+        val editText = Espresso.onView(withId(realEditText.id))
 
         // When
-        view.perform(typeText("A"))
+        editText.perform(typeText("A"))
 
         // Then
         Espresso.onView(ViewMatchers.withText("")).check(matches(isDisplayed()))
@@ -178,38 +185,19 @@ class BaseEditTextFieldTest : MockActivityTest() {
 
     @SmallTest
     @Test
-    fun lengthShouldBeMatch() {
-        MockActivity.layout = R.layout.activity_baseedittextfield_with_hint_test
-        restartActivity()
-
-        // Given
-        val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
-        ruleActivity.runOnUiThread {
-            formField.setMaxLength(5)
-        }
-        val view = Espresso.onView(withId(R.id.etBase))
-
-        // When
-        view.perform(typeText("123456"))
-
-        // Then
-        ViewMatchers.withText("12345").matches(view)
-    }
-
-    @SmallTest
-    @Test
-    fun shouldValidateRegex() {
+    fun shouldNotTypeMoreCharacyersThanTheRegexAllow() {
         MockActivity.layout = R.layout.activity_baseedittextfield_with_hint_test
         restartActivity()
 
         // Given
         val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
         formField.setRegex("^[0-9]{9}$")
-        val view = Espresso.onView(withId(R.id.etBase))
+        val realEditText = formField.editText!!
+        val editText = Espresso.onView(withId(realEditText.id))
 
         // When
         formField.setMaxLength(9)
-        view.perform(typeText("12345678901"))
+        editText.perform(typeText("12345678901"))
         val result = formField.isValid()
 
         // Then
@@ -227,10 +215,11 @@ class BaseEditTextFieldTest : MockActivityTest() {
         val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
         formField.setIsRequired(true)
         formField.setRegex("^[0-9]{9}$")
-        val view = Espresso.onView(withId(R.id.etBase))
+        val realEditText = formField.editText!!
+        val editText = Espresso.onView(withId(realEditText.id))
 
         // When
-        view.perform(typeText("121"))
+        editText.perform(typeText("121"))
         val result = formField.isValid()
 
         // Then

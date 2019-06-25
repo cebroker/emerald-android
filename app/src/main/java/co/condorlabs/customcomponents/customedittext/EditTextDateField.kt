@@ -66,7 +66,7 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
 
     override fun setup() {
         super.setup()
-        editText?.id = R.id.etDate
+        editText?.id = View.generateViewId()
         setupPicker()
     }
 
