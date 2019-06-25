@@ -16,10 +16,10 @@
 
 package co.condorlabs.customcomponents.test
 
+import android.view.View
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.matcher.ViewMatchers
-import android.view.View
 import androidx.test.filters.SmallTest
 import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.customedittext.EditTextDateField
@@ -52,7 +52,9 @@ class EditTextDateFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val view = Espresso.onView(ViewMatchers.withId(R.id.etDate))
+        val field = (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)
+        val realEditText = field!!.editText!!
+        val view = Espresso.onView(ViewMatchers.withId(realEditText.id))
 
         // When
         view.perform(ViewActions.typeText("12/01/2YY9"))
@@ -71,9 +73,10 @@ class EditTextDateFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val view =
-            Espresso.onView(ViewMatchers.withId(R.id.etDate))
-        (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)?.setIsRequired(true)
+        val field = (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)
+        val realEditText = field!!.editText!!
+        val view = Espresso.onView(ViewMatchers.withId(realEditText.id))
+        field.setIsRequired(true)
 
         // When
         view.perform(ViewActions.replaceText(mDefaultDateFormat))
@@ -105,7 +108,10 @@ class EditTextDateFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val view = Espresso.onView(ViewMatchers.withId(R.id.etDate))
+        val field = (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)
+        val realEditText = field!!.editText!!
+        val view = Espresso.onView(ViewMatchers.withId(realEditText.id))
+
 
         // When
         view.perform(ViewActions.typeText("12/01/2019"))
@@ -124,7 +130,9 @@ class EditTextDateFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val view = Espresso.onView(ViewMatchers.withId(R.id.etDate))
+        val field = (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)
+        val realEditText = field!!.editText!!
+        val view = Espresso.onView(ViewMatchers.withId(realEditText.id))
 
         // When
         view.perform(ViewActions.replaceText("MM/DD/YYYY"))
@@ -247,10 +255,11 @@ class EditTextDateFieldTest : MockActivityTest() {
         // Given
         val todayCalendar = Calendar.getInstance()
         val todayDate = todayCalendar.time
-        val view = Espresso.onView(ViewMatchers.withId(R.id.etDate))
         val field = (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)
         field?.setIsRequired(true)
         field?.setLowerLimit(todayDate.time)
+        val realEditText = field!!.editText!!
+        val view = Espresso.onView(ViewMatchers.withId(realEditText.id))
 
         // When
         todayCalendar.add(Calendar.DAY_OF_MONTH, -1)
@@ -275,10 +284,12 @@ class EditTextDateFieldTest : MockActivityTest() {
         // Given
         val todayCalendar = Calendar.getInstance()
         val todayDate = todayCalendar.time
-        val view = Espresso.onView(ViewMatchers.withId(R.id.etDate))
         val field = (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)
         field?.setIsRequired(true)
         field?.setLowerLimit(todayDate.time)
+        val realEditText = field!!.editText!!
+        val view = Espresso.onView(ViewMatchers.withId(realEditText.id))
+
 
         // When
         todayCalendar.add(Calendar.DAY_OF_MONTH, 1)
@@ -369,10 +380,11 @@ class EditTextDateFieldTest : MockActivityTest() {
         // Given
         val todayCalendar = Calendar.getInstance()
         val todayDate = todayCalendar.time
-        val view = Espresso.onView(ViewMatchers.withId(R.id.etDate))
         val field = (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)
         field?.setIsRequired(true)
         field?.setUpperLimit(todayDate.time)
+        val realEditText = field!!.editText!!
+        val view = Espresso.onView(ViewMatchers.withId(realEditText.id))
 
         // When
         todayCalendar.add(Calendar.DAY_OF_MONTH, 1)
@@ -397,10 +409,11 @@ class EditTextDateFieldTest : MockActivityTest() {
         // Given
         val todayCalendar = Calendar.getInstance()
         val todayDate = todayCalendar.time
-        val view = Espresso.onView(ViewMatchers.withId(R.id.etDate))
         val field = (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)
-        field?.setIsRequired(true)
-        field?.setUpperLimit(todayDate.time)
+        field!!.setIsRequired(true)
+        field.setUpperLimit(todayDate.time)
+        val realEditText = field.editText!!
+        val view = Espresso.onView(ViewMatchers.withId(realEditText.id))
 
         // When
         todayCalendar.add(Calendar.DAY_OF_MONTH, -1)
