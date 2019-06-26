@@ -476,16 +476,17 @@ class SpinnerFormFieldTest : MockActivityTest() {
         Espresso.onView(withId(R.id.tlState)).check(matches(isSpinnerEnable()))
     }
 
-
     @SmallTest
     @Test
-    fun shoulShowSelectByFunction() {
+    fun shouldShowHint() {
         restartActivity()
 
-        //Given
+        // Given
         val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
-        val view = Espresso.onView(withId(R.id.actvBase))
-        //When
+        val realEditText = formField.textInputLayout!!.editText!!
+        val view = Espresso.onView(withId(realEditText.id))
+
+        // When
         ruleActivity.runOnUiThread {
             formField.setData(spinnerDataList)
             formField.setItemSelectedById(data2.id)
@@ -494,31 +495,8 @@ class SpinnerFormFieldTest : MockActivityTest() {
         view.perform(click())
         onData(allOf(`is`(instanceOf(SpinnerData::class.java)), `is`(data2))).inRoot(RootMatchers.isPlatformPopup())
             .perform(click())
-        Espresso.onView(withText("Atlantico")).check(matches(isDisplayed()))
 
-        formField.setItemSelectedHint()
-
-        //Then
-        Espresso.onView(withText("Select")).check(matches(isDisplayed()))
-    }
-
-    @SmallTest
-    @Test
-    fun shoulShowHint() {
-        restartActivity()
-
-        //Given
-        val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
-        val view = Espresso.onView(withId(R.id.actvBase))
-        //When
-        ruleActivity.runOnUiThread {
-            formField.setData(spinnerDataList)
-            formField.setItemSelectedById(data2.id)
-        }
-
-        view.perform(click())
-        onData(allOf(`is`(instanceOf(SpinnerData::class.java)), `is`(data2))).inRoot(RootMatchers.isPlatformPopup())
-            .perform(click())
+        // Then
         Espresso.onView(withText("Atlantico")).check(matches(isDisplayed()))
 
         formField.setItemSelectedHint()
