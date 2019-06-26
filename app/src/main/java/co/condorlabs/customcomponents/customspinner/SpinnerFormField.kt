@@ -21,10 +21,7 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
 import android.widget.AdapterView
-import co.condorlabs.customcomponents.DEFAULT_STYLE_ATTR
-import co.condorlabs.customcomponents.DEFAULT_STYLE_RES
-import co.condorlabs.customcomponents.EMPTY
-import co.condorlabs.customcomponents.R
+import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.formfield.ValidationResult
 
 /**
@@ -119,6 +116,13 @@ class SpinnerFormField(
 
     fun setData(data: List<SpinnerData>) {
         (autoCompleteTextView?.adapter as? SpinnerFormFieldAdapter)?.replaceStates(data.sortedBy { it.label })
+    }
+
+    fun setItemSelectedHint(){
+        val selectData = (autoCompleteTextView?.adapter as? SpinnerFormFieldAdapter)?.getData()?.let { it[ZERO] } ?: return
+        autoCompleteTextView?.setText(selectData.label, false)
+        selectedItem = selectData
+        mValueChangeListener?.onValueChange(selectedItem)
     }
 
     fun setItemSelectedById(id: String) {

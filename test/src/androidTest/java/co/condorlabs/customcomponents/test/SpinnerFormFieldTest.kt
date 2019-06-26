@@ -443,7 +443,7 @@ class SpinnerFormFieldTest : MockActivityTest() {
 
     @SmallTest
     @Test
-    fun shouldBeDisableFromXML(){
+    fun shouldBeDisableFromXML() {
         //Given
         MockActivity.layout = R.layout.activity_spinner_disable
 
@@ -456,7 +456,7 @@ class SpinnerFormFieldTest : MockActivityTest() {
 
     @SmallTest
     @Test
-    fun shouldBeEnableFromXML(){
+    fun shouldBeEnableFromXML() {
         //Given
         MockActivity.layout = R.layout.activity_spinner_enable
 
@@ -465,5 +465,31 @@ class SpinnerFormFieldTest : MockActivityTest() {
 
         //Then
         Espresso.onView(withId(R.id.tlState)).check(matches(isSpinnerEnable()))
+    }
+
+
+    @SmallTest
+    @Test
+    fun shoulShowSelectByFunction() {
+        restartActivity()
+
+        //Given
+        val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
+        val view = Espresso.onView(withId(R.id.actvBase))
+        //When
+        ruleActivity.runOnUiThread {
+            formField.setData(spinnerDataList)
+            formField.setItemSelectedById(data2.id)
+        }
+
+        view.perform(click())
+        onData(allOf(`is`(instanceOf(SpinnerData::class.java)), `is`(data2))).inRoot(RootMatchers.isPlatformPopup())
+            .perform(click())
+        Espresso.onView(withText("Atlantico")).check(matches(isDisplayed()))
+
+        formField.setItemSelectedHint()
+
+        //Then
+        Espresso.onView(withText("Select")).check(matches(isDisplayed()))
     }
 }
