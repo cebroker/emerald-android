@@ -70,6 +70,7 @@ abstract class BaseSpinnerFormField(context: Context, private val mAttrs: Attrib
         textInputLayout =
             LayoutInflater.from(context).inflate(R.layout.base_spinner_form_field, null) as? TextInputLayout
         autoCompleteTextView = textInputLayout?.findViewById(R.id.actvBase)
+        autoCompleteTextView?.id = View.generateViewId()
         textInputLayout?.hint = hint
         setFont(OPEN_SANS_REGULAR)
         addView(textInputLayout, layoutParams)
