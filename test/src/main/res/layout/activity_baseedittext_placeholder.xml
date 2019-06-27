@@ -12,5 +12,4 @@
             app:placeholder="Hola"
             app:hint="@string/zip_hint"
             app:input_type="number"/>
-
 </LinearLayout>
