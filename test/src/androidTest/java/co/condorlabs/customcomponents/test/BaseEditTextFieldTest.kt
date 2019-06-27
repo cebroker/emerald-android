@@ -17,11 +17,11 @@
 package co.condorlabs.customcomponents.test
 
 import androidx.test.espresso.Espresso
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.SmallTest
 import androidx.test.runner.AndroidJUnit4
 import co.condorlabs.customcomponents.VALIDATE_EMPTY_ERROR
@@ -266,5 +266,38 @@ class BaseEditTextFieldTest : MockActivityTest() {
         // Then
         Assert.assertFalse(result.isValid)
         Assert.assertEquals(String.format(VALIDATE_EMPTY_ERROR, "Zip"), result.error)
+    }
+
+    @SmallTest
+    @Test
+    fun shouldShowPlaceHolderFromXML(){
+        MockActivity.layout = R.layout.activity_baseedittext_placeholder
+        restartActivity()
+
+        //given
+        val baseView = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
+
+        //when
+        Espresso.onView(withId(R.id.tlBase)).perform(click())
+
+        //then
+       Assert.assertEquals(baseView.textInputLayout!!.editText!!.hint, "Hola")
+    }
+
+    @SmallTest
+    @Test
+    fun shouldShowPlaceHolderIfItsSetWithTheMethod(){
+        MockActivity.layout = R.layout.activity_baseedittext_placeholder
+        restartActivity()
+
+        //given
+        val baseView = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
+
+        //when
+        baseView.setPlaceholder("Chao")
+        Espresso.onView(withId(R.id.tlBase)).perform(click())
+
+        //then
+        Assert.assertTrue(baseView.editText!!.hint == "Chao")
     }
 }

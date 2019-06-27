@@ -28,6 +28,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
+import androidx.constraintlayout.widget.Placeholder
 import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
@@ -56,6 +57,7 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
     private var backgroundAlpha: Int? = null
     private var isMultiline: Boolean = false
     private var inputType: Int = InputType.TYPE_CLASS_TEXT
+    private var placeholder: String? = null
     private var layoutParams = LayoutParams(
         LayoutParams.MATCH_PARENT,
         LayoutParams.WRAP_CONTENT
@@ -84,6 +86,7 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
         backgroundAlpha =
             typedArray.getString(R.styleable.BaseEditTextFormField_background_alpha)?.toInt()
         isMultiline = typedArray.getBoolean(R.styleable.BaseEditTextFormField_multiline, false)
+        placeholder = typedArray.getString(R.styleable.BaseEditTextFormField_placeholder)
 
         typedArray.recycle()
     }
@@ -200,6 +203,10 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
         editText?.background?.alpha = backgroundAlpha
     }
 
+    fun setPlaceholder(placeholder: String){
+        this.placeholder = placeholder
+    }
+
     private fun setFont(fontName: String) {
         val font = Typeface.createFromAsset(context.assets, fontName)
         textInputLayout?.typeface = font
@@ -208,13 +215,30 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
 
     override fun onFocusChange(v: View?, hasFocus: Boolean) {
         if (!hasFocus) {
-            val isValid = isValid()
+            handleNoFocusOnView()
+            hidePlaceholder()
+        } else {
+            showPlaceholder()
+        }
+    }
 
-            if (isValid.error.isNotEmpty()) {
-                showError(isValid.error)
-            } else {
-                clearError()
-            }
+    private fun showPlaceholder() {
+        editText?.postDelayed({
+            textInputLayout?.editText?.hint = placeholder ?: EMPTY
+        }, MILLISECONDS_TO_SHOW_PLACE_HOLDER)
+    }
+
+    private fun hidePlaceholder(){
+        editText?.hint = EMPTY
+    }
+
+    private fun handleNoFocusOnView() {
+        val isValid = isValid()
+
+        if (isValid.error.isNotEmpty()) {
+            showError(isValid.error)
+        } else {
+            clearError()
         }
     }
 }
