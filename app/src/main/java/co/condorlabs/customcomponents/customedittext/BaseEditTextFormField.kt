@@ -62,6 +62,7 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
         LayoutParams.WRAP_CONTENT
     )
     private var showValidationIcon: Boolean = false
+    private var textWatcher: DefaultTextWatcher? = null
 
     init {
         val typedArray = context.obtainStyledAttributes(
@@ -123,13 +124,13 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
             backgroundAlpha?.let { background.alpha = it }
         }
 
-        wrappedEditText.addTextChangedListener(
-            if (showValidationIcon) {
-                IconValidationTextWatcher(this, _valueChangeListener)
-            } else {
-                DefaultTextWatcher(_valueChangeListener)
-            }
-        )
+        textWatcher = if (showValidationIcon) {
+            IconValidationTextWatcher(this, _valueChangeListener)
+        } else {
+            DefaultTextWatcher(_valueChangeListener)
+        }
+
+        wrappedEditText.addTextChangedListener(textWatcher)
 
         invalidate()
         addView(wrappedTextInputLayout, layoutParams)
@@ -185,6 +186,7 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
 
     override fun setValueChangeListener(valueChangeListener: ValueChangeListener<String>) {
         _valueChangeListener = valueChangeListener
+        textWatcher?.setValueChangeListener(valueChangeListener)
     }
 
     fun setMinLines(minLines: Int) {
