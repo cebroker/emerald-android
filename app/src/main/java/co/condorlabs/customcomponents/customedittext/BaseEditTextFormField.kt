@@ -219,7 +219,7 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
     }
 
     private fun showPlaceholder() {
-        editText?.postDelayed({
+        textInputLayout?.editText?.postDelayed({
             textInputLayout?.editText?.hint = placeholder ?: EMPTY
         }, MILLISECONDS_TO_SHOW_PLACE_HOLDER)
     }

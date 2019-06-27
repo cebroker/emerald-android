@@ -13,7 +13,6 @@ open class DefaultTextWatcher(
 
     override fun afterTextChanged(s: Editable?) {
         super.afterTextChanged(s)
-
         val newText = s?.toString() ?: return
         valueChangeListener?.onValueChange(newText)
     }

@@ -43,6 +43,5 @@ Emerald provides this component to be used as EditText
 |  Unit | *`fun setRegex(regex:String)`* <br> Set the field regex|
 |  String | *`fun getValue()`* <br> Get the current value of the field|
 
-
 ## Example
 <img src="/Images/edit_text_field.png" width="400" heigth="400">
