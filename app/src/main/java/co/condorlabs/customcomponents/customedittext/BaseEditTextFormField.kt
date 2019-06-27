@@ -18,18 +18,17 @@ package co.condorlabs.customcomponents.customedittext
 
 import android.content.Context
 import android.graphics.Typeface
-import android.text.Editable
 import android.text.InputFilter
 import android.text.InputType
-import android.text.TextWatcher
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
-import androidx.constraintlayout.widget.Placeholder
 import co.condorlabs.customcomponents.*
+import co.condorlabs.customcomponents.customedittext.textwatchers.DefaultTextWatcher
+import co.condorlabs.customcomponents.customedittext.textwatchers.IconValidationTextWatcher
 import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import com.google.android.material.textfield.TextInputLayout
@@ -62,6 +61,7 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
         LayoutParams.MATCH_PARENT,
         LayoutParams.WRAP_CONTENT
     )
+    private var showValidationIcon: Boolean = false
 
     init {
         val typedArray = context.obtainStyledAttributes(
@@ -87,6 +87,7 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
             typedArray.getString(R.styleable.BaseEditTextFormField_background_alpha)?.toInt()
         isMultiline = typedArray.getBoolean(R.styleable.BaseEditTextFormField_multiline, false)
         placeholder = typedArray.getString(R.styleable.BaseEditTextFormField_placeholder)
+        showValidationIcon = typedArray.getBoolean(R.styleable.BaseEditTextFormField_show_validation_icon, false)
 
         typedArray.recycle()
     }
@@ -122,18 +123,13 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
             backgroundAlpha?.let { background.alpha = it }
         }
 
-        wrappedEditText.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                val newValue = s?.toString()?.let { it } ?: return
-                _valueChangeListener?.onValueChange(newValue)
+        wrappedEditText.addTextChangedListener(
+            if (showValidationIcon) {
+                IconValidationTextWatcher(this, _valueChangeListener)
+            } else {
+                DefaultTextWatcher(_valueChangeListener)
             }
-
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-        })
+        )
 
         invalidate()
         addView(wrappedTextInputLayout, layoutParams)
@@ -203,7 +199,7 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
         editText?.background?.alpha = backgroundAlpha
     }
 
-    fun setPlaceholder(placeholder: String){
+    fun setPlaceholder(placeholder: String) {
         this.placeholder = placeholder
     }
 
@@ -228,8 +224,8 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
         }, MILLISECONDS_TO_SHOW_PLACE_HOLDER)
     }
 
-    private fun hidePlaceholder(){
-        editText?.hint = EMPTY
+    private fun hidePlaceholder() {
+        textInputLayout?.editText?.hint = EMPTY
     }
 
     private fun handleNoFocusOnView() {

@@ -35,6 +35,7 @@
         <attr name="background_alpha" format="integer" />
         <attr name="multiline" format="boolean" />
         <attr name="placeholder" format="string" />
+        <attr name="show_validation_icon" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="SpinnerFormField">

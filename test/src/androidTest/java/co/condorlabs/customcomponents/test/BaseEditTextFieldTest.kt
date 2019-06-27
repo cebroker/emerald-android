@@ -279,6 +279,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
 
         //when
         Espresso.onView(withId(R.id.tlBase)).perform(click())
+        Thread.sleep(210)
 
         //then
        Assert.assertEquals(baseView.textInputLayout!!.editText!!.hint, "Hola")
@@ -296,8 +297,69 @@ class BaseEditTextFieldTest : MockActivityTest() {
         //when
         baseView.setPlaceholder("Chao")
         Espresso.onView(withId(R.id.tlBase)).perform(click())
+        Thread.sleep(210)
 
         //then
         Assert.assertTrue(baseView.editText!!.hint == "Chao")
+    }
+
+    @SmallTest
+    @Test
+    fun shouldShowValidationIconIfMatchRegex(){
+        MockActivity.layout = R.layout.activity_baseedittext_with_regex_and_icon_validation
+        restartActivity()
+
+        //Given
+        val view = Espresso.onView(withId(R.id.tlBase))
+        val baseView = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
+        val realEditText = baseView.editText!!
+        val editText = Espresso.onView(withId(realEditText.id))
+
+
+        //when
+        editText.perform(typeText("12345"))
+
+        //Then
+        Assert.assertNotNull(realEditText!!.compoundDrawables[2])
+    }
+
+    @SmallTest
+    @Test
+    fun shouldNotShowValidationIconIfTextDoesNotMatchTheRegex(){
+        MockActivity.layout = R.layout.activity_baseedittext_with_regex_and_icon_validation
+        restartActivity()
+
+        //Given
+        val view = Espresso.onView(withId(R.id.tlBase))
+        val baseView = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
+        val realEditText = baseView.editText!!
+        val editText = Espresso.onView(withId(realEditText.id))
+
+
+        //when
+        editText.perform(typeText("123454"))
+
+        //Then
+        Assert.assertNull(realEditText!!.compoundDrawables[2])
+    }
+
+
+    @SmallTest
+    @Test
+    fun shouldNotShowIconIsNoValidationIsEnableButMatchRegex() {
+        MockActivity.layout = R.layout.activity_baseedittext_with_hint_and_regex_test
+        restartActivity()
+
+        //Given
+        val view = Espresso.onView(withId(R.id.tlBase))
+        val baseView = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
+        val realEditText = baseView.editText!!
+        val editText = Espresso.onView(withId(realEditText.id))
+
+        //when
+        editText.perform(typeText("123454"))
+
+        //Then
+        Assert.assertNull(realEditText!!.compoundDrawables[2])
     }
 }
