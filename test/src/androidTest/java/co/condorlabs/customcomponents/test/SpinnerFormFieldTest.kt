@@ -499,7 +499,10 @@ class SpinnerFormFieldTest : MockActivityTest() {
         // Then
         Espresso.onView(withText("Atlantico")).check(matches(isDisplayed()))
 
-        formField.setItemSelectedHint()
+        ruleActivity.runOnUiThread {
+            formField.setItemSelectedHint()
+        }
+
 
         //Then
         Espresso.onView(withText("Select")).check(matches(isDisplayed()))
