@@ -287,24 +287,6 @@ class BaseEditTextFieldTest : MockActivityTest() {
 
     @SmallTest
     @Test
-    fun shouldShowPlaceHolderIfItsSetWithTheMethod(){
-        MockActivity.layout = R.layout.activity_baseedittext_placeholder
-        restartActivity()
-
-        //given
-        val baseView = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
-
-        //when
-        baseView.setPlaceholder("Chao")
-        Espresso.onView(withId(R.id.tlBase)).perform(click())
-        Thread.sleep(210)
-
-        //then
-        Assert.assertTrue(baseView.editText!!.hint == "Chao")
-    }
-
-    @SmallTest
-    @Test
     fun shouldShowValidationIconIfMatchRegex(){
         MockActivity.layout = R.layout.activity_baseedittext_with_regex_and_icon_validation
         restartActivity()
@@ -340,7 +322,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
         editText.perform(typeText("123454"))
 
         //Then
-        Assert.assertNull(realEditText!!.compoundDrawables[2])
+        Assert.assertNull(realEditText.compoundDrawables[2])
     }
 
 
@@ -360,6 +342,6 @@ class BaseEditTextFieldTest : MockActivityTest() {
         editText.perform(typeText("123454"))
 
         //Then
-        Assert.assertNull(realEditText!!.compoundDrawables[2])
+        Assert.assertNull(realEditText.compoundDrawables[2])
     }
 }
