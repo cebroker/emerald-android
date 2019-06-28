@@ -27,6 +27,7 @@
             android:id="@+id/tlBase"
             android:textSize="@dimen/body"
             app:regex="^[0-9]{5}$"
+            app:show_validation_icon="true"
             app:hint="@string/zip_hint"
             app:input_type="number"/>
 </LinearLayout>

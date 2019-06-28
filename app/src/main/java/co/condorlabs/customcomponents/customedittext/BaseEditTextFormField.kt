@@ -18,10 +18,8 @@ package co.condorlabs.customcomponents.customedittext
 
 import android.content.Context
 import android.graphics.Typeface
-import android.text.Editable
 import android.text.InputFilter
 import android.text.InputType
-import android.text.TextWatcher
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -29,6 +27,8 @@ import android.view.View
 import android.widget.EditText
 import android.widget.LinearLayout
 import co.condorlabs.customcomponents.*
+import co.condorlabs.customcomponents.customedittext.textwatchers.DefaultTextWatcher
+import co.condorlabs.customcomponents.customedittext.textwatchers.IconValidationTextWatcher
 import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import com.google.android.material.textfield.TextInputLayout
@@ -56,10 +56,13 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
     private var backgroundAlpha: Int? = null
     private var isMultiline: Boolean = false
     private var inputType: Int = InputType.TYPE_CLASS_TEXT
+    private var placeholder: String? = null
     private var layoutParams = LayoutParams(
         LayoutParams.MATCH_PARENT,
         LayoutParams.WRAP_CONTENT
     )
+    private var showValidationIcon: Boolean = false
+    private var textWatcher: DefaultTextWatcher? = null
 
     init {
         val typedArray = context.obtainStyledAttributes(
@@ -84,6 +87,8 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
         backgroundAlpha =
             typedArray.getString(R.styleable.BaseEditTextFormField_background_alpha)?.toInt()
         isMultiline = typedArray.getBoolean(R.styleable.BaseEditTextFormField_multiline, false)
+        placeholder = typedArray.getString(R.styleable.BaseEditTextFormField_placeholder)
+        showValidationIcon = typedArray.getBoolean(R.styleable.BaseEditTextFormField_show_validation_icon, false)
 
         typedArray.recycle()
     }
@@ -119,18 +124,13 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
             backgroundAlpha?.let { background.alpha = it }
         }
 
-        wrappedEditText.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(s: Editable?) {
-                val newValue = s?.toString()?.let { it } ?: return
-                _valueChangeListener?.onValueChange(newValue)
-            }
+        textWatcher = if (showValidationIcon) {
+            IconValidationTextWatcher(this, _valueChangeListener)
+        } else {
+            DefaultTextWatcher(_valueChangeListener)
+        }
 
-            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
-            }
-
-            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-            }
-        })
+        wrappedEditText.addTextChangedListener(textWatcher)
 
         invalidate()
         addView(wrappedTextInputLayout, layoutParams)
@@ -186,6 +186,7 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
 
     override fun setValueChangeListener(valueChangeListener: ValueChangeListener<String>) {
         _valueChangeListener = valueChangeListener
+        textWatcher?.setValueChangeListener(valueChangeListener)
     }
 
     fun setMinLines(minLines: Int) {
@@ -200,8 +201,13 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
         editText?.background?.alpha = backgroundAlpha
     }
 
+    fun setPlaceholder(placeholder: String) {
+        this.placeholder = placeholder
+    }
+
     fun setEnable(isEnable: Boolean) {
-        editText?.isEnabled = isEnabled
+        editText?.isEnabled = isEnable
+        textInputLayout?.isEnabled = isEnable
     }
 
     private fun setFont(fontName: String) {
@@ -212,13 +218,30 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
 
     override fun onFocusChange(v: View?, hasFocus: Boolean) {
         if (!hasFocus) {
-            val isValid = isValid()
+            handleNoFocusOnView()
+            hidePlaceholder()
+        } else {
+            showPlaceholder()
+        }
+    }
 
-            if (isValid.error.isNotEmpty()) {
-                showError(isValid.error)
-            } else {
-                clearError()
-            }
+    private fun showPlaceholder() {
+        textInputLayout?.editText?.postDelayed({
+            textInputLayout?.editText?.hint = placeholder ?: EMPTY
+        }, MILLISECONDS_TO_SHOW_PLACE_HOLDER)
+    }
+
+    private fun hidePlaceholder() {
+        textInputLayout?.editText?.hint = EMPTY
+    }
+
+    private fun handleNoFocusOnView() {
+        val isValid = isValid()
+
+        if (isValid.error.isNotEmpty()) {
+            showError(isValid.error)
+        } else {
+            clearError()
         }
     }
 }
