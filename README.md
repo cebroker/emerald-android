@@ -16,6 +16,7 @@ Emerald UI for Android Apps
 
 ### Documentation
 
+- [Custom EditText](/app/src/main/java/co/condorlabs/customcomponents/customedittext)
 - [Custom Date Picker](/app/src/main/java/co/condorlabs/customcomponents/customdatepicker)
 - [Custom Button](/app/src/main/java/co/condorlabs/customcomponents/custombutton)
 - [Loading Screen](/app/src/main/java/co/condorlabs/customcomponents/loadingfragment)

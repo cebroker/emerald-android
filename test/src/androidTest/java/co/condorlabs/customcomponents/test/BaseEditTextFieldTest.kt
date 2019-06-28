@@ -17,11 +17,11 @@
 package co.condorlabs.customcomponents.test
 
 import androidx.test.espresso.Espresso
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.isDisplayed
-import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.SmallTest
 import androidx.test.runner.AndroidJUnit4
 import co.condorlabs.customcomponents.VALIDATE_EMPTY_ERROR
@@ -266,5 +266,82 @@ class BaseEditTextFieldTest : MockActivityTest() {
         // Then
         Assert.assertFalse(result.isValid)
         Assert.assertEquals(String.format(VALIDATE_EMPTY_ERROR, "Zip"), result.error)
+    }
+
+    @SmallTest
+    @Test
+    fun shouldShowPlaceHolderFromXML(){
+        MockActivity.layout = R.layout.activity_baseedittext_placeholder
+        restartActivity()
+
+        //given
+        val baseView = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
+
+        //when
+        Espresso.onView(withId(R.id.tlBase)).perform(click())
+        Thread.sleep(210)
+
+        //then
+       Assert.assertEquals(baseView.textInputLayout!!.editText!!.hint, "Hola")
+    }
+
+    @SmallTest
+    @Test
+    fun shouldShowValidationIconIfMatchRegex(){
+        MockActivity.layout = R.layout.activity_baseedittext_with_regex_and_icon_validation
+        restartActivity()
+
+        //Given
+        val view = Espresso.onView(withId(R.id.tlBase))
+        val baseView = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
+        val realEditText = baseView.editText!!
+        val editText = Espresso.onView(withId(realEditText.id))
+
+
+        //when
+        editText.perform(typeText("12345"))
+
+        //Then
+        Assert.assertNotNull(realEditText!!.compoundDrawables[2])
+    }
+
+    @SmallTest
+    @Test
+    fun shouldNotShowValidationIconIfTextDoesNotMatchTheRegex(){
+        MockActivity.layout = R.layout.activity_baseedittext_with_regex_and_icon_validation
+        restartActivity()
+
+        //Given
+        val view = Espresso.onView(withId(R.id.tlBase))
+        val baseView = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
+        val realEditText = baseView.editText!!
+        val editText = Espresso.onView(withId(realEditText.id))
+
+
+        //when
+        editText.perform(typeText("123454"))
+
+        //Then
+        Assert.assertNull(realEditText.compoundDrawables[2])
+    }
+
+
+    @SmallTest
+    @Test
+    fun shouldNotShowIconIsNoValidationIsEnableButMatchRegex() {
+        MockActivity.layout = R.layout.activity_baseedittext_with_hint_and_regex_test
+        restartActivity()
+
+        //Given
+        val view = Espresso.onView(withId(R.id.tlBase))
+        val baseView = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
+        val realEditText = baseView.editText!!
+        val editText = Espresso.onView(withId(realEditText.id))
+
+        //when
+        editText.perform(typeText("123454"))
+
+        //Then
+        Assert.assertNull(realEditText.compoundDrawables[2])
     }
 }
