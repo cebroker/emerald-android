@@ -16,9 +16,9 @@ class IconValidationTextWatcher(
 
     override fun afterTextChanged(s: Editable?) {
         super.afterTextChanged(s)
-        receiver.clearError()
         if (receiver.isValid().isValid) {
             showCheckedIcon()
+            receiver.clearError()
         } else {
             hideCheckIcon()
         }
