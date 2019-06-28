@@ -193,6 +193,7 @@ class EditTextMonthYearField(
         val result = super.isValid()
         if (result.isValid) {
             when {
+                upperLimit != null && lowerLimit != null -> throw PropertyNotImplementedException()
                 upperLimit != null -> return validateUpperLimit() ?: result
                 lowerLimit != null -> return validateLowerLimit() ?: result
             }
