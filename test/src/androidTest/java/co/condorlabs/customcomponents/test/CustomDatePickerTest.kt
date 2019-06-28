@@ -9,6 +9,7 @@ import android.view.View
 import co.condorlabs.customcomponents.DATE_PICKER_MAX_YEAR
 import co.condorlabs.customcomponents.DATE_PICKER_MIN_YEAR
 import co.condorlabs.customcomponents.EMPTY
+import co.condorlabs.customcomponents.PropertyNotImplementedException
 import co.condorlabs.customcomponents.customedittext.EditTextMonthYearField
 import co.condorlabs.customcomponents.test.util.clickDrawable
 import co.condorlabs.customcomponents.test.util.setNumberPickerValue
@@ -278,5 +279,23 @@ class CustomDatePickerTest : MockActivityTest() {
         onView(editTextRef).perform(ViewActions.typeText("05/2021"))
         // Then
         Assert.assertEquals(true, editText?.isValid()?.isValid)
+    }
+
+    @Test(expected = PropertyNotImplementedException::class)
+    fun shouldThrowPropertyNotImplementedExceptionWhenHasUpperLimitAndLowerLimit() {
+        // Given
+        editText?.lowerLimit = Calendar.getInstance().apply {
+            set(2019, Calendar.JUNE, 1)
+        }
+        editText?.upperLimit = Calendar.getInstance().apply {
+            set(2020, Calendar.JUNE, 1)
+        }
+        // When
+        onView(editTextRef).perform(ViewActions.typeText("05/2021"))
+
+        // Then
+        ruleActivity.runOnUiThread {
+            editText?.isValid()
+        }
     }
 }
