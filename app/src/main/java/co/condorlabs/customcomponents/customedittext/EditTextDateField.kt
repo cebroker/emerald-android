@@ -57,8 +57,8 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
             }
         }
 
-        if (_regex == null) {
-            _regex = DATE_REGEX
+        if (regexListToMatch.isEmpty()) {
+            regexListToMatch.add(DATE_REGEX)
         }
 
         mSimpleDateFormat = SimpleDateFormat(mDateFormat, Locale.getDefault())

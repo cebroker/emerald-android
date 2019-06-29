@@ -42,18 +42,6 @@ class EditTextCurrencyField(context: Context, attrs: AttributeSet) : BaseEditTex
         _editText.setText(DOLLAR_SYMBOL)
     }
 
-    override fun isValid(): ValidationResult {
-        return when {
-            isFieldEmpty(editText?.text.toString()) && isRequired -> ValidationResult(
-                false,
-                String.format(VALIDATE_EMPTY_ERROR, hint)
-            )
-            editText?.text.toString().isNotEmpty() && _regex != null &&
-                    !Pattern.compile(_regex).matcher(editText?.text.toString()).matches() -> getErrorValidateResult()
-            else -> ValidationResult(true, EMPTY)
-        }
-    }
-
     private fun isFieldEmpty(text: String?): Boolean {
         return text == DOLLAR_SYMBOL
     }

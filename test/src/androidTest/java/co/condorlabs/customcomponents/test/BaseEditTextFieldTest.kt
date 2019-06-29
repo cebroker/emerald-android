@@ -20,6 +20,7 @@ import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
+import androidx.test.espresso.matcher.RootMatchers
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.SmallTest
@@ -27,7 +28,10 @@ import androidx.test.runner.AndroidJUnit4
 import co.condorlabs.customcomponents.VALIDATE_EMPTY_ERROR
 import co.condorlabs.customcomponents.VALIDATE_INCORRECT_ERROR
 import co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
+import co.condorlabs.customcomponents.customspinner.SpinnerData
+import co.condorlabs.customcomponents.customspinner.SpinnerFormField
 import co.condorlabs.customcomponents.test.util.isTextInLines
+import org.hamcrest.CoreMatchers
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
@@ -344,4 +348,91 @@ class BaseEditTextFieldTest : MockActivityTest() {
         //Then
         Assert.assertNull(realEditText.compoundDrawables[2])
     }
+
+    @SmallTest
+    @Test
+    fun shouldBeDisable() {
+        MockActivity.layout = R.layout.activity_baseedittextfield_with_hint_test
+        restartActivity()
+
+        // Given
+        val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
+        val editText = Espresso.onView(withId(formField.editText!!.id))
+
+        // When
+        editText.perform(typeText("12345"))
+        ruleActivity.runOnUiThread {
+            formField.setEnable(false)
+        }
+
+        // Then
+        Espresso.onView(withText("12345")).check(matches(CoreMatchers.not(isEnabled())))
+    }
+
+    @SmallTest
+    @Test
+    fun shouldBeEnable() {
+        MockActivity.layout = R.layout.activity_baseedittextfield_with_hint_test
+        restartActivity()
+
+        // Given
+        val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
+        val editText = Espresso.onView(withId(formField.editText!!.id))
+
+        // When
+        editText.perform(typeText("12345"))
+        ruleActivity.runOnUiThread {
+            formField.setEnable(false)
+        }
+        Espresso.onView(withText("12345")).check(matches(CoreMatchers.not(isEnabled())))
+        ruleActivity.runOnUiThread {
+            formField.setEnable(true)
+        }
+        // Then
+        Espresso.onView(withText("12345")).check(matches(isEnabled()))
+    }
+
+    @Test
+    fun shouldBeInvalidIfDoesNotMatchWithAnyRegex(){
+        MockActivity.layout = R.layout.activity_baseedittextfield_with_hint_test
+        restartActivity()
+
+        // Given
+        val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
+        formField.setIsRequired(true)
+        formField.setRegex(listOf("^[0-9]{9}$", "^[a-z]+$"))
+        val realEditText = formField.editText!!
+        val editText = Espresso.onView(withId(realEditText.id))
+
+        // When
+        editText.perform(typeText("121"))
+        val result = formField.isValid()
+
+        // Then
+        Assert.assertFalse(result.isValid)
+        Assert.assertEquals(String.format(VALIDATE_INCORRECT_ERROR, "Zip"), result.error)
+    }
+
+    @Test
+    fun shouldBeValidIfMatchesAtLeastOneRegex(){
+        MockActivity.layout = R.layout.activity_baseedittextfield_test
+        restartActivity()
+
+        // Given
+        val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
+        formField.setIsRequired(true)
+        formField.setRegex(listOf("^[0-9]{9}$", "^[a-z]+$"))
+        val realEditText = formField.editText!!
+        val editText = Espresso.onView(withId(realEditText.id))
+
+        // When
+        editText.perform(typeText("a"))
+        val result = formField.isValid()
+
+        // Then
+        Assert.assertTrue(result.isValid)
+    }
+
 }
+
+

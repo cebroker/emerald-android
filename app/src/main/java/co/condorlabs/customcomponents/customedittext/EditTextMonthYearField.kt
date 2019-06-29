@@ -30,6 +30,7 @@ class EditTextMonthYearField(
     private var simpleDateFormat: SimpleDateFormat? = null
     private var dateFormat = MONTH_YEAR_FORMAT
     var upperLimit: Calendar? = null
+    var lowerLimit: Calendar? = null
 
     init {
         currentContext.theme.obtainStyledAttributes(
@@ -44,8 +45,8 @@ class EditTextMonthYearField(
             }
         }
 
-        if (_regex == null) {
-            _regex = MONTH_YEAR_REGEX
+        if (regexListToMatch.isEmpty()) {
+            regexListToMatch.add(MONTH_YEAR_REGEX)
         }
 
         simpleDateFormat = SimpleDateFormat(dateFormat, Locale.getDefault())
@@ -191,16 +192,39 @@ class EditTextMonthYearField(
     override fun isValid(): ValidationResult {
         val result = super.isValid()
         if (result.isValid) {
-            return validateUpperLimit() ?: result
+            when {
+                upperLimit != null && lowerLimit != null -> throw PropertyNotImplementedException()
+                upperLimit != null -> return validateUpperLimit() ?: result
+                lowerLimit != null -> return validateLowerLimit() ?: result
+            }
         }
         return result
+    }
+
+    private fun validateLowerLimit(): ValidationResult? {
+        val typedMonthYear = MonthYear(
+            getMonth(), getYear()
+        )
+        lowerLimit?.let {
+            val lowerLimitMonthYear = MonthYear(it.get(Calendar.MONTH), it.get(Calendar.YEAR))
+            if (isMonthYearLessThan(typedMonthYear, lowerLimitMonthYear)) {
+                return ValidationResult(
+                    false,
+                    String.format(
+                        VALIDATE_LOWER_THAN_CURRENT_DATE,
+                        hint
+                    )
+                )
+            }
+        }
+        return null
     }
 
     private fun validateUpperLimit(): ValidationResult? {
         val typedMonthYear = MonthYear(
             getMonth(), getYear()
         )
-        val currentMonthYear = with(Calendar.getInstance()){
+        val currentMonthYear = with(Calendar.getInstance()) {
             MonthYear(
                 get(Calendar.MONTH),
                 get(Calendar.YEAR)
@@ -217,7 +241,7 @@ class EditTextMonthYearField(
         }
         upperLimit?.let {
             val upperLimitMonthYear = MonthYear(it.get(Calendar.MONTH), it.get(Calendar.YEAR))
-            if(isMonthYearGreaterThan(typedMonthYear, upperLimitMonthYear)) {
+            if (isMonthYearGreaterThan(typedMonthYear, upperLimitMonthYear)) {
                 return ValidationResult(
                     false,
                     String.format(
@@ -238,6 +262,12 @@ class EditTextMonthYearField(
     private fun isMonthYearGreaterThan(monthYear: MonthYear, compareTo: MonthYear) = when {
         monthYear.year > compareTo.year -> true
         monthYear.year == compareTo.year && monthYear.month > compareTo.month -> true
+        else -> false
+    }
+
+    private fun isMonthYearLessThan(monthYear: MonthYear, compareTo: MonthYear) = when {
+        monthYear.year < compareTo.year -> true
+        monthYear.year == compareTo.year && monthYear.month < compareTo.month -> true
         else -> false
     }
 
