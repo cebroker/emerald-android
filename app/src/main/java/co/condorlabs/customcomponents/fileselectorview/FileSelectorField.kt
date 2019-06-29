@@ -144,9 +144,15 @@ class FileSelectorField @JvmOverloads constructor(
 
         if (attrsArray.hasValue(R.styleable.FileSelectorField_fileSelectorOptions)) {
             hasGalleryOption =
-                (attrsArray.getInt(R.styleable.FileSelectorField_fileSelectorOptions, -1) and 0x01) == 0x01
+                (attrsArray.getInt(
+                    R.styleable.FileSelectorField_fileSelectorOptions,
+                    -1
+                ) and MASK_TO_OBTAIN_FILE_SELECTOR_OPTION_GALLERY) == MASK_TO_OBTAIN_FILE_SELECTOR_OPTION_GALLERY
             hasCameraOption =
-                (attrsArray.getInt(R.styleable.FileSelectorField_fileSelectorOptions, -1) and 0x02) == 0x02
+                (attrsArray.getInt(
+                    R.styleable.FileSelectorField_fileSelectorOptions,
+                    -1
+                ) and MASK_TO_OBTAIN_FILE_SELECTOR_OPTION_CAMERA) == MASK_TO_OBTAIN_FILE_SELECTOR_OPTION_CAMERA
 
             fileSelectorOptionsList = if (hasCameraOption && hasGalleryOption) {
                 arrayOf(
@@ -157,7 +163,7 @@ class FileSelectorField @JvmOverloads constructor(
                 arrayOf<CharSequence>(context.getString(R.string.gallery_string))
             } else if (hasCameraOption) {
                 arrayOf<CharSequence>(context.getString(R.string.photo_string))
-            } else null
+            } else throw FileSelectorViewOptionsNotFound()
         }
 
         if (attrsArray.hasValue(R.styleable.FileSelectorField_dialog_title)) {
