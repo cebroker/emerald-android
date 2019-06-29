@@ -14,6 +14,8 @@ class ViewHolderNotFoundForPositionException(private val position: Int) :
 
 class ArgumentsNotFoundException : NullPointerException()
 
+class PropertyNotImplementedException : RuntimeException("Both arguments (upperLimit and lowerLimit) can't be implemented at the same time")
+
 class ArgumentNotFoundException(private val argument: String) :
     NullPointerException("The argument $argument need to be specified")
 
@@ -28,4 +30,3 @@ class SkeletonTypeNotSupportedException : RuntimeException("You should provide a
 class StyleNotFoundForType(type: Int) : RuntimeException("We could not found a style for $type")
 
 class FileSelectorViewOptionsNotFound : RuntimeException("You should provide options to open camera or gallery")
-

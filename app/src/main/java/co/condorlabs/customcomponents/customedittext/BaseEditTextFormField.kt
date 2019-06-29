@@ -205,6 +205,11 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
         this.placeholder = placeholder
     }
 
+    fun setEnable(isEnable: Boolean) {
+        editText?.isEnabled = isEnable
+        textInputLayout?.isEnabled = isEnable
+    }
+
     private fun setFont(fontName: String) {
         val font = Typeface.createFromAsset(context.assets, fontName)
         textInputLayout?.typeface = font

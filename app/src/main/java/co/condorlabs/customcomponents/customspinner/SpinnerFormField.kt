@@ -136,5 +136,10 @@ class SpinnerFormField(
     fun setEnable(isEnable: Boolean) {
         textInputLayout?.isEnabled = isEnable
         (autoCompleteTextView as? CustomBaseInstantAutoCompleteTextView)?.setEnable(isEnable)
+        if (isEnable){
+            autoCompleteTextView?.setCompoundDrawablesWithIntrinsicBounds(ZERO, ZERO, R.drawable.ic_down_arrow, ZERO)
+        }else{
+            autoCompleteTextView?.setCompoundDrawablesWithIntrinsicBounds(ZERO, ZERO, R.drawable.ic_gray_down_arrow, ZERO)
+        }
     }
 }

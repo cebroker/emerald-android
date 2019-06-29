@@ -18,6 +18,7 @@ class IconValidationTextWatcher(
         super.afterTextChanged(s)
         if (receiver.isValid().isValid) {
             showCheckedIcon()
+            receiver.clearError()
         } else {
             hideCheckIcon()
         }
