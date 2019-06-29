@@ -48,7 +48,6 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
 
     override var isRequired: Boolean = false
 
-    protected var _regex: String? = null
     protected var _valueChangeListener: ValueChangeListener<String>? = null
 
     private var maxLines: Int? = null
@@ -63,6 +62,7 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
     )
     private var showValidationIcon: Boolean = false
     private var textWatcher: DefaultTextWatcher? = null
+    protected val regexListToMatch = HashSet<String>()
 
     init {
         val typedArray = context.obtainStyledAttributes(
@@ -73,7 +73,7 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
 
         hint = typedArray.getString(R.styleable.BaseEditTextFormField_hint)
             ?: context.getString(R.string.default_base_hint)
-        _regex = typedArray.getString(R.styleable.BaseEditTextFormField_regex)
+        val regex = typedArray.getString(R.styleable.BaseEditTextFormField_regex)
         isRequired = typedArray.getBoolean(R.styleable.BaseEditTextFormField_is_required, false)
         inputType = when (typedArray.getString(R.styleable.BaseEditTextFormField_input_type)) {
             "number" -> InputType.TYPE_CLASS_NUMBER
@@ -91,6 +91,10 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
         showValidationIcon = typedArray.getBoolean(R.styleable.BaseEditTextFormField_show_validation_icon, false)
 
         typedArray.recycle()
+
+        regex?.let {
+            regexListToMatch.add(it)
+        }
     }
 
     override fun onFinishInflate() {
@@ -156,7 +160,7 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
                 false,
                 VALIDATE_EMPTY_ERROR
             )
-            editText?.text.toString().isNotEmpty() && _regex != null && !Pattern.compile(_regex).matcher(editText?.text.toString()).matches() -> getErrorValidateResult()
+            editText?.text.toString().isNotEmpty() &&  !doesTextMatchWithRegex(editText?.text.toString()) -> getErrorValidateResult()
             else -> ValidationResult(true, EMPTY)
         }
     }
@@ -177,7 +181,11 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
     }
 
     fun setRegex(regex: String) {
-        _regex = regex
+        regexListToMatch.add(regex)
+    }
+
+    fun setRegex(regex: List<String>) {
+        regexListToMatch.addAll(regex)
     }
 
     override fun setIsRequired(required: Boolean) {
@@ -214,6 +222,20 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
         val font = Typeface.createFromAsset(context.assets, fontName)
         textInputLayout?.typeface = font
         editText?.typeface = font
+    }
+
+    protected fun doesTextMatchWithRegex(candidateText: String?): Boolean {
+        if(candidateText == null ){
+            return false
+        }
+
+        if (regexListToMatch.isEmpty()) {
+            return true
+        }
+
+        return regexListToMatch.any { regex ->
+            Pattern.compile(regex).matcher(candidateText).matches()
+        }
     }
 
     override fun onFocusChange(v: View?, hasFocus: Boolean) {
