@@ -234,4 +234,61 @@ class FileSelectorFieldTest : MockActivityTest() {
         //Then
         isTextDisplayed("Option")
     }
+
+
+    @SmallTest
+    @Test
+    fun shouldNotOpenCamera() {
+        MockActivity.layout = R.layout.activity_file_selector_camera_test
+        restartActivity()
+
+        //Given
+        val fileSelectorField = ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
+
+        val fileSelectorClickListener = object : FileSelectorClickListener {
+            override fun onOptionSelected(fileSelectorOption: FileSelectorOption) {
+                Assert.assertFalse(true)
+            }
+        }
+
+        fileSelectorField.setFileSelectorClickListener(fileSelectorClickListener)
+
+
+        ruleActivity.activity.runOnUiThread { fileSelectorField.setEnable(false) }
+
+        val view = onView(withId(R.id.myCustomLayoutSelector))
+
+        //When
+        runBlocking {
+            view.perform(click())
+        }
+    }
+
+    @SmallTest
+    @Test
+    fun shouldNotOpenGallery() {
+        MockActivity.layout = R.layout.activity_file_selector_gallery_test
+        restartActivity()
+
+        //Given
+        val fileSelectorField = ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
+
+        val fileSelectorClickListener = object : FileSelectorClickListener {
+            override fun onOptionSelected(fileSelectorOption: FileSelectorOption) {
+                Assert.assertFalse(true)
+            }
+        }
+
+        fileSelectorField.setFileSelectorClickListener(fileSelectorClickListener)
+
+
+        ruleActivity.activity.runOnUiThread { fileSelectorField.setEnable(false) }
+
+        val view = onView(withId(R.id.myCustomLayoutSelector))
+
+        //When
+        runBlocking {
+            view.perform(click())
+        }
+    }
 }
