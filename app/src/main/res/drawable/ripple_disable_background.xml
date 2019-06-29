@@ -8,7 +8,7 @@
 
     <stroke
         android:width="2dp"
-        android:color="@color/emerald_disable"
+        android:color="@color/emerald_disable_file_selector"
         android:dashWidth="8dp"
         android:dashGap="8dp" />
 </shape>

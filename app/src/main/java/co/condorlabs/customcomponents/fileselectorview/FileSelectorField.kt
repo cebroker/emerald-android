@@ -222,16 +222,30 @@ class FileSelectorField @JvmOverloads constructor(
         this.fileSelectorClickListener = fileSelectorClickListener
     }
 
-    fun setEnable(isEnableParam: Boolean) {
+    fun setEnable(isEnable: Boolean) {
+        clContent?.isEnabled = isEnable
+        ivIcon?.isEnabled = isEnable
+        tvTitle?.isEnabled = isEnable
+        tvTapAction?.isEnabled = isEnable
 
-        clContent?.isEnabled = isEnableParam
-        ivIcon?.isEnabled = isEnableParam
-        tvTitle?.isEnabled = isEnableParam
-        tvTapAction?.isEnabled = isEnableParam
+        if (isEnable) {
+            setEnableColors()
+        } else {
+            setDisableColors()
+        }
+    }
 
-        ivIcon?.setColorFilter(context.resources.getColor(R.color.emerald_disable))
-        tvTitle?.setTextColor(context.resources.getColor(R.color.emerald_disable))
-        tvTapAction?.setTextColor(context.resources.getColor(R.color.emerald_disable))
+    private fun setDisableColors() {
+        ivIcon?.setColorFilter(context.resources.getColor(R.color.emerald_disable_file_selector))
+        tvTitle?.setTextColor(context.resources.getColor(R.color.emerald_disable_file_selector))
+        tvTapAction?.setTextColor(context.resources.getColor(R.color.emerald_disable_file_selector))
+        clContent?.background = context.getDrawable(R.drawable.ripple_disable_background)
+    }
+
+    private fun setEnableColors() {
+        ivIcon?.setColorFilter(context.resources.getColor(R.color.emerald_enable_file_selector_icon))
+        tvTitle?.setTextColor(context.resources.getColor(R.color.text_tap_color))
+        tvTapAction?.setTextColor(context.resources.getColor(R.color.text_tap_color))
         clContent?.background = context.getDrawable(R.drawable.ripple_disable_background)
     }
 }
