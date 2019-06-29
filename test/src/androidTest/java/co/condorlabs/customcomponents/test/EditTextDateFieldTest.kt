@@ -568,14 +568,18 @@ class EditTextDateFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_edittextdatefield_disable_enable_test
         restartActivity()
 
+        //Given
         val field = (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)
         ruleActivity.activity.runOnUiThread { field?.setEnable(false) }
 
         val view = onView(withId(R.id.tlDate))
 
+        //When
         runBlocking {
             view.perform(click())
         }
+
+        //Then
         isTextNotDisplayed("S")
         isTextNotDisplayed("M")
         isTextNotDisplayed("T")
@@ -589,11 +593,13 @@ class EditTextDateFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_edittextdatefield_disable_enable_test
         restartActivity()
 
+        //Given
         val field = (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)
         ruleActivity.activity.runOnUiThread { field?.setEnable(false) }
 
         val view = onView(withId(R.id.tlDate))
 
+        //When
         runBlocking {
             view.perform(click())
         }
@@ -609,6 +615,9 @@ class EditTextDateFieldTest : MockActivityTest() {
         runBlocking {
             view.perform(click())
         }
+
+
+        //then
         isTextNotDisplayed("S")
         isTextNotDisplayed("M")
         isTextNotDisplayed("T")

@@ -193,14 +193,18 @@ class FileSelectorFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_file_selector_title
         restartActivity()
 
+        //Given
         val fileSelectorField = ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
         ruleActivity.activity.runOnUiThread { fileSelectorField.setEnable(false) }
 
         val view = onView(withId(R.id.myCustomLayoutSelector))
 
+        //When
         runBlocking {
             view.perform(click())
         }
+
+        //Then
         isTextNotDisplayed("Option")
     }
 
@@ -210,11 +214,13 @@ class FileSelectorFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_file_selector_title
         restartActivity()
 
+        //Given
         val fileSelectorField = ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
         ruleActivity.activity.runOnUiThread { fileSelectorField.setEnable(false) }
 
         val view = onView(withId(R.id.myCustomLayoutSelector))
 
+        //When
         runBlocking {
             view.perform(click())
         }
@@ -224,6 +230,8 @@ class FileSelectorFieldTest : MockActivityTest() {
         runBlocking {
             view.perform(click())
         }
+
+        //Then
         isTextDisplayed("Option")
     }
 }
