@@ -51,7 +51,7 @@ class FileSelectorFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val view = onView(withId(R.id.ivICon))
+        val view = onView(withId(R.id.ivIcon))
 
         // When
         runBlocking {
@@ -69,7 +69,7 @@ class FileSelectorFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val view = onView(withId(R.id.ivICon))
+        val view = onView(withId(R.id.ivIcon))
         val field = ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
         var result: FileSelectorOption? = null
         field.setFileSelectorClickListener(object : FileSelectorClickListener {
@@ -94,7 +94,7 @@ class FileSelectorFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val view = onView(withId(R.id.ivICon))
+        val view = onView(withId(R.id.ivIcon))
         val field = ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
         var result: FileSelectorOption? = null
         field.setFileSelectorClickListener(object : FileSelectorClickListener {
