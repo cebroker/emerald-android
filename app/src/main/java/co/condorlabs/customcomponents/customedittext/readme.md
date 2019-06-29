@@ -42,8 +42,8 @@ Emerald provides this component to be used as EditText
 |  Unit | *`fun setIsRequired(isRequired: String)`* <br> is the field required?|
 |  Unit | *`fun setRegex(regex:String)`* <br> Set the field regex|
 |  String | *`fun getValue()`* <br> Get the current value of the field|
-|  Unit | *`fun setEnable(isEnable: Boolean)`* <br> Show the component enable or disable|
-|  Unit | *`fun setRegex(regex: List<String>))`* <br> Add multiple regex to be checked against to|
+|  Unit | *`fun setEnable(isEnable: Boolean)`* <br> Show the component enable or disable| 
+|  Unit | *`fun setRegex(regex: List<String>))`* <br> Add multiple regex to be checked against to| 
 
 
 ## Example
