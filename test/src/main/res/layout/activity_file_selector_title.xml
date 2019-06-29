@@ -28,5 +28,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:tap_button_title="This is the Title"
+            app:fileSelectorOptions="gallery|camera"
             app:dialog_title="Options"/>
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -252,6 +252,6 @@ class FileSelectorField @JvmOverloads constructor(
         ivIcon?.setColorFilter(context.resources.getColor(R.color.emerald_enable_file_selector_icon))
         tvTitle?.setTextColor(context.resources.getColor(R.color.text_tap_color))
         tvTapAction?.setTextColor(context.resources.getColor(R.color.text_tap_color))
-        clContent?.background = context.getDrawable(R.drawable.ripple_disable_background)
+        clContent?.background = context.getDrawable(R.drawable.ripple)
     }
 }
