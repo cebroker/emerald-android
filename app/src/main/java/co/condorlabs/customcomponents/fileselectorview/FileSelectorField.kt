@@ -227,4 +227,31 @@ class FileSelectorField @JvmOverloads constructor(
     fun setFileSelectorClickListener(fileSelectorClickListener: FileSelectorClickListener) {
         this.fileSelectorClickListener = fileSelectorClickListener
     }
+
+    fun setEnable(isEnable: Boolean) {
+        clContent?.isEnabled = isEnable
+        ivIcon?.isEnabled = isEnable
+        tvTitle?.isEnabled = isEnable
+        tvTapAction?.isEnabled = isEnable
+
+        if (isEnable) {
+            setEnableColors()
+        } else {
+            setDisableColors()
+        }
+    }
+
+    private fun setDisableColors() {
+        ivIcon?.setColorFilter(context.resources.getColor(R.color.emerald_disable_file_selector))
+        tvTitle?.setTextColor(context.resources.getColor(R.color.emerald_disable_file_selector))
+        tvTapAction?.setTextColor(context.resources.getColor(R.color.emerald_disable_file_selector))
+        clContent?.background = context.getDrawable(R.drawable.ripple_disable_background)
+    }
+
+    private fun setEnableColors() {
+        ivIcon?.setColorFilter(context.resources.getColor(R.color.emerald_enable_file_selector_icon))
+        tvTitle?.setTextColor(context.resources.getColor(R.color.text_tap_color))
+        tvTapAction?.setTextColor(context.resources.getColor(R.color.text_tap_color))
+        clContent?.background = context.getDrawable(R.drawable.ripple)
+    }
 }
