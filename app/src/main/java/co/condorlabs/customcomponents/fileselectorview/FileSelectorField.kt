@@ -2,19 +2,19 @@ package co.condorlabs.customcomponents.fileselectorview
 
 import android.app.AlertDialog
 import android.content.Context
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.appcompat.widget.AppCompatImageView
-import androidx.appcompat.widget.AppCompatTextView
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import co.condorlabs.customcomponents.EMPTY
+import co.condorlabs.customcomponents.FILE_SELECTOR_GALLERY_OPTION_INDEX
+import co.condorlabs.customcomponents.NOT_DEFINED_ATTRIBUTE_DEFAULT_VALUE
 import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.EMPTY
-import co.condorlabs.customcomponents.FILE_SELECTOR_GALLERY_OPTION_INDEX
-import co.condorlabs.customcomponents.NOT_DEFINED_ATTRIBUTE_DEFAULT_VALUE
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.file_selector_view.view.*
 import kotlinx.coroutines.CoroutineScope
@@ -162,7 +162,8 @@ class FileSelectorField @JvmOverloads constructor(
         }
 
         if (attrsArray.hasValue(R.styleable.FileSelectorField_src_tap_button)) {
-            attrsArray.getResourceId(R.styleable.FileSelectorField_src_tap_button,
+            attrsArray.getResourceId(
+                R.styleable.FileSelectorField_src_tap_button,
                 NOT_DEFINED_ATTRIBUTE_DEFAULT_VALUE
             )
                 .let { imageResourceId ->
@@ -204,5 +205,18 @@ class FileSelectorField @JvmOverloads constructor(
             .show()
 
         return suspendCoroutine { continuation -> result = continuation }
+    }
+
+    fun setEnable(isEnableParam: Boolean) {
+
+        mCLContent?.isEnabled = isEnableParam
+        mIVIcon?.isEnabled = isEnableParam
+        mTVTitle?.isEnabled = isEnableParam
+        mTVTapAction?.isEnabled = isEnableParam
+
+        mIVIcon?.setColorFilter(context.resources.getColor(R.color.emerald_disable))
+        mTVTitle?.setTextColor(context.resources.getColor(R.color.emerald_disable))
+        mTVTapAction?.setTextColor(context.resources.getColor(R.color.emerald_disable))
+        mCLContent?.background = context.getDrawable(R.drawable.ripple_disable_background)
     }
 }

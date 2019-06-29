@@ -18,13 +18,18 @@ package co.condorlabs.customcomponents.test
 
 import android.view.View
 import androidx.test.espresso.Espresso
+import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.matcher.ViewMatchers
+import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.filters.SmallTest
 import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.customedittext.EditTextDateField
 import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.formfield.ValidationResult
+import co.condorlabs.customcomponents.test.util.isTextNotDisplayed
+import kotlinx.coroutines.runBlocking
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -556,5 +561,58 @@ class EditTextDateFieldTest : MockActivityTest() {
             ),
             field3?.isValid()
         )
+    }
+    @SmallTest
+    @Test
+    fun shouldDisable(){
+        MockActivity.layout = R.layout.activity_edittextdatefield_disable_enable_test
+        restartActivity()
+
+        val field = (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)
+        ruleActivity.activity.runOnUiThread { field?.setEnable(false) }
+
+        val view = onView(withId(R.id.tlDate))
+
+        runBlocking {
+            view.perform(click())
+        }
+        isTextNotDisplayed("S")
+        isTextNotDisplayed("M")
+        isTextNotDisplayed("T")
+        isTextNotDisplayed("W")
+        isTextNotDisplayed("F")
+    }
+
+    @SmallTest
+    @Test
+    fun shouldEnable(){
+        MockActivity.layout = R.layout.activity_edittextdatefield_disable_enable_test
+        restartActivity()
+
+        val field = (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)
+        ruleActivity.activity.runOnUiThread { field?.setEnable(false) }
+
+        val view = onView(withId(R.id.tlDate))
+
+        runBlocking {
+            view.perform(click())
+        }
+        isTextNotDisplayed("S")
+        isTextNotDisplayed("M")
+        isTextNotDisplayed("T")
+        isTextNotDisplayed("W")
+        isTextNotDisplayed("F")
+
+        ruleActivity.activity.runOnUiThread { field?.setEnable(true) }
+
+
+        runBlocking {
+            view.perform(click())
+        }
+        isTextNotDisplayed("S")
+        isTextNotDisplayed("M")
+        isTextNotDisplayed("T")
+        isTextNotDisplayed("W")
+        isTextNotDisplayed("F")
     }
 }

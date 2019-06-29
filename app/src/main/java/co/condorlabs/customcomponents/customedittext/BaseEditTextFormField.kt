@@ -205,7 +205,7 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
         this.placeholder = placeholder
     }
 
-    fun setEnable(isEnable: Boolean) {
+    open fun setEnable(isEnable: Boolean) {
         editText?.isEnabled = isEnable
         textInputLayout?.isEnabled = isEnable
     }
