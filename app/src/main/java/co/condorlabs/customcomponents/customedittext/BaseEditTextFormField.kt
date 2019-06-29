@@ -224,7 +224,7 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
         editText?.typeface = font
     }
 
-    private fun doesTextMatchWithRegex(candidateText: String?): Boolean {
+    protected fun doesTextMatchWithRegex(candidateText: String?): Boolean {
         if(candidateText == null ){
             return false
         }
