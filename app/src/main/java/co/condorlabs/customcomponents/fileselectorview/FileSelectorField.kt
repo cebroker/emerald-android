@@ -8,14 +8,7 @@ import android.view.View
 import androidx.appcompat.widget.AppCompatImageView
 import androidx.appcompat.widget.AppCompatTextView
 import androidx.constraintlayout.widget.ConstraintLayout
-<<<<<<< HEAD
-import co.condorlabs.customcomponents.EMPTY
-import co.condorlabs.customcomponents.FILE_SELECTOR_GALLERY_OPTION_INDEX
-import co.condorlabs.customcomponents.NOT_DEFINED_ATTRIBUTE_DEFAULT_VALUE
-import co.condorlabs.customcomponents.R
-=======
 import co.condorlabs.customcomponents.*
->>>>>>> 349bc6e59003b8db8bca0de08952f11e699fdc6e
 import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
@@ -151,15 +144,9 @@ class FileSelectorField @JvmOverloads constructor(
 
         if (attrsArray.hasValue(R.styleable.FileSelectorField_fileSelectorOptions)) {
             hasGalleryOption =
-                (attrsArray.getInt(
-                    R.styleable.FileSelectorField_fileSelectorOptions,
-                    -1
-                ) and MASK_TO_OBTAIN_FILE_SELECTOR_OPTION_GALLERY) == MASK_TO_OBTAIN_FILE_SELECTOR_OPTION_GALLERY
+                (attrsArray.getInt(R.styleable.FileSelectorField_fileSelectorOptions, -1) and 0x01) == 0x01
             hasCameraOption =
-                (attrsArray.getInt(
-                    R.styleable.FileSelectorField_fileSelectorOptions,
-                    -1
-                ) and MASK_TO_OBTAIN_FILE_SELECTOR_OPTION_CAMERA) == MASK_TO_OBTAIN_FILE_SELECTOR_OPTION_CAMERA
+                (attrsArray.getInt(R.styleable.FileSelectorField_fileSelectorOptions, -1) and 0x02) == 0x02
 
             fileSelectorOptionsList = if (hasCameraOption && hasGalleryOption) {
                 arrayOf(
@@ -170,7 +157,7 @@ class FileSelectorField @JvmOverloads constructor(
                 arrayOf<CharSequence>(context.getString(R.string.gallery_string))
             } else if (hasCameraOption) {
                 arrayOf<CharSequence>(context.getString(R.string.photo_string))
-            } else throw FileSelectorViewOptionsNotFound()
+            } else null
         }
 
         if (attrsArray.hasValue(R.styleable.FileSelectorField_dialog_title)) {
@@ -219,19 +206,6 @@ class FileSelectorField @JvmOverloads constructor(
         return suspendCoroutine { continuation -> result = continuation }
     }
 
-<<<<<<< HEAD
-    fun setEnable(isEnableParam: Boolean) {
-
-        mCLContent?.isEnabled = isEnableParam
-        mIVIcon?.isEnabled = isEnableParam
-        mTVTitle?.isEnabled = isEnableParam
-        mTVTapAction?.isEnabled = isEnableParam
-
-        mIVIcon?.setColorFilter(context.resources.getColor(R.color.emerald_disable))
-        mTVTitle?.setTextColor(context.resources.getColor(R.color.emerald_disable))
-        mTVTapAction?.setTextColor(context.resources.getColor(R.color.emerald_disable))
-        mCLContent?.background = context.getDrawable(R.drawable.ripple_disable_background)
-=======
     fun setFileValue(fileSelectorValue: FileSelectorValue) {
         this.fileSelectorValue = fileSelectorValue
 
@@ -246,6 +220,18 @@ class FileSelectorField @JvmOverloads constructor(
 
     fun setFileSelectorClickListener(fileSelectorClickListener: FileSelectorClickListener) {
         this.fileSelectorClickListener = fileSelectorClickListener
->>>>>>> 349bc6e59003b8db8bca0de08952f11e699fdc6e
+    }
+
+    fun setEnable(isEnableParam: Boolean) {
+
+        clContent?.isEnabled = isEnableParam
+        ivIcon?.isEnabled = isEnableParam
+        tvTitle?.isEnabled = isEnableParam
+        tvTapAction?.isEnabled = isEnableParam
+
+        ivIcon?.setColorFilter(context.resources.getColor(R.color.emerald_disable))
+        tvTitle?.setTextColor(context.resources.getColor(R.color.emerald_disable))
+        tvTapAction?.setTextColor(context.resources.getColor(R.color.emerald_disable))
+        clContent?.background = context.getDrawable(R.drawable.ripple_disable_background)
     }
 }
