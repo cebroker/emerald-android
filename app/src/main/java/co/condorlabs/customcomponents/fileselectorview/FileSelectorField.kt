@@ -2,21 +2,17 @@ package co.condorlabs.customcomponents.fileselectorview
 
 import android.app.AlertDialog
 import android.content.Context
-import androidx.constraintlayout.widget.ConstraintLayout
-import androidx.appcompat.widget.AppCompatImageView
-import androidx.appcompat.widget.AppCompatTextView
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
-import co.condorlabs.customcomponents.R
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.appcompat.widget.AppCompatTextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.EMPTY
-import co.condorlabs.customcomponents.FILE_SELECTOR_GALLERY_OPTION_INDEX
-import co.condorlabs.customcomponents.NOT_DEFINED_ATTRIBUTE_DEFAULT_VALUE
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.file_selector_view.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -33,21 +29,21 @@ class FileSelectorField @JvmOverloads constructor(
     FormField<FileSelectorValue?>, View.OnClickListener {
 
     override var isRequired: Boolean = false
-
-    private var mCLContent: ConstraintLayout? = null
-    private var mIVIcon: AppCompatImageView? = null
-    private var mTVTapAction: AppCompatTextView? = null
-    private var mTVTitle: AppCompatTextView? = null
-    private var mTVError: AppCompatTextView? = null
-
-    private var mIconResourceId: Int? = null
-    private var mTapButtonText: String? = null
-    private var mTitle: String? = null
-
-    private var mFileSelectorValue: FileSelectorValue? = null
-    private var mValueChangeListener: ValueChangeListener<FileSelectorValue?>? = null
-    private var mDialogTitle: String? = null
-    private var mFileSelectorClickListener: FileSelectorClickListener? = null
+    private var clContent: ConstraintLayout? = null
+    private var ivIcon: AppCompatImageView? = null
+    private var tvTapAction: AppCompatTextView? = null
+    private var tvTitle: AppCompatTextView? = null
+    private var tvError: AppCompatTextView? = null
+    private var iconResourceId: Int? = null
+    private var tapButtonText: String? = null
+    private var title: String? = null
+    private var fileSelectorValue: FileSelectorValue? = null
+    private var valueChangeListener: ValueChangeListener<FileSelectorValue?>? = null
+    private var dialogTitle: String? = null
+    private var fileSelectorClickListener: FileSelectorClickListener? = null
+    private var fileSelectorOptionsList: Array<CharSequence>? = null
+    private var hasCameraOption = false
+    private var hasGalleryOption = false
 
     init {
         attrs?.let { setupAttributeSet(it) }
@@ -59,7 +55,7 @@ class FileSelectorField @JvmOverloads constructor(
     }
 
     override fun isValid(): ValidationResult {
-        if (isRequired && mFileSelectorValue == null) {
+        if (isRequired && fileSelectorValue == null) {
             return ValidationResult(false, context.getString(R.string.file_selector_default_error))
         }
 
@@ -67,48 +63,55 @@ class FileSelectorField @JvmOverloads constructor(
     }
 
     override fun showError(message: String) {
-        mTVError?.text = message
-        mTVError?.visibility = View.VISIBLE
+        tvError?.text = message
+        tvError?.visibility = View.VISIBLE
     }
 
     override fun clearError() {
-        mTVError?.visibility = View.GONE
+        tvError?.visibility = View.GONE
     }
 
     override fun setup() {
         val view = LayoutInflater.from(context).inflate(R.layout.file_selector_view, this, false)
-        mCLContent = view.findViewById(R.id.clContent)
-        mIVIcon = view.findViewById(R.id.ivICon)
-        mTVTapAction = view.findViewById(R.id.tvTapAction)
-        mTVTitle = view.findViewById(R.id.tvTitle)
-        mTVError = view.findViewById(R.id.tvError)
+        clContent = view.findViewById(R.id.clContent)
+        ivIcon = view.findViewById(R.id.ivIcon)
+        tvTapAction = view.findViewById(R.id.tvTapAction)
+        tvTitle = view.findViewById(R.id.tvTitle)
+        tvError = view.findViewById(R.id.tvError)
 
-        mIconResourceId?.let {
-            mIVIcon?.setImageResource(it)
+        iconResourceId?.let {
+            ivIcon?.setImageResource(it)
         }
 
-        mTapButtonText?.let {
-            mTVTapAction?.text = it
+        tapButtonText?.let {
+            tvTapAction?.text = it
         }
 
-        mTitle?.let {
-            mTVTitle?.text = it
+        title?.let {
+            tvTitle?.text = it
         }
 
-        view.setOnClickListener(this)
-        mIVIcon?.setOnClickListener(this)
         clContent?.setOnClickListener(this)
-        setOnClickListener(this)
 
         addView(view)
     }
 
     override fun onClick(v: View?) {
-        showFileSelectorDialog()
+        fileSelectorOptionsList?.let {
+            if (it.size > ONE) {
+                showFileSelectorDialog(it)
+            } else {
+                when {
+                    hasCameraOption -> fileSelectorClickListener?.onOptionSelected(FileSelectorOption.Photo)
+                    hasGalleryOption -> fileSelectorClickListener?.onOptionSelected(FileSelectorOption.Gallery)
+                    else -> return
+                }
+            }
+        }
     }
 
     override fun getValue(): FileSelectorValue? {
-        return mFileSelectorValue
+        return fileSelectorValue
     }
 
     override fun getErrorValidateResult(): ValidationResult {
@@ -116,33 +119,17 @@ class FileSelectorField @JvmOverloads constructor(
     }
 
     override fun setValueChangeListener(valueChangeListener: ValueChangeListener<FileSelectorValue?>) {
-        mValueChangeListener = valueChangeListener
+        this.valueChangeListener = valueChangeListener
     }
 
     override fun setIsRequired(required: Boolean) {
         isRequired = required
     }
 
-    fun setFileValue(fileSelectorValue: FileSelectorValue) {
-        mFileSelectorValue = fileSelectorValue
-
-        mIVIcon?.let { view ->
-            when (fileSelectorValue) {
-                is FileSelectorValue.PathValue -> Picasso.get().load(fileSelectorValue.path).into(view)
-                is FileSelectorValue.DrawableValue -> view.setImageDrawable(fileSelectorValue.drawable)
-                is FileSelectorValue.BitmapValue -> view.setImageBitmap(fileSelectorValue.bitmap)
-            }
-        }
-    }
-
-    fun setFileSelectorClickListener(fileSelectorClickListener: FileSelectorClickListener) {
-        mFileSelectorClickListener = fileSelectorClickListener
-    }
-
-    private fun showFileSelectorDialog() {
+    private fun showFileSelectorDialog(optionsList: Array<CharSequence>) {
         CoroutineScope(Dispatchers.Main + Job()).launch {
-            displayMyMultipleChoiceDialog().let { optionSelected ->
-                mFileSelectorClickListener?.onOptionSelected(
+            displayMyMultipleChoiceDialog(optionsList).let { optionSelected ->
+                fileSelectorClickListener?.onOptionSelected(
                     when (optionSelected) {
                         FILE_SELECTOR_GALLERY_OPTION_INDEX -> FileSelectorOption.Gallery
                         else -> FileSelectorOption.Photo
@@ -155,48 +142,67 @@ class FileSelectorField @JvmOverloads constructor(
     private fun setupAttributeSet(attributes: AttributeSet) {
         val attrsArray = context.obtainStyledAttributes(attributes, R.styleable.FileSelectorField)
 
+        if (attrsArray.hasValue(R.styleable.FileSelectorField_fileSelectorOptions)) {
+            hasGalleryOption =
+                (attrsArray.getInt(
+                    R.styleable.FileSelectorField_fileSelectorOptions,
+                    -1
+                ) and MASK_TO_OBTAIN_FILE_SELECTOR_OPTION_GALLERY) == MASK_TO_OBTAIN_FILE_SELECTOR_OPTION_GALLERY
+            hasCameraOption =
+                (attrsArray.getInt(
+                    R.styleable.FileSelectorField_fileSelectorOptions,
+                    -1
+                ) and MASK_TO_OBTAIN_FILE_SELECTOR_OPTION_CAMERA) == MASK_TO_OBTAIN_FILE_SELECTOR_OPTION_CAMERA
+
+            fileSelectorOptionsList = if (hasCameraOption && hasGalleryOption) {
+                arrayOf(
+                    context.getString(R.string.gallery_string),
+                    context.getString(R.string.photo_string)
+                )
+            } else if (hasGalleryOption) {
+                arrayOf<CharSequence>(context.getString(R.string.gallery_string))
+            } else if (hasCameraOption) {
+                arrayOf<CharSequence>(context.getString(R.string.photo_string))
+            } else throw FileSelectorViewOptionsNotFound()
+        }
+
         if (attrsArray.hasValue(R.styleable.FileSelectorField_dialog_title)) {
             attrsArray.getString(R.styleable.FileSelectorField_dialog_title).let { dialogTitle ->
-                mDialogTitle = dialogTitle
+                this.dialogTitle = dialogTitle
             }
         }
 
         if (attrsArray.hasValue(R.styleable.FileSelectorField_src_tap_button)) {
-            attrsArray.getResourceId(R.styleable.FileSelectorField_src_tap_button,
+            attrsArray.getResourceId(
+                R.styleable.FileSelectorField_src_tap_button,
                 NOT_DEFINED_ATTRIBUTE_DEFAULT_VALUE
-            )
-                .let { imageResourceId ->
-                    mIconResourceId = imageResourceId
-                }
+            ).let { imageResourceId ->
+                iconResourceId = imageResourceId
+            }
         }
 
         if (attrsArray.hasValue(R.styleable.FileSelectorField_tap_button_text)) {
             attrsArray.getString(R.styleable.FileSelectorField_tap_button_text)?.let { text ->
-                mTapButtonText = text
+                tapButtonText = text
             }
         }
 
         if (attrsArray.hasValue(R.styleable.FileSelectorField_tap_button_title)) {
             attrsArray.getString(R.styleable.FileSelectorField_tap_button_title)?.let { title ->
-                mTitle = title
+                this.title = title
             }
         }
 
         attrsArray.recycle()
     }
 
-    private suspend fun displayMyMultipleChoiceDialog(): Int {
+    private suspend fun displayMyMultipleChoiceDialog(optionList: Array<CharSequence>): Int {
         lateinit var result: Continuation<Int>
 
         AlertDialog
             .Builder(context)
-            .setTitle(mDialogTitle ?: EMPTY)
-            .setItems(
-                arrayOf<CharSequence>(
-                    context.getString(R.string.gallery_string),
-                    context.getString(R.string.photo_string)
-                )
-            ) { dialog, which ->
+            .setTitle(dialogTitle ?: EMPTY)
+            .setItems(optionList) { dialog, which ->
                 dialog.dismiss()
                 result.resume(which)
             }
@@ -204,5 +210,21 @@ class FileSelectorField @JvmOverloads constructor(
             .show()
 
         return suspendCoroutine { continuation -> result = continuation }
+    }
+
+    fun setFileValue(fileSelectorValue: FileSelectorValue) {
+        this.fileSelectorValue = fileSelectorValue
+
+        ivIcon?.let { view ->
+            when (fileSelectorValue) {
+                is FileSelectorValue.PathValue -> Picasso.get().load(fileSelectorValue.path).into(view)
+                is FileSelectorValue.DrawableValue -> view.setImageDrawable(fileSelectorValue.drawable)
+                is FileSelectorValue.BitmapValue -> view.setImageBitmap(fileSelectorValue.bitmap)
+            }
+        }
+    }
+
+    fun setFileSelectorClickListener(fileSelectorClickListener: FileSelectorClickListener) {
+        this.fileSelectorClickListener = fileSelectorClickListener
     }
 }

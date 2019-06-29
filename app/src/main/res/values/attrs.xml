@@ -1,5 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
-<!--
+<?xml version="1.0" encoding="utf-8"?><!--
   ~ Copyright 2019 CondorLabs
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
@@ -41,7 +40,7 @@
     <declare-styleable name="SpinnerFormField">
         <attr name="hint" />
         <attr name="is_required" />
-        <attr name="enable" format="boolean"/>
+        <attr name="enable" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="BaseRadioGroupFormField">
@@ -60,6 +59,10 @@
         <attr name="tap_button_text" format="string" />
         <attr name="tap_button_title" format="string" />
         <attr name="src_tap_button" format="reference" />
+        <attr name="fileSelectorOptions">
+            <flag name="gallery" value="0x01" />
+            <flag name="camera" value="0x02" />
+        </attr>
     </declare-styleable>
 
     <declare-styleable name="CustomButton">
@@ -92,7 +95,7 @@
             <enum name="title" value="1" />
             <enum name="subtitle" value="2" />
             <enum name="sectionTitle" value="3" />
-            <enum name="link" value="4"/>
+            <enum name="link" value="4" />
         </attr>
     </declare-styleable>
 </resources>
