@@ -45,8 +45,8 @@ class EditTextMonthYearField(
             }
         }
 
-        if (_regex == null) {
-            _regex = MONTH_YEAR_REGEX
+        if (regexListToMatch.isEmpty()) {
+            regexListToMatch.add(MONTH_YEAR_REGEX)
         }
 
         simpleDateFormat = SimpleDateFormat(dateFormat, Locale.getDefault())

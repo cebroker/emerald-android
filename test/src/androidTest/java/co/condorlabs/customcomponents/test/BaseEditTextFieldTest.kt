@@ -392,6 +392,47 @@ class BaseEditTextFieldTest : MockActivityTest() {
         Espresso.onView(withText("12345")).check(matches(isEnabled()))
     }
 
+    @Test
+    fun shouldBeInvalidIfDoesNotMatchWithAnyRegex(){
+        MockActivity.layout = R.layout.activity_baseedittextfield_with_hint_test
+        restartActivity()
+
+        // Given
+        val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
+        formField.setIsRequired(true)
+        formField.setRegex(listOf("^[0-9]{9}$", "^[a-z]+$"))
+        val realEditText = formField.editText!!
+        val editText = Espresso.onView(withId(realEditText.id))
+
+        // When
+        editText.perform(typeText("121"))
+        val result = formField.isValid()
+
+        // Then
+        Assert.assertFalse(result.isValid)
+        Assert.assertEquals(String.format(VALIDATE_INCORRECT_ERROR, "Zip"), result.error)
+    }
+
+    @Test
+    fun shouldBeValidIfMatchesAtLeastOneRegex(){
+        MockActivity.layout = R.layout.activity_baseedittextfield_test
+        restartActivity()
+
+        // Given
+        val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
+        formField.setIsRequired(true)
+        formField.setRegex(listOf("^[0-9]{9}$", "^[a-z]+$"))
+        val realEditText = formField.editText!!
+        val editText = Espresso.onView(withId(realEditText.id))
+
+        // When
+        editText.perform(typeText("a"))
+        val result = formField.isValid()
+
+        // Then
+        Assert.assertTrue(result.isValid)
+    }
+
 }
 
 
