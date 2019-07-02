@@ -75,12 +75,14 @@ class FileSelectorField @JvmOverloads constructor(
         val view = LayoutInflater.from(context).inflate(R.layout.file_selector_view, this, false)
         clContent = view.findViewById(R.id.clContent)
         ivIcon = view.findViewById(R.id.ivIcon)
+        ivIcon?.tag = R.drawable.ic_cloud_upload_file
         tvTapAction = view.findViewById(R.id.tvTapAction)
         tvTitle = view.findViewById(R.id.tvTitle)
         tvError = view.findViewById(R.id.tvError)
 
         iconResourceId?.let {
             ivIcon?.setImageResource(it)
+            ivIcon?.setTag(it)
         }
 
         tapButtonText?.let {
@@ -214,7 +216,7 @@ class FileSelectorField @JvmOverloads constructor(
 
     fun setFileValue(fileSelectorValue: FileSelectorValue) {
         this.fileSelectorValue = fileSelectorValue
-
+        ivIcon?.tag = TAG_IMAGE_VIEW_FILE_SELECTOR_VALUE
         ivIcon?.let { view ->
             when (fileSelectorValue) {
                 is FileSelectorValue.PathValue -> Picasso.get().load(fileSelectorValue.path).into(view)
@@ -242,14 +244,21 @@ class FileSelectorField @JvmOverloads constructor(
     }
 
     private fun setDisableColors() {
-        ivIcon?.setColorFilter(context.resources.getColor(R.color.emerald_disable_file_selector))
+        if (ivIcon?.tag == R.drawable.ic_cloud_upload_file) {
+            ivIcon?.tag = R.drawable.ic_cloud_upload_file_disabled
+            ivIcon?.setImageResource(R.drawable.ic_cloud_upload_file_disabled)
+        }
         tvTitle?.setTextColor(context.resources.getColor(R.color.emerald_disable_file_selector))
         tvTapAction?.setTextColor(context.resources.getColor(R.color.emerald_disable_file_selector))
         clContent?.background = context.getDrawable(R.drawable.ripple_disable_background)
     }
 
     private fun setEnableColors() {
-        ivIcon?.setColorFilter(context.resources.getColor(R.color.emerald_enable_file_selector_icon))
+        if (ivIcon?.tag == R.drawable.ic_cloud_upload_file_disabled) {
+            ivIcon?.tag = R.drawable.ic_cloud_upload_file
+            ivIcon?.setImageResource(R.drawable.ic_cloud_upload_file)
+
+        }
         tvTitle?.setTextColor(context.resources.getColor(R.color.text_tap_color))
         tvTapAction?.setTextColor(context.resources.getColor(R.color.text_tap_color))
         clContent?.background = context.getDrawable(R.drawable.ripple)

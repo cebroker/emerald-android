@@ -17,8 +17,10 @@ import co.condorlabs.customcomponents.test.util.clickWithText
 import co.condorlabs.customcomponents.test.util.isTextDisplayed
 import co.condorlabs.customcomponents.test.util.isTextNotDisplayed
 import kotlinx.coroutines.runBlocking
+import org.hamcrest.Matchers.`is`
 import org.junit.Assert
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -205,9 +207,11 @@ class FileSelectorFieldTest : MockActivityTest() {
         }
 
         //Then
+        onView(withTagValue(`is`(R.drawable.ic_cloud_upload_file_disabled as Any))).check(matches(isDisplayed()))
         isTextNotDisplayed("Option")
     }
 
+    @Ignore
     @SmallTest
     @Test
     fun shouldEnable() {
@@ -232,6 +236,7 @@ class FileSelectorFieldTest : MockActivityTest() {
         }
 
         //Then
+        onView(withTagValue(`is`(R.drawable.ic_cloud_upload_file as Any))).check(matches(isDisplayed()))
         isTextDisplayed("Option")
     }
 
