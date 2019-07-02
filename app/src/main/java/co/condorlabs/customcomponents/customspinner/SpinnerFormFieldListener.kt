@@ -21,5 +21,5 @@ package co.condorlabs.customcomponents.customspinner
  */
 interface SpinnerFormFieldListener {
 
-    fun onDataSetListener(data: SpinnerData?)
+    fun onFieldCleared()
 }
