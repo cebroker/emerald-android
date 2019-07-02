@@ -643,8 +643,6 @@ class SpinnerFormFieldTest : MockActivityTest() {
 
         // Given
         val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
-        val realEditText = formField.textInputLayout!!.editText!!
-        val view = Espresso.onView(withId(realEditText.id))
 
         ruleActivity.runOnUiThread {
             formField.setSpinnerFormFieldListener(object : SpinnerFormFieldListener {
@@ -656,6 +654,8 @@ class SpinnerFormFieldTest : MockActivityTest() {
         }
 
         // When
-        formField.clearField()
+        ruleActivity.runOnUiThread {
+            formField.clearField()
+        }
     }
 }
