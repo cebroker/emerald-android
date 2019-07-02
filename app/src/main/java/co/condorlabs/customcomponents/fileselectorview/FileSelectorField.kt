@@ -257,7 +257,6 @@ class FileSelectorField @JvmOverloads constructor(
         if (ivIcon?.tag == R.drawable.ic_cloud_upload_file_disabled) {
             ivIcon?.tag = R.drawable.ic_cloud_upload_file
             ivIcon?.setImageResource(R.drawable.ic_cloud_upload_file)
-
         }
         tvTitle?.setTextColor(context.resources.getColor(R.color.text_tap_color))
         tvTapAction?.setTextColor(context.resources.getColor(R.color.text_tap_color))
