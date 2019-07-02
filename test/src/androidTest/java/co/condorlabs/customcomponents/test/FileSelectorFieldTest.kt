@@ -211,7 +211,7 @@ class FileSelectorFieldTest : MockActivityTest() {
         isTextNotDisplayed("Option")
     }
 
-    @Ignore
+
     @SmallTest
     @Test
     fun shouldEnable() {
@@ -231,12 +231,12 @@ class FileSelectorFieldTest : MockActivityTest() {
         isTextNotDisplayed("Option")
 
         ruleActivity.activity.runOnUiThread { fileSelectorField.setEnable(true) }
-        runBlocking {
-            view.perform(click())
-        }
 
         //Then
         onView(withTagValue(`is`(R.drawable.ic_cloud_upload_file as Any))).check(matches(isDisplayed()))
+        runBlocking {
+            view.perform(click())
+        }
         isTextDisplayed("Option")
     }
 
