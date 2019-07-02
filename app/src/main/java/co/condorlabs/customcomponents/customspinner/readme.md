@@ -31,7 +31,8 @@ Create a new instance in your layout
 |  Unit | *`fun setIsRequired(required: Boolean)`* <br> make the field required|
 |  Unit | *`fun setData(data: List<SpinnerData>)`* <br> set the spinner data|
 |  Unit | *`fun setItemSelectedById(id: String)`* <br> Select an item by his id|
-|  Unit | *`fun setItemSelectedHint()`* <br> Select the hint item|
+|  Unit | *`fun clearField()`* <br> Clear the actual selection|
+|  Unit | *`fun setSpinnerFormFieldListener(spinnerFormFieldListener: SpinnerFormFieldListener)`* <br> Set a listener to get notify when the item is cleared|
 |  SpinnerData | *`fun getValue()* <br> Get the current selected data|
 
 ## Examples

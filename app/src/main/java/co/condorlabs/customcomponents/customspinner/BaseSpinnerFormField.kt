@@ -42,6 +42,7 @@ abstract class BaseSpinnerFormField(context: Context, private val mAttrs: Attrib
     protected var hint: String
     protected var spinnerEnable: Boolean = true
     protected var mValueChangeListener: ValueChangeListener<SpinnerData?>? = null
+    protected var _spinnerFormFieldListener: SpinnerFormFieldListener? = null
 
     private var layoutParams = LayoutParams(
         LayoutParams.MATCH_PARENT,
@@ -92,6 +93,10 @@ abstract class BaseSpinnerFormField(context: Context, private val mAttrs: Attrib
     override fun clearError() {
         textInputLayout?.isErrorEnabled = false
         textInputLayout?.error = EMPTY
+    }
+
+    fun setSpinnerFormFieldListener(spinnerFormFieldListener: SpinnerFormFieldListener) {
+        _spinnerFormFieldListener = spinnerFormFieldListener
     }
 
     override fun setValueChangeListener(valueChangeListener: ValueChangeListener<SpinnerData?>) {

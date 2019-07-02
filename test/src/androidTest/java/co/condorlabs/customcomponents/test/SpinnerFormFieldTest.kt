@@ -33,6 +33,7 @@ import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.customspinner.BaseSpinnerFormField
 import co.condorlabs.customcomponents.customspinner.SpinnerData
 import co.condorlabs.customcomponents.customspinner.SpinnerFormField
+import co.condorlabs.customcomponents.customspinner.SpinnerFormFieldListener
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.test.util.isSpinnerEnable
 import org.hamcrest.CoreMatchers.*
@@ -500,11 +501,161 @@ class SpinnerFormFieldTest : MockActivityTest() {
         Espresso.onView(withText("Atlantico")).check(matches(isDisplayed()))
 
         ruleActivity.runOnUiThread {
-            formField.setItemSelectedHint()
+            formField.clearField()
         }
 
-
         //Then
-        Espresso.onView(withText("Select")).check(matches(isDisplayed()))
+        Assert.assertTrue(realEditText.text.toString() == EMPTY)
+    }
+
+
+    @SmallTest
+    @Test
+    fun shouldShowErrorIfDefaultItemIsSelectedAndFieldIsRequired() {
+        restartActivity()
+
+        // Given
+        val error = String.format(MESSAGE_FORMAT_ERROR, "State")
+        val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
+        val textInputLayout = formField.textInputLayout ?: throw NullPointerException()
+        val realEditText = formField.textInputLayout!!.editText!!
+        val view = Espresso.onView(withId(realEditText.id))
+
+        // When
+        ruleActivity.runOnUiThread {
+            formField.setIsRequired(true)
+            formField.setData(spinnerDataList)
+        }
+
+        val result = formField.isValid()
+        showErrorInInputLayout(textInputLayout, result.error)
+        view.perform(click())
+        onData(
+            allOf(
+                `is`(instanceOf(SpinnerData::class.java)), `is`(
+                    SpinnerData(
+                        formField.context.getString(co.condorlabs.customcomponents.R.string.spinner_default_hint),
+                        formField.context.getString(co.condorlabs.customcomponents.R.string.spinner_default_hint)
+                    )
+                )
+            )
+        ).inRoot(RootMatchers.isPlatformPopup())
+            .perform(click())
+
+        // Then
+        Assert.assertEquals(
+            ValidationResult(false, error),
+            result
+        )
+
+        Assert.assertEquals(error, textInputLayout.error)
+    }
+
+    @SmallTest
+    @Test
+    fun shouldShowErrorIfAValidItemIsSelectedAndThenItsChangedToDefault() {
+        restartActivity()
+
+        // Given
+        val error = String.format(MESSAGE_FORMAT_ERROR, "State")
+        val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
+        val textInputLayout = formField.textInputLayout ?: throw NullPointerException()
+        val realEditText = formField.textInputLayout!!.editText!!
+        val view = Espresso.onView(withId(realEditText.id))
+
+        // When
+        ruleActivity.runOnUiThread {
+            formField.setIsRequired(true)
+            formField.setData(spinnerDataList)
+        }
+
+        val result = formField.isValid()
+        showErrorInInputLayout(textInputLayout, result.error)
+        view.perform(click())
+        onData(
+            allOf(
+                `is`(instanceOf(SpinnerData::class.java)), `is`(
+                    data1
+                )
+            )
+        ).inRoot(RootMatchers.isPlatformPopup())
+            .perform(click())
+
+        view.perform(click())
+        onData(
+            allOf(
+                `is`(instanceOf(SpinnerData::class.java)), `is`(
+                    SpinnerData(
+                        formField.context.getString(co.condorlabs.customcomponents.R.string.spinner_default_hint),
+                        formField.context.getString(co.condorlabs.customcomponents.R.string.spinner_default_hint)
+                    )
+                )
+            )
+        ).inRoot(RootMatchers.isPlatformPopup())
+            .perform(click())
+
+        // Then
+        Assert.assertEquals(
+            ValidationResult(false, error),
+            result
+        )
+
+        Assert.assertEquals(error, textInputLayout.error)
+    }
+
+    @Test
+    fun shouldCallSpinnerFormFieldListenerAfterSelectHint() {
+        restartActivity()
+
+        // Given
+        val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
+        val realEditText = formField.textInputLayout!!.editText!!
+        val view = Espresso.onView(withId(realEditText.id))
+
+
+        ruleActivity.runOnUiThread {
+            formField.setSpinnerFormFieldListener(object : SpinnerFormFieldListener {
+                override fun onFieldCleared() {
+                    Assert.assertTrue(true)
+                }
+            })
+            formField.setData(spinnerDataList)
+        }
+
+        // When
+        view.perform(click())
+        onData(
+            allOf(
+                `is`(instanceOf(SpinnerData::class.java)), `is`(
+                    SpinnerData(
+                        formField.context.getString(co.condorlabs.customcomponents.R.string.spinner_default_hint),
+                        formField.context.getString(co.condorlabs.customcomponents.R.string.spinner_default_hint)
+                    )
+                )
+            )
+        ).inRoot(RootMatchers.isPlatformPopup())
+            .perform(click())
+    }
+
+    @Test
+    fun shouldCallSpinnerFormFieldListenerWhenFieldWasClear() {
+        restartActivity()
+
+        // Given
+        val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
+
+        ruleActivity.runOnUiThread {
+            formField.setSpinnerFormFieldListener(object : SpinnerFormFieldListener {
+                override fun onFieldCleared() {
+                    Assert.assertTrue(true)
+                }
+            })
+            formField.setData(spinnerDataList)
+        }
+
+        // When
+        ruleActivity.runOnUiThread {
+            formField.clearField()
+        }
     }
 }
