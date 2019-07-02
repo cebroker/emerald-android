@@ -76,8 +76,7 @@ class SpinnerFormField(
         val adapter = (autoCompleteTextView?.adapter as? SpinnerFormFieldAdapter) ?: return
 
         if (adapter.isHintPosition(position)) {
-            selectedItem = null
-            autoCompleteTextView?.setText(EMPTY)
+            clearField()
             return
         }
 
