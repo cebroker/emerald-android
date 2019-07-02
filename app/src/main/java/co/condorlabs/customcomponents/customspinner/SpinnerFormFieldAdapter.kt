@@ -43,8 +43,9 @@ class SpinnerFormFieldAdapter(
         notifyDataSetChanged()
     }
 
-    override fun isEnabled(position: Int): Boolean {
-        return !isHintPosition(position)
+
+    override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
+        return getDropDownView(position, convertView, parent)
     }
 
     override fun getDropDownView(position: Int, convertView: View?, parent: ViewGroup): View {
@@ -68,5 +69,5 @@ class SpinnerFormFieldAdapter(
 
     fun getData(): List<SpinnerData> = spinnerItems
 
-    private fun isHintPosition(position: Int): Boolean = position == STATE_SPINNER_HINT_POSITION
+    fun isHintPosition(position: Int): Boolean = position == STATE_SPINNER_HINT_POSITION
 }

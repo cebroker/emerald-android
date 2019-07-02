@@ -73,7 +73,16 @@ class SpinnerFormField(
     override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         super.onItemSelected(parent, view, position, id)
 
-        val spinnerData = (autoCompleteTextView?.adapter?.getItem(position) as? SpinnerData)?.let { it } ?: return
+        val adapter = (autoCompleteTextView?.adapter as? SpinnerFormFieldAdapter) ?: return
+
+        if (adapter.isHintPosition(position)) {
+            selectedItem = null
+            autoCompleteTextView?.setText(EMPTY)
+            return
+        }
+
+        val spinnerData = adapter.getItem(position) ?: return
+
         selectedItem = spinnerData
         mValueChangeListener?.onValueChange(spinnerData)
 
@@ -91,7 +100,21 @@ class SpinnerFormField(
     }
 
     override fun isValid(): ValidationResult {
-        if ((autoCompleteTextView?.text?.isEmpty() == true || selectedItem == null) && isRequired) {
+        if (!isRequired) {
+            return ValidationResult(true, EMPTY)
+        }
+
+        val wrappedSelectedItem = selectedItem ?: return getErrorValidateResult()
+
+        val adapter = (autoCompleteTextView?.adapter as? SpinnerFormFieldAdapter) ?: return getErrorValidateResult()
+
+        val selectedItemPosition = adapter.getPosition(wrappedSelectedItem)
+
+        if (adapter.isHintPosition(selectedItemPosition)) {
+            return getErrorValidateResult()
+        }
+
+        if ((autoCompleteTextView?.text?.isEmpty() == true)) {
             return getErrorValidateResult()
         }
 
@@ -118,11 +141,10 @@ class SpinnerFormField(
         (autoCompleteTextView?.adapter as? SpinnerFormFieldAdapter)?.replaceStates(data.sortedBy { it.label })
     }
 
-    fun setItemSelectedHint(){
-        val selectData = (autoCompleteTextView?.adapter as? SpinnerFormFieldAdapter)?.getData()?.let { it[ZERO] } ?: return
-        autoCompleteTextView?.setText(selectData.label, false)
-        selectedItem = selectData
-        mValueChangeListener?.onValueChange(selectedItem)
+    fun clearField() {
+        autoCompleteTextView?.setText(EMPTY)
+        selectedItem = null
+        _spinnerFormFieldListener?.onFieldCleared()
     }
 
     fun setItemSelectedById(id: String) {
@@ -136,10 +158,15 @@ class SpinnerFormField(
     fun setEnable(isEnable: Boolean) {
         textInputLayout?.isEnabled = isEnable
         (autoCompleteTextView as? CustomBaseInstantAutoCompleteTextView)?.setEnable(isEnable)
-        if (isEnable){
+        if (isEnable) {
             autoCompleteTextView?.setCompoundDrawablesWithIntrinsicBounds(ZERO, ZERO, R.drawable.ic_down_arrow, ZERO)
-        }else{
-            autoCompleteTextView?.setCompoundDrawablesWithIntrinsicBounds(ZERO, ZERO, R.drawable.ic_gray_down_arrow, ZERO)
+        } else {
+            autoCompleteTextView?.setCompoundDrawablesWithIntrinsicBounds(
+                ZERO,
+                ZERO,
+                R.drawable.ic_gray_down_arrow,
+                ZERO
+            )
         }
     }
 }
