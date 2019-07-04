@@ -43,7 +43,6 @@ class SpinnerFormFieldAdapter(
         notifyDataSetChanged()
     }
 
-
     override fun getView(position: Int, convertView: View?, parent: ViewGroup): View {
         return getDropDownView(position, convertView, parent)
     }

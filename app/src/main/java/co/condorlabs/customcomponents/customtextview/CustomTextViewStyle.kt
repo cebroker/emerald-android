@@ -8,6 +8,7 @@ sealed class CustomTextViewStyle(
     private val fontType: FontType
 ) {
 
+    object H2TitleTextViewStyle : CustomTextViewStyle(R.dimen.h2, R.color.textColor, OPEN_SANS_SEMI_BOLD)
     object TitleTextViewStyle : CustomTextViewStyle(R.dimen.h4, R.color.textColor, OPEN_SANS_SEMI_BOLD)
     object SubTitleTextViewStyle : CustomTextViewStyle(R.dimen.body, R.color.subtitleColor, OPEN_SANS_SEMI_BOLD)
     object BodyTextViewStyle : CustomTextViewStyle(R.dimen.body, R.color.labelColor, OPEN_SANS_REGULAR)

@@ -454,26 +454,26 @@ class SpinnerFormFieldTest : MockActivityTest() {
     @SmallTest
     @Test
     fun shouldBeDisableFromXML() {
-        //Given
+        // Given
         MockActivity.layout = R.layout.activity_spinner_disable
 
-        //When
+        // When
         restartActivity()
 
-        //Then
+        // Then
         Espresso.onView(withId(R.id.tlState)).check(matches(not(isSpinnerEnable())))
     }
 
     @SmallTest
     @Test
     fun shouldBeEnableFromXML() {
-        //Given
+        // Given
         MockActivity.layout = R.layout.activity_spinner_enable
 
-        //When
+        // When
         restartActivity()
 
-        //Then
+        // Then
         Espresso.onView(withId(R.id.tlState)).check(matches(isSpinnerEnable()))
     }
 
@@ -504,10 +504,9 @@ class SpinnerFormFieldTest : MockActivityTest() {
             formField.clearField()
         }
 
-        //Then
+        // Then
         Assert.assertTrue(realEditText.text.toString() == EMPTY)
     }
-
 
     @SmallTest
     @Test
@@ -611,7 +610,6 @@ class SpinnerFormFieldTest : MockActivityTest() {
         val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
         val realEditText = formField.textInputLayout!!.editText!!
         val view = Espresso.onView(withId(realEditText.id))
-
 
         ruleActivity.runOnUiThread {
             formField.setSpinnerFormFieldListener(object : SpinnerFormFieldListener {

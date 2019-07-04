@@ -209,4 +209,44 @@ class CustomTextViewTest : MockActivityTest() {
             )
         )
     }
+
+    @SmallTest
+    @Test
+    fun shouldShowTextTypeTitleH2() {
+        // Given
+        MockActivity.layout = R.layout.activity_custom_text_view_h2_title
+
+        // When
+        restartActivity()
+
+        // Then
+        onView(withId(R.id.tvTitle)).check(matches(hasTextColor(R.color.textColor)))
+        onView(withId(R.id.tvTitle)).check(
+            matches(
+                withFontSize(24f)
+            )
+        )
+    }
+
+    @SmallTest
+    @Test
+    fun shouldShowTextTypeh2TitleProgrammatically() {
+        // Given
+        MockActivity.layout = R.layout.activity_custom_text_view_default_text
+        restartActivity()
+        val formField = ruleActivity.activity.findViewById<CustomTextView>(R.id.tvDefault)
+
+        // When
+        ruleActivity.runOnUiThread {
+            formField.setCustomTextViewType(H2_TITLE_TYPE)
+        }
+
+        // Then
+        onView(withId(R.id.tvDefault)).check(matches(hasTextColor(R.color.textColor)))
+        onView(withId(R.id.tvDefault)).check(
+            matches(
+                withFontSize(24f)
+            )
+        )
+    }
 }

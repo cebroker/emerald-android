@@ -20,7 +20,6 @@ import kotlinx.coroutines.runBlocking
 import org.hamcrest.Matchers.`is`
 import org.junit.Assert
 import org.junit.Before
-import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -188,29 +187,27 @@ class FileSelectorFieldTest : MockActivityTest() {
         view.check(matches(isDisplayed()))
     }
 
-
     @SmallTest
     @Test
     fun shouldDisable() {
         MockActivity.layout = R.layout.activity_file_selector_title
         restartActivity()
 
-        //Given
+        // Given
         val fileSelectorField = ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
         ruleActivity.activity.runOnUiThread { fileSelectorField.setEnable(false) }
 
         val view = onView(withId(R.id.myCustomLayoutSelector))
 
-        //When
+        // When
         runBlocking {
             view.perform(click())
         }
 
-        //Then
+        // Then
         onView(withTagValue(`is`(R.drawable.ic_cloud_upload_file_disabled as Any))).check(matches(isDisplayed()))
         isTextNotDisplayed("Option")
     }
-
 
     @SmallTest
     @Test
@@ -218,13 +215,13 @@ class FileSelectorFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_file_selector_title
         restartActivity()
 
-        //Given
+        // Given
         val fileSelectorField = ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
         ruleActivity.activity.runOnUiThread { fileSelectorField.setEnable(false) }
 
         val view = onView(withId(R.id.myCustomLayoutSelector))
 
-        //When
+        // When
         runBlocking {
             view.perform(click())
         }
@@ -232,7 +229,7 @@ class FileSelectorFieldTest : MockActivityTest() {
 
         ruleActivity.activity.runOnUiThread { fileSelectorField.setEnable(true) }
 
-        //Then
+        // Then
         onView(withTagValue(`is`(R.drawable.ic_cloud_upload_file as Any))).check(matches(isDisplayed()))
         runBlocking {
             view.perform(click())
@@ -240,14 +237,13 @@ class FileSelectorFieldTest : MockActivityTest() {
         isTextDisplayed("Option")
     }
 
-
     @SmallTest
     @Test
     fun shouldNotOpenCamera() {
         MockActivity.layout = R.layout.activity_file_selector_camera_test
         restartActivity()
 
-        //Given
+        // Given
         val fileSelectorField = ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
 
         val fileSelectorClickListener = object : FileSelectorClickListener {
@@ -258,12 +254,11 @@ class FileSelectorFieldTest : MockActivityTest() {
 
         fileSelectorField.setFileSelectorClickListener(fileSelectorClickListener)
 
-
         ruleActivity.activity.runOnUiThread { fileSelectorField.setEnable(false) }
 
         val view = onView(withId(R.id.myCustomLayoutSelector))
 
-        //When
+        // When
         runBlocking {
             view.perform(click())
         }
@@ -275,7 +270,7 @@ class FileSelectorFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_file_selector_gallery_test
         restartActivity()
 
-        //Given
+        // Given
         val fileSelectorField = ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
 
         val fileSelectorClickListener = object : FileSelectorClickListener {
@@ -286,12 +281,11 @@ class FileSelectorFieldTest : MockActivityTest() {
 
         fileSelectorField.setFileSelectorClickListener(fileSelectorClickListener)
 
-
         ruleActivity.activity.runOnUiThread { fileSelectorField.setEnable(false) }
 
         val view = onView(withId(R.id.myCustomLayoutSelector))
 
-        //When
+        // When
         runBlocking {
             view.perform(click())
         }

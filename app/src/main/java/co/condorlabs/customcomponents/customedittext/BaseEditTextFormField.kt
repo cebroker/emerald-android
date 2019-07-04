@@ -160,7 +160,7 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
                 false,
                 VALIDATE_EMPTY_ERROR
             )
-            editText?.text.toString().isNotEmpty() &&  !doesTextMatchWithRegex(editText?.text.toString()) -> getErrorValidateResult()
+            editText?.text.toString().isNotEmpty() && !doesTextMatchWithRegex(editText?.text.toString()) -> getErrorValidateResult()
             else -> ValidationResult(true, EMPTY)
         }
     }
@@ -225,7 +225,7 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
     }
 
     protected fun doesTextMatchWithRegex(candidateText: String?): Boolean {
-        if(candidateText == null ){
+        if (candidateText.isNullOrBlank()) {
             return false
         }
 

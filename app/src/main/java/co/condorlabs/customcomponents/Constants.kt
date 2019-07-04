@@ -191,9 +191,10 @@ const val PROGRESS_DRAWABLE_LAYER_INSET_INDEX = 1
 
 const val BODY_TYPE = 0
 const val TITLE_TYPE = 1
-const val SUBTITLE_TYPE= 2
+const val SUBTITLE_TYPE = 2
 const val SECTION_TITLE_TYPE = 3
 const val LINK_TYPE = 4
+const val H2_TITLE_TYPE = 5
 const val MILLISECONDS_TO_SHOW_PLACE_HOLDER = 200L
 
 /** COLLAPSIBLE VIEW **/
