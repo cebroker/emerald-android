@@ -182,7 +182,7 @@ class CollapsibleViewTest : MockActivityTest(), OnCollapseListener {
         val collapsibleViewTest: CollapsibleView? =
             ruleActivity.activity.findViewById(R.id.collapsibleViewTest)
 
-        //then
+        // then
         val arrowIndicatorImageView =
             collapsibleViewTest?.findViewById<AppCompatImageView>(R.id.actionImageViewId)
         Assert.assertEquals(arrowIndicatorImageView?.visibility ?: View.NO_ID, View.INVISIBLE)
@@ -233,7 +233,7 @@ class CollapsibleViewTest : MockActivityTest(), OnCollapseListener {
             collapsibleViewTest?.setActionIndicatorVisibility(View.VISIBLE)
         }
 
-        //then
+        // then
         val arrowIndicatorImageView =
             collapsibleViewTest?.findViewById<AppCompatImageView>(R.id.actionImageViewId)
         Assert.assertEquals(arrowIndicatorImageView?.visibility ?: View.NO_ID, View.VISIBLE)

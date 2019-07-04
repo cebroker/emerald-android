@@ -117,7 +117,6 @@ class EditTextDateFieldTest : MockActivityTest() {
         val realEditText = field!!.editText!!
         val view = Espresso.onView(ViewMatchers.withId(realEditText.id))
 
-
         // When
         view.perform(ViewActions.typeText("12/01/2019"))
 
@@ -294,7 +293,6 @@ class EditTextDateFieldTest : MockActivityTest() {
         field?.setLowerLimit(todayDate.time)
         val realEditText = field!!.editText!!
         val view = Espresso.onView(ViewMatchers.withId(realEditText.id))
-
 
         // When
         todayCalendar.add(Calendar.DAY_OF_MONTH, 1)
@@ -564,22 +562,22 @@ class EditTextDateFieldTest : MockActivityTest() {
     }
     @SmallTest
     @Test
-    fun shouldDisable(){
+    fun shouldDisable() {
         MockActivity.layout = R.layout.activity_edittextdatefield_disable_enable_test
         restartActivity()
 
-        //Given
+        // Given
         val field = (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)
         ruleActivity.activity.runOnUiThread { field?.setEnable(false) }
 
         val view = onView(withId(R.id.tlDate))
 
-        //When
+        // When
         runBlocking {
             view.perform(click())
         }
 
-        //Then
+        // Then
         isTextNotDisplayed("S")
         isTextNotDisplayed("M")
         isTextNotDisplayed("T")
@@ -589,17 +587,17 @@ class EditTextDateFieldTest : MockActivityTest() {
 
     @SmallTest
     @Test
-    fun shouldEnable(){
+    fun shouldEnable() {
         MockActivity.layout = R.layout.activity_edittextdatefield_disable_enable_test
         restartActivity()
 
-        //Given
+        // Given
         val field = (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)
         ruleActivity.activity.runOnUiThread { field?.setEnable(false) }
 
         val view = onView(withId(R.id.tlDate))
 
-        //When
+        // When
         runBlocking {
             view.perform(click())
         }
@@ -611,13 +609,11 @@ class EditTextDateFieldTest : MockActivityTest() {
 
         ruleActivity.activity.runOnUiThread { field?.setEnable(true) }
 
-
         runBlocking {
             view.perform(click())
         }
 
-
-        //then
+        // then
         isTextNotDisplayed("S")
         isTextNotDisplayed("M")
         isTextNotDisplayed("T")

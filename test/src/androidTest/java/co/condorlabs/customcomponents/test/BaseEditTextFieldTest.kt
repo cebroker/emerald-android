@@ -20,7 +20,6 @@ import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.RootMatchers
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.SmallTest
@@ -28,8 +27,6 @@ import androidx.test.runner.AndroidJUnit4
 import co.condorlabs.customcomponents.VALIDATE_EMPTY_ERROR
 import co.condorlabs.customcomponents.VALIDATE_INCORRECT_ERROR
 import co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
-import co.condorlabs.customcomponents.customspinner.SpinnerData
-import co.condorlabs.customcomponents.customspinner.SpinnerFormField
 import co.condorlabs.customcomponents.test.util.isTextInLines
 import org.hamcrest.CoreMatchers
 import org.junit.Assert
@@ -274,61 +271,58 @@ class BaseEditTextFieldTest : MockActivityTest() {
 
     @SmallTest
     @Test
-    fun shouldShowPlaceHolderFromXML(){
+    fun shouldShowPlaceHolderFromXML() {
         MockActivity.layout = R.layout.activity_baseedittext_placeholder
         restartActivity()
 
-        //given
+        // given
         val baseView = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
 
-        //when
+        // when
         Espresso.onView(withId(R.id.tlBase)).perform(click())
         Thread.sleep(210)
 
-        //then
+        // then
        Assert.assertEquals(baseView.textInputLayout!!.editText!!.hint, "Hola")
     }
 
     @SmallTest
     @Test
-    fun shouldShowValidationIconIfMatchRegex(){
+    fun shouldShowValidationIconIfMatchRegex() {
         MockActivity.layout = R.layout.activity_baseedittext_with_regex_and_icon_validation
         restartActivity()
 
-        //Given
+        // Given
         val view = Espresso.onView(withId(R.id.tlBase))
         val baseView = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
         val realEditText = baseView.editText!!
         val editText = Espresso.onView(withId(realEditText.id))
 
-
-        //when
+        // when
         editText.perform(typeText("12345"))
 
-        //Then
+        // Then
         Assert.assertNotNull(realEditText!!.compoundDrawables[2])
     }
 
     @SmallTest
     @Test
-    fun shouldNotShowValidationIconIfTextDoesNotMatchTheRegex(){
+    fun shouldNotShowValidationIconIfTextDoesNotMatchTheRegex() {
         MockActivity.layout = R.layout.activity_baseedittext_with_regex_and_icon_validation
         restartActivity()
 
-        //Given
+        // Given
         val view = Espresso.onView(withId(R.id.tlBase))
         val baseView = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
         val realEditText = baseView.editText!!
         val editText = Espresso.onView(withId(realEditText.id))
 
-
-        //when
+        // when
         editText.perform(typeText("123454"))
 
-        //Then
+        // Then
         Assert.assertNull(realEditText.compoundDrawables[2])
     }
-
 
     @SmallTest
     @Test
@@ -336,16 +330,16 @@ class BaseEditTextFieldTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_baseedittext_with_hint_and_regex_test
         restartActivity()
 
-        //Given
+        // Given
         val view = Espresso.onView(withId(R.id.tlBase))
         val baseView = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
         val realEditText = baseView.editText!!
         val editText = Espresso.onView(withId(realEditText.id))
 
-        //when
+        // when
         editText.perform(typeText("123454"))
 
-        //Then
+        // Then
         Assert.assertNull(realEditText.compoundDrawables[2])
     }
 
@@ -393,7 +387,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
     }
 
     @Test
-    fun shouldBeInvalidIfDoesNotMatchWithAnyRegex(){
+    fun shouldBeInvalidIfDoesNotMatchWithAnyRegex() {
         MockActivity.layout = R.layout.activity_baseedittextfield_with_hint_test
         restartActivity()
 
@@ -414,7 +408,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
     }
 
     @Test
-    fun shouldBeValidIfMatchesAtLeastOneRegex(){
+    fun shouldBeValidIfMatchesAtLeastOneRegex() {
         MockActivity.layout = R.layout.activity_baseedittextfield_test
         restartActivity()
 
@@ -432,7 +426,4 @@ class BaseEditTextFieldTest : MockActivityTest() {
         // Then
         Assert.assertTrue(result.isValid)
     }
-
 }
-
-
