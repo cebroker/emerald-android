@@ -63,6 +63,7 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
     private var showValidationIcon: Boolean = false
     private var textWatcher: DefaultTextWatcher? = null
     protected val regexListToMatch = HashSet<String>()
+    private var regex: String? = null
 
     init {
         val typedArray = context.obtainStyledAttributes(
@@ -73,7 +74,7 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
 
         hint = typedArray.getString(R.styleable.BaseEditTextFormField_hint)
             ?: context.getString(R.string.default_base_hint)
-        val regex = typedArray.getString(R.styleable.BaseEditTextFormField_regex)
+        regex = typedArray.getString(R.styleable.BaseEditTextFormField_regex)
         isRequired = typedArray.getBoolean(R.styleable.BaseEditTextFormField_is_required, false)
         inputType = when (typedArray.getString(R.styleable.BaseEditTextFormField_input_type)) {
             "number" -> InputType.TYPE_CLASS_NUMBER
@@ -266,4 +267,8 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
             clearError()
         }
     }
+
+    fun getInputType() = inputType
+
+    fun getRegex() = regex
 }

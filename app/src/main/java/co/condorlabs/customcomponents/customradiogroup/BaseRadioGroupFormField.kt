@@ -196,4 +196,6 @@ abstract class BaseRadioGroupFormField(
         return index <= selectables?.size ?: ZERO && index >= ZERO &&
                 selectables?.size ?: ZERO > ZERO
     }
+
+    fun getTitle() = labelText
 }
