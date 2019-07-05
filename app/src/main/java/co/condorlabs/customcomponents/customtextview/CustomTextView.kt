@@ -35,6 +35,4 @@ class CustomTextView(context: Context, private val attrs: AttributeSet) : AppCom
         this.typeText = typeText
         setStyle()
     }
-
-    fun getCustomTextViewType() = typeText
 }
