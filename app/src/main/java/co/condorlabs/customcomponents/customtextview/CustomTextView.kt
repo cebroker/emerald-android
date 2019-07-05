@@ -10,7 +10,7 @@ import co.condorlabs.customcomponents.*
 
 class CustomTextView(context: Context, private val attrs: AttributeSet) : AppCompatTextView(context, attrs) {
 
-    private var typeText: Int = ZERO
+    private var textType: Int = ZERO
 
     init {
         val typedArray = context.obtainStyledAttributes(
@@ -18,13 +18,13 @@ class CustomTextView(context: Context, private val attrs: AttributeSet) : AppCom
             R.styleable.CustomTextView,
             DEFAULT_STYLE_ATTR, DEFAULT_STYLE_RES
         )
-        typeText = typedArray.getInt(R.styleable.CustomTextView_type_text, ZERO)
+        textType = typedArray.getInt(R.styleable.CustomTextView_type_text, ZERO)
         typedArray.recycle()
         setStyle()
     }
 
     private fun setStyle() {
-        CustomTextViewStyleFactory.getStyleFromType(typeText).apply {
+        CustomTextViewStyleFactory.getStyleFromType(textType).apply {
             typeface = Typeface.createFromAsset(context.assets, getFontType())
             setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(getFontSize()))
             setTextColor(ContextCompat.getColor(context, getColorText()))
@@ -32,7 +32,9 @@ class CustomTextView(context: Context, private val attrs: AttributeSet) : AppCom
     }
 
     fun setCustomTextViewType(typeText: Int) {
-        this.typeText = typeText
+        this.textType = typeText
         setStyle()
     }
+
+    fun getTextType() = textType
 }

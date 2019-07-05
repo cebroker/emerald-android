@@ -223,3 +223,10 @@ const val MASK_TO_OBTAIN_FILE_SELECTOR_OPTION_CAMERA = 0x02
 
 /** TAGS**/
 const val TAG_IMAGE_VIEW_FILE_SELECTOR_VALUE = 35967070
+
+/** EDIT TEXT INPUT TYPES **/
+const val INPUT_TYPE_NUMBER = "number"
+const val INPUT_TYPE_NUMBER_DECIMAL = "numberDecimal"
+const val INPUT_TYPE_PHONE = "phone"
+const val INPUT_TYPE_PASSWORD = "password"
+const val INPUT_TYPE_TEXT = "text"

@@ -8,6 +8,7 @@ import androidx.test.filters.SmallTest
 import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.customtextview.CustomTextView
 import co.condorlabs.customcomponents.test.util.withFontSize
+import org.junit.Assert
 import org.junit.Test
 
 class CustomTextViewTest : MockActivityTest() {
@@ -248,5 +249,80 @@ class CustomTextViewTest : MockActivityTest() {
                 withFontSize(24f)
             )
         )
+    }
+
+    @SmallTest
+    @Test
+    fun shouldGetTexTypeTitle() {
+        // Given
+        MockActivity.layout = R.layout.activity_custom_text_view_title
+        restartActivity()
+        val formField = ruleActivity.activity.findViewById<CustomTextView>(R.id.tvTitle)
+
+        // When
+        val result = formField.getTextType()
+
+        // Then
+        Assert.assertEquals(TITLE_TYPE, result)
+    }
+
+    @SmallTest
+    @Test
+    fun shouldGetTexTypeSubtitle() {
+        // Given
+        MockActivity.layout = R.layout.activity_custom_text_view_subtitle
+        restartActivity()
+        val formField = ruleActivity.activity.findViewById<CustomTextView>(R.id.tvSubtitle)
+
+        // When
+        val result = formField.getTextType()
+
+        // Then
+        Assert.assertEquals(SUBTITLE_TYPE, result)
+    }
+
+    @SmallTest
+    @Test
+    fun shouldGetTexTypeSectionTitle() {
+        // Given
+        MockActivity.layout = R.layout.activity_custom_text_view_section_title
+        restartActivity()
+        val formField = ruleActivity.activity.findViewById<CustomTextView>(R.id.tvDefault)
+
+        // When
+        val result = formField.getTextType()
+
+        // Then
+        Assert.assertEquals(SECTION_TITLE_TYPE, result)
+    }
+
+    @SmallTest
+    @Test
+    fun shouldGetTexTypeLink() {
+        // Given
+        MockActivity.layout = R.layout.activity_custom_text_view_link_text
+        restartActivity()
+        val formField = ruleActivity.activity.findViewById<CustomTextView>(R.id.tvLink)
+
+        // When
+        val result = formField.getTextType()
+
+        // Then
+        Assert.assertEquals(LINK_TYPE, result)
+    }
+
+    @SmallTest
+    @Test
+    fun shouldGetTexTypeH2Title() {
+        // Given
+        MockActivity.layout = R.layout.activity_custom_text_view_h2_title
+        restartActivity()
+        val formField = ruleActivity.activity.findViewById<CustomTextView>(R.id.tvTitle)
+
+        // When
+        val result = formField.getTextType()
+
+        // Then
+        Assert.assertEquals(H2_TITLE_TYPE, result)
     }
 }

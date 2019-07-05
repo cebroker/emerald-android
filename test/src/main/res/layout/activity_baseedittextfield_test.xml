@@ -16,7 +16,7 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent"
+              android:layout_width="match_parent" xmlns:app="http://schemas.android.com/apk/res-auto"
               android:padding="16dp"
               android:orientation="vertical"
               android:layout_height="wrap_content">
@@ -26,5 +26,30 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/tlBase"
-            android:textSize="@dimen/body"/>
+            android:textSize="@dimen/body"
+            app:input_type="text"/>
+
+    <co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etNumberField"
+            app:input_type="number"/>
+
+    <co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etNumberDecimalField"
+            app:input_type="numberDecimal"/>
+
+    <co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etPhoneField"
+            app:input_type="phone"/>
+
+    <co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etPasswordField"
+            app:input_type="password"/>
 </LinearLayout>
