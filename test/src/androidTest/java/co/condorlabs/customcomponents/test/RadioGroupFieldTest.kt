@@ -327,4 +327,18 @@ class RadioGroupFieldTest : MockActivityTest() {
                 )
             )
     }
+
+    @SmallTest
+    @Test
+    fun shouldGetTitle() {
+        restartActivity()
+        // Given
+        val formField = ruleActivity.activity.findViewById<RadioGroupFormField>(R.id.tlRadioGroup)
+
+        // When
+        val result = formField.getTitle()
+
+        // Then
+        Assert.assertEquals("Custom radio group", result)
+    }
 }

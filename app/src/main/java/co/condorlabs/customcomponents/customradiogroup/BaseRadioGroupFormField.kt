@@ -40,7 +40,7 @@ abstract class BaseRadioGroupFormField(
     private var mValueChangeListener: ValueChangeListener<String>? = null
     private var selectables: List<Selectable>? = null
     private var radioGroup: RadioGroup? = null
-    private var labelText = EMPTY
+    private var title = EMPTY
     private var spaceBetweenItems = DEFAULT_SPACE_BETWEEN_ITEMS
     private val layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
     private val labelLayoutParams = LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT)
@@ -56,7 +56,7 @@ abstract class BaseRadioGroupFormField(
         )
 
         isRequired = typedArray.getBoolean(R.styleable.BaseRadioGroupFormField_is_required, false)
-        labelText = typedArray.getString(R.styleable.BaseRadioGroupFormField_title) ?: EMPTY
+        title = typedArray.getString(R.styleable.BaseRadioGroupFormField_title) ?: EMPTY
         spaceBetweenItems =
             typedArray.getInteger(R.styleable.BaseRadioGroupFormField_space_between_items, DEFAULT_SPACE_BETWEEN_ITEMS)
         typedArray.recycle()
@@ -68,7 +68,7 @@ abstract class BaseRadioGroupFormField(
     }
 
     override fun getErrorValidateResult(): ValidationResult {
-        return ValidationResult(false, String.format(MESSAGE_FORMAT_ERROR, labelText))
+        return ValidationResult(false, String.format(MESSAGE_FORMAT_ERROR, title))
     }
 
     override fun isValid(): ValidationResult {
@@ -96,7 +96,7 @@ abstract class BaseRadioGroupFormField(
 
     override fun setup() {
         labelLayoutParams.bottomMargin = DEFAULT_PADDING_RADIO_BUTTON
-        tvLabel.text = labelText
+        tvLabel.text = title
         addView(tvLabel, labelLayoutParams)
         radioGroup = RadioGroup(context, attrs).apply {
             id = R.id.rgBase
@@ -197,5 +197,5 @@ abstract class BaseRadioGroupFormField(
                 selectables?.size ?: ZERO > ZERO
     }
 
-    fun getTitle() = labelText
+    fun getTitle() = title
 }

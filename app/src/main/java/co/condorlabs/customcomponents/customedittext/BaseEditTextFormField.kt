@@ -63,7 +63,6 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
     private var showValidationIcon: Boolean = false
     private var textWatcher: DefaultTextWatcher? = null
     protected val regexListToMatch = HashSet<String>()
-    private var regex: String? = null
 
     init {
         val typedArray = context.obtainStyledAttributes(
@@ -74,13 +73,13 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
 
         hint = typedArray.getString(R.styleable.BaseEditTextFormField_hint)
             ?: context.getString(R.string.default_base_hint)
-        regex = typedArray.getString(R.styleable.BaseEditTextFormField_regex)
+        val regex = typedArray.getString(R.styleable.BaseEditTextFormField_regex)
         isRequired = typedArray.getBoolean(R.styleable.BaseEditTextFormField_is_required, false)
         inputType = when (typedArray.getString(R.styleable.BaseEditTextFormField_input_type)) {
-            "number" -> InputType.TYPE_CLASS_NUMBER
-            "numberDecimal" -> InputType.TYPE_NUMBER_FLAG_DECIMAL or InputType.TYPE_CLASS_NUMBER
-            "phone" -> InputType.TYPE_CLASS_PHONE
-            "password" -> InputType.TYPE_TEXT_VARIATION_PASSWORD
+            INPUT_TYPE_NUMBER -> InputType.TYPE_CLASS_NUMBER
+            INPUT_TYPE_NUMBER_DECIMAL -> InputType.TYPE_NUMBER_FLAG_DECIMAL or InputType.TYPE_CLASS_NUMBER
+            INPUT_TYPE_PHONE -> InputType.TYPE_CLASS_PHONE
+            INPUT_TYPE_PASSWORD -> InputType.TYPE_TEXT_VARIATION_PASSWORD
             else -> InputType.TYPE_CLASS_TEXT
         }
         maxLines = typedArray.getString(R.styleable.BaseEditTextFormField_max_lines)?.toInt()
@@ -268,7 +267,15 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
         }
     }
 
-    fun getInputType() = inputType
+    fun getInputType(): String {
+        return when (inputType) {
+            InputType.TYPE_CLASS_NUMBER -> INPUT_TYPE_NUMBER
+            InputType.TYPE_NUMBER_FLAG_DECIMAL or InputType.TYPE_CLASS_NUMBER -> INPUT_TYPE_NUMBER_DECIMAL
+            InputType.TYPE_CLASS_PHONE -> INPUT_TYPE_PHONE
+            InputType.TYPE_TEXT_VARIATION_PASSWORD -> INPUT_TYPE_PASSWORD
+            else -> INPUT_TYPE_TEXT
+        }
+    }
 
-    fun getRegex() = regex
+    fun getRegex() = regexListToMatch
 }

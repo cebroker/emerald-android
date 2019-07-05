@@ -24,8 +24,7 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.SmallTest
 import androidx.test.runner.AndroidJUnit4
-import co.condorlabs.customcomponents.VALIDATE_EMPTY_ERROR
-import co.condorlabs.customcomponents.VALIDATE_INCORRECT_ERROR
+import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
 import co.condorlabs.customcomponents.test.util.isTextInLines
 import org.hamcrest.CoreMatchers
@@ -425,5 +424,101 @@ class BaseEditTextFieldTest : MockActivityTest() {
 
         // Then
         Assert.assertTrue(result.isValid)
+    }
+
+    @SmallTest
+    @Test
+    fun shouldGetInputTypePassword() {
+        MockActivity.layout = R.layout.activity_baseedittextfield_test
+        restartActivity()
+
+        // Given
+        val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.etPasswordField)
+
+        // When
+        val result = formField.getInputType()
+
+        // Then
+        Assert.assertEquals(INPUT_TYPE_PASSWORD, result)
+    }
+
+    @SmallTest
+    @Test
+    fun shouldGetInputTypePhone() {
+        MockActivity.layout = R.layout.activity_baseedittextfield_test
+        restartActivity()
+
+        // Given
+        val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.etPhoneField)
+
+        // When
+        val result = formField.getInputType()
+
+        // Then
+        Assert.assertEquals(INPUT_TYPE_PHONE, result)
+    }
+
+    @SmallTest
+    @Test
+    fun shouldGetInputTypeNumberDecimal() {
+        MockActivity.layout = R.layout.activity_baseedittextfield_test
+        restartActivity()
+
+        // Given
+        val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.etNumberDecimalField)
+
+        // When
+        val result = formField.getInputType()
+
+        // Then
+        Assert.assertEquals(INPUT_TYPE_NUMBER_DECIMAL, result)
+    }
+
+    @SmallTest
+    @Test
+    fun shouldGetInputTypeNumber() {
+        MockActivity.layout = R.layout.activity_baseedittextfield_test
+        restartActivity()
+
+        // Given
+        val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.etNumberField)
+
+        // When
+        val result = formField.getInputType()
+
+        // Then
+        Assert.assertEquals(INPUT_TYPE_NUMBER, result)
+    }
+
+    @SmallTest
+    @Test
+    fun shouldGetInputTypeDefault() {
+        MockActivity.layout = R.layout.activity_baseedittextfield_test
+        restartActivity()
+
+        // Given
+        val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
+
+        // When
+        val result = formField.getInputType()
+
+        // Then
+        Assert.assertEquals(INPUT_TYPE_TEXT, result)
+    }
+
+    @SmallTest
+    @Test
+    fun shouldGetRegex() {
+        MockActivity.layout = R.layout.activity_baseedittext_with_regex_and_icon_validation
+        restartActivity()
+
+        // Given
+        val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
+
+        // When
+        val result = formField.getRegex()
+
+        // Then
+        Assert.assertTrue(result.contains("^[0-9]{5}\$"))
     }
 }
