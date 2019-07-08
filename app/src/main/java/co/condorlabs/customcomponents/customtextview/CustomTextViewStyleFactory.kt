@@ -10,6 +10,7 @@ object CustomTextViewStyleFactory {
         put(TITLE_TYPE, CustomTextViewStyle.TitleTextViewStyle)
         put(SUBTITLE_TYPE, CustomTextViewStyle.SubTitleTextViewStyle)
         put(SECTION_TITLE_TYPE, CustomTextViewStyle.SectionTitleTextViewStyle)
+        put(SECTION_BODY_TYPE, CustomTextViewStyle.SectionBodyTextViewStyle)
         put(LINK_TYPE, CustomTextViewStyle.LinkTextViewStyle)
         put(H2_TITLE_TYPE, CustomTextViewStyle.H2TitleTextViewStyle)
     }

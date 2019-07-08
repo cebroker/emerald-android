@@ -195,6 +195,7 @@ const val SUBTITLE_TYPE = 2
 const val SECTION_TITLE_TYPE = 3
 const val LINK_TYPE = 4
 const val H2_TITLE_TYPE = 5
+const val SECTION_BODY_TYPE = 6
 const val MILLISECONDS_TO_SHOW_PLACE_HOLDER = 200L
 
 /** COLLAPSIBLE VIEW **/
