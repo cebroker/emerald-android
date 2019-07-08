@@ -97,6 +97,7 @@
             <enum name="sectionTitle" value="3" />
             <enum name="link" value="4" />
             <enum name="h2_title" value="5" />
+            <enum name="sectionBody" value="6" />
         </attr>
     </declare-styleable>
 </resources>
