@@ -50,4 +50,4 @@
 
 
 ## Example
-<img src="/Images/custom_textview.png" width="400" heigth="400">
+<img src="/Images/custom_texview.jpg" width="400" heigth="400">
