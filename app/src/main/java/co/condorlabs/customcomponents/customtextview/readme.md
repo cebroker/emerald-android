@@ -46,6 +46,7 @@
 |  SECTION_TITLE_TYPE | 3 |
 |  LINK_TYPE | 4 |
 |  H2_TITLE_TYPE | 5 |
+|  SECTION_BODY_TYPE | 6 |
 
 
 ## Example
