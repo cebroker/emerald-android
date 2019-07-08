@@ -325,4 +325,44 @@ class CustomTextViewTest : MockActivityTest() {
         // Then
         Assert.assertEquals(H2_TITLE_TYPE, result)
     }
+
+    @SmallTest
+    @Test
+    fun shouldShowTextTypeSectionBody() {
+        // Given
+        MockActivity.layout = R.layout.activity_custom_text_view_section_body
+
+        // When
+        restartActivity()
+
+        // Then
+        onView(withId(R.id.tvTitle)).check(matches(hasTextColor(R.color.textColor)))
+        onView(withId(R.id.tvTitle)).check(
+            matches(
+                withFontSize(14f)
+            )
+        )
+    }
+
+    @SmallTest
+    @Test
+    fun shouldShowTextTypeSectionBodyProgrammatically() {
+        // Given
+        MockActivity.layout = R.layout.activity_custom_text_view_default_text
+        restartActivity()
+        val formField = ruleActivity.activity.findViewById<CustomTextView>(R.id.tvDefault)
+
+        // When
+        ruleActivity.runOnUiThread {
+            formField.setCustomTextViewType(SECTION_BODY_TYPE)
+        }
+
+        // Then
+        onView(withId(R.id.tvDefault)).check(matches(hasTextColor(R.color.textColor)))
+        onView(withId(R.id.tvDefault)).check(
+            matches(
+                withFontSize(14f)
+            )
+        )
+    }
 }

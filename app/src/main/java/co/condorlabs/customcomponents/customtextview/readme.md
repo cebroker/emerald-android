@@ -46,7 +46,8 @@
 |  SECTION_TITLE_TYPE | 3 |
 |  LINK_TYPE | 4 |
 |  H2_TITLE_TYPE | 5 |
+|  SECTION_BODY_TYPE | 6 |
 
 
 ## Example
-<img src="/Images/custom_textview.png" width="400" heigth="400">
+<img src="/Images/custom_textview.jpg" width="400" heigth="400">
