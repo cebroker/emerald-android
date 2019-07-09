@@ -2,16 +2,15 @@ package co.condorlabs.customcomponents.customcollapsibleview
 
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
-import android.app.Activity
 import android.content.Context
 import android.graphics.Color
 import android.graphics.Typeface
 import android.os.Build
 import android.util.AttributeSet
-import android.util.DisplayMetrics
 import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewTreeObserver
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.FrameLayout
 import android.widget.ImageView
@@ -470,25 +469,26 @@ class CollapsibleView @JvmOverloads constructor(
     fun setContent(collapsibleContent: View) {
         flContent.addView(collapsibleContent)
 
-        val displayMetrics = DisplayMetrics()
-        (context as? Activity)?.windowManager?.defaultDisplay?.getMetrics(displayMetrics)
-            ?.let {
-                flContent.measure(
-                    displayMetrics.widthPixels,
-                    displayMetrics.heightPixels
-                )
-                contentHeight = flContent.measuredHeight
-            }
+        flContent.viewTreeObserver.addOnGlobalLayoutListener(
+            object : ViewTreeObserver.OnGlobalLayoutListener {
+                override fun onGlobalLayout() {
+                    if (flContent.measuredHeight > contentHeight) {
+                        contentHeight = flContent.measuredHeight
+                    }
 
-        if (isContentCollapsed) {
-            updateContentHeight()
-            rotateIndicatorArrow()
-            onCollapseListener?.onCollapse(isContentCollapsed)
-        }
+                    if (isContentCollapsed) {
+                        updateContentHeight()
+                        rotateIndicatorArrow()
+                        onCollapseListener?.onCollapse(isContentCollapsed)
+                    }
 
-        updateActionLabel(isContentCollapsed)
+                    updateActionLabel(isContentCollapsed)
 
-        setOnClickListener { collapseContent(contentHeight) }
+                    setOnClickListener { collapseContent(contentHeight) }
+
+                    flContent.viewTreeObserver.removeOnGlobalLayoutListener(this)
+                }
+            })
     }
 
     fun setActionIndicatorVisibility(visibility: Int) {
