@@ -52,7 +52,7 @@
     <string name="signature_change">Change</string>
     <string name="signature_clear_signature_button">Clear signature</string>
     <string name="signature_done_signing_button">Done signing</string>
-    <string name="signature_tap_to_sign">Tap To Sign</string> 
+    <string name="signature_tap_to_sign">Tap To Sign</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="lorem_ipsum">On the other hand, we denounce with righteous</string>
     <string name="lorem_ipsum_shorter">On the other hand hand</string>

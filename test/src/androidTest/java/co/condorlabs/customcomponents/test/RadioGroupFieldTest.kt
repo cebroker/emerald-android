@@ -16,20 +16,24 @@
 
 package co.condorlabs.customcomponents.test
 
+import android.widget.RadioGroup
+import androidx.core.content.ContextCompat
 import androidx.test.espresso.Espresso
+import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.withId
-import android.widget.RadioGroup
+import androidx.test.filters.LargeTest
 import androidx.test.filters.SmallTest
+import co.condorlabs.customcomponents.EMPTY
+import co.condorlabs.customcomponents.MESSAGE_FORMAT_ERROR
 import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.customradiogroup.RadioGroupFormField
 import co.condorlabs.customcomponents.formfield.Selectable
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.EMPTY
-import co.condorlabs.customcomponents.MESSAGE_FORMAT_ERROR
+import co.condorlabs.customcomponents.test.util.withTintColorInRadioButtons
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -340,5 +344,38 @@ class RadioGroupFieldTest : MockActivityTest() {
 
         // Then
         Assert.assertEquals("Custom radio group", result)
+    }
+
+    @LargeTest
+    @Test
+    fun shouldChangeStyleOnDisable() {
+        // Given
+        restartActivity()
+        val formField = ruleActivity.activity.findViewById<RadioGroupFormField>(R.id.tlRadioGroup)
+
+        // When
+        ruleActivity.runOnUiThread {
+            formField.setSelectables(
+                arrayListOf(
+                    Selectable("Item 1", false),
+                    Selectable("Item 2", true),
+                    Selectable("Item 3", false),
+                    Selectable("Item 4", false)
+                )
+            )
+            formField.setEnable(false)
+        }
+
+        // Then
+        onView(withId(R.id.tlRadioGroup)).check(
+            matches(
+                withTintColorInRadioButtons(
+                    ContextCompat.getColor(
+                        ruleActivity.activity,
+                        R.color.gray_color_with_alpha
+                    )
+                )
+            )
+        )
     }
 }

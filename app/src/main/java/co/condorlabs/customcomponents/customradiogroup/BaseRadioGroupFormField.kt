@@ -198,4 +198,42 @@ abstract class BaseRadioGroupFormField(
     }
 
     fun getTitle() = title
+
+    fun enableRadioGroupItems(isEnabled: Boolean) {
+        selectables?.forEachIndexed { index, _ ->
+            with (radioGroup?.findViewById<AppCompatRadioButton>(index)) {
+                if (isEnabled) {
+                    setRadioButtonStateProperties(
+                        this ?: return,
+                        R.color.blueFillColor,
+                        R.drawable.radio_button_selector_background
+                    )
+                } else {
+                    setRadioButtonStateProperties(
+                        this ?: return,
+                        R.color.gray_color_with_alpha,
+                        R.drawable.radio_button_selector_background_disabled
+                    )
+                }
+            }
+        }
+    }
+
+    private fun setRadioButtonStateProperties(radioButton: AppCompatRadioButton, buttonTintColor: Int, backgroundDrawable: Int) {
+        val resultDefaultPadding = setDefaultPadding()
+        with (radioButton) {
+            buttonTintList = ColorStateList(
+                arrayOf(
+                    intArrayOf(-android.R.attr.state_checked),
+                    intArrayOf(android.R.attr.state_checked)
+                ),
+                intArrayOf(
+                    resources.getColor(R.color.gray_color_with_alpha),
+                    resources.getColor(buttonTintColor)
+                )
+            )
+            background = ResourcesCompat.getDrawable(resources, backgroundDrawable, null)
+            setPadding(resultDefaultPadding, resultDefaultPadding, resultDefaultPadding, resultDefaultPadding)
+        }
+    }
 }
