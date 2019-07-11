@@ -378,4 +378,36 @@ class RadioGroupFieldTest : MockActivityTest() {
             )
         )
     }
+
+    @LargeTest
+    @Test
+    fun shouldChangeStyleOnEnabled() {
+        // Given
+        restartActivity()
+        val formField = ruleActivity.activity.findViewById<RadioGroupFormField>(R.id.tlRadioGroup)
+
+        // When
+        ruleActivity.runOnUiThread {
+            formField.setSelectables(
+                arrayListOf(
+                    Selectable("Item 1", false),
+                    Selectable("Item 2", true),
+                    Selectable("Item 3", false),
+                    Selectable("Item 4", false)
+                )
+            )
+        }
+
+        // Then
+        onView(withId(R.id.tlRadioGroup)).check(
+            matches(
+                withTintColorInRadioButtons(
+                    ContextCompat.getColor(
+                        ruleActivity.activity,
+                        R.color.credentials_button_swipe_text_color
+                    )
+                )
+            )
+        )
+    }
 }
