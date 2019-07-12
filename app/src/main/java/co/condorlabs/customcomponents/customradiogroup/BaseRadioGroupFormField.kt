@@ -147,23 +147,6 @@ abstract class BaseRadioGroupFormField(
             radioGroup?.addView(
                 AppCompatRadioButton(context).apply {
                     isClickable = true
-
-                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                        val colorStateList = ColorStateList(
-                            arrayOf(
-                                intArrayOf(-android.R.attr.state_checked),
-                                intArrayOf(android.R.attr.state_checked)
-                            ),
-                            intArrayOf(
-                                resources.getColor(R.color.gray_color_with_alpha),
-                                resources.getColor(R.color.blueFillColor)
-                            )
-                        )
-
-                        this.buttonTintList = colorStateList
-                        this.invalidate()
-                    }
-
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                         val attrs = intArrayOf(R.attr.selectableItemBackground)
                         val typedArray = context.obtainStyledAttributes(attrs)
@@ -172,14 +155,9 @@ abstract class BaseRadioGroupFormField(
 
                         this.foreground = context.getDrawable(selectableItemBackground)
                     }
-
-                    background =
-                        ResourcesCompat.getDrawable(resources, R.drawable.radio_button_selector_background, null)
-
                     id = index
                     text = selectable.label
                     isChecked = selectable.value
-                    setPadding(resultDefaultPadding, resultDefaultPadding, resultDefaultPadding, resultDefaultPadding)
                     layoutParams = LayoutParams(
                         LayoutParams.MATCH_PARENT,
                         LayoutParams.WRAP_CONTENT
@@ -187,6 +165,11 @@ abstract class BaseRadioGroupFormField(
                         if (index < (selectables?.size?.minus(ONE) ?: ZERO))
                             setMargins(ZERO, ZERO, ZERO, spaceBetweenItems)
                     }
+                    setRadioButtonStateProperties(
+                        this,
+                        R.color.blueFillColor,
+                        R.drawable.radio_button_selector_background
+                    )
                 }
             )
         }
@@ -198,4 +181,48 @@ abstract class BaseRadioGroupFormField(
     }
 
     fun getTitle() = title
+
+    fun enableRadioGroupItems(isEnabled: Boolean) {
+        selectables?.forEachIndexed { index, _ ->
+            with(radioGroup?.findViewById<AppCompatRadioButton>(index)) {
+                if (isEnabled) {
+                    setRadioButtonStateProperties(
+                        this ?: return,
+                        R.color.blueFillColor,
+                        R.drawable.radio_button_selector_background
+                    )
+                } else {
+                    setRadioButtonStateProperties(
+                        this ?: return,
+                        R.color.gray_color_with_alpha,
+                        R.drawable.radio_button_selector_background_disabled
+                    )
+                }
+            }
+        }
+    }
+
+    private fun setRadioButtonStateProperties(
+        radioButton: AppCompatRadioButton,
+        buttonTintColor: Int,
+        backgroundDrawable: Int
+    ) {
+        val resultDefaultPadding = setDefaultPadding()
+        with(radioButton) {
+            val colorStateList = ColorStateList(
+                arrayOf(
+                    intArrayOf(-android.R.attr.state_checked),
+                    intArrayOf(android.R.attr.state_checked)
+                ),
+                intArrayOf(
+                    resources.getColor(R.color.gray_color_with_alpha),
+                    resources.getColor(buttonTintColor)
+                )
+            )
+            this.buttonTintList = colorStateList
+            this.invalidate()
+            background = ResourcesCompat.getDrawable(resources, backgroundDrawable, null)
+            setPadding(resultDefaultPadding, resultDefaultPadding, resultDefaultPadding, resultDefaultPadding)
+        }
+    }
 }

@@ -26,4 +26,9 @@ class RadioGroupFormField(context: Context, attrs: AttributeSet) : BaseRadioGrou
     override fun setIsRequired(isRequired: Boolean) {
         this.isRequired = isRequired
     }
+
+    fun setEnable(isEnabled: Boolean) {
+        this.isEnabled = isEnabled
+        enableRadioGroupItems(isEnabled)
+    }
 }

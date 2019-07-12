@@ -4,7 +4,10 @@ import android.graphics.Point
 import android.graphics.Rect
 import android.view.MotionEvent
 import android.view.View
+import android.view.ViewGroup
 import android.widget.NumberPicker
+import android.widget.RadioButton
+import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.test.espresso.AmbiguousViewMatcherException
 import androidx.test.espresso.Espresso
@@ -17,6 +20,7 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.isAssignableFrom
 import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
+import co.condorlabs.customcomponents.customradiogroup.RadioGroupFormField
 import co.condorlabs.customcomponents.customspinner.BaseSpinnerFormField
 import co.condorlabs.customcomponents.customtextview.CustomTextView
 import junit.framework.Assert
@@ -212,3 +216,34 @@ fun withFontSize(expectedSize: Float): Matcher<View> {
         }
     }
 }
+
+fun withTintColorInRadioButtons(expectedColor: Int): Matcher<View> {
+    return object : BoundedMatcher<View, RadioGroupFormField>(RadioGroupFormField::class.java) {
+
+        public override fun matchesSafely(formField: RadioGroupFormField): Boolean {
+            val viewGroup = (formField as? ViewGroup) ?: return false
+            for (index in ZERO until viewGroup.childCount) {
+                with (getRadioButtonAtPosition(viewGroup, index)) {
+                    val actualColor = buttonTintList.getColorForState(
+                        intArrayOf(android.R.attr.state_checked),
+                        ZERO
+                    )
+                    if(expectedColor != actualColor) {
+                        return false
+                    }
+                }
+            }
+            return true
+        }
+
+        override fun describeTo(description: Description) {
+            description.appendText(TINT_COLOR_IN_RADIO_BUTTON_DESCRIPTION)
+            description.appendValue(expectedColor)
+        }
+    }
+}
+
+fun getRadioButtonAtPosition(
+    parentView: ViewGroup,
+    position: Int
+): RadioButton = (parentView.getChildAt(RADIO_GROUP_POSITION) as RadioGroup).getChildAt(position) as RadioButton
