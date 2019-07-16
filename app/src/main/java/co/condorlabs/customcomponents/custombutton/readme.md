@@ -44,5 +44,5 @@ Create a new instance in your layout
 <img src="/Images/custom_button_warning.png" width="400" heigth="400"/>
 6. Info <br>
 <img src="/Images/custom_button_info.png" width="400" heigth="400"/>
-7. Info <br>
+7. Overlay <br>
 <img src="/Images/custom_button_overlay.png" width="400" heigth="400"/>
