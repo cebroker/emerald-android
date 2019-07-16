@@ -32,6 +32,8 @@
     <color name="dangerRippleColor">#ad2909</color>
     <color name="warningColor">#ffaa00</color>
     <color name="warningRippleColor">#c80</color>
+
+    <color name="transparent">#00FFFFFF</color>
     <color name="infoColor">#0073e9</color>
     <color name="infoRippleColor">#005ab6</color>
     <color name="successColor">#00a950</color>

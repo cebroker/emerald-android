@@ -113,8 +113,10 @@ const val BUTTON_PRIMARY_TYPE = "primary"
 const val BUTTON_DANGER_TYPE = "danger"
 const val BUTTON_WARNING_TYPE = "warning"
 const val BUTTON_INFO_TYPE = "info"
+const val BUTTON_WHITE_SHAPE_TYPE = "whiteShape"
 const val BUTTON_SUCCESS_TYPE = "success"
 const val BUTTON_OVERLAY_TYPE = "overlay"
+const val BUTTON_PRIMARY_INVERTED_TYPE = "primaryInverted"
 
 typealias ButtonType = String
 
