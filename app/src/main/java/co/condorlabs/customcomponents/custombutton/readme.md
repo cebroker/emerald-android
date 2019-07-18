@@ -22,7 +22,7 @@ Create a new instance in your layout
 
 | Name | Description  |
 | -| - |
-|  type | Button type `default`,`primary`,`success`,`danger`,`warning`,`info`,`overlay`   |
+|  type | Button type `default`,`primary`,`success`,`danger`,`warning`,`info`,`overlay`,`flatPrimary`,`shapeWhite`   |
 
 ## Public methods
 | Return Type | Description |
@@ -44,5 +44,9 @@ Create a new instance in your layout
 <img src="/Images/custom_button_warning.png" width="400" heigth="400"/>
 6. Info <br>
 <img src="/Images/custom_button_info.png" width="400" heigth="400"/>
-7. Info <br>
+7. Overlay <br>
 <img src="/Images/custom_button_overlay.png" width="400" heigth="400"/>
+8. FlatPrimary <br>
+<img src="/Images/custom_button_flat_primary.png" width="400" heigth="400"/>
+9. ShapeWhaite <br>
+<img src="/Images/custom_button_shape_white.png" width="400" heigth="400"/>
