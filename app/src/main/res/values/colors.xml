@@ -23,7 +23,6 @@
     <!-- FILE SELECTOR VIEW -->
     <color name="file_selector_background">#F5F5F5</color>
     <color name="text_tap_color">#42A5F5</color>
-
     <color name="defaultHighlightColor">#800073E9</color>
     <color name="defaultRippleColor">#e6e6e6</color>
     <color name="primaryColor">#0073e9</color>
@@ -32,7 +31,6 @@
     <color name="dangerRippleColor">#ad2909</color>
     <color name="warningColor">#ffaa00</color>
     <color name="warningRippleColor">#c80</color>
-
     <color name="transparent">#00FFFFFF</color>
     <color name="infoColor">#0073e9</color>
     <color name="infoRippleColor">#005ab6</color>
@@ -44,7 +42,6 @@
     <color name="defaultButtonBorderColor">#bec6c6</color>
     <color name="field_border_color">#9e9e9e</color>
     <color name="gray_signature_dialog">#e7eff2</color>
-
     <color name="rippleColor">#20FFFFFF</color>
     <color name="defaultButtonStyleRippleColor">#10000000</color>
     <color name="defaultHintColor">#d3dbe7</color>
@@ -53,7 +50,6 @@
     <color name="textColor">#282e2e</color>
     <color name="shimmerColor">#E2E3E7</color>
     <color name="subtitleColor">#607B7B</color>
-
     <color name="gray_color_with_alpha">#55AAAAAA</color>
     <color name="blueFillColor">#42A5F5</color>
     <color name="credentials_button_swipe_text_color">#FF42A5F5</color>

@@ -97,8 +97,6 @@ class CustomButton(context: Context, attrs: AttributeSet) : Button(context, attr
         }
     }
 
-
-
     private fun setFont() {
         val font = Typeface.createFromAsset(context.assets, OPEN_SANS_SEMI_BOLD)
         typeface = font
