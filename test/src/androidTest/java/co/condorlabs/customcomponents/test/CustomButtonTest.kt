@@ -1,6 +1,5 @@
 package co.condorlabs.customcomponents.test
 
-import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.core.content.ContextCompat
 import androidx.test.filters.SmallTest
 import androidx.test.runner.AndroidJUnit4
@@ -155,14 +154,14 @@ class CustomButtonTest : MockActivityTest() {
 
     @SmallTest
     @Test
-    fun shouldBePrimaryInvertedButton() {
+    fun shouldBeFlatPrimaryButton() {
         restartActivity()
 
         // Given
         val expectedColor = ContextCompat.getColor(ruleActivity.activity, R.color.white)
         val button = ruleActivity.activity.findViewById<CustomButton>(R.id.btn)
         ruleActivity.runOnUiThread {
-            button.setType("primaryInverted")
+            button.setType("flatPrimary")
         }
 
         // When
@@ -184,7 +183,7 @@ class CustomButtonTest : MockActivityTest() {
         val expectedColor = ContextCompat.getColor(ruleActivity.activity, R.color.transparent)
         val button = ruleActivity.activity.findViewById<CustomButton>(R.id.btn)
         ruleActivity.runOnUiThread {
-            button.setType("whiteShape")
+            button.setType("shapeWhite")
 
         }
 

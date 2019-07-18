@@ -45,14 +45,14 @@ sealed class CustomButtonStyle(
             R.color.primaryColor,
             highlightTextColor = R.color.white
         )
-    object PrimaryInvertedButtonStyle :
+    object FlatPrimaryButtonStyle :
         CustomButtonStyle(
             R.color.white,
             R.color.primaryColor,
             R.color.white
         )
 
-    object WhiteShapeButtonStyle : CustomButtonStyle(
+    object ShapeWhiteButtonStyle : CustomButtonStyle(
         R.color.transparent,
         R.color.white,
         R.color.white,
