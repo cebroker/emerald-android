@@ -98,6 +98,7 @@ sealed class CustomButtonStyle(
             setSolidColor(ContextCompat.getColor(context, backgroundColor))
             setStrokeColor(ContextCompat.getColor(context, strokeColor), strokeWidth)
             shape = GradientDrawable.RECTANGLE
+            cornerRadius = context.resources.getDimension(R.dimen.button_radius)
         }
     }
 
