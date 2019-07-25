@@ -18,6 +18,8 @@ package co.condorlabs.customcomponents.customedittext
 
 import android.content.Context
 import android.graphics.Typeface
+import android.os.Bundle
+import android.os.Parcelable
 import android.text.InputFilter
 import android.text.InputType
 import android.util.AttributeSet
@@ -33,6 +35,7 @@ import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import com.google.android.material.textfield.TextInputLayout
 import java.util.regex.Pattern
+
 
 /**
  * @author Oscar Gallon on 2/26/19.
@@ -115,17 +118,17 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
         setFont(OPEN_SANS_REGULAR)
 
         val wrappedTextInputLayout = textInputLayout ?: return
-        val wrappedEditText = editText?.let { it } ?: return
 
-        wrappedEditText.onFocusChangeListener = this
-        wrappedTextInputLayout.hint = this@BaseEditTextFormField.hint
-
-        wrappedEditText.apply {
-            id = View.generateViewId()
-            setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.body))
-            isMultiline(wrappedEditText)
+        editText?.let {
+            it.onFocusChangeListener = this
+            it.hint = this@BaseEditTextFormField.hint
+            it.id = View.generateViewId()
+            it.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.body))
+            isMultiline(it)
             tag = BaseEditTextFormField::class.java.name
-            backgroundAlpha?.let { background.alpha = it }
+            backgroundAlpha?.let { backgroundAlpha ->
+                background.alpha = backgroundAlpha
+            }
         }
 
         textWatcher = if (showValidationIcon) {
@@ -134,7 +137,7 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
             DefaultTextWatcher(_valueChangeListener)
         }
 
-        wrappedEditText.addTextChangedListener(textWatcher)
+        editText?.addTextChangedListener(textWatcher)
 
         invalidate()
         addView(wrappedTextInputLayout, layoutParams)
@@ -278,4 +281,20 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
     }
 
     fun getRegex() = regexListToMatch
+
+    override fun onRestoreInstanceState(state: Parcelable?) {
+        if (state is Bundle) {
+            val bundle: Bundle = state
+            val parcelable = bundle.getParcelable<Parcelable>(SUPER_KEY)
+            editText?.setText(bundle.getString(EDIT_TEXT_KEY))
+            super.onRestoreInstanceState(parcelable)
+        }
+    }
+
+    override fun onSaveInstanceState(): Parcelable? {
+        val bundle = Bundle()
+        bundle.putParcelable(SUPER_KEY, super.onSaveInstanceState())
+        bundle.putString(EDIT_TEXT_KEY, editText?.text.toString())
+        return bundle
+    }
 }

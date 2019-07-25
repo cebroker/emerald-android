@@ -20,7 +20,6 @@ import android.content.Context
 import android.text.InputType
 import android.text.method.PasswordTransformationMethod
 import android.util.AttributeSet
-import co.condorlabs.customcomponents.R
 
 /**
  * @author Alexis Duque on 3/8/19.
@@ -32,7 +31,6 @@ class EditTextPasswordField(context: Context, attrs: AttributeSet) : BaseEditTex
 
     override fun setup() {
         super.setup()
-        editText?.id = R.id.etPassword
         editText?.transformationMethod = PasswordTransformationMethod.getInstance()
         editText?.inputType = InputType.TYPE_TEXT_VARIATION_PASSWORD
         textInputLayout?.isPasswordVisibilityToggleEnabled = true

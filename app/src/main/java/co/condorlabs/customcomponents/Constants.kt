@@ -233,3 +233,7 @@ const val INPUT_TYPE_NUMBER_DECIMAL = "numberDecimal"
 const val INPUT_TYPE_PHONE = "phone"
 const val INPUT_TYPE_PASSWORD = "password"
 const val INPUT_TYPE_TEXT = "text"
+
+/** EDIT TEXT STATE KEY **/
+const val SUPER_KEY = "super"
+const val EDIT_TEXT_KEY = "editText"

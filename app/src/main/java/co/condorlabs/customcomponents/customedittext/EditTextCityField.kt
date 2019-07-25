@@ -52,11 +52,6 @@ class EditTextCityField(context: Context, attrs: AttributeSet) : BaseEditTextFor
         return emptyValidation
     }
 
-    override fun setup() {
-        super.setup()
-        editText?.id = R.id.etCity
-    }
-
     fun setCities(cities: List<String>) {
         mCities = cities
     }

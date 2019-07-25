@@ -54,7 +54,6 @@ class EditTextMonthYearField(
 
     override fun setup() {
         super.setup()
-        editText?.id = R.id.etMonthYear
         setupPicker()
     }
 

@@ -31,10 +31,9 @@ class EditTextCurrencyField(context: Context, attrs: AttributeSet) : BaseEditTex
     override fun setup() {
         super.setup()
 
-        val _editText = editText?.let { it } ?: return
-        _editText.id = R.id.etCurrency
-        _editText.addTextChangedListener(PriceTextWatcherMask(_editText))
-        _editText.setText(DOLLAR_SYMBOL)
+        val editText = editText?.let { it } ?: return
+        editText.addTextChangedListener(PriceTextWatcherMask(editText))
+        editText.setText(DOLLAR_SYMBOL)
     }
 
     override fun isValid(): ValidationResult {

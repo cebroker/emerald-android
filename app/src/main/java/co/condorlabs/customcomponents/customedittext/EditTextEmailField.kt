@@ -27,7 +27,6 @@ class EditTextEmailField(context: Context, attrs: AttributeSet) : BaseEditTextFo
 
     override fun setup() {
         super.setup()
-        editText?.id = R.id.etEmail
         setInputType()
         setRegex(android.util.Patterns.EMAIL_ADDRESS.toString())
     }

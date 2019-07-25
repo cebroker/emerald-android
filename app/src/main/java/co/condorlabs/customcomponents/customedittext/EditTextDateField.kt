@@ -66,7 +66,6 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
 
     override fun setup() {
         super.setup()
-        editText?.id = View.generateViewId()
         setupPicker()
     }
 
@@ -163,7 +162,7 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
     }
 
     private fun isDateAfterOtherOneInMilliseconds(actual: Date, otherOne: Long?): Boolean {
-        val upperLimit = otherOne?.let { it } ?: return false
+        otherOne?.let { it } ?: return false
         return actual.time > otherOne
     }
 

@@ -21,18 +21,16 @@ import android.text.InputFilter
 import android.text.InputType
 import android.text.method.DigitsKeyListener
 import android.util.AttributeSet
-import co.condorlabs.customcomponents.R
-import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.DIGITS_PHONE
 import co.condorlabs.customcomponents.MAX_LENGTH
 import co.condorlabs.customcomponents.VALIDATE_LENGTH_ERROR
+import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.masks.PhoneNumberTextWatcherMask
 
 class EditTextPhoneField(context: Context, attrs: AttributeSet) : BaseEditTextFormField(context, attrs) {
 
     override fun setup() {
         super.setup()
-        editText?.id = R.id.etPhone
         setInputType()
         setMaxLength()
         setPhoneMask()
