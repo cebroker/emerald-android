@@ -16,17 +16,17 @@
 
 package co.condorlabs.customcomponents.test
 
+import android.view.View
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
-import android.view.View
 import androidx.test.filters.SmallTest
-import co.condorlabs.customcomponents.customedittext.EditTextPhoneField
-import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.PHONE_NUMBER_REGEX
 import co.condorlabs.customcomponents.VALIDATE_EMPTY_ERROR
 import co.condorlabs.customcomponents.VALIDATE_LENGTH_ERROR
+import co.condorlabs.customcomponents.customedittext.EditTextPhoneField
+import co.condorlabs.customcomponents.formfield.ValidationResult
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -62,7 +62,8 @@ class EditTextPhoneNumberFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val view = Espresso.onView(ViewMatchers.withId(R.id.etPhone))
+        val txtInputLayout = (ruleActivity.activity.findViewById<View>(R.id.tlPhone) as EditTextPhoneField)
+        val view = Espresso.onView(ViewMatchers.withId(txtInputLayout.editText!!.id))
 
         // When
         view.perform(ViewActions.typeText("1234567890"))
@@ -103,12 +104,12 @@ class EditTextPhoneNumberFieldTest : MockActivityTest() {
 
         // When
         txtInputLayout?.setRegex(PHONE_NUMBER_REGEX)
-        Espresso.onView(ViewMatchers.withId(R.id.etPhone)).perform(ViewActions.typeText(phone))
+        Espresso.onView(ViewMatchers.withId(txtInputLayout!!.editText!!.id)).perform(ViewActions.typeText(phone))
 
         // Then
         Assert.assertEquals(
             ValidationResult(false, VALIDATE_LENGTH_ERROR),
-            txtInputLayout?.isValid()
+            txtInputLayout.isValid()
         )
     }
 
@@ -123,12 +124,12 @@ class EditTextPhoneNumberFieldTest : MockActivityTest() {
         txtInputLayout?.setRegex(PHONE_NUMBER_REGEX)
 
         // When
-        Espresso.onView(ViewMatchers.withId(R.id.etPhone)).perform(ViewActions.typeText(phone))
+        Espresso.onView(ViewMatchers.withId(txtInputLayout!!.editText!!.id)).perform(ViewActions.typeText(phone))
 
         // Then
         Assert.assertEquals(
             ValidationResult(false, VALIDATE_LENGTH_ERROR),
-            txtInputLayout?.isValid()
+            txtInputLayout.isValid()
         )
     }
 
@@ -143,10 +144,10 @@ class EditTextPhoneNumberFieldTest : MockActivityTest() {
         txtInputLayout.setRegex(PHONE_NUMBER_REGEX)
 
         // When
-        Espresso.onView(ViewMatchers.withId(R.id.etPhone)).perform(ViewActions.typeText(phone))
+        Espresso.onView(ViewMatchers.withId(txtInputLayout.editText!!.id)).perform(ViewActions.typeText(phone))
 
         // Then
         Assert.assertTrue(txtInputLayout.isValid().isValid)
-        Assert.assertEquals("123-456-7890", txtInputLayout?.getValue())
+        Assert.assertEquals("123-456-7890", txtInputLayout.getValue())
     }
 }

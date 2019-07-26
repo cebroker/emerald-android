@@ -8,7 +8,6 @@ import androidx.test.filters.SmallTest
 import androidx.test.runner.AndroidJUnit4
 import co.condorlabs.customcomponents.custombutton.CustomButton
 import co.condorlabs.customcomponents.customedittext.*
-import co.condorlabs.customcomponents.test.util.text
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -27,7 +26,7 @@ class BaseEditSaveStateTest : MockActivityTest2() {
 
     @SmallTest
     @Test
-    fun shouldSaveAndRestoreState(){
+    fun shouldSaveAndRestoreState() {
         restartActivity()
 
         //Given
@@ -36,11 +35,6 @@ class BaseEditSaveStateTest : MockActivityTest2() {
         val realEditText = formField.editText!!
         val editText = Espresso.onView(ViewMatchers.withId(realEditText.id))
         editText.perform(ViewActions.typeText("12345"))
-
-        val formField2 = ruleActivity.activity.findViewById<EditTextCurrencyField>(R.id.three)
-        val realEditText2 = formField2.editText!!
-        val editText2 = Espresso.onView(ViewMatchers.withId(realEditText2.id))
-        editText2.perform(ViewActions.typeText("600"))
 
         val formField3 = (ruleActivity.activity.findViewById<View>(R.id.four) as? EditTextDateField)
         val realEditText3 = formField3!!.editText!!
@@ -52,7 +46,7 @@ class BaseEditSaveStateTest : MockActivityTest2() {
         val view2 = Espresso.onView(ViewMatchers.withId(realEditText4.id))
         view2.perform(ViewActions.typeText("test@test.com"))
 
-        val formField5 = (ruleActivity.activity.findViewById<View>(R.id.five) as? EditTextPhoneField)
+        val formField5 = (ruleActivity.activity.findViewById<View>(R.id.six) as? EditTextPhoneField)
         val realEditText5 = formField5!!.editText!!
         val view3 = Espresso.onView(ViewMatchers.withId(realEditText5.id))
         view3.perform(ViewActions.typeText("1234567890"))
@@ -66,11 +60,10 @@ class BaseEditSaveStateTest : MockActivityTest2() {
 
         //Then
 
-        Assert.assertEquals("12345", realEditText.text.toString() )
-        Assert.assertEquals("$600", realEditText2.text.toString() )
-        Assert.assertEquals("12/01/2019", realEditText3.text.toString() )
-        Assert.assertEquals("test@test.com", realEditText4.text.toString() )
-        Assert.assertEquals("123-456-7890", realEditText5.text.toString() )
+        Assert.assertEquals("12345", realEditText.text.toString())
+        Assert.assertEquals("12/01/2019", realEditText3.text.toString())
+        Assert.assertEquals("test@test.com", realEditText4.text.toString())
+        Assert.assertEquals("123-456-7890", realEditText5.text.toString())
     }
 
 }

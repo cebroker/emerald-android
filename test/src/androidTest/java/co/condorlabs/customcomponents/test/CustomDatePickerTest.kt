@@ -1,11 +1,11 @@
 package co.condorlabs.customcomponents.test
 
+import android.view.View
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.SmallTest
-import android.view.View
 import co.condorlabs.customcomponents.DATE_PICKER_MAX_YEAR
 import co.condorlabs.customcomponents.DATE_PICKER_MIN_YEAR
 import co.condorlabs.customcomponents.EMPTY
@@ -13,7 +13,6 @@ import co.condorlabs.customcomponents.PropertyNotImplementedException
 import co.condorlabs.customcomponents.customedittext.EditTextMonthYearField
 import co.condorlabs.customcomponents.test.util.clickDrawable
 import co.condorlabs.customcomponents.test.util.setNumberPickerValue
-import co.condorlabs.customcomponents.test.util.text
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -21,207 +20,240 @@ import java.util.*
 
 class CustomDatePickerTest : MockActivityTest() {
 
-    private var editTextRef = withId(R.id.etMonthYear)
     private var dpMonthRef = withId(R.id.monthPicker)
     private var dpYearRef = withId(R.id.yearPicker)
-    private var editText: EditTextMonthYearField? = null
+    private var formField: EditTextMonthYearField? = null
 
     @Before
     fun setup() {
         MockActivity.layout = R.layout.activity_customdatepicker_test
         restartActivity()
-        editText = ruleActivity.activity.findViewById<View>(R.id.etMonthYearField) as? EditTextMonthYearField
+        formField = ruleActivity.activity.findViewById<View>(R.id.etMonthYearField) as? EditTextMonthYearField
     }
 
     @SmallTest
     @Test
     fun shouldFormatOnTextChanged() {
+        //Given
+        val view = onView(withId(formField!!.editText!!.id))
+
         // When
-        onView(editTextRef).perform(ViewActions.typeText("0"))
+        view.perform(ViewActions.typeText("0"))
         // Then
-        Assert.assertEquals("0M/YYYY", editText?.text())
+        Assert.assertEquals("0M/YYYY", formField!!.editText!!.text.toString())
         // When
-        onView(editTextRef).perform(ViewActions.typeText("8"))
+        view.perform(ViewActions.typeText("8"))
         // Then
-        Assert.assertEquals("08/YYYY", editText?.text())
+        Assert.assertEquals("08/YYYY", formField!!.editText!!.text.toString())
         // When
-        onView(editTextRef).perform(ViewActions.typeText("2"))
+        view.perform(ViewActions.typeText("2"))
         // Then
-        Assert.assertEquals("08/2YYY", editText?.text())
+        Assert.assertEquals("08/2YYY", formField!!.editText!!.text.toString())
         // When
-        onView(editTextRef).perform(ViewActions.typeText("0"))
+        view.perform(ViewActions.typeText("0"))
         // Then
-        Assert.assertEquals("08/20YY", editText?.text())
+        Assert.assertEquals("08/20YY", formField!!.editText!!.text.toString())
         // When
-        onView(editTextRef).perform(ViewActions.typeText("0"))
+        view.perform(ViewActions.typeText("0"))
         // Then
-        Assert.assertEquals("08/200Y", editText?.text())
+        Assert.assertEquals("08/200Y", formField!!.editText!!.text.toString())
         // When
-        onView(editTextRef).perform(ViewActions.typeText("8"))
+        view.perform(ViewActions.typeText("8"))
         // Then
-        Assert.assertEquals("08/2008", editText?.text())
+        Assert.assertEquals("08/2008", formField!!.editText!!.text.toString())
     }
 
     @SmallTest
     @Test
     fun shouldNotAllowMonthGreaterThan12() {
+        //Given
+        val view = onView(withId(formField!!.editText!!.id))
+
         // When
-        onView(editTextRef).perform(ViewActions.typeText("99/2001"))
+        view.perform(ViewActions.typeText("99/2001"))
         // Then
-        Assert.assertEquals("12/2001", editText?.text())
+        Assert.assertEquals("12/2001", formField!!.editText!!.text.toString())
     }
+
 
     @SmallTest
     @Test
     fun shouldNotAllowMonthEqualsToZero() {
+        //Given
+        val view = onView(withId(formField!!.editText!!.id))
         // When
-        onView(editTextRef).perform(ViewActions.typeText("00/2001"))
+        view.perform(ViewActions.typeText("00/2001"))
         // Then
-        Assert.assertEquals("01/2001", editText?.text())
+        Assert.assertEquals("01/2001", formField!!.editText!!.text.toString())
     }
+
 
     @SmallTest
     @Test
     fun shouldNotAllowYearLessThanMinYear() {
+        //Given
+        val view = onView(withId(formField!!.editText!!.id))
         // When
-        onView(editTextRef).perform(ViewActions.typeText("01/0000"))
+        view.perform(ViewActions.typeText("01/0000"))
         // Then
-        Assert.assertEquals("01/$DATE_PICKER_MIN_YEAR", editText?.text())
+        Assert.assertEquals("01/$DATE_PICKER_MIN_YEAR", formField!!.editText!!.text.toString())
     }
+
 
     @SmallTest
     @Test
     fun shouldNotAllowYearGreaterThanMaxYear() {
+        //Given
+        val view = onView(withId(formField!!.editText!!.id))
         // When
-        onView(editTextRef).perform(ViewActions.typeText("01/5000"))
+        view.perform(ViewActions.typeText("01/5000"))
         // Then
-        Assert.assertEquals("01/$DATE_PICKER_MAX_YEAR", editText?.text())
+        Assert.assertEquals("01/$DATE_PICKER_MAX_YEAR", formField!!.editText!!.text.toString())
     }
 
     @SmallTest
     @Test
     fun shouldNotAllowTypeText() {
+        //Given
+        val view = onView(withId(formField!!.editText!!.id))
         // When
-        onView(editTextRef).perform(ViewActions.typeText("a"))
+        view.perform(ViewActions.typeText("a"))
         // Then
-        Assert.assertEquals("", editText?.text())
+        Assert.assertEquals("", formField!!.editText!!.text.toString())
     }
 
     @SmallTest
     @Test
     fun shouldReturnIsValid() {
+        //Given
+        val view = onView(withId(formField!!.editText!!.id))
         // When
-        onView(editTextRef).perform(ViewActions.typeText("01/2008"))
+        view.perform(ViewActions.typeText("01/2008"))
         // Then
-        Assert.assertEquals(true, editText?.isValid()?.isValid)
+        Assert.assertEquals(true, formField!!.isValid().isValid)
     }
 
     @SmallTest
     @Test
     fun shouldNotAllowMoreThan4DigitsYear() {
+        //Given
+        val view = onView(withId(formField!!.editText!!.id))
         // When
-        onView(editTextRef).perform(ViewActions.typeText("01/20080"))
+        view.perform(ViewActions.typeText("01/20080"))
         // Then
-        Assert.assertEquals(7, editText?.text()?.length)
-        Assert.assertEquals(true, editText?.isValid()?.isValid)
+        Assert.assertEquals(7, formField!!.editText!!.text.length)
+        Assert.assertEquals(true, formField!!.isValid().isValid)
     }
+
 
     @SmallTest
     @Test
     fun shouldNotAllowMoreThan2DigitsMonth() {
+        //Given
+        val view = onView(withId(formField!!.editText!!.id))
         // When
-        onView(editTextRef).perform(ViewActions.typeText("021/2008"))
+        view.perform(ViewActions.typeText("021/2008"))
         // Then
-        Assert.assertEquals(7, editText?.text()?.length)
-        Assert.assertEquals(true, editText?.isValid()?.isValid)
+        Assert.assertEquals(7, formField!!.editText!!.text.length)
+        Assert.assertEquals(true, formField!!.isValid().isValid)
     }
 
     @SmallTest
     @Test
     fun shouldReturnIsNotValidIfFieldIsEmptyAndIsRequired() {
-        // Given
-        editText?.isRequired = true
+        //Given
+        val view = onView(withId(formField!!.editText!!.id))
         // When
-        onView(editTextRef).perform(ViewActions.typeText(""))
+        view.perform(ViewActions.typeText(""))
         // Then
-        Assert.assertEquals(false, editText?.isValid()?.isValid)
+        Assert.assertEquals(false, formField!!.isValid().isValid)
     }
 
     @Test
     fun shouldReturnIsValidIfFieldIsEmptyAndIsNotRequired() {
         // Given
-        editText?.isRequired = false
+        val view = onView(withId(formField!!.editText!!.id))
+        formField?.isRequired = false
         // When
-        onView(editTextRef).perform(ViewActions.typeText(""))
+        view.perform(ViewActions.typeText(""))
         // Then
-        Assert.assertEquals(true, editText?.isValid()?.isValid)
+        Assert.assertEquals(true, formField!!.isValid().isValid)
     }
 
     @Test
     fun shouldNotAllowYearGreaterThanUpperLimit() {
         // Given
-        editText?.upperLimit = Calendar.getInstance().apply {
+        val view = onView(withId(formField!!.editText!!.id))
+        formField!!.upperLimit = Calendar.getInstance().apply {
             set(2007, Calendar.JULY, 1)
         }
         // When
-        onView(editTextRef).perform(ViewActions.typeText("01/2008"))
+        view.perform(ViewActions.typeText("01/2008"))
         // Then
-        val result = editText?.isValid()
-        Assert.assertEquals(false, result?.isValid)
-        Assert.assertEquals("The Enter some text can't be after 7/2007", result?.error)
+        val result = formField!!.isValid()
+        Assert.assertEquals(false, result.isValid)
+        Assert.assertEquals("The Enter some text can't be after 7/2007", result.error)
     }
 
     @Test
     fun shouldNotAllowMonthGreaterThanUpperLimit() {
         // Given
-        editText?.upperLimit = Calendar.getInstance().apply {
+        val view = onView(withId(formField!!.editText!!.id))
+        formField!!.upperLimit = Calendar.getInstance().apply {
             set(2007, Calendar.JULY, 1)
         }
         // When
-        onView(editTextRef).perform(ViewActions.typeText("11/2007"))
+        view.perform(ViewActions.typeText("11/2007"))
         // Then
-        val result = editText?.isValid()
-        Assert.assertEquals(false, result?.isValid)
-        Assert.assertEquals("The Enter some text can't be after 7/2007", result?.error)
+        val result = formField!!.isValid()
+        Assert.assertEquals(false, result.isValid)
+        Assert.assertEquals("The Enter some text can't be after 7/2007", result.error)
     }
+
 
     @Test
     fun shouldAllowDateEqualsThanUpperLimit() {
         // Given
-        editText?.upperLimit = Calendar.getInstance().apply {
+        val view = onView(withId(formField!!.editText!!.id))
+        formField!!.upperLimit = Calendar.getInstance().apply {
             set(2007, Calendar.JULY, 1)
         }
         // When
-        onView(editTextRef).perform(ViewActions.typeText("07/2007"))
+        view.perform(ViewActions.typeText("07/2007"))
         // Then
-        Assert.assertEquals(true, editText?.isValid()?.isValid)
+        Assert.assertEquals(true, formField!!.isValid().isValid)
     }
 
     @Test
     fun shouldAllowDateLessThanUpperLimit() {
         // Given
-        editText?.upperLimit = Calendar.getInstance().apply {
+        val view = onView(withId(formField!!.editText!!.id))
+        formField!!.upperLimit = Calendar.getInstance().apply {
             set(2007, Calendar.JULY, 1)
         }
         // When
-        onView(editTextRef).perform(ViewActions.typeText("12/2006"))
+        view.perform(ViewActions.typeText("12/2006"))
         // Then
-        Assert.assertEquals(true, editText?.isValid()?.isValid)
+        Assert.assertEquals(true, formField!!.isValid().isValid)
     }
 
     @Test
     fun shouldGetRightMonthAndYear() {
+        // Given
+        val view = onView(withId(formField!!.editText!!.id))
         // When
-        onView(editTextRef).perform(ViewActions.typeText("12/2006"))
+        view.perform(ViewActions.typeText("12/2006"))
         // Then
-        Assert.assertEquals(11, editText?.getMonth())
-        Assert.assertEquals(2006, editText?.getYear())
+        Assert.assertEquals(11, formField!!.getMonth())
+        Assert.assertEquals(2006, formField!!.getYear())
     }
 
     @Test
     fun shouldOpenDialog() {
+        // Given
+        val view = onView(withId(formField!!.editText!!.id))
         // When
-        onView(editTextRef).perform(clickDrawable())
+        view.perform(clickDrawable())
         onView(dpMonthRef).perform(setNumberPickerValue(11))
         onView(dpYearRef).perform(setNumberPickerValue(2008))
         onView(withSubstring("OK"))
@@ -229,73 +261,78 @@ class CustomDatePickerTest : MockActivityTest() {
             .perform(ViewActions.click())
 
         // Then
-        Assert.assertEquals(11, editText?.getMonth())
-        Assert.assertEquals(2008, editText?.getYear())
+        Assert.assertEquals(11, formField!!.getMonth())
+        Assert.assertEquals(2008, formField!!.getYear())
     }
 
     @Test
     fun shouldAllowDateWithoutLimits() {
         // Given
-        editText?.isRequired = true
+        val view = onView(withId(formField!!.editText!!.id))
+        formField!!.isRequired = true
         // When
-        onView(editTextRef).perform(ViewActions.typeText("12/2021"))
+        view.perform(ViewActions.typeText("12/2021"))
         // Then
-        val result = editText?.isValid()
-        Assert.assertEquals(true, result?.isValid)
-        Assert.assertEquals(EMPTY, result?.error)
+        val result = formField!!.isValid()
+        Assert.assertEquals(true, result.isValid)
+        Assert.assertEquals(EMPTY, result.error)
     }
 
     @Test
     fun shouldAllowDateEqualsThanLowerLimit() {
         // Given
-        editText?.lowerLimit = Calendar.getInstance().apply {
+        val view = onView(withId(formField!!.editText!!.id))
+        formField!!.lowerLimit = Calendar.getInstance().apply {
             set(2019, Calendar.JUNE, 1)
         }
         // When
-        onView(editTextRef).perform(ViewActions.typeText("06/2019"))
+        view.perform(ViewActions.typeText("06/2019"))
         // Then
-        Assert.assertEquals(true, editText?.isValid()?.isValid)
+        Assert.assertEquals(true, formField!!.isValid().isValid)
     }
 
     @Test
     fun shouldNotAllowDateLessThanLowerLimit() {
         // Given
-        editText?.lowerLimit = Calendar.getInstance().apply {
+        val view = onView(withId(formField!!.editText!!.id))
+        formField!!.lowerLimit = Calendar.getInstance().apply {
             set(2019, Calendar.JUNE, 1)
         }
         // When
-        onView(editTextRef).perform(ViewActions.typeText("05/2019"))
+        view.perform(ViewActions.typeText("05/2019"))
         // Then
-        Assert.assertEquals(false, editText?.isValid()?.isValid)
+        Assert.assertEquals(false, formField!!.isValid().isValid)
     }
 
     @Test
     fun shouldAllowDateGreaterThanLowerLimit() {
         // Given
-        editText?.lowerLimit = Calendar.getInstance().apply {
+        val view = onView(withId(formField!!.editText!!.id))
+        formField!!.lowerLimit = Calendar.getInstance().apply {
             set(2019, Calendar.JUNE, 1)
         }
         // When
-        onView(editTextRef).perform(ViewActions.typeText("05/2021"))
+        view.perform(ViewActions.typeText("05/2021"))
         // Then
-        Assert.assertEquals(true, editText?.isValid()?.isValid)
+        Assert.assertEquals(true, formField!!.isValid().isValid)
     }
 
     @Test(expected = PropertyNotImplementedException::class)
     fun shouldThrowPropertyNotImplementedExceptionWhenHasUpperLimitAndLowerLimit() {
         // Given
-        editText?.lowerLimit = Calendar.getInstance().apply {
+        val view = onView(withId(formField!!.editText!!.id))
+        formField!!.lowerLimit = Calendar.getInstance().apply {
             set(2019, Calendar.JUNE, 1)
         }
-        editText?.upperLimit = Calendar.getInstance().apply {
+        formField!!.upperLimit = Calendar.getInstance().apply {
             set(2020, Calendar.JUNE, 1)
         }
         // When
-        onView(editTextRef).perform(ViewActions.typeText("05/2021"))
+        view.perform(ViewActions.typeText("05/2021"))
 
         // Then
         ruleActivity.runOnUiThread {
-            editText?.isValid()
+            formField!!.isValid()
         }
     }
 }

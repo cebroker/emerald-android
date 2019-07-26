@@ -16,21 +16,22 @@
 
 package co.condorlabs.customcomponents.test
 
+import android.view.KeyEvent
+import android.view.View
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.pressKey
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.runner.AndroidJUnit4
-import android.view.KeyEvent
-import android.view.View
 import androidx.test.filters.SmallTest
-import co.condorlabs.customcomponents.customedittext.EditTextCurrencyField
-import co.condorlabs.customcomponents.formfield.ValidationResult
+import androidx.test.runner.AndroidJUnit4
 import co.condorlabs.customcomponents.DOLLAR_SYMBOL
 import co.condorlabs.customcomponents.VALIDATE_EMPTY_ERROR
+import co.condorlabs.customcomponents.customedittext.EditTextCurrencyField
+import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.test.util.text
+import org.hamcrest.Matcher
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -39,7 +40,6 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class EditTextCurrencyFieldTest : MockActivityTest() {
 
-    private var editTextRef = ViewMatchers.withId(R.id.etCurrency)
     private var editText: EditTextCurrencyField? = null
 
     @Before
@@ -68,28 +68,31 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
     @SmallTest
     @Test
     fun shouldFormatCurrency() {
+        //Given
+        val formField = ruleActivity.activity.findViewById<EditTextCurrencyField>(R.id.tlCurrency)
+        val view = onView(ViewMatchers.withId(formField!!.editText!!.id))
         // When
-        onView(editTextRef).perform(ViewActions.typeText("1"))
+        view.perform(ViewActions.typeText("1"))
         // Then
         Assert.assertEquals("$1", editText?.text())
 
         // When
-        onView(editTextRef).perform(ViewActions.typeText("1"))
+        view.perform(ViewActions.typeText("1"))
         // Then
         Assert.assertEquals("$11", editText?.text())
 
         // When
-        onView(editTextRef).perform(ViewActions.typeText("2"))
+        view.perform(ViewActions.typeText("2"))
         // Then
         Assert.assertEquals("$112", editText?.text())
 
         // When
-        onView(editTextRef).perform(ViewActions.typeText("2"))
+        view.perform(ViewActions.typeText("2"))
         // Then
         Assert.assertEquals("$1,122", editText?.text())
 
         // When
-        onView(editTextRef).perform(ViewActions.typeText("33"))
+        view.perform(ViewActions.typeText("33"))
         // Then
         Assert.assertEquals("$112,233", editText?.text())
     }
@@ -97,28 +100,31 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
     @SmallTest
     @Test
     fun shouldFormatCurrencyWithMax2Decimals() {
+        //Given
+        val formField = ruleActivity.activity.findViewById<EditTextCurrencyField>(R.id.tlCurrency)
+        val view = onView(ViewMatchers.withId(formField!!.editText!!.id))
         // When
-        onView(editTextRef).perform(ViewActions.typeText("0"))
+        view.perform(ViewActions.typeText("0"))
         // Then
         Assert.assertEquals("$0", editText?.text())
 
         // When
-        onView(editTextRef).perform(ViewActions.typeText("."))
+        view.perform(ViewActions.typeText("."))
         // Then
         Assert.assertEquals("$0.", editText?.text())
 
         // When
-        onView(editTextRef).perform(ViewActions.typeText("0"))
+        view.perform(ViewActions.typeText("0"))
         // Then
         Assert.assertEquals("$0.0", editText?.text())
 
         // When
-        onView(editTextRef).perform(ViewActions.typeText("5"))
+        view.perform(ViewActions.typeText("5"))
         // Then
         Assert.assertEquals("$0.05", editText?.text())
 
         // When
-        onView(editTextRef).perform(ViewActions.typeText("8"))
+        view.perform(ViewActions.typeText("8"))
         // Then
         Assert.assertEquals("$0.05", editText?.text())
     }
@@ -126,8 +132,11 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
     @SmallTest
     @Test
     fun shouldAllowToWriteZeroAsLastDecimal() {
+        //Given
+        val formField = ruleActivity.activity.findViewById<EditTextCurrencyField>(R.id.tlCurrency)
+        val view = onView(ViewMatchers.withId(formField!!.editText!!.id))
         // When
-        onView(editTextRef).perform(ViewActions.typeText("1.40"))
+        view.perform(ViewActions.typeText("1.40"))
         // Then
         Assert.assertEquals("$1.40", editText?.text())
     }
@@ -135,28 +144,32 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
     @SmallTest
     @Test
     fun shouldAllowMax1_000_000() {
+        //Given
+        val formField = ruleActivity.activity.findViewById<EditTextCurrencyField>(R.id.tlCurrency)
+        val view = onView(ViewMatchers.withId(formField!!.editText!!.id))
+
         // When
-        onView(editTextRef).perform(ViewActions.typeText("1000000000001"))
+        view.perform(ViewActions.typeText("1000000000001"))
         // Then
         Assert.assertEquals("$100,000,000,000", editText?.text())
 
         // When
-        onView(editTextRef).perform(ViewActions.typeText("0"))
+        view.perform(ViewActions.typeText("0"))
         // Then
         Assert.assertEquals("$1,000,000,000,000", editText?.text())
 
         // When
-        onView(editTextRef).perform(ViewActions.typeText("0"))
+        view.perform(ViewActions.typeText("0"))
         // Then
         Assert.assertEquals("$1,000,000,000,000", editText?.text())
 
         // When
-        onView(editTextRef).perform(ViewActions.typeText("10000000000001"))
+        view.perform(ViewActions.typeText("10000000000001"))
         // Then
         Assert.assertEquals("$1,000,000,000,000", editText?.text())
 
         // When
-        onView(editTextRef).perform(ViewActions.typeText("."))
+        view.perform(ViewActions.typeText("."))
         // Then
         Assert.assertEquals("$1,000,000,000,000", editText?.text())
     }
@@ -164,8 +177,11 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
     @SmallTest
     @Test
     fun shouldNotAllowPasteNumberBiggerThanMax() {
+        //Given
+        val formField = ruleActivity.activity.findViewById<EditTextCurrencyField>(R.id.tlCurrency)
+        val view = onView(ViewMatchers.withId(formField!!.editText!!.id))
         // When
-        onView(editTextRef).perform(ViewActions.replaceText("1000000000001"))
+        view.perform(ViewActions.replaceText("1000000000001"))
         // Then
         Assert.assertEquals(DOLLAR_SYMBOL, editText?.text())
     }
@@ -173,23 +189,26 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
     @SmallTest
     @Test
     fun shouldDeleteDecimalPart() {
+        //Given
+        val formField = ruleActivity.activity.findViewById<EditTextCurrencyField>(R.id.tlCurrency)
+        val view = onView(ViewMatchers.withId(formField!!.editText!!.id))
         // When
-        onView(editTextRef).perform(ViewActions.typeText("2,333.05"))
+        view.perform(ViewActions.typeText("2,333.05"))
         // Then
         Assert.assertEquals("$2,333.05", editText?.text())
 
         // When
-        onView(editTextRef).perform(pressKey(KeyEvent.KEYCODE_DEL))
+        view.perform(pressKey(KeyEvent.KEYCODE_DEL))
         // Then
         Assert.assertEquals("$2,333.0", editText?.text())
 
         // When
-        onView(editTextRef).perform(pressKey(KeyEvent.KEYCODE_DEL))
+        view.perform(pressKey(KeyEvent.KEYCODE_DEL))
         // Then
         Assert.assertEquals("$2,333.", editText?.text())
 
         // When
-        onView(editTextRef).perform(pressKey(KeyEvent.KEYCODE_DEL))
+        view.perform(pressKey(KeyEvent.KEYCODE_DEL))
         // Then
         Assert.assertEquals("$2,333", editText?.text())
     }
@@ -197,16 +216,19 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
     @SmallTest
     @Test
     fun shouldFormatDeleting() {
+        //Given
+        val formField = ruleActivity.activity.findViewById<EditTextCurrencyField>(R.id.tlCurrency)
+        val view = onView(ViewMatchers.withId(formField!!.editText!!.id))
         // Given
-        onView(editTextRef).perform(ViewActions.typeText("111,222,333"))
+        view.perform(ViewActions.typeText("111,222,333"))
 
         // When
-        onView(editTextRef).perform(pressKey(KeyEvent.KEYCODE_DEL))
+        view.perform(pressKey(KeyEvent.KEYCODE_DEL))
         // Then
         Assert.assertEquals("$11,122,233", editText?.text())
 
         // When
-        onView(editTextRef).perform(pressKey(KeyEvent.KEYCODE_DEL))
+        view.perform(pressKey(KeyEvent.KEYCODE_DEL))
         // Then
         Assert.assertEquals("$1,112,223", editText?.text())
     }
@@ -222,7 +244,8 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
     @Test
     fun shouldShowDollarSymbolWhenType() {
         // Given
-        val view = onView(editTextRef)
+        val formField = ruleActivity.activity.findViewById<EditTextCurrencyField>(R.id.tlCurrency)
+        val view = onView(ViewMatchers.withId(formField!!.editText!!.id))
 
         // When
         view.perform(ViewActions.typeText("123"))
@@ -235,7 +258,8 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
     @Test
     fun shouldShowDollarSymbolOnDelete() {
         // Given
-        val view = onView(editTextRef)
+        val formField = ruleActivity.activity.findViewById<EditTextCurrencyField>(R.id.tlCurrency)
+        val view = onView(ViewMatchers.withId(formField!!.editText!!.id))
 
         // When
         view.perform(ViewActions.typeText("1"))

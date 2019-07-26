@@ -20,6 +20,7 @@ import android.graphics.drawable.Drawable
 import android.view.View
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions
+import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.filters.SmallTest
 import androidx.test.runner.AndroidJUnit4
@@ -66,7 +67,8 @@ class EditTextPasswordFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val view = Espresso.onView(ViewMatchers.withId(R.id.etPassword))
+        val formField = (ruleActivity.activity.findViewById<View>(R.id.tlPassword) as? EditTextPasswordField)
+        val view = Espresso.onView(ViewMatchers.withId(formField!!.editText!!.id))
 
         // When
         view.perform(ViewActions.typeText("1234567890"))
@@ -100,7 +102,7 @@ class EditTextPasswordFieldTest : MockActivityTest() {
         // Given
         val view = (ruleActivity.activity.findViewById<View>(R.id.tlPassword) as? EditTextPasswordField)
         val textInpuntLayout = view?.textInputLayout ?: throw NullPointerException()
-        val editTextView = Espresso.onView(ViewMatchers.withId(R.id.etPassword))
+        val editTextView = Espresso.onView(ViewMatchers.withId(view.editText!!.id))
 
         // When
         editTextView.perform(ViewActions.typeText("1234567890"))
@@ -117,12 +119,12 @@ class EditTextPasswordFieldTest : MockActivityTest() {
     @Test
     fun tapEyeToHidePassword() {
         restartActivity()
-
         // Given
-        val editTextView = Espresso.onView(ViewMatchers.withId(R.id.etPassword))
+        val formField = ruleActivity.activity.findViewById<EditTextPasswordField>(R.id.tlPassword)
+        val view = Espresso.onView(ViewMatchers.withId(formField!!.editText!!.id))
 
         // When
-        editTextView.perform(ViewActions.typeText("1234567890"))
+        view.perform(typeText("1234567890"))
 
         // Then
         not(isTextDisplayed("1234567890"))

@@ -40,6 +40,8 @@ import org.junit.runner.RunWith
 @RunWith(AndroidJUnit4::class)
 class EditTextCityFieldTest : MockActivityTest() {
 
+
+
     @Before
     fun setup() {
         MockActivity.layout = R.layout.activity_edittextcityfield_test
@@ -49,9 +51,10 @@ class EditTextCityFieldTest : MockActivityTest() {
     @Test
     fun shouldHaveDefaultHint() {
         restartActivity()
+        val formField = ruleActivity.activity.findViewById<EditTextCityField>(R.id.tlCity)
 
         // Given
-        val view = Espresso.onView(ViewMatchers.withId(R.id.tlCity))
+        val view = Espresso.onView(ViewMatchers.withId(formField!!.id))
 
         // When
         view.perform(click())
@@ -64,11 +67,11 @@ class EditTextCityFieldTest : MockActivityTest() {
     @Test
     fun shouldDisplayACustomHint() {
         restartActivity()
-
+        val formField = ruleActivity.activity.findViewById<EditTextCityField>(R.id.tlCity)
         ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlCity).hint = "Custom Hint"
 
         // Given
-        val view = Espresso.onView(ViewMatchers.withId(R.id.tlCity))
+        val view = Espresso.onView(ViewMatchers.withId(formField!!.id))
 
         // When
         view.perform(click())
@@ -81,9 +84,9 @@ class EditTextCityFieldTest : MockActivityTest() {
     @Test
     fun shouldReturnErrorIfCityNotBelongToTheState() {
         restartActivity()
-
+        val formField = ruleActivity.activity.findViewById<EditTextCityField>(R.id.tlCity)
         // Given
-        val view = Espresso.onView(ViewMatchers.withId(R.id.etCity))
+        val view = Espresso.onView(ViewMatchers.withId(formField!!.editText!!.id))
         val editTextCityField = (ruleActivity.activity.findViewById<View>(R.id.tlCity) as? EditTextCityField)
         editTextCityField?.setIsRequired(true)
 
@@ -100,9 +103,9 @@ class EditTextCityFieldTest : MockActivityTest() {
     @Test
     fun shouldReturnErrorWithEmptyCity() {
         restartActivity()
-
+        val formField = ruleActivity.activity.findViewById<EditTextCityField>(R.id.tlCity)
         // Given
-        val editTextCityField = (ruleActivity.activity.findViewById<View>(R.id.tlCity) as? EditTextCityField)
+        val editTextCityField = (ruleActivity.activity.findViewById<View>(formField!!.id) as? EditTextCityField)
         editTextCityField?.setIsRequired(true)
 
         // When
@@ -116,9 +119,10 @@ class EditTextCityFieldTest : MockActivityTest() {
     @Test
     fun shouldNotReturnErrorWithEmptyCity() {
         restartActivity()
+        val formField = ruleActivity.activity.findViewById<EditTextCityField>(R.id.tlCity)
 
         // Given
-        val editTextCityField = (ruleActivity.activity.findViewById<View>(R.id.tlCity) as? EditTextCityField)
+        val editTextCityField = (ruleActivity.activity.findViewById<View>(formField!!.id) as? EditTextCityField)
 
         // When
         val result = editTextCityField?.isValid()
@@ -131,10 +135,11 @@ class EditTextCityFieldTest : MockActivityTest() {
     @Test
     fun shouldDisplayErrorWithStateName() {
         restartActivity()
+        val formField = ruleActivity.activity.findViewById<EditTextCityField>(R.id.tlCity)
 
         // Given
-        val view = Espresso.onView(ViewMatchers.withId(R.id.etCity))
-        val editTextCityField = (ruleActivity.activity.findViewById<View>(R.id.tlCity) as? EditTextCityField)
+        val view = Espresso.onView(ViewMatchers.withId(formField!!.editText!!.id))
+        val editTextCityField = (ruleActivity.activity.findViewById<View>(formField.id) as? EditTextCityField)
         editTextCityField?.setIsRequired(true)
 
         // When
