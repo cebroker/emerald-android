@@ -7,7 +7,7 @@
               tools:context=".InitialFragment">
 
     <co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
-            android:id="@+id/one"
+            android:id="@+id/firstField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -16,7 +16,7 @@
     />
 
     <co.condorlabs.customcomponents.customedittext.EditTextCurrencyField
-            android:id="@+id/three"
+            android:id="@+id/secondField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -24,7 +24,7 @@
             app:is_required="true"
     />
     <co.condorlabs.customcomponents.customedittext.EditTextDateField
-            android:id="@+id/four"
+            android:id="@+id/thirdField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -33,7 +33,7 @@
     />
 
     <co.condorlabs.customcomponents.customedittext.EditTextEmailField
-            android:id="@+id/five"
+            android:id="@+id/fourthField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -42,7 +42,7 @@
     />
 
     <co.condorlabs.customcomponents.customedittext.EditTextPhoneField
-            android:id="@+id/six"
+            android:id="@+id/sixField"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"

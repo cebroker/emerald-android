@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 
-class secondFragment : Fragment() {
+class SecondFragment : Fragment() {
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -16,6 +16,6 @@ class secondFragment : Fragment() {
 
     companion object {
         fun newInstance() =
-            secondFragment()
+            SecondFragment()
     }
 }

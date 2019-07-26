@@ -18,7 +18,6 @@ package co.condorlabs.customcomponents.customedittext
 
 import android.content.Context
 import android.util.AttributeSet
-import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.EMPTY
 import co.condorlabs.customcomponents.VALIDATE_CITY_ERROR
@@ -29,11 +28,11 @@ import co.condorlabs.customcomponents.ZERO
  */
 class EditTextCityField(context: Context, attrs: AttributeSet) : BaseEditTextFormField(context, attrs) {
 
-    private var mStateName: String? = null
-    private var mCities: List<String>? = null
+    private var stateName: String? = null
+    private var cities: List<String>? = null
 
     override fun getErrorValidateResult(): ValidationResult {
-        return ValidationResult(false, "$VALIDATE_CITY_ERROR ${mStateName ?: EMPTY}")
+        return ValidationResult(false, "$VALIDATE_CITY_ERROR ${stateName ?: EMPTY}")
     }
 
     override fun isValid(): ValidationResult {
@@ -43,7 +42,7 @@ class EditTextCityField(context: Context, attrs: AttributeSet) : BaseEditTextFor
             return emptyValidation
         }
 
-        if (mCities?.filter {
+        if (cities?.filter {
                 it.toLowerCase() == editText?.text?.toString()?.toLowerCase() ?: EMPTY
             }?.count() ?: ZERO <= ZERO) {
             return getErrorValidateResult()
@@ -53,10 +52,10 @@ class EditTextCityField(context: Context, attrs: AttributeSet) : BaseEditTextFor
     }
 
     fun setCities(cities: List<String>) {
-        mCities = cities
+        this.cities = cities
     }
 
     fun setStateName(state: String) {
-        mStateName = state
+        stateName = state
     }
 }

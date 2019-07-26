@@ -31,39 +31,39 @@ class BaseEditSaveStateTest : MockActivityTest2() {
 
         //Given
 
-        val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.one)
-        val realEditText = formField.editText!!
-        val editText = Espresso.onView(ViewMatchers.withId(realEditText.id))
-        editText.perform(ViewActions.typeText("12345"))
+        val formField1 = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.firstField)
+        val realEditText1 = formField1.editText!!
+        val view1 = Espresso.onView(ViewMatchers.withId(realEditText1.id))
+        view1.perform(ViewActions.typeText("12345"))
 
-        val formField3 = (ruleActivity.activity.findViewById<View>(R.id.four) as? EditTextDateField)
+        val formField2 = (ruleActivity.activity.findViewById<View>(R.id.thirdField) as? EditTextDateField)
+        val realEditText2 = formField2!!.editText!!
+        val view2 = Espresso.onView(ViewMatchers.withId(realEditText2.id))
+        view2.perform(ViewActions.typeText("12/01/2019"))
+
+        val formField3 = (ruleActivity.activity.findViewById<View>(R.id.fourthField) as? EditTextEmailField)
         val realEditText3 = formField3!!.editText!!
-        val view = Espresso.onView(ViewMatchers.withId(realEditText3.id))
-        view.perform(ViewActions.typeText("12/01/2019"))
+        val view3 = Espresso.onView(ViewMatchers.withId(realEditText3.id))
+        view3.perform(ViewActions.typeText("test@test.com"))
 
-        val formField4 = (ruleActivity.activity.findViewById<View>(R.id.five) as? EditTextEmailField)
+        val formField4 = (ruleActivity.activity.findViewById<View>(R.id.sixField) as? EditTextPhoneField)
         val realEditText4 = formField4!!.editText!!
-        val view2 = Espresso.onView(ViewMatchers.withId(realEditText4.id))
-        view2.perform(ViewActions.typeText("test@test.com"))
-
-        val formField5 = (ruleActivity.activity.findViewById<View>(R.id.six) as? EditTextPhoneField)
-        val realEditText5 = formField5!!.editText!!
-        val view3 = Espresso.onView(ViewMatchers.withId(realEditText5.id))
-        view3.perform(ViewActions.typeText("1234567890"))
+        val view4 = Espresso.onView(ViewMatchers.withId(realEditText4.id))
+        view4.perform(ViewActions.typeText("1234567890"))
 
         //When
 
-        val formField6 = (ruleActivity.activity.findViewById<View>(R.id.btnGo) as? CustomButton)
+        val formField5 = (ruleActivity.activity.findViewById<View>(R.id.btnGo) as? CustomButton)
         Espresso.closeSoftKeyboard()
-        Espresso.onView(ViewMatchers.withId(formField6!!.id)).perform(ViewActions.click())
+        Espresso.onView(ViewMatchers.withId(formField5!!.id)).perform(ViewActions.click())
         Espresso.pressBack()
 
         //Then
 
-        Assert.assertEquals("12345", realEditText.text.toString())
-        Assert.assertEquals("12/01/2019", realEditText3.text.toString())
-        Assert.assertEquals("test@test.com", realEditText4.text.toString())
-        Assert.assertEquals("123-456-7890", realEditText5.text.toString())
+        Assert.assertEquals("12345", realEditText1.text.toString())
+        Assert.assertEquals("12/01/2019", realEditText2.text.toString())
+        Assert.assertEquals("test@test.com", realEditText3.text.toString())
+        Assert.assertEquals("123-456-7890", realEditText4.text.toString())
     }
 
 }

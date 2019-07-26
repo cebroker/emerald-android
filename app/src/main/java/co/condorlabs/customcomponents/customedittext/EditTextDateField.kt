@@ -156,14 +156,14 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
 
     fun getUpperLimit(): Long? = mUpperLimit
 
-    private fun isDateBelowOtherOneInMilliseconds(actual: Date, otherOne: Long?): Boolean {
-        val lowerLimit = otherOne?.let { it } ?: return false
+    private fun isDateBelowOtherOneInMilliseconds(actual: Date, newDate: Long?): Boolean {
+        val lowerLimit = newDate?.let { it } ?: return false
         return actual.time < lowerLimit
     }
 
-    private fun isDateAfterOtherOneInMilliseconds(actual: Date, otherOne: Long?): Boolean {
-        otherOne?.let { it } ?: return false
-        return actual.time > otherOne
+    private fun isDateAfterOtherOneInMilliseconds(actual: Date, newDate: Long?): Boolean {
+        newDate?.let { it } ?: return false
+        return actual.time > newDate
     }
 
     private fun getFormatedDateFromMilliseconds(milliseconds: Long): String {

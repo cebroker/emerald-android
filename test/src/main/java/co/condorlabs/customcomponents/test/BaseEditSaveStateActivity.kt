@@ -13,15 +13,13 @@ class BaseEditSaveStateActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(layout)
         val fragmentTransaction = supportFragmentManager.beginTransaction()
-        fragmentTransaction.add(InitialFragment.newInstance(), "first")
         fragmentTransaction.replace(R.id.frameContent, InitialFragment.newInstance(), "first")
         fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commitAllowingStateLoss()
 
         btnGo.setOnClickListener {
             val fragmentTransaction2 = supportFragmentManager.beginTransaction()
-            fragmentTransaction2.add(InitialFragment.newInstance(), "second")
-            fragmentTransaction2.replace(R.id.frameContent, secondFragment.newInstance(), "second")
+            fragmentTransaction2.replace(R.id.frameContent, SecondFragment.newInstance(), "second")
             fragmentTransaction2.addToBackStack(null)
             fragmentTransaction2.commitAllowingStateLoss()
         }
