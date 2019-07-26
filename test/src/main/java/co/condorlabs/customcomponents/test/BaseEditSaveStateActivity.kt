@@ -18,7 +18,6 @@ class BaseEditSaveStateActivity : AppCompatActivity() {
         fragmentTransaction.addToBackStack(null)
         fragmentTransaction.commitAllowingStateLoss()
 
-
         btnGo.setOnClickListener {
             val fragmentTransaction2 = supportFragmentManager.beginTransaction()
             fragmentTransaction2.add(InitialFragment.newInstance(), "second")
@@ -31,6 +30,4 @@ class BaseEditSaveStateActivity : AppCompatActivity() {
     companion object {
         var layout: Int = R.layout.activity_base_edit_save_state
     }
-
 }
-

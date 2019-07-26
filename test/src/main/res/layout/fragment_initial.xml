@@ -49,6 +49,4 @@
             app:hint="5"
             app:is_required="true"
     />
-
-
 </LinearLayout>
