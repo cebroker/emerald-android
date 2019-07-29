@@ -235,5 +235,5 @@ const val INPUT_TYPE_PASSWORD = "password"
 const val INPUT_TYPE_TEXT = "text"
 
 /** EDIT TEXT STATE KEY **/
-const val SUPER_KEY = "super"
+const val PARENT_PARCELABLE_KEY = "super"
 const val EDIT_TEXT_KEY = "editText"

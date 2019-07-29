@@ -285,7 +285,7 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
     override fun onRestoreInstanceState(state: Parcelable?) {
         if (state is Bundle) {
             val bundle: Bundle = state
-            val parcelable = bundle.getParcelable<Parcelable>(SUPER_KEY)
+            val parcelable = bundle.getParcelable<Parcelable>(PARENT_PARCELABLE_KEY)
             editText?.setText(bundle.getString(EDIT_TEXT_KEY))
             super.onRestoreInstanceState(parcelable)
         }
@@ -293,7 +293,7 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
 
     override fun onSaveInstanceState(): Parcelable? {
         val bundle = Bundle()
-        bundle.putParcelable(SUPER_KEY, super.onSaveInstanceState())
+        bundle.putParcelable(PARENT_PARCELABLE_KEY, super.onSaveInstanceState())
         bundle.putString(EDIT_TEXT_KEY, editText?.text.toString())
         return bundle
     }

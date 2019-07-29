@@ -2,6 +2,7 @@ package co.condorlabs.customcomponents.test
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import co.condorlabs.customcomponents.test.savestate.fragments.InitialFragment
 import kotlinx.android.synthetic.main.activity_base_edit_save_state.*
 
 /**

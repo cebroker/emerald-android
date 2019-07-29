@@ -28,7 +28,7 @@ import org.junit.Rule
 /**
  * @author Oscar Gallon on 2/25/19.
  */
-abstract class MockActivityTest2 {
+abstract class MockActivitySaveState {
 
     @Rule
     @JvmField
@@ -39,30 +39,5 @@ abstract class MockActivityTest2 {
             ruleActivity.finishActivity()
         }
         ruleActivity.launchActivity(Intent())
-    }
-
-    fun showErrorInInputLayout(textInputLayout: TextInputLayout, error: String) {
-        ruleActivity.runOnUiThread {
-            textInputLayout.error = error
-        }
-    }
-
-    fun hasTextInputLayoutErrorText(expectedErrorText: String): Matcher<View> {
-        return object : TypeSafeMatcher<View>() {
-
-            override fun matchesSafely(view: View): Boolean {
-                if (view !is TextInputLayout) {
-                    return false
-                }
-
-                val error = view.error ?: return false
-
-                val hint = error.toString()
-
-                return expectedErrorText == hint
-            }
-
-            override fun describeTo(description: Description) {}
-        }
     }
 }

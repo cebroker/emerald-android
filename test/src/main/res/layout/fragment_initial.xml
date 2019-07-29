@@ -4,7 +4,7 @@
               xmlns:app="http://schemas.android.com/apk/res-auto" android:layout_width="match_parent"
               android:orientation="vertical"
               android:layout_height="match_parent"
-              tools:context=".InitialFragment">
+              tools:context=".savestate.fragments.InitialFragment">
 
     <co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
             android:id="@+id/firstField"

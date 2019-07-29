@@ -7,7 +7,10 @@ import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.filters.SmallTest
 import androidx.test.runner.AndroidJUnit4
 import co.condorlabs.customcomponents.custombutton.CustomButton
-import co.condorlabs.customcomponents.customedittext.*
+import co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
+import co.condorlabs.customcomponents.customedittext.EditTextDateField
+import co.condorlabs.customcomponents.customedittext.EditTextEmailField
+import co.condorlabs.customcomponents.customedittext.EditTextPhoneField
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -17,7 +20,7 @@ import org.junit.runner.RunWith
  * Created by Oscar Tigreros on 25,July,2019
  */
 @RunWith(AndroidJUnit4::class)
-class BaseEditSaveStateTest : MockActivityTest2() {
+class BaseEditSaveStateTest : MockActivitySaveState() {
 
     @Before
     fun setup() {
@@ -26,7 +29,7 @@ class BaseEditSaveStateTest : MockActivityTest2() {
 
     @SmallTest
     @Test
-    fun shouldSaveAndRestoreState() {
+    fun shouldSaveAndRestoreStateSpecificsValuesOnEachView() {
         restartActivity()
 
         //Given
@@ -36,7 +39,7 @@ class BaseEditSaveStateTest : MockActivityTest2() {
         val view1 = Espresso.onView(ViewMatchers.withId(realEditText1.id))
         view1.perform(ViewActions.typeText("12345"))
 
-        val formField2 = (ruleActivity.activity.findViewById<View>(R.id.thirdField) as? EditTextDateField)
+        val formField2 = ruleActivity.activity.findViewById<View>(R.id.thirdField) as? EditTextDateField
         val realEditText2 = formField2!!.editText!!
         val view2 = Espresso.onView(ViewMatchers.withId(realEditText2.id))
         view2.perform(ViewActions.typeText("12/01/2019"))

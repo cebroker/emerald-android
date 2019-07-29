@@ -16,20 +16,19 @@
 
 package co.condorlabs.customcomponents.test
 
+import android.view.View
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.runner.AndroidJUnit4
-import android.view.View
 import androidx.test.filters.SmallTest
-import co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
-import co.condorlabs.customcomponents.customedittext.EditTextEmailField
-import co.condorlabs.customcomponents.formfield.ValidationResult
+import androidx.test.runner.AndroidJUnit4
 import co.condorlabs.customcomponents.EMPTY
 import co.condorlabs.customcomponents.VALIDATE_EMAIL_ERROR
 import co.condorlabs.customcomponents.VALIDATE_EMPTY_ERROR
-import co.condorlabs.customcomponents.customedittext.EditTextCityField
+import co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
+import co.condorlabs.customcomponents.customedittext.EditTextEmailField
+import co.condorlabs.customcomponents.formfield.ValidationResult
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
