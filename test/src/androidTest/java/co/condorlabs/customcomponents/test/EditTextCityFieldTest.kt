@@ -41,7 +41,6 @@ import org.junit.runner.RunWith
 class EditTextCityFieldTest : MockActivityTest() {
 
 
-
     @Before
     fun setup() {
         MockActivity.layout = R.layout.activity_edittextcityfield_test
