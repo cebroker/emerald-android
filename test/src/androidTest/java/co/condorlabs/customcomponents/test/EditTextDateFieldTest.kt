@@ -560,6 +560,7 @@ class EditTextDateFieldTest : MockActivityTest() {
             field3?.isValid()
         )
     }
+
     @SmallTest
     @Test
     fun shouldDisable() {
@@ -619,5 +620,123 @@ class EditTextDateFieldTest : MockActivityTest() {
         isTextNotDisplayed("T")
         isTextNotDisplayed("W")
         isTextNotDisplayed("F")
+    }
+
+    @SmallTest
+    @Test
+    fun shouldBeValidWhenFieldIsNotRequiredAndDateIsCorrect() {
+        // Given
+        MockActivity.layout = R.layout.activity_edittextdatefield_disable_enable_test
+        restartActivity()
+        val field = (ruleActivity.activity.findViewById<EditTextDateField>(R.id.tlDate))
+
+        // when
+        ruleActivity.activity.runOnUiThread {
+            field?.isRequired = false
+            field?.editText?.setText("03/03/2012")
+
+            // Then
+            Assert.assertTrue("The EditTextDateField should be valid when the field is not required and date is correct", field?.isValid()?.isValid ?: false)
+        }
+    }
+
+    @SmallTest
+    @Test
+    fun shouldBeInvalidWhenFieldIsNotRequiredAndDateIsWrong() {
+        // Given
+        MockActivity.layout = R.layout.activity_edittextdatefield_disable_enable_test
+        restartActivity()
+        val field = (ruleActivity.activity.findViewById<EditTextDateField>(R.id.tlDate))
+
+        // when
+        ruleActivity.activity.runOnUiThread {
+            field?.isRequired = false
+            field?.editText?.setText("03/03/202")
+
+            // Then
+            Assert.assertFalse("the EditTextDateField should be invalid when the field is not required and date is wrong", field?.isValid()?.isValid ?: true)
+        }
+    }
+
+    @SmallTest
+    @Test
+    fun shouldBeInvalidWhenFieldIsNotRequiredAndDateIsGreaterThanUpperLimit() {
+        // Given
+        MockActivity.layout = R.layout.activity_edittextdatefield_disable_enable_test
+        restartActivity()
+        val field = (ruleActivity.activity.findViewById<EditTextDateField>(R.id.tlDate))
+
+        // when
+        ruleActivity.activity.runOnUiThread {
+            field?.isRequired = false
+            val format = mDefaultDateFormat
+            val dateToParse = "02/25/2019"
+            field?.setUpperLimit(dateToParse, format)
+            field?.editText?.setText("03/11/2020")
+            // Then
+            Assert.assertFalse("the EditTextDateField should be invalid when the field is not required and date is greater than upper limit", field?.isValid()?.isValid ?: true)
+        }
+    }
+
+    @SmallTest
+    @Test
+    fun shouldBeInvalidWhenFieldIsNotRequiredAndDateIsLessThanLowerLimit() {
+        // Given
+        MockActivity.layout = R.layout.activity_edittextdatefield_disable_enable_test
+        restartActivity()
+        val field = (ruleActivity.activity.findViewById<EditTextDateField>(R.id.tlDate))
+
+        // when
+        ruleActivity.activity.runOnUiThread {
+            field?.isRequired = false
+            val format = mDefaultDateFormat
+            val dateToParse = "02/25/2019"
+            field?.setLowerLimit(dateToParse, format)
+            field?.editText?.setText("03/11/2012")
+            // Then
+            Assert.assertFalse("the EditTextDateField should be invalid when the field is not required and date is less than lower limit", field?.isValid()?.isValid ?: true)
+        }
+    }
+
+    @SmallTest
+    @Test
+    fun shouldBeValidWhenFieldIsNotRequiredAndDateIsLessThanUpperLimit() {
+        // Given
+        MockActivity.layout = R.layout.activity_edittextdatefield_disable_enable_test
+        restartActivity()
+        val field = (ruleActivity.activity.findViewById<EditTextDateField>(R.id.tlDate))
+
+        // when
+        ruleActivity.activity.runOnUiThread {
+            field?.isRequired = false
+            val format = mDefaultDateFormat
+            val dateToParse = "02/25/2019"
+            field?.setUpperLimit(dateToParse, format)
+            field?.editText?.setText("03/11/2018")
+
+            // Then
+            Assert.assertTrue("the EditTextDateField should be valid when the field is not required and date is less than upper limit", field?.isValid()?.isValid ?: false)
+        }
+    }
+
+    @SmallTest
+    @Test
+    fun shouldBeValidWhenFieldIsNotRequiredAndDateIsGreaterThanLowerLimit() {
+        // Given
+        MockActivity.layout = R.layout.activity_edittextdatefield_disable_enable_test
+        restartActivity()
+        val field = (ruleActivity.activity.findViewById<EditTextDateField>(R.id.tlDate))
+
+        // when
+        ruleActivity.activity.runOnUiThread {
+            field?.isRequired = false
+            val format = mDefaultDateFormat
+            val dateToParse = "02/25/2019"
+            field?.setLowerLimit(dateToParse, format)
+            field?.editText?.setText("03/11/2020")
+
+            // Then
+            Assert.assertTrue("the EditTextDateField should be valid when the field is not required and date is greater than lower limit", field?.isValid()?.isValid ?: false)
+        }
     }
 }

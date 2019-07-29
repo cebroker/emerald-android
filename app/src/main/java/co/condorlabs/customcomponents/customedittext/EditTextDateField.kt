@@ -124,10 +124,10 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
     override fun isValid(): ValidationResult {
         val result = super.isValid()
 
-        if (result.isValid && isRequired) {
+        if (result.isValid && (isRequired || getValue().isNotEmpty())) {
             val actualDate = mSimpleDateFormat?.parse(getValue()) ?: return result
 
-            if (isDateBelowOtherOneInMilliseconds(actualDate, mLowerLimit)) {
+            if (isDateBeforeOtherOneInMilliseconds(actualDate, mLowerLimit)) {
                 return ValidationResult(
                     false,
                     String.format(
@@ -157,14 +157,14 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
 
     fun getUpperLimit(): Long? = mUpperLimit
 
-    private fun isDateBelowOtherOneInMilliseconds(actual: Date, otherOne: Long?): Boolean {
+    private fun isDateBeforeOtherOneInMilliseconds(actual: Date, otherOne: Long?): Boolean {
         val lowerLimit = otherOne?.let { it } ?: return false
         return actual.time < lowerLimit
     }
 
     private fun isDateAfterOtherOneInMilliseconds(actual: Date, otherOne: Long?): Boolean {
         val upperLimit = otherOne?.let { it } ?: return false
-        return actual.time > otherOne
+        return actual.time > upperLimit
     }
 
     private fun getFormatedDateFromMilliseconds(milliseconds: Long): String {
