@@ -25,6 +25,7 @@
     <dimen name="h7">9sp</dimen>
     <dimen name="body">14sp</dimen>
     <dimen name="button_size">18sp</dimen>
+    <dimen name="button_radius">4dp</dimen>
     <dimen name="small_button_size">14sp</dimen>
     <dimen name="large_button_size">20sp</dimen>
     <dimen name="section_title_size">14sp</dimen>
