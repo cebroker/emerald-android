@@ -48,5 +48,5 @@ Create a new instance in your layout
 <img src="/Images/custom_button_overlay.png" width="400" heigth="400"/>
 8. FlatPrimary <br>
 <img src="/Images/custom_button_flat_primary.png" width="400" heigth="400"/>
-9. ShapeWhaite <br>
+9. ShapeWhite <br>
 <img src="/Images/custom_button_shape_white.png" width="400" heigth="400"/>
