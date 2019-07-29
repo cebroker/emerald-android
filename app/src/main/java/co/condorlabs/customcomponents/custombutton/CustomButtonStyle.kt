@@ -45,6 +45,18 @@ sealed class CustomButtonStyle(
             R.color.primaryColor,
             highlightTextColor = R.color.white
         )
+    object FlatPrimaryButtonStyle :
+        CustomButtonStyle(
+            R.color.white,
+            R.color.primaryColor,
+            R.color.white
+        )
+
+    object ShapeWhiteButtonStyle : CustomButtonStyle(
+        R.color.transparent,
+        R.color.white,
+        R.color.white,
+        R.color.white)
 
     fun getBackground(context: Context): StateListDrawable {
         val rippleDrawable = getRippleDrawable(context)
