@@ -124,7 +124,7 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
     override fun isValid(): ValidationResult {
         val result = super.isValid()
 
-        if (result.isValid && (isRequired || getValue().isNotEmpty())) {
+        if (result.isValid && getValue().isNotEmpty()) {
             val actualDate = mSimpleDateFormat?.parse(getValue()) ?: return result
 
             if (isDateBeforeOtherOneInMilliseconds(actualDate, mLowerLimit)) {
