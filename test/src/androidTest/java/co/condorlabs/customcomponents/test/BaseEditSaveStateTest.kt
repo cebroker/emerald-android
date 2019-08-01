@@ -33,7 +33,6 @@ class BaseEditSaveStateTest : MockActivitySaveState() {
         restartActivity()
 
         //Given
-
         val formField1 = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.firstField)
         val realEditText1 = formField1.editText!!
         val view1 = Espresso.onView(ViewMatchers.withId(realEditText1.id))
@@ -55,14 +54,12 @@ class BaseEditSaveStateTest : MockActivitySaveState() {
         view4.perform(ViewActions.typeText("1234567890"))
 
         //When
-
         val formField5 = (ruleActivity.activity.findViewById<View>(R.id.btnGo) as? CustomButton)
         Espresso.closeSoftKeyboard()
         Espresso.onView(ViewMatchers.withId(formField5!!.id)).perform(ViewActions.click())
         Espresso.pressBack()
 
         //Then
-
         Assert.assertEquals("12345", realEditText1.text.toString())
         Assert.assertEquals("12/01/2019", realEditText2.text.toString())
         Assert.assertEquals("test@test.com", realEditText3.text.toString())
