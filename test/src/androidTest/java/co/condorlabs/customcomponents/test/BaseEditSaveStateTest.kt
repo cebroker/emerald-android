@@ -57,7 +57,9 @@ class BaseEditSaveStateTest : MockActivitySaveState() {
         val formField5 = (ruleActivity.activity.findViewById<View>(R.id.btnGo) as? CustomButton)
         Espresso.closeSoftKeyboard()
         Espresso.onView(ViewMatchers.withId(formField5!!.id)).perform(ViewActions.click())
+        Thread.sleep(3000)
         Espresso.pressBack()
+        Thread.sleep(3000)
 
         //Then
         Assert.assertEquals("12345", realEditText1.text.toString())
