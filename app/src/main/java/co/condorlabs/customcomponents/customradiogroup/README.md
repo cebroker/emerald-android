@@ -32,6 +32,7 @@ Create a new instance in your layout
 |  ValidationResult | *`fun isValid()`* | Verify that an item is selected|
 |  String | *`fun getValue()`* | Get the current selected item|
 |  Unit | *`fun setEnable(isEnabled: Boolean)`* | Enable or disable the radio group and its radio buttons inside |
+|  Unit | * `fun setSelectedItem(itemLabel: String)`* | Select an item by his label |
 
 ## Examples
 <img src="/Images/customradiogroup/custom_radio_group.gif" width="400" heigth="400"/>

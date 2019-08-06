@@ -21,8 +21,6 @@ apply plugin: 'kotlin-android'
 android {
     compileSdkVersion 28
 
-
-
     defaultConfig {
         applicationId "co.condorlabs.customcomponents.test"
         minSdkVersion 21

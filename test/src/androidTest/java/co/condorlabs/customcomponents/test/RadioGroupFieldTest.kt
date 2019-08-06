@@ -410,4 +410,31 @@ class RadioGroupFieldTest : MockActivityTest() {
             )
         )
     }
+
+    @LargeTest
+    @Test
+    fun shouldMarkAnOptionAsSelected() {
+        // Given
+        restartActivity()
+        val formField = ruleActivity.activity.findViewById<RadioGroupFormField>(R.id.tlRadioGroup)
+
+        // When
+        ruleActivity.runOnUiThread {
+            formField.setSelectables(
+                arrayListOf(
+                    Selectable("Item 1", false),
+                    Selectable("Item 2", false),
+                    Selectable("Item 3", false),
+                    Selectable("Item 4", false)
+                )
+            )
+        }
+
+        ruleActivity.runOnUiThread {
+            formField.setSelectedItem("Item 3")
+        }
+
+        // Then
+        Assert.assertEquals("Item 3", formField.getValue())
+    }
 }
