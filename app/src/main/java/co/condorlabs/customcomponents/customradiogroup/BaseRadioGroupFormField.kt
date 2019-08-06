@@ -142,7 +142,7 @@ abstract class BaseRadioGroupFormField(
             it.label == itemLabel
         }
 
-        if (!hasAnItemWithLabel(itemIndex)) {
+        if (!isAValidIndex(itemIndex)) {
             return
         }
 
@@ -154,11 +154,10 @@ abstract class BaseRadioGroupFormField(
             add(Selectable(currentSelectableList[itemIndex].label, true))
         }
 
-
         addRadioButtons()
     }
 
-    private fun hasAnItemWithLabel(index: Int): Boolean {
+    private fun isAValidIndex(index: Int): Boolean {
         return index >= ZERO
     }
 
