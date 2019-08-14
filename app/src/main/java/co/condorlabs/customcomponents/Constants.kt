@@ -17,8 +17,8 @@
 package co.condorlabs.customcomponents
 
 const val VALIDATE_EMPTY_ERROR = "Must not be empty."
-const val VALIDATE_LOWER_LIMIT_DATE_ERROR = "The %s can't be before %s"
-const val VALIDATE_UPPER_LIMIT_DATE_ERROR = "The %s can't be after %s"
+const val VALIDATE_LOWER_LIMIT_DATE_ERROR = "The %s must be after %s"
+const val VALIDATE_UPPER_LIMIT_DATE_ERROR = "The %s must be before %s"
 const val VALIDATE_UPPER_THAN_CURRENT_DATE = "The %s can't be after the current date"
 const val VALIDATE_LOWER_THAN_CURRENT_DATE = "The %s can't be before the current date"
 const val VALIDATE_LENGTH_ERROR = "This field must have ten digits."

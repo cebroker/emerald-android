@@ -168,7 +168,7 @@ class CustomDatePickerTest : MockActivityTest() {
         // Then
         val result = editText?.isValid()
         Assert.assertEquals(false, result?.isValid)
-        Assert.assertEquals("The Enter some text can't be after 7/2007", result?.error)
+        Assert.assertEquals("The Enter some text must be before 7/2007", result?.error)
     }
 
     @Test
@@ -182,7 +182,7 @@ class CustomDatePickerTest : MockActivityTest() {
         // Then
         val result = editText?.isValid()
         Assert.assertEquals(false, result?.isValid)
-        Assert.assertEquals("The Enter some text can't be after 7/2007", result?.error)
+        Assert.assertEquals("The Enter some text must be before 7/2007", result?.error)
     }
 
     @Test
