@@ -109,7 +109,7 @@ fun isTextInLines(lines: Int): TypeSafeMatcher<View> {
 }
 
 fun BaseEditTextFormField.text(): String {
-    return this.editText?.text.toString()
+    return this.textInputLayout?.editText?.text.toString()
 }
 
 fun clickDrawable(): ViewAction {

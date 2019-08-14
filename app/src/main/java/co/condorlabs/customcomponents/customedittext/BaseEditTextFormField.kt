@@ -37,19 +37,22 @@ import java.util.regex.Pattern
 /**
  * @author Oscar Gallon on 2/26/19.
  */
-open class BaseEditTextFormField(context: Context, private val attrs: AttributeSet) :
+open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
     LinearLayout(context, attrs),
     FormField<String>,
     View.OnFocusChangeListener {
 
     var hint: String = context.getString(R.string.default_base_hint)
+        set(value) {
+            field = value; textInputLayout?.hint = field
+        }
+    var text: String = EMPTY
+        set(value) {field = value; textInputLayout?.editText?.setText(value)}
+        get() = textInputLayout?.editText?.text?.toString() ?: field
     var textInputLayout: TextInputLayout? = null
-    var editText: EditText? = null
-
+    protected var editText: EditText? = null
     override var isRequired: Boolean = false
-
     protected var _valueChangeListener: ValueChangeListener<String>? = null
-
     private var maxLines: Int? = null
     private var minLines: Int? = null
     private var backgroundAlpha: Int? = null
@@ -107,8 +110,8 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
     }
 
     override fun setup() {
-        textInputLayout =
-            LayoutInflater.from(context).inflate(R.layout.base_edit_text_form_field, null) as? TextInputLayout
+        textInputLayout = LayoutInflater.from(context)
+            .inflate(R.layout.base_edit_text_form_field, null) as? TextInputLayout
         editText = textInputLayout?.editText
         editText?.inputType = inputType
         editText?.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.body))
