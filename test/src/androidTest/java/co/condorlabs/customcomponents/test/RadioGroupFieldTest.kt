@@ -404,7 +404,7 @@ class RadioGroupFieldTest : MockActivityTest() {
                 withTintColorInRadioButtons(
                     ContextCompat.getColor(
                         ruleActivity.activity,
-                        R.color.credentials_button_swipe_text_color
+                        R.color.primaryColor
                     )
                 )
             )
