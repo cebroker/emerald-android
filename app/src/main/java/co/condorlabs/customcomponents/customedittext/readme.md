@@ -27,7 +27,7 @@ Emerald provides this component to be used as EditText
 | app:placeholder | Placeholder to show in the EditText|
 | app:show_validation_icon | This variable enable or disable the check icon shown if the field is valid|
 | app:hint | Field hint|
-| app:input_type | Field input type `number`, `numberDecimal`,`phone`,`password` or just `text`|
+| app:input_type | Field input type `number`, `numberDecimal`,`phone`,`password`, `textCapCharacters` or just `text`|
 | app:max_lines | Maximum number of lines|
 | app:min_lines | Minimum number of lines|
 | app:multiline | Will the field display more than one line|

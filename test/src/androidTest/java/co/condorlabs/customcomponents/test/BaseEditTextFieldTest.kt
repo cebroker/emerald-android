@@ -492,6 +492,22 @@ class BaseEditTextFieldTest : MockActivityTest() {
 
     @SmallTest
     @Test
+    fun shouldGetInputTypeTextCapCharacters() {
+        MockActivity.layout = R.layout.activity_baseedittextfield_test
+        restartActivity()
+
+        // Given
+        val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.etTextCapCharactersField)
+
+        // When
+        val result = formField.getInputType()
+
+        // Then
+        Assert.assertEquals(INPUT_TYPE_TEXT_CAP_CHARACTERS, result)
+    }
+
+    @SmallTest
+    @Test
     fun shouldGetInputTypeDefault() {
         MockActivity.layout = R.layout.activity_baseedittextfield_test
         restartActivity()

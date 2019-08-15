@@ -80,6 +80,7 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
             INPUT_TYPE_NUMBER_DECIMAL -> InputType.TYPE_NUMBER_FLAG_DECIMAL or InputType.TYPE_CLASS_NUMBER
             INPUT_TYPE_PHONE -> InputType.TYPE_CLASS_PHONE
             INPUT_TYPE_PASSWORD -> InputType.TYPE_TEXT_VARIATION_PASSWORD
+            INPUT_TYPE_TEXT_CAP_CHARACTERS -> InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
             else -> InputType.TYPE_CLASS_TEXT
         }
         maxLines = typedArray.getString(R.styleable.BaseEditTextFormField_max_lines)?.toInt()
@@ -273,6 +274,7 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
             InputType.TYPE_NUMBER_FLAG_DECIMAL or InputType.TYPE_CLASS_NUMBER -> INPUT_TYPE_NUMBER_DECIMAL
             InputType.TYPE_CLASS_PHONE -> INPUT_TYPE_PHONE
             InputType.TYPE_TEXT_VARIATION_PASSWORD -> INPUT_TYPE_PASSWORD
+            InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS -> INPUT_TYPE_TEXT_CAP_CHARACTERS
             else -> INPUT_TYPE_TEXT
         }
     }
