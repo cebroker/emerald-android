@@ -177,10 +177,10 @@ class BaseEditTextFieldTest : MockActivityTest() {
         val editText = Espresso.onView(withId(realEditText.id))
 
         // When
-        editText.perform(typeText("A"))
+        editText.perform(typeText("A1"))
 
         // Then
-        Espresso.onView(ViewMatchers.withText("")).check(matches(isDisplayed()))
+        editText.check(matches(withText("1")))
     }
 
     @SmallTest
@@ -536,5 +536,55 @@ class BaseEditTextFieldTest : MockActivityTest() {
 
         // Then
         Assert.assertTrue(result.contains("^[0-9]{5}\$"))
+    }
+
+    @SmallTest
+    @Test
+    fun shouldGetDigitsFromXml() {
+        MockActivity.layout = R.layout.activity_baseedittext_with_digits
+        restartActivity()
+
+        // Given
+        val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
+
+        // When
+        val result = formField.getDigits()
+
+        // Then
+        Assert.assertEquals("12345ABCDE?", result)
+    }
+
+    @SmallTest
+    @Test
+    fun settingInputTypeShouldNotAffectDigits() {
+        MockActivity.layout = R.layout.activity_baseedittext_with_digits
+        restartActivity()
+
+        // Given
+        val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBaseWithInputType)
+
+        // When
+        val digits = formField.getDigits()
+
+        // Then
+        Assert.assertEquals("123BAR?", digits)
+    }
+
+    @SmallTest
+    @Test
+    fun shoulAcceptOnlyTheSpecifiedCharacters() {
+        MockActivity.layout = R.layout.activity_baseedittext_with_digits
+        restartActivity()
+
+        // Given
+        val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBaseWithInputType)
+
+        // When
+        Espresso.onView(withId(formField.editText!!.id))
+            .perform(typeText("0123456789?ABCMNOXYZ."))
+        val result = formField.getValue()
+
+        // Then
+        Assert.assertEquals("123?AB", result)
     }
 }

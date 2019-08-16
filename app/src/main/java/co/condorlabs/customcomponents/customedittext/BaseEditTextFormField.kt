@@ -20,6 +20,7 @@ import android.content.Context
 import android.graphics.Typeface
 import android.text.InputFilter
 import android.text.InputType
+import android.text.method.DigitsKeyListener
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -55,6 +56,7 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
     private var backgroundAlpha: Int? = null
     private var isMultiline: Boolean = false
     private var inputType: Int = InputType.TYPE_CLASS_TEXT
+    private var digits: String? = null
     private var placeholder: String? = null
     private var layoutParams = LayoutParams(
         LayoutParams.MATCH_PARENT,
@@ -75,6 +77,7 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
             ?: context.getString(R.string.default_base_hint)
         val regex = typedArray.getString(R.styleable.BaseEditTextFormField_regex)
         isRequired = typedArray.getBoolean(R.styleable.BaseEditTextFormField_is_required, false)
+        digits = typedArray.getString(R.styleable.BaseEditTextFormField_digits)
         inputType = when (typedArray.getString(R.styleable.BaseEditTextFormField_input_type)) {
             INPUT_TYPE_NUMBER -> InputType.TYPE_CLASS_NUMBER
             INPUT_TYPE_NUMBER_DECIMAL -> InputType.TYPE_NUMBER_FLAG_DECIMAL or InputType.TYPE_CLASS_NUMBER
@@ -111,7 +114,14 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
         textInputLayout =
             LayoutInflater.from(context).inflate(R.layout.base_edit_text_form_field, null) as? TextInputLayout
         editText = textInputLayout?.editText
-        editText?.inputType = inputType
+
+        if (digits != null) {
+            editText?.keyListener = DigitsKeyListener.getInstance(digits)
+            editText?.setRawInputType(inputType)
+        } else {
+            editText?.inputType = inputType
+        }
+
         editText?.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.body))
         setFont(OPEN_SANS_REGULAR)
 
@@ -280,4 +290,6 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
     }
 
     fun getRegex() = regexListToMatch
+
+    fun getDigits() = digits ?: EMPTY
 }
