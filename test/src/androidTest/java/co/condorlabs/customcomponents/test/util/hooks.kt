@@ -223,12 +223,12 @@ fun withTintColorInRadioButtons(expectedColor: Int): Matcher<View> {
         public override fun matchesSafely(formField: RadioGroupFormField): Boolean {
             val viewGroup = (formField as? ViewGroup) ?: return false
             for (index in ZERO until viewGroup.childCount) {
-                with (getRadioButtonAtPosition(viewGroup, index)) {
+                with(getRadioButtonAtPosition(viewGroup, index)) {
                     val actualColor = buttonTintList.getColorForState(
                         intArrayOf(android.R.attr.state_checked),
                         ZERO
                     )
-                    if(expectedColor != actualColor) {
+                    if (expectedColor != actualColor) {
                         return false
                     }
                 }

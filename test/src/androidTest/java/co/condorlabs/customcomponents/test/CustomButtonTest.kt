@@ -184,7 +184,6 @@ class CustomButtonTest : MockActivityTest() {
         val button = ruleActivity.activity.findViewById<CustomButton>(R.id.btn)
         ruleActivity.runOnUiThread {
             button.setType("shapeWhite")
-
         }
 
         // When

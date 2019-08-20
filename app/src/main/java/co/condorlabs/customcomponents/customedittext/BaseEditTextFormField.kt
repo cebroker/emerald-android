@@ -46,8 +46,10 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
         set(value) {
             field = value; textInputLayout?.hint = field
         }
-    var text: String = EMPTY
-        set(value) {field = value; textInputLayout?.editText?.setText(value)}
+    var text: String? = EMPTY
+        set(value) {
+            field = value; textInputLayout?.editText?.setText(value)
+        }
         get() = textInputLayout?.editText?.text?.toString() ?: field
     var textInputLayout: TextInputLayout? = null
     protected var editText: EditText? = null
@@ -91,7 +93,8 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
             typedArray.getString(R.styleable.BaseEditTextFormField_background_alpha)?.toInt()
         isMultiline = typedArray.getBoolean(R.styleable.BaseEditTextFormField_multiline, false)
         placeholder = typedArray.getString(R.styleable.BaseEditTextFormField_placeholder)
-        showValidationIcon = typedArray.getBoolean(R.styleable.BaseEditTextFormField_show_validation_icon, false)
+        showValidationIcon =
+            typedArray.getBoolean(R.styleable.BaseEditTextFormField_show_validation_icon, false)
 
         typedArray.recycle()
 
@@ -114,7 +117,10 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
             .inflate(R.layout.base_edit_text_form_field, null) as? TextInputLayout
         editText = textInputLayout?.editText
         editText?.inputType = inputType
-        editText?.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.body))
+        editText?.setTextSize(
+            TypedValue.COMPLEX_UNIT_PX,
+            context.resources.getDimension(R.dimen.body)
+        )
         setFont(OPEN_SANS_REGULAR)
 
         val wrappedTextInputLayout = textInputLayout ?: return
