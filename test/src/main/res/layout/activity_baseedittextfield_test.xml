@@ -52,4 +52,10 @@
             android:layout_height="wrap_content"
             android:id="@+id/etPasswordField"
             app:input_type="password"/>
+
+    <co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/etTextCapCharactersField"
+            app:input_type="textCapCharacters"/>
 </LinearLayout>

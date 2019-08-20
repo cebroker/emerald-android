@@ -35,6 +35,7 @@
         <attr name="multiline" format="boolean" />
         <attr name="placeholder" format="string" />
         <attr name="show_validation_icon" format="boolean"/>
+        <attr name="digits" format="string" />
     </declare-styleable>
 
     <declare-styleable name="SpinnerFormField">
