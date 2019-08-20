@@ -167,7 +167,7 @@ abstract class BaseRadioGroupFormField(
                     }
                     setRadioButtonStateProperties(
                         this,
-                        R.color.blueFillColor,
+                        R.color.primaryColor,
                         R.drawable.radio_button_selector_background
                     )
                 }
@@ -188,7 +188,7 @@ abstract class BaseRadioGroupFormField(
                 if (isEnabled) {
                     setRadioButtonStateProperties(
                         this ?: return,
-                        R.color.blueFillColor,
+                        R.color.primaryColor,
                         R.drawable.radio_button_selector_background
                     )
                 } else {
