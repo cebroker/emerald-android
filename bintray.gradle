@@ -23,6 +23,8 @@ android {
 }
 
 ext {
+    libraryVersion = '0.67.0'
+
     bintrayRepo = 'CustomComponents'
     bintrayName = 'CustomComponents'
 
@@ -34,9 +36,6 @@ ext {
 
     siteUrl = 'https://github.com/cebroker/CustomComponents'
     gitUrl = 'https://github.com/cebroker/CustomComponents.git'
-
-
-    libraryVersion = '0.66.0'
 
     developerId = 'condorlabs'
     developerName = 'Oscar Gallon'

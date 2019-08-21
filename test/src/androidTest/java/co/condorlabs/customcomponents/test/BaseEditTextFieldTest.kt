@@ -76,7 +76,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
 
         // Given
         val base = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
-        val realEditText = base.editText!!
+        val realEditText = base.textInputLayout!!.editText!!
         val editText = Espresso.onView(withId(realEditText.id))
 
         // When
@@ -97,7 +97,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
         val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
         formField.setIsRequired(false)
         formField.setMaxLength(5)
-        val realEditText = formField.editText!!
+        val realEditText = formField.textInputLayout!!.editText!!
         val editText = Espresso.onView(withId(realEditText.id))
 
         // When
@@ -132,7 +132,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
 
         // Given
         val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
-        val editText = Espresso.onView(withId(formField.editText!!.id))
+        val editText = Espresso.onView(withId(formField.textInputLayout!!.editText!!.id))
 
         // When
         editText.perform(typeText("156"))
@@ -149,7 +149,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
 
         // Given
         val base = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
-        val realEditText = base.editText!!
+        val realEditText = base.textInputLayout!!.editText!!
         val editText = Espresso.onView(withId(realEditText.id))
         val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
         formField.setIsRequired(true)
@@ -173,7 +173,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
 
         // Given
         val base = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
-        val realEditText = base.editText!!
+        val realEditText = base.textInputLayout!!.editText!!
         val editText = Espresso.onView(withId(realEditText.id))
 
         // When
@@ -192,7 +192,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
         // Given
         val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
         formField.setRegex("^[0-9]{9}$")
-        val realEditText = formField.editText!!
+        val realEditText = formField.textInputLayout!!.editText!!
         val editText = Espresso.onView(withId(realEditText.id))
 
         // When
@@ -215,7 +215,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
         val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
         formField.setIsRequired(true)
         formField.setRegex("^[0-9]{9}$")
-        val realEditText = formField.editText!!
+        val realEditText = formField.textInputLayout!!.editText!!
         val editText = Espresso.onView(withId(realEditText.id))
 
         // When
@@ -294,7 +294,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
         // Given
         val view = Espresso.onView(withId(R.id.tlBase))
         val baseView = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
-        val realEditText = baseView.editText!!
+        val realEditText = baseView.textInputLayout!!.editText!!
         val editText = Espresso.onView(withId(realEditText.id))
 
         // when
@@ -313,7 +313,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
         // Given
         val view = Espresso.onView(withId(R.id.tlBase))
         val baseView = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
-        val realEditText = baseView.editText!!
+        val realEditText = baseView.textInputLayout!!.editText!!
         val editText = Espresso.onView(withId(realEditText.id))
 
         // when
@@ -332,7 +332,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
         // Given
         val view = Espresso.onView(withId(R.id.tlBase))
         val baseView = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
-        val realEditText = baseView.editText!!
+        val realEditText = baseView.textInputLayout!!.editText!!
         val editText = Espresso.onView(withId(realEditText.id))
 
         // when
@@ -350,7 +350,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
 
         // Given
         val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
-        val editText = Espresso.onView(withId(formField.editText!!.id))
+        val editText = Espresso.onView(withId(formField.textInputLayout!!.editText!!.id))
 
         // When
         editText.perform(typeText("12345"))
@@ -370,7 +370,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
 
         // Given
         val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
-        val editText = Espresso.onView(withId(formField.editText!!.id))
+        val editText = Espresso.onView(withId(formField.textInputLayout!!.editText!!.id))
 
         // When
         editText.perform(typeText("12345"))
@@ -394,7 +394,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
         val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
         formField.setIsRequired(true)
         formField.setRegex(listOf("^[0-9]{9}$", "^[a-z]+$"))
-        val realEditText = formField.editText!!
+        val realEditText = formField.textInputLayout!!.editText!!
         val editText = Espresso.onView(withId(realEditText.id))
 
         // When
@@ -415,7 +415,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
         val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
         formField.setIsRequired(true)
         formField.setRegex(listOf("^[0-9]{9}$", "^[a-z]+$"))
-        val realEditText = formField.editText!!
+        val realEditText = formField.textInputLayout!!.editText!!
         val editText = Espresso.onView(withId(realEditText.id))
 
         // When
@@ -580,7 +580,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
         val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBaseWithInputType)
 
         // When
-        Espresso.onView(withId(formField.editText!!.id))
+        Espresso.onView(withId(formField.textInputLayout!!.editText!!.id))
             .perform(typeText("0123456789?ABCMNOXYZ."))
         val result = formField.getValue()
 

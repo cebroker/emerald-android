@@ -109,7 +109,7 @@ fun isTextInLines(lines: Int): TypeSafeMatcher<View> {
 }
 
 fun BaseEditTextFormField.text(): String {
-    return this.editText?.text.toString()
+    return this.textInputLayout?.editText?.text.toString()
 }
 
 fun clickDrawable(): ViewAction {
@@ -223,12 +223,12 @@ fun withTintColorInRadioButtons(expectedColor: Int): Matcher<View> {
         public override fun matchesSafely(formField: RadioGroupFormField): Boolean {
             val viewGroup = (formField as? ViewGroup) ?: return false
             for (index in ZERO until viewGroup.childCount) {
-                with (getRadioButtonAtPosition(viewGroup, index)) {
+                with(getRadioButtonAtPosition(viewGroup, index)) {
                     val actualColor = buttonTintList.getColorForState(
                         intArrayOf(android.R.attr.state_checked),
                         ZERO
                     )
-                    if(expectedColor != actualColor) {
+                    if (expectedColor != actualColor) {
                         return false
                     }
                 }
