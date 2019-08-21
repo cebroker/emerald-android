@@ -580,7 +580,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
         val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBaseWithInputType)
 
         // When
-        Espresso.onView(withId(formField.editText!!.id))
+        Espresso.onView(withId(formField.textInputLayout!!.editText!!.id))
             .perform(typeText("0123456789?ABCMNOXYZ."))
         val result = formField.getValue()
 
