@@ -14,6 +14,7 @@ import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.file_selector_view.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -253,8 +254,8 @@ class FileSelectorField @JvmOverloads constructor(
             }
             else -> view.setImageResource(R.drawable.ic_file_base)
         }
-        tvTitle?.text = file.name
-        tvTitle?.visibility = View.VISIBLE
+        tvFilename?.text = file.name
+        tvFilename?.visibility = View.VISIBLE
     }
 
     fun setFileSelectorClickListener(fileSelectorClickListener: FileSelectorClickListener) {

@@ -29,5 +29,5 @@
             app:layout_constraintTop_toTopOf="parent"
             app:tap_button_title="This is the Title"
             app:dialog_title="Options"
-            app:fileSelectorOptions="file"/>
+            app:fileSelectorOptions="file|camera"/>
 </androidx.constraintlayout.widget.ConstraintLayout>
