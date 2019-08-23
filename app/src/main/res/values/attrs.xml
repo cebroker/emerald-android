@@ -63,6 +63,7 @@
         <attr name="fileSelectorOptions">
             <flag name="gallery" value="0x01" />
             <flag name="camera" value="0x02" />
+            <flag name="file" value="0x04" />
         </attr>
     </declare-styleable>
 

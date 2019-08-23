@@ -8,7 +8,7 @@
 
     <stroke
         android:width="2dp"
-        android:color="@color/text_tap_color"
+        android:color="@color/primaryColor"
         android:dashWidth="8dp"
         android:dashGap="8dp" />
 </shape>

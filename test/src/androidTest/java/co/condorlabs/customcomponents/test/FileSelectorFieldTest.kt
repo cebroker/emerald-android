@@ -290,4 +290,56 @@ class FileSelectorFieldTest : MockActivityTest() {
             view.perform(click())
         }
     }
+
+    @SmallTest
+    @Test
+    fun shouldShowFileOption() {
+        MockActivity.layout = R.layout.activity_file_selector_file_test
+        restartActivity()
+
+        // Given
+        val view = onView(withId(R.id.ivIcon))
+        val field = ruleActivity.activity.findViewById<FileSelectorField>(R.id.fileSelectorOptionFile)
+        var result: FileSelectorOption? = null
+        field.setFileSelectorClickListener(object : FileSelectorClickListener {
+            override fun onOptionSelected(fileSelectorOption: FileSelectorOption) {
+                result = fileSelectorOption
+            }
+        })
+
+        // When
+        runBlocking {
+            view.perform(click())
+            clickWithText("File")
+        }
+
+        Assert.assertTrue(result is FileSelectorOption.File)
+    }
+
+    @SmallTest
+    @Test
+    fun shouldNotOpenFilePicker() {
+        MockActivity.layout = R.layout.activity_file_selector_file_test
+        restartActivity()
+
+        // Given
+        val fileSelectorField = ruleActivity.activity.findViewById<FileSelectorField>(R.id.fileSelectorOptionFile)
+
+        val fileSelectorClickListener = object : FileSelectorClickListener {
+            override fun onOptionSelected(fileSelectorOption: FileSelectorOption) {
+                Assert.assertFalse(true)
+            }
+        }
+
+        fileSelectorField.setFileSelectorClickListener(fileSelectorClickListener)
+
+        ruleActivity.activity.runOnUiThread { fileSelectorField.setEnable(false) }
+
+        val view = onView(withId(R.id.fileSelectorOptionFile))
+
+        // When
+        runBlocking {
+            view.perform(click())
+        }
+    }
 }

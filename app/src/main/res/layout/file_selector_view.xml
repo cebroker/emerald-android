@@ -1,71 +1,75 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
 
-    <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/padding_small"
-        android:layout_marginEnd="@dimen/padding_small"
-        android:textColor="@android:color/black"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/clContent"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/padding_small"
-        android:background="@drawable/ripple"
-        android:clickable="true"
-        android:focusable="true"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tvTitle">
+            android:id="@+id/clContent"
+            android:layout_width="@dimen/file_selector_content_width"
+            android:layout_height="@dimen/file_selector_content_height"
+            android:layout_marginTop="@dimen/padding_small"
+            android:padding="@dimen/padding_small"
+            android:background="@drawable/ripple"
+            android:clickable="true"
+            android:focusable="true"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
 
         <androidx.appcompat.widget.AppCompatImageView
-            android:id="@+id/ivIcon"
-            android:layout_width="@dimen/icon_width"
-            android:layout_height="@dimen/icon_height"
-            android:layout_marginStart="@dimen/padding_small"
-            android:layout_marginTop="@dimen/padding_small"
-            android:layout_marginEnd="@dimen/padding_small"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_cloud_upload_file"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+                android:id="@+id/ivIcon"
+                android:layout_width="@dimen/zero"
+                android:layout_height="@dimen/zero"
+                android:src="@drawable/ic_cloud_upload_file"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintBottom_toTopOf="@id/tvTapAction"/>
 
         <androidx.appcompat.widget.AppCompatTextView
-            android:id="@+id/tvTapAction"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/padding_small"
-            android:text="@string/text_subtitle"
-            android:textAlignment="center"
-            android:textColor="@color/text_tap_color"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/ivIcon"
-            app:layout_constraintVertical_bias="1.0" />
+                android:id="@+id/tvTapAction"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/padding_small"
+                android:text="@string/text_subtitle"
+                android:textAlignment="center"
+                android:textColor="@color/primaryColor"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ivIcon"
+                app:layout_constraintVertical_bias="1.0"/>
     </androidx.constraintlayout.widget.ConstraintLayout>
 
     <androidx.appcompat.widget.AppCompatTextView
-        android:id="@+id/tvError"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="@dimen/padding_small"
-        android:layout_marginTop="@dimen/padding_small"
-        android:layout_marginEnd="@dimen/padding_small"
-        android:text="@string/file_selector_default_error"
-        android:textColor="#ff0000"
-        android:visibility="gone"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/clContent" />
+            android:id="@+id/tvTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_small"
+            android:layout_marginStart="@dimen/padding_small"
+            android:layout_marginEnd="@dimen/padding_small"
+            android:textColor="@android:color/black"
+            app:layout_constraintTop_toBottomOf="@id/clContent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:visibility="gone"
+    />
+
+    <androidx.appcompat.widget.AppCompatTextView
+            android:id="@+id/tvError"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding_small"
+            android:layout_marginTop="@dimen/padding_small"
+            android:layout_marginEnd="@dimen/padding_small"
+            android:text="@string/file_selector_default_error"
+            android:textColor="#ff0000"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/clContent"/>
+
 </androidx.constraintlayout.widget.ConstraintLayout>
