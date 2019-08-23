@@ -2,8 +2,6 @@ package co.condorlabs.customcomponents.test
 
 import android.view.View
 import android.widget.TextView
-import androidx.appcompat.widget.AppCompatImageView
-import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -363,7 +361,9 @@ class FileSelectorFieldTest : MockActivityTest() {
         }
 
         // Then
-        onView(withId(R.id.ivIcon)).check(matches(withDrawable(R.drawable.ic_file_pdf)))
+        runBlocking {
+            onView(withId(R.id.ivIcon)).check(matches(withDrawable(R.drawable.ic_file_pdf)))
+        }
     }
 
     @SmallTest
@@ -383,7 +383,9 @@ class FileSelectorFieldTest : MockActivityTest() {
         }
 
         // Then
-        onView(withId(R.id.ivIcon)).check(matches(withDrawable(R.drawable.ic_file_doc)))
+        runBlocking {
+            onView(withId(R.id.ivIcon)).check(matches(withDrawable(R.drawable.ic_file_doc)))
+        }
     }
 
     @SmallTest
@@ -403,7 +405,9 @@ class FileSelectorFieldTest : MockActivityTest() {
         }
 
         // Then
-        onView(withId(R.id.ivIcon)).check(matches(withDrawable(R.drawable.ic_file_doc)))
+        runBlocking {
+            onView(withId(R.id.ivIcon)).check(matches(withDrawable(R.drawable.ic_file_doc)))
+        }
     }
 
     @SmallTest
@@ -423,6 +427,8 @@ class FileSelectorFieldTest : MockActivityTest() {
         }
 
         // Then
-        onView(withId(R.id.ivIcon)).check(matches(withDrawable(R.drawable.ic_file_base)))
+        runBlocking {
+            onView(withId(R.id.ivIcon)).check(matches(withDrawable(R.drawable.ic_file_base)))
+        }
     }
 }
