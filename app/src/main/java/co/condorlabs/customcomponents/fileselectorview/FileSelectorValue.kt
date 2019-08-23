@@ -15,5 +15,5 @@ sealed class FileSelectorValue {
 
     class BitmapValue(val bitmap: Bitmap) : FileSelectorValue()
 
-    class FileValue(val file: File) : FileSelectorValue()
+    class FileValue(val filepath: String, val filename: String? = null) : FileSelectorValue()
 }

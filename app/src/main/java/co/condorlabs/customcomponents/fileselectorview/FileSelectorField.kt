@@ -19,7 +19,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.launch
-import java.io.File
 import kotlin.coroutines.Continuation
 import kotlin.coroutines.resume
 import kotlin.coroutines.suspendCoroutine
@@ -237,24 +236,31 @@ class FileSelectorField @JvmOverloads constructor(
                 is FileSelectorValue.PathValue -> Picasso.get().load(fileSelectorValue.path).into(view)
                 is FileSelectorValue.DrawableValue -> view.setImageDrawable(fileSelectorValue.drawable)
                 is FileSelectorValue.BitmapValue -> view.setImageBitmap(fileSelectorValue.bitmap)
-                is FileSelectorValue.FileValue -> setFileIconInView(view, fileSelectorValue.file)
+                is FileSelectorValue.FileValue -> setFileIconInView(view, fileSelectorValue)
             }
         }
     }
 
-    private fun setFileIconInView(view: AppCompatImageView, file: File) {
-        when (file.extension) {
+    private fun setFileIconInView(view: AppCompatImageView, fileValue: FileSelectorValue.FileValue) {
+        val extension = with(fileValue.filepath) {
+            val index = lastIndexOf(".") + 1
+            if (index < length) {
+                substring(index)
+            } else {
+                EMPTY
+            }
+        }
+        when (extension) {
             EXTENSION_PDF -> view.setImageResource(R.drawable.ic_file_pdf)
             EXTENSION_DOC, EXTENSION_DOCX -> view.setImageResource(R.drawable.ic_file_doc)
             EXTENSION_JPEG, EXTENSION_JPG, EXTENSION_PNG -> {
-                val bitmap = BitmapFactory.decodeFile(file.absolutePath)
+                val bitmap = BitmapFactory.decodeFile(fileValue.filepath)
                 view.setImageBitmap(bitmap)
-                view.layoutParams.width = LayoutParams.MATCH_PARENT
                 view.requestLayout()
             }
             else -> view.setImageResource(R.drawable.ic_file_base)
         }
-        tvFilename?.text = file.name
+        tvFilename?.text = fileValue.filename ?: fileValue.filepath
         tvFilename?.visibility = View.VISIBLE
     }
 

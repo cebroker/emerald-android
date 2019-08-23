@@ -1,14 +1,15 @@
 package co.condorlabs.customcomponents.test.util
 
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.Point
 import android.graphics.Rect
+import android.graphics.drawable.Drawable
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.NumberPicker
-import android.widget.RadioButton
-import android.widget.RadioGroup
-import android.widget.TextView
+import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.test.espresso.AmbiguousViewMatcherException
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.UiController
@@ -247,3 +248,34 @@ fun getRadioButtonAtPosition(
     parentView: ViewGroup,
     position: Int
 ): RadioButton = (parentView.getChildAt(RADIO_GROUP_POSITION) as RadioGroup).getChildAt(position) as RadioButton
+
+fun withDrawable(drawableId: Int): Matcher<View> {
+    return object : BoundedMatcher<View, ImageView>(ImageView::class.java) {
+        override fun matchesSafely(item: ImageView?): Boolean {
+            if (drawableId < 0) {
+                return item?.drawable == null
+            }
+            val context = item?.context ?: return false
+            val expectedDrawable = ContextCompat.getDrawable(context, drawableId) ?: return false
+            val bitmap = getBitmap(item.drawable)
+            val otherBitmap = getBitmap(expectedDrawable)
+            return bitmap.sameAs(otherBitmap)
+        }
+
+        override fun describeTo(description: Description) {
+            description.appendText(WITH_DRAWABLE_DESCRIPTION)
+            description.appendValue(drawableId.toString())
+        }
+
+        private fun getBitmap(drawable: Drawable): Bitmap {
+            val bitmap = Bitmap.createBitmap(
+                drawable.intrinsicWidth,
+                drawable.intrinsicHeight, Bitmap.Config.ARGB_8888
+            )
+            val canvas = Canvas(bitmap)
+            drawable.setBounds(0, 0, canvas.width, canvas.height)
+            drawable.draw(canvas)
+            return bitmap
+        }
+    }
+}

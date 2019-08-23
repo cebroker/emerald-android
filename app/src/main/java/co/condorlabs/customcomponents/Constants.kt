@@ -161,6 +161,7 @@ const val DRAWABLE_START_INDEX = 0
 const val DRAWABLE_END_INDEX = 3
 const val ZERO_FLOAT = 0.0F
 const val TINT_COLOR_IN_RADIO_BUTTON_DESCRIPTION = "with expected color: "
+const val WITH_DRAWABLE_DESCRIPTION = "with drawable resource id: "
 const val RADIO_GROUP_POSITION = 2
 
 /**LOADING FRAGMENTS **/
