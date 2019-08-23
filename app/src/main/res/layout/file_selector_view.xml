@@ -73,7 +73,7 @@
             android:layout_marginTop="@dimen/padding_small"
             android:layout_marginEnd="@dimen/padding_small"
             android:text="@string/file_selector_default_error"
-            android:textColor="#ff0000"
+            android:textColor="@color/dangerColor"
             android:visibility="gone"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

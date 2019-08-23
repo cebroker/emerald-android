@@ -251,3 +251,6 @@ const val EXTENSION_PNG = "png"
 const val FILE_SELECTOR_OPTION_PHOTO = "Photo"
 const val FILE_SELECTOR_OPTION_GALLERY = "Gallery"
 const val FILE_SELECTOR_OPTION_FILE = "File"
+
+/** FILE SELECTOR VALUES **/
+const val FILE_AFTER_DOT_INDEX = 1

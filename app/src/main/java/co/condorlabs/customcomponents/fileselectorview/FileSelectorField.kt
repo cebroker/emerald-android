@@ -243,7 +243,7 @@ class FileSelectorField @JvmOverloads constructor(
 
     private fun setFileIconInView(view: AppCompatImageView, fileValue: FileSelectorValue.FileValue) {
         val extension = with(fileValue.filepath) {
-            val index = lastIndexOf(".") + 1
+            val index = lastIndexOf(DOT_STRING) + FILE_AFTER_DOT_INDEX
             if (index < length) {
                 substring(index)
             } else {
@@ -260,8 +260,12 @@ class FileSelectorField @JvmOverloads constructor(
             }
             else -> view.setImageResource(R.drawable.ic_file_base)
         }
-        tvFilename?.text = fileValue.filename ?: fileValue.filepath
-        tvFilename?.visibility = View.VISIBLE
+        if (fileValue.filename != null) {
+            tvFilename?.text = fileValue.filename
+            tvFilename?.visibility = View.VISIBLE
+        } else {
+            tvFilename?.visibility = View.GONE
+        }
     }
 
     fun setFileSelectorClickListener(fileSelectorClickListener: FileSelectorClickListener) {
