@@ -10,19 +10,33 @@ The file selector options can be choose from gallery, take a picture from camera
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:tap_button_title="This is the Title"
-    app:fileSelectorOptions="gallery|file|camera"
+    app:fileSelectorOptions="file|camera|gallery"
     app:dialog_title="Options" />
 ```
 
 ## Attributes
 | Name | Description |
 | - | - |
-| type_text | Should be **title**, **subtitle**, **body**, **sectionTitle**, **link** |
+| fileSelectorOptions | Should be **gallery**, **file**, **camera** |
 
 ## Public methods
 | Return Type | Description |
 | -| - |
-|  Unit | *`fun setCustomTextViewType(typeText: Int)`* <br> Change type text programatically|
+|  Unit | *`fun setFileSelectorClickListener(fileSelectorClickListener: FileSelectorClickListener)`* <br> Set the listener that is called when the fileSelectorOptions is selected|
+|  Unit | *`fun setFileValue(fileSelectorValue: FileSelectorValue)`* <br> Set the file to show when the user chose the file|
 
 ## Example
-<img src="/Images/custom_textview.jpg" width="400" heigth="400">
+### File selector
+<img src="/Images/fileselector/fileselector.png" width="400" heigth="400">
+
+### preview of the image
+<img src="/Images/fileselector/extensionimg.png" width="400" heigth="400">
+
+### Doc Extension
+<img src="/Images/fileselector/extensiondoc.png" width="400" heigth="400">
+
+### PDF Extension
+<img src="/Images/fileselector/extensionpdf.png" width="400" heigth="400">
+
+### Unknown Extension
+<img src="/Images/fileselector/extensionunknown.png" width="400" heigth="400">
