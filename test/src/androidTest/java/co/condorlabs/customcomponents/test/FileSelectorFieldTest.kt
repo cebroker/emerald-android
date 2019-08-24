@@ -2,7 +2,6 @@ package co.condorlabs.customcomponents.test
 
 import android.view.View
 import android.widget.TextView
-import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
@@ -12,6 +11,7 @@ import androidx.test.runner.AndroidJUnit4
 import co.condorlabs.customcomponents.fileselectorview.FileSelectorClickListener
 import co.condorlabs.customcomponents.fileselectorview.FileSelectorField
 import co.condorlabs.customcomponents.fileselectorview.FileSelectorOption
+import co.condorlabs.customcomponents.fileselectorview.FileSelectorValue
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.test.util.clickWithText
 import co.condorlabs.customcomponents.test.util.isTextDisplayed
@@ -37,8 +37,8 @@ class FileSelectorFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val titleView = Espresso.onView(withText("Upload Documentation"))
-        val addAction = Espresso.onView(withText("TAP TO ADD"))
+        val titleView = onView(withText("Upload Documentation"))
+        val addAction = onView(withText("TAP TO ADD"))
 
         // When
 
@@ -150,7 +150,7 @@ class FileSelectorFieldTest : MockActivityTest() {
         }
 
         // Then
-        Espresso.onView(withText("This error should be displayed")).check(matches(isDisplayed()))
+        onView(withText("This error should be displayed")).check(matches(isDisplayed()))
     }
 
     @SmallTest
@@ -179,7 +179,7 @@ class FileSelectorFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val view = Espresso.onView(withText("This is the Title"))
+        val view = onView(withText("This is the Title"))
 
         // When
 
@@ -289,5 +289,137 @@ class FileSelectorFieldTest : MockActivityTest() {
         runBlocking {
             view.perform(click())
         }
+    }
+
+    @SmallTest
+    @Test
+    fun shouldShowFileOption() {
+        MockActivity.layout = R.layout.activity_file_selector_file_test
+        restartActivity()
+
+        // Given
+        val view = onView(withId(R.id.ivIcon))
+        val field = ruleActivity.activity.findViewById<FileSelectorField>(R.id.fileSelectorOptionFile)
+        var result: FileSelectorOption? = null
+        field.setFileSelectorClickListener(object : FileSelectorClickListener {
+            override fun onOptionSelected(fileSelectorOption: FileSelectorOption) {
+                result = fileSelectorOption
+            }
+        })
+
+        // When
+        runBlocking {
+            view.perform(click())
+            clickWithText("File")
+        }
+
+        Assert.assertTrue(result is FileSelectorOption.File)
+    }
+
+    @SmallTest
+    @Test
+    fun shouldNotOpenFilePicker() {
+        MockActivity.layout = R.layout.activity_file_selector_file_test
+        restartActivity()
+
+        // Given
+        val fileSelectorField = ruleActivity.activity.findViewById<FileSelectorField>(R.id.fileSelectorOptionFile)
+
+        val fileSelectorClickListener = object : FileSelectorClickListener {
+            override fun onOptionSelected(fileSelectorOption: FileSelectorOption) {
+                Assert.assertFalse(true)
+            }
+        }
+
+        fileSelectorField.setFileSelectorClickListener(fileSelectorClickListener)
+
+        ruleActivity.activity.runOnUiThread { fileSelectorField.setEnable(false) }
+
+        val view = onView(withId(R.id.fileSelectorOptionFile))
+
+        // When
+        runBlocking {
+            view.perform(click())
+        }
+    }
+
+    @SmallTest
+    @Test
+    fun shouldShowPDFIcon() {
+        MockActivity.layout = R.layout.activity_file_selector_file_test
+        restartActivity()
+
+        // Given
+        val fileSelectorField = ruleActivity.activity.findViewById<FileSelectorField>(R.id.fileSelectorOptionFile)
+
+        // When
+        ruleActivity.activity.runOnUiThread {
+            fileSelectorField.setFileValue(
+                FileSelectorValue.FileValue("file/path/filename.pdf", "filename.pdf")
+            )
+        }
+
+        // Then
+        onView(withTagValue(`is`(R.drawable.ic_file_pdf as Any))).check(matches(isDisplayed()))
+    }
+
+    @SmallTest
+    @Test
+    fun shouldShowDocIcon() {
+        MockActivity.layout = R.layout.activity_file_selector_file_test
+        restartActivity()
+
+        // Given
+        val fileSelectorField = ruleActivity.activity.findViewById<FileSelectorField>(R.id.fileSelectorOptionFile)
+
+        // When
+        ruleActivity.activity.runOnUiThread {
+            fileSelectorField.setFileValue(
+                FileSelectorValue.FileValue("file/path/filename.doc", "filename.doc")
+            )
+        }
+
+        // Then
+        onView(withTagValue(`is`(R.drawable.ic_file_doc as Any))).check(matches(isDisplayed()))
+    }
+
+    @SmallTest
+    @Test
+    fun shouldShowDocxIcon() {
+        MockActivity.layout = R.layout.activity_file_selector_file_test
+        restartActivity()
+
+        // Given
+        val fileSelectorField = ruleActivity.activity.findViewById<FileSelectorField>(R.id.fileSelectorOptionFile)
+
+        // When
+        ruleActivity.activity.runOnUiThread {
+            fileSelectorField.setFileValue(
+                FileSelectorValue.FileValue("file/path/filename.docx", "filename.docx")
+            )
+        }
+
+        // Then
+        onView(withTagValue(`is`(R.drawable.ic_file_doc as Any))).check(matches(isDisplayed()))
+    }
+
+    @SmallTest
+    @Test
+    fun shouldShowUnknownIcon() {
+        MockActivity.layout = R.layout.activity_file_selector_file_test
+        restartActivity()
+
+        // Given
+        val fileSelectorField = ruleActivity.activity.findViewById<FileSelectorField>(R.id.fileSelectorOptionFile)
+
+        // When
+        ruleActivity.activity.runOnUiThread {
+            fileSelectorField.setFileValue(
+                FileSelectorValue.FileValue("file/path/filename.txt", "filename.txt")
+            )
+        }
+
+        // Then
+        onView(withTagValue(`is`(R.drawable.ic_file_base as Any))).check(matches(isDisplayed()))
     }
 }

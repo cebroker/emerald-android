@@ -6,6 +6,7 @@ package co.condorlabs.customcomponents.fileselectorview
 sealed class FileSelectorOption {
     object Gallery : FileSelectorOption()
     object Photo : FileSelectorOption()
+    object File : FileSelectorOption()
 }
 
 interface FileSelectorClickListener {

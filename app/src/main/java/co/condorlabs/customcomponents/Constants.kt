@@ -225,6 +225,7 @@ const val MIN_DEFAULT_PADDING = 0
 /** MASKS **/
 const val MASK_TO_OBTAIN_FILE_SELECTOR_OPTION_GALLERY = 0x01
 const val MASK_TO_OBTAIN_FILE_SELECTOR_OPTION_CAMERA = 0x02
+const val MASK_TO_OBTAIN_FILE_SELECTOR_OPTION_FILE = 0x04
 
 /** TAGS**/
 const val TAG_IMAGE_VIEW_FILE_SELECTOR_VALUE = 35967070
@@ -236,3 +237,19 @@ const val INPUT_TYPE_PHONE = "phone"
 const val INPUT_TYPE_PASSWORD = "password"
 const val INPUT_TYPE_TEXT = "text"
 const val INPUT_TYPE_TEXT_CAP_CHARACTERS = "textCapCharacters"
+
+/** FILE EXTENSIONS **/
+const val EXTENSION_PDF = "pdf"
+const val EXTENSION_DOC = "doc"
+const val EXTENSION_DOCX = "docx"
+const val EXTENSION_JPG = "jpg"
+const val EXTENSION_JPEG = "jpeg"
+const val EXTENSION_PNG = "png"
+
+/** FILE SELECTOR OPTIONS **/
+const val FILE_SELECTOR_OPTION_PHOTO = "Photo"
+const val FILE_SELECTOR_OPTION_GALLERY = "Gallery"
+const val FILE_SELECTOR_OPTION_FILE = "File"
+
+/** FILE SELECTOR VALUES **/
+const val FILE_AFTER_DOT_INDEX = 1
