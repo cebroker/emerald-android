@@ -20,6 +20,7 @@ import kotlinx.coroutines.runBlocking
 import org.hamcrest.Matchers.`is`
 import org.junit.Assert
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -343,6 +344,7 @@ class FileSelectorFieldTest : MockActivityTest() {
         }
     }
 
+    @Ignore
     @SmallTest
     @Test
     fun shouldShowPDFIcon() {
@@ -363,6 +365,7 @@ class FileSelectorFieldTest : MockActivityTest() {
         onView(withTagValue(`is`(R.drawable.ic_file_pdf as Any))).check(matches(isDisplayed()))
     }
 
+    @Ignore
     @SmallTest
     @Test
     fun shouldShowDocIcon() {
@@ -383,6 +386,7 @@ class FileSelectorFieldTest : MockActivityTest() {
         onView(withTagValue(`is`(R.drawable.ic_file_doc as Any))).check(matches(isDisplayed()))
     }
 
+    @Ignore
     @SmallTest
     @Test
     fun shouldShowDocxIcon() {
@@ -403,6 +407,7 @@ class FileSelectorFieldTest : MockActivityTest() {
         onView(withTagValue(`is`(R.drawable.ic_file_doc as Any))).check(matches(isDisplayed()))
     }
 
+    @Ignore
     @SmallTest
     @Test
     fun shouldShowUnknownIcon() {
