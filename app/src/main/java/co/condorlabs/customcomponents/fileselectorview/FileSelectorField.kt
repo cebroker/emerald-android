@@ -251,14 +251,14 @@ class FileSelectorField @JvmOverloads constructor(
             }
         }
         when (extension) {
-            EXTENSION_PDF -> view.setImageResource(R.drawable.ic_file_pdf)
-            EXTENSION_DOC, EXTENSION_DOCX -> view.setImageResource(R.drawable.ic_file_doc)
+            EXTENSION_PDF -> view.tag = R.drawable.ic_file_pdf
+            EXTENSION_DOC, EXTENSION_DOCX -> view.tag = R.drawable.ic_file_doc
             EXTENSION_JPEG, EXTENSION_JPG, EXTENSION_PNG -> {
                 val bitmap = BitmapFactory.decodeFile(fileValue.filepath)
                 view.setImageBitmap(bitmap)
                 view.requestLayout()
             }
-            else -> view.setImageResource(R.drawable.ic_file_base)
+            else -> view.tag = R.drawable.ic_file_base
         }
         if (fileValue.filename != null) {
             tvFilename?.text = fileValue.filename

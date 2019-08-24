@@ -16,7 +16,6 @@ import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.test.util.clickWithText
 import co.condorlabs.customcomponents.test.util.isTextDisplayed
 import co.condorlabs.customcomponents.test.util.isTextNotDisplayed
-import co.condorlabs.customcomponents.test.util.withDrawable
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.Matchers.`is`
 import org.junit.Assert
@@ -361,9 +360,7 @@ class FileSelectorFieldTest : MockActivityTest() {
         }
 
         // Then
-        runBlocking {
-            onView(withId(R.id.ivIcon)).check(matches(withDrawable(R.drawable.ic_file_pdf)))
-        }
+        onView(withTagValue(`is`(R.drawable.ic_file_pdf as Any))).check(matches(isDisplayed()))
     }
 
     @SmallTest
@@ -383,9 +380,7 @@ class FileSelectorFieldTest : MockActivityTest() {
         }
 
         // Then
-        runBlocking {
-            onView(withId(R.id.ivIcon)).check(matches(withDrawable(R.drawable.ic_file_doc)))
-        }
+        onView(withTagValue(`is`(R.drawable.ic_file_doc as Any))).check(matches(isDisplayed()))
     }
 
     @SmallTest
@@ -405,9 +400,7 @@ class FileSelectorFieldTest : MockActivityTest() {
         }
 
         // Then
-        runBlocking {
-            onView(withId(R.id.ivIcon)).check(matches(withDrawable(R.drawable.ic_file_doc)))
-        }
+        onView(withTagValue(`is`(R.drawable.ic_file_doc as Any))).check(matches(isDisplayed()))
     }
 
     @SmallTest
@@ -427,8 +420,6 @@ class FileSelectorFieldTest : MockActivityTest() {
         }
 
         // Then
-        runBlocking {
-            onView(withId(R.id.ivIcon)).check(matches(withDrawable(R.drawable.ic_file_base)))
-        }
+        onView(withTagValue(`is`(R.drawable.ic_file_base as Any))).check(matches(isDisplayed()))
     }
 }

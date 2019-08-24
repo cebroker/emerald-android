@@ -248,34 +248,3 @@ fun getRadioButtonAtPosition(
     parentView: ViewGroup,
     position: Int
 ): RadioButton = (parentView.getChildAt(RADIO_GROUP_POSITION) as RadioGroup).getChildAt(position) as RadioButton
-
-fun withDrawable(drawableId: Int): Matcher<View> {
-    return object : BoundedMatcher<View, ImageView>(ImageView::class.java) {
-        override fun matchesSafely(item: ImageView?): Boolean {
-            if (drawableId < 0) {
-                return item?.drawable == null
-            }
-            val context = item?.context ?: return false
-            val expectedDrawable = ContextCompat.getDrawable(context, drawableId) ?: return false
-            val bitmap = getBitmap(item.drawable)
-            val otherBitmap = getBitmap(expectedDrawable)
-            return bitmap.sameAs(otherBitmap)
-        }
-
-        override fun describeTo(description: Description) {
-            description.appendText(WITH_DRAWABLE_DESCRIPTION)
-            description.appendValue(drawableId.toString())
-        }
-
-        private fun getBitmap(drawable: Drawable): Bitmap {
-            val bitmap = Bitmap.createBitmap(
-                drawable.intrinsicWidth,
-                drawable.intrinsicHeight, Bitmap.Config.ARGB_8888
-            )
-            val canvas = Canvas(bitmap)
-            drawable.setBounds(0, 0, canvas.width, canvas.height)
-            drawable.draw(canvas)
-            return bitmap
-        }
-    }
-}
