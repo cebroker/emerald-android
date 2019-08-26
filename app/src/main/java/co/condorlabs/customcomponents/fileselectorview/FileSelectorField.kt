@@ -2,6 +2,7 @@ package co.condorlabs.customcomponents.fileselectorview
 
 import android.app.AlertDialog
 import android.content.Context
+import android.graphics.BitmapFactory
 import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
@@ -13,6 +14,7 @@ import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import com.squareup.picasso.Picasso
+import kotlinx.android.synthetic.main.file_selector_view.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -41,9 +43,10 @@ class FileSelectorField @JvmOverloads constructor(
     private var valueChangeListener: ValueChangeListener<FileSelectorValue?>? = null
     private var dialogTitle: String? = null
     private var fileSelectorClickListener: FileSelectorClickListener? = null
-    private var fileSelectorOptionsList: Array<CharSequence>? = null
+    private var fileSelectorOptionsList: ArrayList<CharSequence>? = null
     private var hasCameraOption = false
     private var hasGalleryOption = false
+    private var hasFileOption = false
 
     init {
         attrs?.let { setupAttributeSet(it) }
@@ -106,6 +109,7 @@ class FileSelectorField @JvmOverloads constructor(
                 when {
                     hasCameraOption -> fileSelectorClickListener?.onOptionSelected(FileSelectorOption.Photo)
                     hasGalleryOption -> fileSelectorClickListener?.onOptionSelected(FileSelectorOption.Gallery)
+                    hasFileOption -> fileSelectorClickListener?.onOptionSelected(FileSelectorOption.File)
                     else -> return
                 }
             }
@@ -128,13 +132,15 @@ class FileSelectorField @JvmOverloads constructor(
         isRequired = required
     }
 
-    private fun showFileSelectorDialog(optionsList: Array<CharSequence>) {
+    private fun showFileSelectorDialog(optionsList: ArrayList<CharSequence>) {
         CoroutineScope(Dispatchers.Main + Job()).launch {
             displayMyMultipleChoiceDialog(optionsList).let { optionSelected ->
                 fileSelectorClickListener?.onOptionSelected(
-                    when (optionSelected) {
-                        FILE_SELECTOR_GALLERY_OPTION_INDEX -> FileSelectorOption.Gallery
-                        else -> FileSelectorOption.Photo
+                    when (optionsList[optionSelected]) {
+                        FILE_SELECTOR_OPTION_PHOTO -> FileSelectorOption.Photo
+                        FILE_SELECTOR_OPTION_GALLERY -> FileSelectorOption.Gallery
+                        FILE_SELECTOR_OPTION_FILE -> FileSelectorOption.File
+                        else -> FileSelectorOption.File
                     }
                 )
             }
@@ -155,17 +161,25 @@ class FileSelectorField @JvmOverloads constructor(
                     R.styleable.FileSelectorField_fileSelectorOptions,
                     -1
                 ) and MASK_TO_OBTAIN_FILE_SELECTOR_OPTION_CAMERA) == MASK_TO_OBTAIN_FILE_SELECTOR_OPTION_CAMERA
+            hasFileOption =
+                (attrsArray.getInt(
+                    R.styleable.FileSelectorField_fileSelectorOptions,
+                    -1
+                ) and MASK_TO_OBTAIN_FILE_SELECTOR_OPTION_FILE) == MASK_TO_OBTAIN_FILE_SELECTOR_OPTION_FILE
 
-            fileSelectorOptionsList = if (hasCameraOption && hasGalleryOption) {
-                arrayOf(
-                    context.getString(R.string.gallery_string),
-                    context.getString(R.string.photo_string)
-                )
-            } else if (hasGalleryOption) {
-                arrayOf<CharSequence>(context.getString(R.string.gallery_string))
-            } else if (hasCameraOption) {
-                arrayOf<CharSequence>(context.getString(R.string.photo_string))
-            } else throw FileSelectorViewOptionsNotFound()
+            fileSelectorOptionsList = arrayListOf()
+            if (hasCameraOption) {
+                fileSelectorOptionsList?.add(FILE_SELECTOR_OPTION_PHOTO)
+            }
+            if (hasGalleryOption) {
+                fileSelectorOptionsList?.add(FILE_SELECTOR_OPTION_GALLERY)
+            }
+            if (hasFileOption) {
+                fileSelectorOptionsList?.add(FILE_SELECTOR_OPTION_FILE)
+            }
+            if (fileSelectorOptionsList?.isEmpty() == true) {
+                throw FileSelectorViewOptionsNotFound()
+            }
         }
 
         if (attrsArray.hasValue(R.styleable.FileSelectorField_dialog_title)) {
@@ -198,13 +212,13 @@ class FileSelectorField @JvmOverloads constructor(
         attrsArray.recycle()
     }
 
-    private suspend fun displayMyMultipleChoiceDialog(optionList: Array<CharSequence>): Int {
+    private suspend fun displayMyMultipleChoiceDialog(optionList: ArrayList<CharSequence>): Int {
         lateinit var result: Continuation<Int>
 
         AlertDialog
             .Builder(context)
             .setTitle(dialogTitle ?: EMPTY)
-            .setItems(optionList) { dialog, which ->
+            .setItems(optionList.toTypedArray()) { dialog, which ->
                 dialog.dismiss()
                 result.resume(which)
             }
@@ -222,7 +236,35 @@ class FileSelectorField @JvmOverloads constructor(
                 is FileSelectorValue.PathValue -> Picasso.get().load(fileSelectorValue.path).into(view)
                 is FileSelectorValue.DrawableValue -> view.setImageDrawable(fileSelectorValue.drawable)
                 is FileSelectorValue.BitmapValue -> view.setImageBitmap(fileSelectorValue.bitmap)
+                is FileSelectorValue.FileValue -> setFileIconInView(view, fileSelectorValue)
             }
+        }
+    }
+
+    private fun setFileIconInView(view: AppCompatImageView, fileValue: FileSelectorValue.FileValue) {
+        val extension = with(fileValue.filepath) {
+            val index = lastIndexOf(DOT_STRING) + FILE_AFTER_DOT_INDEX
+            if (index < length) {
+                substring(index)
+            } else {
+                EMPTY
+            }
+        }
+        when (extension) {
+            EXTENSION_PDF -> view.tag = R.drawable.ic_file_pdf
+            EXTENSION_DOC, EXTENSION_DOCX -> view.tag = R.drawable.ic_file_doc
+            EXTENSION_JPEG, EXTENSION_JPG, EXTENSION_PNG -> {
+                val bitmap = BitmapFactory.decodeFile(fileValue.filepath)
+                view.setImageBitmap(bitmap)
+                view.requestLayout()
+            }
+            else -> view.tag = R.drawable.ic_file_base
+        }
+        if (fileValue.filename != null) {
+            tvFilename?.text = fileValue.filename
+            tvFilename?.visibility = View.VISIBLE
+        } else {
+            tvFilename?.visibility = View.GONE
         }
     }
 
@@ -258,8 +300,8 @@ class FileSelectorField @JvmOverloads constructor(
             ivIcon?.tag = R.drawable.ic_cloud_upload_file
             ivIcon?.setImageResource(R.drawable.ic_cloud_upload_file)
         }
-        tvTitle?.setTextColor(context.resources.getColor(R.color.text_tap_color))
-        tvTapAction?.setTextColor(context.resources.getColor(R.color.text_tap_color))
+        tvTitle?.setTextColor(context.resources.getColor(R.color.primaryColor))
+        tvTapAction?.setTextColor(context.resources.getColor(R.color.primaryColor))
         clContent?.background = context.getDrawable(R.drawable.ripple)
     }
 }

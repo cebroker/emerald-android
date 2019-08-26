@@ -32,8 +32,11 @@
 
     <!-- FILE SELECTOR VIEW -->
     <dimen name="default_layout_padding">26dp</dimen>
-    <dimen name="icon_width">125dp</dimen>
-    <dimen name="icon_height">125dp</dimen>
+    <dimen name="file_selector_content_width">125dp</dimen>
+    <dimen name="file_selector_content_height">125dp</dimen>
+    <dimen name="file_selector_icon_margin_top">8dp</dimen>
+    <dimen name="file_selector_icon_margin_left">2dp</dimen>
+    <dimen name="file_selector_icon_margin_right">2dp</dimen>
     <dimen name="padding_small">8dp</dimen>
     <dimen name="title_margin_top">16dp</dimen>
     <dimen name="month_picker_margin">20dp</dimen>

@@ -23,6 +23,8 @@ android {
 }
 
 ext {
+    libraryVersion = '0.68.0'
+
     bintrayRepo = 'CustomComponents'
     bintrayName = 'CustomComponents'
 
@@ -37,7 +39,6 @@ ext {
 
 
     libraryVersion = '0.64.0'
-
     developerId = 'condorlabs'
     developerName = 'Oscar Gallon'
     developerEmail = 'ogallon@condorlabs.io'

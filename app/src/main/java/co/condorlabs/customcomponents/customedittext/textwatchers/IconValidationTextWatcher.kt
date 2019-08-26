@@ -11,7 +11,7 @@ import co.condorlabs.customcomponents.customedittext.ValueChangeListener
  */
 class IconValidationTextWatcher(
     private val receiver: BaseEditTextFormField,
-    private val valueChangeListener: ValueChangeListener<String>?
+    valueChangeListener: ValueChangeListener<String>?
 ) : DefaultTextWatcher(valueChangeListener) {
 
     override fun afterTextChanged(s: Editable?) {
@@ -25,10 +25,10 @@ class IconValidationTextWatcher(
     }
 
     private fun showCheckedIcon() {
-        receiver.editText?.setCompoundDrawablesWithIntrinsicBounds(ZERO, ZERO, R.drawable.ic_checked_circle, ZERO)
+        receiver.textInputLayout?.editText?.setCompoundDrawablesWithIntrinsicBounds(ZERO, ZERO, R.drawable.ic_checked_circle, ZERO)
     }
 
     private fun hideCheckIcon() {
-        receiver.editText?.setCompoundDrawablesWithIntrinsicBounds(ZERO, ZERO, ZERO, ZERO)
+        receiver.textInputLayout?.editText?.setCompoundDrawablesWithIntrinsicBounds(ZERO, ZERO, ZERO, ZERO)
     }
 }

@@ -20,6 +20,7 @@ import android.content.Context
 import android.graphics.Typeface
 import android.text.InputFilter
 import android.text.InputType
+import android.text.method.DigitsKeyListener
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.LayoutInflater
@@ -37,24 +38,30 @@ import java.util.regex.Pattern
 /**
  * @author Oscar Gallon on 2/26/19.
  */
-open class BaseEditTextFormField(context: Context, private val attrs: AttributeSet) :
+open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
     LinearLayout(context, attrs),
     FormField<String>,
     View.OnFocusChangeListener {
 
     var hint: String = context.getString(R.string.default_base_hint)
+        set(value) {
+            field = value; textInputLayout?.hint = field
+        }
+    var text: String? = EMPTY
+        set(value) {
+            field = value; textInputLayout?.editText?.setText(value)
+        }
+        get() = textInputLayout?.editText?.text?.toString() ?: field
     var textInputLayout: TextInputLayout? = null
-    var editText: EditText? = null
-
+    protected var editText: EditText? = null
     override var isRequired: Boolean = false
-
     protected var _valueChangeListener: ValueChangeListener<String>? = null
-
     private var maxLines: Int? = null
     private var minLines: Int? = null
     private var backgroundAlpha: Int? = null
     private var isMultiline: Boolean = false
     private var inputType: Int = InputType.TYPE_CLASS_TEXT
+    private var digits: String? = null
     private var placeholder: String? = null
     private var layoutParams = LayoutParams(
         LayoutParams.MATCH_PARENT,
@@ -75,11 +82,13 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
             ?: context.getString(R.string.default_base_hint)
         val regex = typedArray.getString(R.styleable.BaseEditTextFormField_regex)
         isRequired = typedArray.getBoolean(R.styleable.BaseEditTextFormField_is_required, false)
+        digits = typedArray.getString(R.styleable.BaseEditTextFormField_digits)
         inputType = when (typedArray.getString(R.styleable.BaseEditTextFormField_input_type)) {
             INPUT_TYPE_NUMBER -> InputType.TYPE_CLASS_NUMBER
             INPUT_TYPE_NUMBER_DECIMAL -> InputType.TYPE_NUMBER_FLAG_DECIMAL or InputType.TYPE_CLASS_NUMBER
             INPUT_TYPE_PHONE -> InputType.TYPE_CLASS_PHONE
             INPUT_TYPE_PASSWORD -> InputType.TYPE_TEXT_VARIATION_PASSWORD
+            INPUT_TYPE_TEXT_CAP_CHARACTERS -> InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS
             else -> InputType.TYPE_CLASS_TEXT
         }
         maxLines = typedArray.getString(R.styleable.BaseEditTextFormField_max_lines)?.toInt()
@@ -88,7 +97,8 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
             typedArray.getString(R.styleable.BaseEditTextFormField_background_alpha)?.toInt()
         isMultiline = typedArray.getBoolean(R.styleable.BaseEditTextFormField_multiline, false)
         placeholder = typedArray.getString(R.styleable.BaseEditTextFormField_placeholder)
-        showValidationIcon = typedArray.getBoolean(R.styleable.BaseEditTextFormField_show_validation_icon, false)
+        showValidationIcon =
+            typedArray.getBoolean(R.styleable.BaseEditTextFormField_show_validation_icon, false)
 
         typedArray.recycle()
 
@@ -107,11 +117,21 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
     }
 
     override fun setup() {
-        textInputLayout =
-            LayoutInflater.from(context).inflate(R.layout.base_edit_text_form_field, null) as? TextInputLayout
+        textInputLayout = LayoutInflater.from(context)
+            .inflate(R.layout.base_edit_text_form_field, null) as? TextInputLayout
         editText = textInputLayout?.editText
-        editText?.inputType = inputType
-        editText?.setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.body))
+
+        if (digits != null) {
+            editText?.keyListener = DigitsKeyListener.getInstance(digits)
+            editText?.setRawInputType(inputType)
+        } else {
+            editText?.inputType = inputType
+        }
+
+        editText?.setTextSize(
+            TypedValue.COMPLEX_UNIT_PX,
+            context.resources.getDimension(R.dimen.body)
+        )
         setFont(OPEN_SANS_REGULAR)
 
         val wrappedTextInputLayout = textInputLayout ?: return
@@ -273,9 +293,12 @@ open class BaseEditTextFormField(context: Context, private val attrs: AttributeS
             InputType.TYPE_NUMBER_FLAG_DECIMAL or InputType.TYPE_CLASS_NUMBER -> INPUT_TYPE_NUMBER_DECIMAL
             InputType.TYPE_CLASS_PHONE -> INPUT_TYPE_PHONE
             InputType.TYPE_TEXT_VARIATION_PASSWORD -> INPUT_TYPE_PASSWORD
+            InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS -> INPUT_TYPE_TEXT_CAP_CHARACTERS
             else -> INPUT_TYPE_TEXT
         }
     }
 
     fun getRegex() = regexListToMatch
+
+    fun getDigits() = digits ?: EMPTY
 }

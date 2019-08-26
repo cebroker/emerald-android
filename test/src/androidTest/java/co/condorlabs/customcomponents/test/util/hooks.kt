@@ -1,14 +1,15 @@
 package co.condorlabs.customcomponents.test.util
 
+import android.graphics.Bitmap
+import android.graphics.Canvas
 import android.graphics.Point
 import android.graphics.Rect
+import android.graphics.drawable.Drawable
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.NumberPicker
-import android.widget.RadioButton
-import android.widget.RadioGroup
-import android.widget.TextView
+import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.test.espresso.AmbiguousViewMatcherException
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.UiController
@@ -109,7 +110,7 @@ fun isTextInLines(lines: Int): TypeSafeMatcher<View> {
 }
 
 fun BaseEditTextFormField.text(): String {
-    return this.editText?.text.toString()
+    return this.textInputLayout?.editText?.text.toString()
 }
 
 fun clickDrawable(): ViewAction {
@@ -223,12 +224,12 @@ fun withTintColorInRadioButtons(expectedColor: Int): Matcher<View> {
         public override fun matchesSafely(formField: RadioGroupFormField): Boolean {
             val viewGroup = (formField as? ViewGroup) ?: return false
             for (index in ZERO until viewGroup.childCount) {
-                with (getRadioButtonAtPosition(viewGroup, index)) {
+                with(getRadioButtonAtPosition(viewGroup, index)) {
                     val actualColor = buttonTintList.getColorForState(
                         intArrayOf(android.R.attr.state_checked),
                         ZERO
                     )
-                    if(expectedColor != actualColor) {
+                    if (expectedColor != actualColor) {
                         return false
                     }
                 }

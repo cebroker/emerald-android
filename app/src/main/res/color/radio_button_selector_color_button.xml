@@ -3,6 +3,6 @@
     android:enterFadeDuration="300"
     android:exitFadeDuration="300">
   <item android:color="@color/gray_color_with_alpha" android:state_checked="false"/>
-  <item android:color="@color/blueFillColor" android:state_checked="true"/>
+  <item android:color="@color/primaryColor" android:state_checked="true"/>
   <item android:color="@color/gray_color_with_alpha"/>
 </selector>
