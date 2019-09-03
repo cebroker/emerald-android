@@ -4,7 +4,8 @@ import android.graphics.Bitmap
 import android.graphics.Canvas
 import android.graphics.Point
 import android.graphics.Rect
-import android.graphics.drawable.Drawable
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.VectorDrawable
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
@@ -24,21 +25,13 @@ import co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
 import co.condorlabs.customcomponents.customradiogroup.RadioGroupFormField
 import co.condorlabs.customcomponents.customspinner.BaseSpinnerFormField
 import co.condorlabs.customcomponents.customtextview.CustomTextView
-import junit.framework.Assert
 import org.hamcrest.Description
 import org.hamcrest.Matcher
 import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
-
-fun isTextDisplayed(resourceId: Int) {
-    var isDisplayed = true
-    Espresso.onView(ViewMatchers.withText(resourceId))
-        .withFailureHandler { error, _ ->
-            isDisplayed = error is AmbiguousViewMatcherException
-        }
-        .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-    Assert.assertTrue(isDisplayed)
-}
+import org.junit.Assert.assertFalse
+import org.junit.Assert.assertTrue
+import java.lang.IllegalArgumentException
 
 fun isTextDisplayed(text: String?) {
     var isDisplayed = true
@@ -47,7 +40,7 @@ fun isTextDisplayed(text: String?) {
             isDisplayed = error is AmbiguousViewMatcherException
         }
         .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-    Assert.assertTrue(isDisplayed)
+    assertTrue(isDisplayed)
 }
 
 fun isSpinnerEnable(): Matcher<View> {
@@ -70,12 +63,7 @@ fun isTextNotDisplayed(text: String?) {
             isDisplayed = error is AmbiguousViewMatcherException
         }
         .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
-    Assert.assertFalse(isDisplayed)
-}
-
-fun clickWithId(id: Int) {
-    Espresso.onView(ViewMatchers.withId(id))
-        .perform(ViewActions.click())
+    assertFalse(isDisplayed)
 }
 
 fun withTextColor(expectedId: Int): Matcher<View> {
@@ -86,7 +74,7 @@ fun withTextColor(expectedId: Int): Matcher<View> {
         }
 
         override fun describeTo(description: Description) {
-            description.appendText("with text color: ")
+            description.appendText(WITH_TEXT_COLOR_DESCRIPTION)
             description.appendValue(expectedId)
         }
     }
@@ -104,7 +92,8 @@ fun isTextInLines(lines: Int): TypeSafeMatcher<View> {
         }
 
         override fun describeTo(description: Description) {
-            description.appendText("isTextInLines")
+            description.appendText(WITH_TEXT_IN_LINES_DESCRIPTION)
+            description.appendValue(lines)
         }
     }
 }
@@ -208,11 +197,11 @@ fun withFontSize(expectedSize: Float): Matcher<View> {
         public override fun matchesSafely(target: CustomTextView): Boolean {
             val pixels = target.textSize
             val actualSize = pixels / target.resources.displayMetrics.scaledDensity
-            return java.lang.Float.compare(actualSize, expectedSize) == 0
+            return actualSize.compareTo(expectedSize) == 0
         }
 
         override fun describeTo(description: Description) {
-            description.appendText("with fontSize: ")
+            description.appendText(WITH_FONT_SIZE_DESCRIPTION)
             description.appendValue(expectedSize)
         }
     }
@@ -248,3 +237,58 @@ fun getRadioButtonAtPosition(
     parentView: ViewGroup,
     position: Int
 ): RadioButton = (parentView.getChildAt(RADIO_GROUP_POSITION) as RadioGroup).getChildAt(position) as RadioButton
+
+fun withDrawable(resourceId: Int): Matcher<View> {
+    return object : BoundedMatcher<View, View>(ImageView::class.java) {
+
+        override fun matchesSafely(view: View): Boolean {
+            val imageView = view as? ImageView ?: return false
+
+            if (resourceId == ZERO) {
+                return imageView.drawable == null
+            }
+
+            val expectedDrawable = ContextCompat.getDrawable(view.context, resourceId)
+                ?: return false
+
+            val actualDrawable = imageView.drawable
+
+            if (expectedDrawable is VectorDrawable) {
+                if (actualDrawable !is VectorDrawable) {
+                    return false
+                }
+                val expectedBitmap = vectorToBitmap(expectedDrawable)
+                val actualBitmap = vectorToBitmap(actualDrawable)
+                return expectedBitmap.sameAs(actualBitmap)
+            }
+
+            if (expectedDrawable is BitmapDrawable) {
+                if (actualDrawable !is BitmapDrawable) {
+                    return false
+                }
+                val expectedBitmap = expectedDrawable.bitmap
+                val actualBitmap = actualDrawable.bitmap
+                return expectedBitmap.sameAs(actualBitmap)
+            }
+
+            throw IllegalArgumentException(String.format(WITH_DRAWABLE_ILLEGAL_ARGUMENT_DESCRIPTION, imageView.drawable))
+        }
+
+        private fun vectorToBitmap(vectorDrawable: VectorDrawable): Bitmap {
+            val bitmap = Bitmap.createBitmap(
+                vectorDrawable.intrinsicWidth,
+                vectorDrawable.intrinsicHeight,
+                Bitmap.Config.ARGB_8888
+            )
+            val canvas = Canvas(bitmap)
+            vectorDrawable.setBounds(ZERO, ZERO, canvas.width, canvas.height)
+            vectorDrawable.draw(canvas)
+            return bitmap
+        }
+
+        override fun describeTo(description: Description) {
+            description.appendText(WITH_DRAWABLE_DESCRIPTION)
+            description.appendValue(resourceId)
+        }
+    }
+}

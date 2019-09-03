@@ -162,6 +162,11 @@ const val DRAWABLE_END_INDEX = 3
 const val ZERO_FLOAT = 0.0F
 const val TINT_COLOR_IN_RADIO_BUTTON_DESCRIPTION = "with expected color: "
 const val RADIO_GROUP_POSITION = 2
+const val WITH_DRAWABLE_ILLEGAL_ARGUMENT_DESCRIPTION = "Unsupported drawable: %s"
+const val WITH_DRAWABLE_DESCRIPTION = "with expected drawable: "
+const val WITH_FONT_SIZE_DESCRIPTION = "with expected font size: "
+const val WITH_TEXT_IN_LINES_DESCRIPTION = "with expected text in lines: "
+const val WITH_TEXT_COLOR_DESCRIPTION = "with expected text color: "
 
 /**LOADING FRAGMENTS **/
 const val DEFAULT_TIME_BETWEEN_OBJECT_ANIMATION = 500.toLong()
