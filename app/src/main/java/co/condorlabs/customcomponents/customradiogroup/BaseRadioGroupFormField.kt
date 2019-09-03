@@ -21,6 +21,7 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Build
 import android.util.AttributeSet
+import android.widget.CompoundButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatRadioButton
@@ -133,6 +134,33 @@ abstract class BaseRadioGroupFormField(
         addRadioButtons()
     }
 
+
+    fun setSelectedItem(itemLabel: String) {
+        val currentSelectableList = selectables ?: return
+
+        val itemIndex = currentSelectableList.indexOfFirst {
+            it.label == itemLabel
+        }
+
+        if (!isAValidIndex(itemIndex)) {
+            return
+        }
+
+        selectables = currentSelectableList.filterIndexed { index, _ ->
+            index != itemIndex
+        }.mapTo(arrayListOf(), {
+            it
+        }).apply {
+            add(Selectable(currentSelectableList[itemIndex].label, true))
+        }
+
+        addRadioButtons()
+    }
+
+    private fun isAValidIndex(index: Int): Boolean {
+        return index >= ZERO
+    }
+
     private fun setDefaultPadding(): Int {
         val paddingDp = DEFAULT_PADDING_RADIO_BUTTON
         val density = context.resources.displayMetrics.density
@@ -141,7 +169,6 @@ abstract class BaseRadioGroupFormField(
 
     @SuppressLint("ResourceType")
     private fun addRadioButtons() {
-        val resultDefaultPadding = setDefaultPadding()
         radioGroup?.removeAllViews()
         selectables?.forEachIndexed { index, selectable ->
             radioGroup?.addView(
