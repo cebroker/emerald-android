@@ -7,7 +7,6 @@ import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.SmallTest
-import androidx.test.runner.AndroidJUnit4
 import co.condorlabs.customcomponents.fileselectorview.FileSelectorClickListener
 import co.condorlabs.customcomponents.fileselectorview.FileSelectorField
 import co.condorlabs.customcomponents.fileselectorview.FileSelectorOption
@@ -22,9 +21,7 @@ import org.hamcrest.Matchers.`is`
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
-import org.junit.runner.RunWith
 
-@RunWith(AndroidJUnit4::class)
 class FileSelectorFieldTest : MockActivityTest() {
 
     @Before
