@@ -15,7 +15,6 @@ import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.test.util.clickWithText
 import co.condorlabs.customcomponents.test.util.isTextDisplayed
 import co.condorlabs.customcomponents.test.util.isTextNotDisplayed
-import co.condorlabs.customcomponents.test.util.withDrawable
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.Matchers.`is`
 import org.junit.Assert
@@ -349,8 +348,7 @@ class FileSelectorFieldTest : MockActivityTest() {
 
         // Given
         val fileSelectorField = ruleActivity.activity.findViewById<FileSelectorField>(R.id.fileSelectorOptionFile)
-        onView(withDrawable(R.drawable.ic_cloud_upload_file)).check(matches(isDisplayed()))
-
+        onView(withTagValue(`is`(R.drawable.ic_cloud_upload_file as Any))).check(matches(isDisplayed()))
         // When
         ruleActivity.activity.runOnUiThread {
             fileSelectorField.setFileValue(
@@ -359,7 +357,7 @@ class FileSelectorFieldTest : MockActivityTest() {
         }
 
         // Then
-        onView(withDrawable(R.drawable.ic_file_pdf)).check(matches(isDisplayed()))
+        onView(withTagValue(`is`(R.drawable.ic_file_pdf as Any))).check(matches(isDisplayed()))
         onView(withText("filename.pdf")).check(matches(isDisplayed()))
     }
 
@@ -371,8 +369,7 @@ class FileSelectorFieldTest : MockActivityTest() {
 
         // Given
         val fileSelectorField = ruleActivity.activity.findViewById<FileSelectorField>(R.id.fileSelectorOptionFile)
-        onView(withDrawable(R.drawable.ic_cloud_upload_file)).check(matches(isDisplayed()))
-
+        onView(withTagValue(`is`(R.drawable.ic_cloud_upload_file as Any))).check(matches(isDisplayed()))
         // When
         ruleActivity.activity.runOnUiThread {
             fileSelectorField.setFileValue(
@@ -381,7 +378,7 @@ class FileSelectorFieldTest : MockActivityTest() {
         }
 
         // Then
-        onView(withDrawable(R.drawable.ic_file_doc)).check(matches(isDisplayed()))
+        onView(withTagValue(`is`(R.drawable.ic_file_doc as Any))).check(matches(isDisplayed()))
         onView(withText("filename.doc")).check(matches(isDisplayed()))
     }
 
@@ -393,8 +390,7 @@ class FileSelectorFieldTest : MockActivityTest() {
 
         // Given
         val fileSelectorField = ruleActivity.activity.findViewById<FileSelectorField>(R.id.fileSelectorOptionFile)
-        onView(withDrawable(R.drawable.ic_cloud_upload_file)).check(matches(isDisplayed()))
-
+        onView(withTagValue(`is`(R.drawable.ic_cloud_upload_file as Any))).check(matches(isDisplayed()))
         // When
         ruleActivity.activity.runOnUiThread {
             fileSelectorField.setFileValue(
@@ -403,7 +399,7 @@ class FileSelectorFieldTest : MockActivityTest() {
         }
 
         // Then
-        onView(withDrawable(R.drawable.ic_file_doc)).check(matches(isDisplayed()))
+        onView(withTagValue(`is`(R.drawable.ic_file_doc as Any))).check(matches(isDisplayed()))
         onView(withText("filename.docx")).check(matches(isDisplayed()))
     }
 
@@ -415,7 +411,7 @@ class FileSelectorFieldTest : MockActivityTest() {
 
         // Given
         val fileSelectorField = ruleActivity.activity.findViewById<FileSelectorField>(R.id.fileSelectorOptionFile)
-        onView(withDrawable(R.drawable.ic_cloud_upload_file)).check(matches(isDisplayed()))
+        onView(withTagValue(`is`(R.drawable.ic_cloud_upload_file as Any))).check(matches(isDisplayed()))
 
         // When
         ruleActivity.activity.runOnUiThread {
@@ -425,7 +421,7 @@ class FileSelectorFieldTest : MockActivityTest() {
         }
 
         // Then
-        onView(withDrawable(R.drawable.ic_file_base)).check(matches(isDisplayed()))
+        onView(withTagValue(`is`(R.drawable.ic_file_base as Any))).check(matches(isDisplayed()))
         onView(withText("filename.txt")).check(matches(isDisplayed()))
     }
 }

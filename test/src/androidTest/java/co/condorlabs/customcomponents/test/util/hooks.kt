@@ -1,16 +1,14 @@
 package co.condorlabs.customcomponents.test.util
 
-import android.graphics.Bitmap
-import android.graphics.Canvas
 import android.graphics.Point
 import android.graphics.Rect
-import android.graphics.drawable.BitmapDrawable
-import android.graphics.drawable.VectorDrawable
 import android.view.MotionEvent
 import android.view.View
 import android.view.ViewGroup
-import android.widget.*
-import androidx.core.content.ContextCompat
+import android.widget.NumberPicker
+import android.widget.RadioButton
+import android.widget.RadioGroup
+import android.widget.TextView
 import androidx.test.espresso.AmbiguousViewMatcherException
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.UiController
@@ -31,7 +29,6 @@ import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
-import java.lang.IllegalArgumentException
 
 fun isTextDisplayed(text: String?) {
     var isDisplayed = true
@@ -236,59 +233,5 @@ fun withTintColorInRadioButtons(expectedColor: Int): Matcher<View> {
 fun getRadioButtonAtPosition(
     parentView: ViewGroup,
     position: Int
-): RadioButton = (parentView.getChildAt(RADIO_GROUP_POSITION) as RadioGroup).getChildAt(position) as RadioButton
-
-fun withDrawable(resourceId: Int): Matcher<View> {
-    return object : BoundedMatcher<View, View>(ImageView::class.java) {
-
-        override fun matchesSafely(view: View): Boolean {
-            val imageView = view as? ImageView ?: return false
-
-            if (resourceId == ZERO) {
-                return imageView.drawable == null
-            }
-
-            val expectedDrawable = ContextCompat.getDrawable(view.context, resourceId)
-                ?: return false
-
-            val actualDrawable = imageView.drawable
-
-            if (expectedDrawable is VectorDrawable) {
-                if (actualDrawable !is VectorDrawable) {
-                    return false
-                }
-                val expectedBitmap = vectorToBitmap(expectedDrawable)
-                val actualBitmap = vectorToBitmap(actualDrawable)
-                return expectedBitmap.sameAs(actualBitmap)
-            }
-
-            if (expectedDrawable is BitmapDrawable) {
-                if (actualDrawable !is BitmapDrawable) {
-                    return false
-                }
-                val expectedBitmap = expectedDrawable.bitmap
-                val actualBitmap = actualDrawable.bitmap
-                return expectedBitmap.sameAs(actualBitmap)
-            }
-
-            throw IllegalArgumentException(String.format(WITH_DRAWABLE_ILLEGAL_ARGUMENT_DESCRIPTION, imageView.drawable))
-        }
-
-        private fun vectorToBitmap(vectorDrawable: VectorDrawable): Bitmap {
-            val bitmap = Bitmap.createBitmap(
-                vectorDrawable.intrinsicWidth,
-                vectorDrawable.intrinsicHeight,
-                Bitmap.Config.ARGB_8888
-            )
-            val canvas = Canvas(bitmap)
-            vectorDrawable.setBounds(ZERO, ZERO, canvas.width, canvas.height)
-            vectorDrawable.draw(canvas)
-            return bitmap
-        }
-
-        override fun describeTo(description: Description) {
-            description.appendText(WITH_DRAWABLE_DESCRIPTION)
-            description.appendValue(resourceId)
-        }
-    }
-}
+): RadioButton =
+    (parentView.getChildAt(RADIO_GROUP_POSITION) as RadioGroup).getChildAt(position) as RadioButton
