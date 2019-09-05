@@ -447,7 +447,7 @@ class CollapsibleView @JvmOverloads constructor(
         return if (padding < MIN_DEFAULT_PADDING) MIN_DEFAULT_PADDING else padding
     }
 
-    fun getIsContentCollapsed() = isContentCollapsed
+    fun isContentCollapsed() = isContentCollapsed
 
     fun setImage(imageResourceId: Int) {
         if (imageResourceId != NO_ID) {

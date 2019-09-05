@@ -270,7 +270,7 @@ class CollapsibleViewTest : MockActivityTest(), OnCollapseListener {
         }
 
         // then
-        Assert.assertEquals(false, collapsibleViewTest!!.getIsContentCollapsed())
+        Assert.assertEquals(false, collapsibleViewTest!!.isContentCollapsed())
     }
 
     @SmallTest
@@ -286,9 +286,9 @@ class CollapsibleViewTest : MockActivityTest(), OnCollapseListener {
         }
 
         // then
-        Assert.assertEquals(false, collapsibleViewTest!!.getIsContentCollapsed())
+        Assert.assertEquals(false, collapsibleViewTest!!.isContentCollapsed())
         clickWithText("Collapsible title")
-        Assert.assertEquals(true, collapsibleViewTest.getIsContentCollapsed())
+        Assert.assertEquals(true, collapsibleViewTest.isContentCollapsed())
     }
 
     override fun onCollapse(isCollapsed: Boolean) {
