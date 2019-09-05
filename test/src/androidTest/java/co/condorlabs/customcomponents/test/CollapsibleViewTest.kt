@@ -268,6 +268,27 @@ class CollapsibleViewTest : MockActivityTest(), OnCollapseListener {
         ruleActivity.runOnUiThread {
             collapsibleViewTest?.startExpanded()
         }
+
+        // then
+        Assert.assertEquals(false, collapsibleViewTest!!.getIsContentCollapsed())
+    }
+
+    @SmallTest
+    @Test
+    fun shouldVerifyIsContentCollapsedPropertyIsChanging() {
+        // given
+        val collapsibleViewTest: CollapsibleView? =
+            ruleActivity.activity.findViewById(R.id.collapsibleViewTest)
+
+        // when
+        ruleActivity.runOnUiThread {
+            collapsibleViewTest?.startExpanded()
+        }
+
+        // then
+        Assert.assertEquals(false, collapsibleViewTest!!.getIsContentCollapsed())
+        clickWithText("Collapsible title")
+        Assert.assertEquals(true, collapsibleViewTest.getIsContentCollapsed())
     }
 
     override fun onCollapse(isCollapsed: Boolean) {
