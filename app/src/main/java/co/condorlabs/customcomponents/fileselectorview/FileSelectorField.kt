@@ -84,8 +84,7 @@ class FileSelectorField @JvmOverloads constructor(
         tvError = view.findViewById(R.id.tvError)
 
         iconResourceId?.let {
-            ivIcon?.setImageResource(it)
-            ivIcon?.setTag(it)
+            setIvIconDrawable(it)
         }
 
         tapButtonText?.let {
@@ -251,14 +250,13 @@ class FileSelectorField @JvmOverloads constructor(
             }
         }
         when (extension) {
-            EXTENSION_PDF -> view.tag = R.drawable.ic_file_pdf
-            EXTENSION_DOC, EXTENSION_DOCX -> view.tag = R.drawable.ic_file_doc
+            EXTENSION_PDF -> setIvIconDrawable(R.drawable.ic_file_pdf)
+            EXTENSION_DOC, EXTENSION_DOCX -> setIvIconDrawable(R.drawable.ic_file_doc)
             EXTENSION_JPEG, EXTENSION_JPG, EXTENSION_PNG -> {
                 val bitmap = BitmapFactory.decodeFile(fileValue.filepath)
                 view.setImageBitmap(bitmap)
-                view.requestLayout()
             }
-            else -> view.tag = R.drawable.ic_file_base
+            else -> setIvIconDrawable(R.drawable.ic_file_base)
         }
         if (fileValue.filename != null) {
             tvFilename?.text = fileValue.filename
@@ -287,8 +285,7 @@ class FileSelectorField @JvmOverloads constructor(
 
     private fun setDisableColors() {
         if (ivIcon?.tag == R.drawable.ic_cloud_upload_file) {
-            ivIcon?.tag = R.drawable.ic_cloud_upload_file_disabled
-            ivIcon?.setImageResource(R.drawable.ic_cloud_upload_file_disabled)
+            setIvIconDrawable(R.drawable.ic_cloud_upload_file_disabled)
         }
         tvTitle?.setTextColor(context.resources.getColor(R.color.emerald_disable_file_selector))
         tvTapAction?.setTextColor(context.resources.getColor(R.color.emerald_disable_file_selector))
@@ -297,11 +294,15 @@ class FileSelectorField @JvmOverloads constructor(
 
     private fun setEnableColors() {
         if (ivIcon?.tag == R.drawable.ic_cloud_upload_file_disabled) {
-            ivIcon?.tag = R.drawable.ic_cloud_upload_file
-            ivIcon?.setImageResource(R.drawable.ic_cloud_upload_file)
+            setIvIconDrawable(R.drawable.ic_cloud_upload_file)
         }
-        tvTitle?.setTextColor(context.resources.getColor(R.color.primaryColor))
+        tvTitle?.setTextColor(context.resources.getColor(R.color.labelColor))
         tvTapAction?.setTextColor(context.resources.getColor(R.color.primaryColor))
         clContent?.background = context.getDrawable(R.drawable.ripple)
+    }
+
+    private fun setIvIconDrawable(drawableId: Int) {
+        ivIcon?.tag = drawableId
+        ivIcon?.setImageResource(drawableId)
     }
 }

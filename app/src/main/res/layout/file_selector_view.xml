@@ -11,8 +11,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/padding_small"
             android:layout_marginEnd="@dimen/padding_small"
-            android:textColor="@android:color/black"
-            app:layout_constraintEnd_toEndOf="parent"
+            android:textColor="@color/labelColor"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"/>
 
