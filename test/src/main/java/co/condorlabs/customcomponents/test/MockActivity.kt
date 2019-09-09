@@ -18,6 +18,8 @@ package co.condorlabs.customcomponents.test
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import co.condorlabs.customcomponents.customspinner.SpinnerData
+import kotlinx.android.synthetic.main.activity_mock.*
 
 /**
  * @author Oscar Gallon on 2/21/19.
@@ -27,6 +29,12 @@ class MockActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout)
+
+        val data = SpinnerData("1", "Antioquia")
+        val data1 = SpinnerData("2", "Cundinamarca")
+        val data2 = SpinnerData("3", "Atlantico")
+        val spinnerDataList = arrayListOf(data, data1, data2)
+        tlState.setData(spinnerDataList)
     }
 
     companion object {

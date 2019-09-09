@@ -15,7 +15,23 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              android:layout_width="match_parent" android:layout_height="match_parent"
-              android:orientation="vertical">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:orientation="vertical"
+        android:padding="20dp">
+
+    <co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/tlBase"
+            android:textSize="@dimen/body"
+            app:input_type="text"/>
+
+    <co.condorlabs.customcomponents.customspinner.SpinnerFormField
+            android:layout_width="match_parent"
+            app:hint="State"
+            android:id="@+id/tlState"
+            android:layout_height="wrap_content"/>
 
 </LinearLayout>
