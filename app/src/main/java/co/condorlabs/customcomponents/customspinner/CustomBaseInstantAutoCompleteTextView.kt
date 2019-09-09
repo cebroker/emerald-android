@@ -17,7 +17,8 @@ class CustomBaseInstantAutoCompleteTextView(context: Context, attrs: AttributeSe
     private var isEnable: Boolean = true
 
     init {
-        isFocusable = false
+        isCursorVisible = false
+        keyListener = null
         setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.body))
     }
 
