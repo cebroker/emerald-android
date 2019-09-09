@@ -106,8 +106,12 @@ class FileSelectorField @JvmOverloads constructor(
                 showFileSelectorDialog(it)
             } else {
                 when {
-                    hasCameraOption -> fileSelectorClickListener?.onOptionSelected(FileSelectorOption.Photo)
-                    hasGalleryOption -> fileSelectorClickListener?.onOptionSelected(FileSelectorOption.Gallery)
+                    hasCameraOption -> fileSelectorClickListener?.onOptionSelected(
+                        FileSelectorOption.Photo
+                    )
+                    hasGalleryOption -> fileSelectorClickListener?.onOptionSelected(
+                        FileSelectorOption.Gallery
+                    )
                     hasFileOption -> fileSelectorClickListener?.onOptionSelected(FileSelectorOption.File)
                     else -> return
                 }
@@ -227,12 +231,28 @@ class FileSelectorField @JvmOverloads constructor(
         return suspendCoroutine { continuation -> result = continuation }
     }
 
-    fun setFileValue(fileSelectorValue: FileSelectorValue) {
+    fun setFileValue(fileSelectorValue: FileSelectorValue?) {
+        fileSelectorValue?.let {
+            setFileValueFields(it)
+        } ?: clearFileValueFields()
+    }
+
+    private fun clearFileValueFields() {
+        this.fileSelectorValue = null
+        ivIcon?.tag = R.drawable.ic_cloud_upload_file_disabled
+        tvFilename?.text = null
+        tvFilename?.visibility = View.GONE
+        setEnableColors()
+    }
+
+    private fun setFileValueFields(fileSelectorValue: FileSelectorValue) {
         this.fileSelectorValue = fileSelectorValue
         ivIcon?.tag = TAG_IMAGE_VIEW_FILE_SELECTOR_VALUE
         ivIcon?.let { view ->
             when (fileSelectorValue) {
-                is FileSelectorValue.PathValue -> Picasso.get().load(fileSelectorValue.path).into(view)
+                is FileSelectorValue.PathValue -> Picasso.get().load(fileSelectorValue.path).into(
+                    view
+                )
                 is FileSelectorValue.DrawableValue -> view.setImageDrawable(fileSelectorValue.drawable)
                 is FileSelectorValue.BitmapValue -> view.setImageBitmap(fileSelectorValue.bitmap)
                 is FileSelectorValue.FileValue -> setFileIconInView(view, fileSelectorValue)
@@ -240,7 +260,10 @@ class FileSelectorField @JvmOverloads constructor(
         }
     }
 
-    private fun setFileIconInView(view: AppCompatImageView, fileValue: FileSelectorValue.FileValue) {
+    private fun setFileIconInView(
+        view: AppCompatImageView,
+        fileValue: FileSelectorValue.FileValue
+    ) {
         val extension = with(fileValue.filepath) {
             val index = lastIndexOf(DOT_STRING) + FILE_AFTER_DOT_INDEX
             if (index < length) {

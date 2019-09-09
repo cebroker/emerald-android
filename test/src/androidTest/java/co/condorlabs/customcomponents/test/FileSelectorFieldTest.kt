@@ -17,6 +17,7 @@ import co.condorlabs.customcomponents.test.util.isTextDisplayed
 import co.condorlabs.customcomponents.test.util.isTextNotDisplayed
 import kotlinx.coroutines.runBlocking
 import org.hamcrest.Matchers.`is`
+import org.hamcrest.Matchers.not
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -69,7 +70,8 @@ class FileSelectorFieldTest : MockActivityTest() {
 
         // Given
         val view = onView(withId(R.id.ivIcon))
-        val field = ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
+        val field =
+            ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
         var result: FileSelectorOption? = null
         field.setFileSelectorClickListener(object : FileSelectorClickListener {
             override fun onOptionSelected(fileSelectorOption: FileSelectorOption) {
@@ -94,7 +96,8 @@ class FileSelectorFieldTest : MockActivityTest() {
 
         // Given
         val view = onView(withId(R.id.ivIcon))
-        val field = ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
+        val field =
+            ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
         var result: FileSelectorOption? = null
         field.setFileSelectorClickListener(object : FileSelectorClickListener {
             override fun onOptionSelected(fileSelectorOption: FileSelectorOption) {
@@ -118,7 +121,8 @@ class FileSelectorFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val field = ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
+        val field =
+            ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
         field.setIsRequired(true)
 
         // When
@@ -139,7 +143,8 @@ class FileSelectorFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val field = ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
+        val field =
+            ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
 
         // When
         ruleActivity.activity.runOnUiThread {
@@ -156,7 +161,8 @@ class FileSelectorFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val field = ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
+        val field =
+            ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
         val errorView = ruleActivity.activity.findViewById<TextView>(R.id.tvError)
 
         // When
@@ -191,7 +197,8 @@ class FileSelectorFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val fileSelectorField = ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
+        val fileSelectorField =
+            ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
         ruleActivity.activity.runOnUiThread { fileSelectorField.setEnable(false) }
 
         val view = onView(withId(R.id.myCustomLayoutSelector))
@@ -202,7 +209,11 @@ class FileSelectorFieldTest : MockActivityTest() {
         }
 
         // Then
-        onView(withTagValue(`is`(R.drawable.ic_cloud_upload_file_disabled as Any))).check(matches(isDisplayed()))
+        onView(withTagValue(`is`(R.drawable.ic_cloud_upload_file_disabled as Any))).check(
+            matches(
+                isDisplayed()
+            )
+        )
         isTextNotDisplayed("Option")
     }
 
@@ -213,7 +224,8 @@ class FileSelectorFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val fileSelectorField = ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
+        val fileSelectorField =
+            ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
         ruleActivity.activity.runOnUiThread { fileSelectorField.setEnable(false) }
 
         val view = onView(withId(R.id.myCustomLayoutSelector))
@@ -241,7 +253,8 @@ class FileSelectorFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val fileSelectorField = ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
+        val fileSelectorField =
+            ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
 
         val fileSelectorClickListener = object : FileSelectorClickListener {
             override fun onOptionSelected(fileSelectorOption: FileSelectorOption) {
@@ -268,7 +281,8 @@ class FileSelectorFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val fileSelectorField = ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
+        val fileSelectorField =
+            ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
 
         val fileSelectorClickListener = object : FileSelectorClickListener {
             override fun onOptionSelected(fileSelectorOption: FileSelectorOption) {
@@ -296,7 +310,8 @@ class FileSelectorFieldTest : MockActivityTest() {
 
         // Given
         val view = onView(withId(R.id.ivIcon))
-        val field = ruleActivity.activity.findViewById<FileSelectorField>(R.id.fileSelectorOptionFile)
+        val field =
+            ruleActivity.activity.findViewById<FileSelectorField>(R.id.fileSelectorOptionFile)
         var result: FileSelectorOption? = null
         field.setFileSelectorClickListener(object : FileSelectorClickListener {
             override fun onOptionSelected(fileSelectorOption: FileSelectorOption) {
@@ -320,7 +335,8 @@ class FileSelectorFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val fileSelectorField = ruleActivity.activity.findViewById<FileSelectorField>(R.id.fileSelectorOptionFile)
+        val fileSelectorField =
+            ruleActivity.activity.findViewById<FileSelectorField>(R.id.fileSelectorOptionFile)
 
         val fileSelectorClickListener = object : FileSelectorClickListener {
             override fun onOptionSelected(fileSelectorOption: FileSelectorOption) {
@@ -347,7 +363,8 @@ class FileSelectorFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val fileSelectorField = ruleActivity.activity.findViewById<FileSelectorField>(R.id.fileSelectorOptionFile)
+        val fileSelectorField =
+            ruleActivity.activity.findViewById<FileSelectorField>(R.id.fileSelectorOptionFile)
         onView(withTagValue(`is`(R.drawable.ic_cloud_upload_file as Any))).check(matches(isDisplayed()))
         // When
         ruleActivity.activity.runOnUiThread {
@@ -368,7 +385,8 @@ class FileSelectorFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val fileSelectorField = ruleActivity.activity.findViewById<FileSelectorField>(R.id.fileSelectorOptionFile)
+        val fileSelectorField =
+            ruleActivity.activity.findViewById<FileSelectorField>(R.id.fileSelectorOptionFile)
         onView(withTagValue(`is`(R.drawable.ic_cloud_upload_file as Any))).check(matches(isDisplayed()))
         // When
         ruleActivity.activity.runOnUiThread {
@@ -389,7 +407,8 @@ class FileSelectorFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val fileSelectorField = ruleActivity.activity.findViewById<FileSelectorField>(R.id.fileSelectorOptionFile)
+        val fileSelectorField =
+            ruleActivity.activity.findViewById<FileSelectorField>(R.id.fileSelectorOptionFile)
         onView(withTagValue(`is`(R.drawable.ic_cloud_upload_file as Any))).check(matches(isDisplayed()))
         // When
         ruleActivity.activity.runOnUiThread {
@@ -410,7 +429,8 @@ class FileSelectorFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val fileSelectorField = ruleActivity.activity.findViewById<FileSelectorField>(R.id.fileSelectorOptionFile)
+        val fileSelectorField =
+            ruleActivity.activity.findViewById<FileSelectorField>(R.id.fileSelectorOptionFile)
         onView(withTagValue(`is`(R.drawable.ic_cloud_upload_file as Any))).check(matches(isDisplayed()))
 
         // When
@@ -423,5 +443,29 @@ class FileSelectorFieldTest : MockActivityTest() {
         // Then
         onView(withTagValue(`is`(R.drawable.ic_file_base as Any))).check(matches(isDisplayed()))
         onView(withText("filename.txt")).check(matches(isDisplayed()))
+    }
+
+    @SmallTest
+    @Test
+    fun shouldClearField() {
+        shouldShowUnknownIcon()
+        MockActivity.layout = R.layout.activity_file_selector_file_test
+        //restartActivity()
+
+        // Given
+        val fileSelectorField =
+            ruleActivity.activity.findViewById<FileSelectorField>(R.id.fileSelectorOptionFile)
+
+
+        // When
+        ruleActivity.activity.runOnUiThread {
+            fileSelectorField.setFileValue(
+                null
+            )
+        }
+
+        // Then
+        onView(withTagValue(`is`(R.drawable.ic_cloud_upload_file as Any))).check(matches(isDisplayed()))
+        onView(withId(R.id.tvFilename)).check(matches(not(isDisplayed())))
     }
 }
