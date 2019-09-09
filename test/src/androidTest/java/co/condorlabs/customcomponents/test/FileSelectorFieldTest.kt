@@ -450,7 +450,6 @@ class FileSelectorFieldTest : MockActivityTest() {
     fun shouldClearField() {
         shouldShowUnknownIcon()
         MockActivity.layout = R.layout.activity_file_selector_file_test
-        //restartActivity()
 
         // Given
         val fileSelectorField =
