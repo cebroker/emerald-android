@@ -31,6 +31,7 @@ import co.condorlabs.customcomponents.customedittext.EditTextCityField
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import org.junit.Assert
 import org.junit.Before
+import org.junit.Ignore
 import org.junit.Test
 import org.junit.runner.RunWith
 
@@ -81,6 +82,7 @@ class EditTextCityFieldTest : MockActivityTest() {
     }
 
     @SmallTest
+    @Ignore("uncomment on release 4.0 author Oscar T. by courtney and genevieve requirement")
     @Test
     fun shouldReturnErrorIfCityNotBelongToTheState() {
         restartActivity()

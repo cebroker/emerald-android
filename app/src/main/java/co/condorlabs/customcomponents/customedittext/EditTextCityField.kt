@@ -43,11 +43,12 @@ class EditTextCityField(context: Context, attrs: AttributeSet) : BaseEditTextFor
             return emptyValidation
         }
 
-        if (mCities?.filter {
+        //TODO uncomment on release 4.0 author Oscar T. by courtney and genevieve requirement
+        /*if (mCities?.filter {
                 it.toLowerCase() == editText?.text?.toString()?.toLowerCase() ?: EMPTY
             }?.count() ?: ZERO <= ZERO) {
             return getErrorValidateResult()
-        }
+        }*/
 
         return emptyValidation
     }
