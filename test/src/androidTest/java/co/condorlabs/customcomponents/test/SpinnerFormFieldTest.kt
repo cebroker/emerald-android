@@ -22,6 +22,7 @@ package co.condorlabs.customcomponents.test
 import android.widget.AutoCompleteTextView
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onData
+import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.RootMatchers
@@ -29,12 +30,15 @@ import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.SmallTest
 import co.condorlabs.customcomponents.EMPTY
 import co.condorlabs.customcomponents.MESSAGE_FORMAT_ERROR
+import co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
 import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.customspinner.BaseSpinnerFormField
 import co.condorlabs.customcomponents.customspinner.SpinnerData
 import co.condorlabs.customcomponents.customspinner.SpinnerFormField
 import co.condorlabs.customcomponents.customspinner.SpinnerFormFieldListener
 import co.condorlabs.customcomponents.formfield.ValidationResult
+import co.condorlabs.customcomponents.test.util.isKeyboardClosed
+import co.condorlabs.customcomponents.test.util.isKeyboardOpen
 import co.condorlabs.customcomponents.test.util.isSpinnerEnable
 import org.hamcrest.CoreMatchers.*
 import org.junit.Assert
@@ -655,5 +659,31 @@ class SpinnerFormFieldTest : MockActivityTest() {
         ruleActivity.runOnUiThread {
             formField.clearField()
         }
+    }
+
+    @SmallTest
+    @Test
+    fun shouldHideKeyBoard() {
+        MockActivity.layout = R.layout.activity_spinner_inside_form
+        restartActivity()
+
+        // Given
+        val spinnerView = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.spinner_view)
+        ruleActivity.runOnUiThread {
+            spinnerView.setData(spinnerDataList)
+        }
+
+        val editTextView = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.edittext_view)
+        val typableView = Espresso.onView(withId(editTextView.textInputLayout!!.editText!!.id))
+        typableView.perform(ViewActions.typeText("1"))
+
+        Assert.assertTrue("The keyboard should be hidden", ruleActivity.activity.isKeyboardOpen())
+
+        // When
+        val clickableView = Espresso.onView(withId(R.id.spinner_view))
+        clickableView.perform(click())
+
+        // Then
+        Assert.assertTrue("The keyboard should be hidden", ruleActivity.activity.isKeyboardClosed())
     }
 }

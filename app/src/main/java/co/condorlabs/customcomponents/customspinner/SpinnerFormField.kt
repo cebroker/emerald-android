@@ -51,9 +51,7 @@ class SpinnerFormField(
 
     override fun setup() {
         super.setup()
-        this.setOnClickListener{
-            val a = 0
-        }
+        this.setOnClickListener(this)
 
         autoCompleteTextView?.onItemClickListener = this
         autoCompleteTextView?.apply {
