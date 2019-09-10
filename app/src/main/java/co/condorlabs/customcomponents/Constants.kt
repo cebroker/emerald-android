@@ -165,6 +165,7 @@ const val RADIO_GROUP_POSITION = 2
 const val WITH_FONT_SIZE_DESCRIPTION = "with expected font size: "
 const val WITH_TEXT_IN_LINES_DESCRIPTION = "with expected text in lines: "
 const val WITH_TEXT_COLOR_DESCRIPTION = "with expected text color: "
+const val CALCULATE_KEYBOARD_DISPLAYED_MARGIN_ERROR = 50F
 
 /**LOADING FRAGMENTS **/
 const val DEFAULT_TIME_BETWEEN_OBJECT_ANIMATION = 500.toLong()

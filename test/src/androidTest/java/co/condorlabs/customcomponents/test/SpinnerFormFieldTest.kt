@@ -677,7 +677,7 @@ class SpinnerFormFieldTest : MockActivityTest() {
         val typableView = Espresso.onView(withId(editTextView.textInputLayout!!.editText!!.id))
         typableView.perform(ViewActions.typeText("1"))
 
-        Assert.assertTrue("The keyboard should be hidden", ruleActivity.activity.isKeyboardOpen())
+        Assert.assertTrue("The keyboard should be displayed", ruleActivity.activity.isKeyboardOpen())
 
         // When
         val clickableView = Espresso.onView(withId(R.id.spinner_view))

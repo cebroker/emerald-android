@@ -32,6 +32,7 @@ import org.hamcrest.Matchers.allOf
 import org.hamcrest.TypeSafeMatcher
 import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
+import kotlin.math.roundToInt
 
 fun isTextDisplayed(text: String?) {
     var isDisplayed = true
@@ -253,7 +254,7 @@ fun Activity.isKeyboardOpen(): Boolean {
     val visibleBounds = Rect()
     this.getRootView().getWindowVisibleDisplayFrame(visibleBounds)
     val heightDiff = getRootView().height - visibleBounds.height()
-    val marginOfError = Math.round(this.convertDpToPx(50F))
+    val marginOfError = this.convertDpToPx(CALCULATE_KEYBOARD_DISPLAYED_MARGIN_ERROR).roundToInt()
     return heightDiff > marginOfError
 }
 
