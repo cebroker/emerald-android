@@ -16,10 +16,12 @@
 
 package co.condorlabs.customcomponents.customspinner
 
+import android.app.Activity
 import android.content.Context
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
+import android.view.inputmethod.InputMethodManager
 import android.widget.AdapterView
 import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.formfield.ValidationResult
@@ -49,7 +51,9 @@ class SpinnerFormField(
 
     override fun setup() {
         super.setup()
-        this.setOnClickListener(this)
+        this.setOnClickListener{
+            val a = 0
+        }
 
         autoCompleteTextView?.onItemClickListener = this
         autoCompleteTextView?.apply {
@@ -62,6 +66,10 @@ class SpinnerFormField(
             )
             setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.body))
             onItemSelectedListener = this@SpinnerFormField
+            setOnClickListener {
+                val inputMethodManager = this.context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+                inputMethodManager.hideSoftInputFromWindow(this.windowToken, 0)
+            }
         }
         setEnable(spinnerEnable)
     }
