@@ -17,7 +17,8 @@ class CustomBaseInstantAutoCompleteTextView(context: Context, attrs: AttributeSe
     private var isEnable: Boolean = true
 
     init {
-        isFocusable = false
+        isCursorVisible = false
+        keyListener = null
         setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.body))
     }
 
@@ -38,7 +39,6 @@ class CustomBaseInstantAutoCompleteTextView(context: Context, attrs: AttributeSe
     }
 
     override fun onFocusChanged(focused: Boolean, direction: Int, previouslyFocusedRect: Rect?) {
-        super.onFocusChanged(focused, direction, previouslyFocusedRect)
         super.onFocusChanged(focused, direction, previouslyFocusedRect)
         if (focused && adapter != null) {
             performFiltering(text, 0)
