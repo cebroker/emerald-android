@@ -148,11 +148,6 @@ class SpinnerFormField(
         clearFocus()
     }
 
-    override fun onFocusChanged(gainFocus: Boolean, direction: Int, previouslyFocusedRect: Rect?) {
-
-        super.onFocusChanged(gainFocus, direction, previouslyFocusedRect)
-    }
-
     fun setItemSelectedById(id: String) {
         val data = (autoCompleteTextView?.adapter as? SpinnerFormFieldAdapter)?.getData()?.let { it } ?: return
         val item = data.find { it.id == id }?.let { it } ?: return
