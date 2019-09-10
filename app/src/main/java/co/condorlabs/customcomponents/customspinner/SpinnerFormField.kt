@@ -18,7 +18,6 @@ package co.condorlabs.customcomponents.customspinner
 
 import android.app.Activity
 import android.content.Context
-import android.graphics.Rect
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
@@ -65,10 +64,10 @@ class SpinnerFormField(
             )
             setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.body))
             onItemSelectedListener = this@SpinnerFormField
-            setOnClickListener {
+            /*setOnClickListener {
                 val inputMethodManager = this.context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
                 inputMethodManager.hideSoftInputFromWindow(this.windowToken, 0)
-            }
+            }*/
         }
         setEnable(spinnerEnable)
     }
