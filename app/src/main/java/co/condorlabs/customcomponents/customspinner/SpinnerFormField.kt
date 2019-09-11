@@ -17,7 +17,6 @@
 package co.condorlabs.customcomponents.customspinner
 
 import android.content.Context
-import android.graphics.Rect
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View

@@ -1,10 +1,12 @@
 package co.condorlabs.customcomponents.customspinner
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.Rect
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.MotionEvent
+import android.view.inputmethod.InputMethodManager
 import android.widget.AutoCompleteTextView
 import co.condorlabs.customcomponents.R
 
@@ -31,6 +33,9 @@ class CustomBaseInstantAutoCompleteTextView(context: Context, attrs: AttributeSe
             performFiltering(text, 0)
             showDropDown()
         }
+        if(event?.action == MotionEvent.ACTION_DOWN) {
+            hideKeyBoard()
+        }
         return super.onTouchEvent(event)
     }
 
@@ -43,5 +48,10 @@ class CustomBaseInstantAutoCompleteTextView(context: Context, attrs: AttributeSe
         if (focused && adapter != null) {
             performFiltering(text, 0)
         }
+    }
+
+    private fun hideKeyBoard() {
+        val inputMethodManager = this.context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        inputMethodManager.hideSoftInputFromWindow(this.windowToken, 0)
     }
 }
