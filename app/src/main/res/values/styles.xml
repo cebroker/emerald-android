@@ -42,6 +42,7 @@
         <item name="boxCornerRadiusBottomEnd">3dp</item>
         <item name="android:colorControlHighlight">@color/defaultHintColor</item>
         <item name="android:textColorHighlight">@color/defaultHighlightColor</item>
+        <item name="android:textSize">@dimen/body</item>
     </style>
 
     <style name="FullScreenDialogStyle" parent="Theme.AppCompat.Light.NoActionBar">
