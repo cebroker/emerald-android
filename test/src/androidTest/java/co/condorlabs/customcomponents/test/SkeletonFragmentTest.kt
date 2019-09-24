@@ -14,7 +14,7 @@ import org.junit.Test
 /**
  * @author Oscar Gallon on 2019-05-17.
  */
-class SkeletonFragmenTest {
+class SkeletonFragmentTest {
 
     @Test
     fun shouldLoadCompletionSkeleton() {
