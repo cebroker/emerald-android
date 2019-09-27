@@ -21,7 +21,6 @@ import android.content.Context
 import android.content.res.ColorStateList
 import android.os.Build
 import android.util.AttributeSet
-import android.widget.CompoundButton
 import android.widget.RadioGroup
 import android.widget.TextView
 import androidx.appcompat.widget.AppCompatRadioButton
@@ -61,10 +60,6 @@ abstract class BaseRadioGroupFormField(
         spaceBetweenItems =
             typedArray.getInteger(R.styleable.BaseRadioGroupFormField_space_between_items, DEFAULT_SPACE_BETWEEN_ITEMS)
         typedArray.recycle()
-    }
-
-    override fun onAttachedToWindow() {
-        super.onAttachedToWindow()
         setup()
     }
 
@@ -95,7 +90,7 @@ abstract class BaseRadioGroupFormField(
         this.error = EMPTY
     }
 
-    override fun setup() {
+    final override fun setup() {
         labelLayoutParams.bottomMargin = DEFAULT_PADDING_RADIO_BUTTON
         tvLabel.text = title
         addView(tvLabel, labelLayoutParams)
