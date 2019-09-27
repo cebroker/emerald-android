@@ -50,7 +50,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
         // When
 
         // Then
-        Assert.assertEquals("Enter some text", formField?.hint)
+        Assert.assertEquals("Enter some text", formField?.getHint())
     }
 
     @SmallTest
@@ -65,7 +65,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
         // When
 
         // Then
-        Assert.assertEquals("Zip", formField?.hint)
+        Assert.assertEquals("Zip", formField?.getHint())
     }
 
     @SmallTest
@@ -161,7 +161,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
 
         // Then
         Espresso.onView(ViewMatchers.withText("12345")).check(matches(isDisplayed()))
-        Assert.assertEquals("Zip", (formField)?.hint)
+        Assert.assertEquals("Zip", (formField)?.getHint())
         Assert.assertTrue(result.isValid)
     }
 

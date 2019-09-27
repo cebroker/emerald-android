@@ -68,7 +68,7 @@ class EditTextCityFieldTest : MockActivityTest() {
 
         val base = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlCity)
         ruleActivity.runOnUiThread {
-            base.hint = "Custom Hint"
+            base.setHint("Custom Hint")
         }
 
         // Given

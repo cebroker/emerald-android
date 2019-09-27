@@ -132,7 +132,7 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
                     false,
                     String.format(
                         VALIDATE_LOWER_LIMIT_DATE_ERROR,
-                        hint,
+                        getHint(),
                         getFormatedDateFromMilliseconds(mLowerLimit ?: ZERO.toLong())
                     )
                 )
@@ -143,7 +143,7 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
                     false,
                     String.format(
                         VALIDATE_UPPER_LIMIT_DATE_ERROR,
-                        hint,
+                        getHint(),
                         getFormatedDateFromMilliseconds(mUpperLimit ?: ZERO.toLong())
                     )
                 )

@@ -212,7 +212,7 @@ class EditTextMonthYearField(
                     false,
                     String.format(
                         VALIDATE_LOWER_THAN_CURRENT_DATE,
-                        hint
+                        getHint()
                     )
                 )
             }
@@ -235,7 +235,7 @@ class EditTextMonthYearField(
                 false,
                 String.format(
                     VALIDATE_UPPER_THAN_CURRENT_DATE,
-                    hint
+                    getHint()
                 )
             )
         }
@@ -246,7 +246,7 @@ class EditTextMonthYearField(
                     false,
                     String.format(
                         VALIDATE_UPPER_LIMIT_DATE_ERROR,
-                        hint,
+                        getHint(),
                         String.format(
                             MONTH_YEAR_STRING_TO_REPLACE,
                             upperLimitMonthYear.month + HUMAN_READABLE_MONTH_INDEX,

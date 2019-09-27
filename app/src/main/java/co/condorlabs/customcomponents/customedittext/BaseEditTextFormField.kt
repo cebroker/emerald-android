@@ -43,15 +43,7 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
     FormField<String>,
     View.OnFocusChangeListener {
 
-    var hint: String = context.getString(R.string.default_base_hint)
-        set(value) {
-            field = value; textInputLayout?.hint = field
-        }
-    var text: String? = EMPTY
-        set(value) {
-            field = value; textInputLayout?.editText?.setText(value)
-        }
-        get() = textInputLayout?.editText?.text?.toString() ?: field
+    private var hint: String = context.getString(R.string.default_base_hint)
     var textInputLayout: TextInputLayout? = null
     protected var editText: EditText? = null
     override var isRequired: Boolean = false
@@ -70,6 +62,22 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
     private var showValidationIcon: Boolean = false
     private var textWatcher: DefaultTextWatcher? = null
     protected val regexListToMatch = HashSet<String>()
+
+    fun getText(): String? {
+        return textInputLayout?.editText?.text?.toString() ?: EMPTY
+    }
+
+    fun setText(value: String?) {
+        textInputLayout?.editText?.setText(value)
+    }
+
+    fun getHint(): String{
+        return hint
+    }
+
+    fun setHint(value: String){
+        textInputLayout?.hint = value
+    }
 
     init {
         val typedArray = context.obtainStyledAttributes(

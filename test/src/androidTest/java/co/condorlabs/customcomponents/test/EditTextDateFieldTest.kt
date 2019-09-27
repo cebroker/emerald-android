@@ -327,8 +327,8 @@ class EditTextDateFieldTest : MockActivityTest() {
 
         // When
         ruleActivity.runOnUiThread {
-            field?.text = "03/03/2019"
-            field2?.text = "02/03/2019"
+            field?.setText("03/03/2019")
+            field2?.setText("02/03/2019")
         }
 
         // Then
@@ -360,8 +360,8 @@ class EditTextDateFieldTest : MockActivityTest() {
 
         // When
         ruleActivity.runOnUiThread {
-            field?.text = "03/03/2019"
-            field2?.text = "03/03/2019"
+            field?.setText("03/03/2019")
+            field2?.setText("03/03/2019")
         }
 
         // Then
@@ -460,9 +460,9 @@ class EditTextDateFieldTest : MockActivityTest() {
 
         // When
         ruleActivity.runOnUiThread {
-            field?.text = "03/03/2019"
-            field2?.text = "03/05/2019"
-            field3?.text = "03/04/2019"
+            field?.setText("03/03/2019")
+            field2?.setText("03/05/2019")
+            field3?.setText("03/04/2019")
         }
 
         // Then
@@ -503,9 +503,9 @@ class EditTextDateFieldTest : MockActivityTest() {
 
         // When
         ruleActivity.runOnUiThread {
-            field?.text = "03/03/2019"
-            field2?.text = "03/05/2019"
-            field3?.text = "03/02/2019"
+            field?.setText("03/03/2019")
+            field2?.setText("03/05/2019")
+            field3?.setText("03/02/2019")
         }
 
         // Then
@@ -546,9 +546,9 @@ class EditTextDateFieldTest : MockActivityTest() {
 
         // When
         ruleActivity.runOnUiThread {
-            field?.text = "03/03/2019"
-            field2?.text = "03/05/2019"
-            field3?.text = "03/06/2019"
+            field?.setText("03/03/2019")
+            field2?.setText("03/05/2019")
+            field3?.setText("03/06/2019")
         }
 
         // Then
@@ -633,7 +633,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         // when
         ruleActivity.activity.runOnUiThread {
             field?.isRequired = false
-            field?.text = "03/03/2012"
+            field?.setText("03/03/2012")
 
             // Then
             Assert.assertTrue("The EditTextDateField should be valid when the field is not required and date is correct", field?.isValid()?.isValid ?: false)
@@ -651,7 +651,7 @@ class EditTextDateFieldTest : MockActivityTest() {
         // when
         ruleActivity.activity.runOnUiThread {
             field?.isRequired = false
-            field?.text = "03/03/202"
+            field?.setText("03/03/202")
 
             // Then
             Assert.assertFalse("the EditTextDateField should be invalid when the field is not required and date is wrong", field?.isValid()?.isValid ?: true)
@@ -672,7 +672,7 @@ class EditTextDateFieldTest : MockActivityTest() {
             val format = mDefaultDateFormat
             val dateToParse = "02/25/2019"
             field?.setUpperLimit(dateToParse, format)
-            field?.text = "03/11/2020"
+            field?.setText("03/11/2020")
             // Then
             Assert.assertFalse("the EditTextDateField should be invalid when the field is not required and date is greater than upper limit", field?.isValid()?.isValid ?: true)
         }
@@ -692,7 +692,7 @@ class EditTextDateFieldTest : MockActivityTest() {
             val format = mDefaultDateFormat
             val dateToParse = "02/25/2019"
             field?.setLowerLimit(dateToParse, format)
-            field?.text = "03/11/2012"
+            field?.setText("03/11/2012")
             // Then
             Assert.assertFalse("the EditTextDateField should be invalid when the field is not required and date is less than lower limit", field?.isValid()?.isValid ?: true)
         }
@@ -712,7 +712,7 @@ class EditTextDateFieldTest : MockActivityTest() {
             val format = mDefaultDateFormat
             val dateToParse = "02/25/2019"
             field?.setUpperLimit(dateToParse, format)
-            field?.text = "03/11/2018"
+            field?.setText("03/11/2018")
 
             // Then
             Assert.assertTrue("the EditTextDateField should be valid when the field is not required and date is less than upper limit", field?.isValid()?.isValid ?: false)
@@ -733,7 +733,7 @@ class EditTextDateFieldTest : MockActivityTest() {
             val format = mDefaultDateFormat
             val dateToParse = "02/25/2019"
             field?.setLowerLimit(dateToParse, format)
-            field?.text = "03/11/2020"
+            field?.setText("03/11/2020")
 
             // Then
             Assert.assertTrue("the EditTextDateField should be valid when the field is not required and date is greater than lower limit", field?.isValid()?.isValid ?: false)

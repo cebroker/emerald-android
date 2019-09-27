@@ -41,7 +41,7 @@ class EditTextCurrencyField(context: Context, attrs: AttributeSet) : BaseEditTex
         return when {
             isFieldEmpty(editText?.text.toString()) && isRequired -> ValidationResult(
                 false,
-                String.format(VALIDATE_EMPTY_ERROR, hint)
+                String.format(VALIDATE_EMPTY_ERROR, getHint())
             )
             editText?.text.toString().isNotEmpty() && !doesTextMatchWithRegex(editText?.text.toString()) -> getErrorValidateResult()
             else -> ValidationResult(true, EMPTY)
