@@ -63,11 +63,11 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
     private var textWatcher: DefaultTextWatcher? = null
     protected val regexListToMatch = HashSet<String>()
 
-    fun getText(): String? {
-        return textInputLayout?.editText?.text?.toString() ?: EMPTY
+    fun getText(): String {
+        return (textInputLayout?.editText?.text?.toString()) ?: EMPTY
     }
 
-    fun setText(value: String?) {
+    fun setText(value: String) {
         textInputLayout?.editText?.setText(value)
     }
 
