@@ -469,6 +469,7 @@ class CollapsibleView @JvmOverloads constructor(
     }
 
     fun setContent(collapsibleContent: View) {
+        flContent.removeAllViews()
         flContent.addView(collapsibleContent)
 
         flContent.viewTreeObserver.addOnGlobalLayoutListener(
