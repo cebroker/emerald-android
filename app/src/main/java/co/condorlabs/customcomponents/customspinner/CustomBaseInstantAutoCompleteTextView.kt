@@ -5,7 +5,6 @@ import android.content.Context
 import android.graphics.Rect
 import android.util.AttributeSet
 import android.util.TypedValue
-import android.view.MotionEvent
 import android.view.inputmethod.InputMethodManager
 import android.widget.AutoCompleteTextView
 import co.condorlabs.customcomponents.R
@@ -13,8 +12,9 @@ import co.condorlabs.customcomponents.R
 /**
  * @author Oscar Gallon on 2019-05-14.
  */
-class CustomBaseInstantAutoCompleteTextView(context: Context, attrs: AttributeSet) :
-    AutoCompleteTextView(context, attrs) {
+class CustomBaseInstantAutoCompleteTextView(
+    context: Context, attrs: AttributeSet
+) : AutoCompleteTextView(context, attrs) {
 
     private var isEnable: Boolean = true
 
@@ -28,15 +28,14 @@ class CustomBaseInstantAutoCompleteTextView(context: Context, attrs: AttributeSe
         return true
     }
 
-    override fun onTouchEvent(event: MotionEvent?): Boolean {
+    override fun performClick(): Boolean {
         if (isEnable) {
             performFiltering(text, 0)
             showDropDown()
-        }
-        if(event?.action == MotionEvent.ACTION_DOWN) {
+        } else {
             hideKeyBoard()
         }
-        return super.onTouchEvent(event)
+        return super.performClick()
     }
 
     fun setEnable(isEnable: Boolean) {
@@ -51,7 +50,7 @@ class CustomBaseInstantAutoCompleteTextView(context: Context, attrs: AttributeSe
     }
 
     private fun hideKeyBoard() {
-        val inputMethodManager = this.context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
-        inputMethodManager.hideSoftInputFromWindow(this.windowToken, 0)
+        (this.context.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager)
+            .hideSoftInputFromWindow(this.windowToken, 0)
     }
 }
