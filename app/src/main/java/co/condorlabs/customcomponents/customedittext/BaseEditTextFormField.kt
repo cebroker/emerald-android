@@ -23,6 +23,7 @@ import android.text.InputType
 import android.text.method.DigitsKeyListener
 import android.util.AttributeSet
 import android.util.TypedValue
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
@@ -77,6 +78,7 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
             R.styleable.BaseEditTextFormField,
             DEFAULT_STYLE_ATTR, DEFAULT_STYLE_RES
         )
+        textInputLayout?.gravity = Gravity.TOP
 
         hint = typedArray.getString(R.styleable.BaseEditTextFormField_hint)
             ?: context.getString(R.string.default_base_hint)
@@ -138,7 +140,8 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
         val wrappedEditText = editText?.let { it } ?: return
 
         wrappedEditText.onFocusChangeListener = this
-        wrappedTextInputLayout.hint = this@BaseEditTextFormField.hint
+        wrappedEditText.hint = this@BaseEditTextFormField.hint
+        wrappedEditText.gravity = Gravity.TOP
 
         wrappedEditText.apply {
             id = View.generateViewId()
@@ -271,6 +274,8 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
         textInputLayout?.editText?.postDelayed({
             textInputLayout?.editText?.hint = placeholder ?: EMPTY
         }, MILLISECONDS_TO_SHOW_PLACE_HOLDER)
+        textInputLayout?.hint = this@BaseEditTextFormField.hint
+        textInputLayout?.editText?.hint = null
     }
 
     private fun hidePlaceholder() {
