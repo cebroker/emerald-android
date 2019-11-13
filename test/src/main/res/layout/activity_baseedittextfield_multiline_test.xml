@@ -12,7 +12,6 @@
             android:id="@+id/tlBase"
             app:min_lines="5"
             app:max_lines="8"
-            app:hint="Su pinche hint"
             app:multiline="true"
             android:textSize="@dimen/body"
             app:input_type="multiline"/>
