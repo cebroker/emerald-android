@@ -36,6 +36,7 @@ import co.condorlabs.customcomponents.formfield.ValidationResult
 import com.google.android.material.textfield.TextInputLayout
 import java.util.regex.Pattern
 
+
 /**
  * @author Oscar Gallon on 2/26/19.
  */
@@ -70,6 +71,7 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
     )
     private var showValidationIcon: Boolean = false
     private var textWatcher: DefaultTextWatcher? = null
+    private var maxCharacters: Int? = null
     protected val regexListToMatch = HashSet<String>()
 
     init {
@@ -78,7 +80,6 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
             R.styleable.BaseEditTextFormField,
             DEFAULT_STYLE_ATTR, DEFAULT_STYLE_RES
         )
-        textInputLayout?.gravity = Gravity.TOP
 
         hint = typedArray.getString(R.styleable.BaseEditTextFormField_hint)
             ?: context.getString(R.string.default_base_hint)
@@ -101,7 +102,8 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
         placeholder = typedArray.getString(R.styleable.BaseEditTextFormField_placeholder)
         showValidationIcon =
             typedArray.getBoolean(R.styleable.BaseEditTextFormField_show_validation_icon, false)
-
+        maxCharacters =
+            typedArray.getString(R.styleable.BaseEditTextFormField_max_characters)?.toInt()
         typedArray.recycle()
 
         regex?.let {
@@ -139,11 +141,14 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
         val wrappedTextInputLayout = textInputLayout ?: return
         val wrappedEditText = editText?.let { it } ?: return
 
-        wrappedEditText.onFocusChangeListener = this
-        wrappedEditText.hint = this@BaseEditTextFormField.hint
-        wrappedEditText.gravity = Gravity.TOP
+        wrappedEditText.run {
+            onFocusChangeListener = this@BaseEditTextFormField
+            hint = this@BaseEditTextFormField.hint
+            gravity = Gravity.TOP
+            maxCharacters?.let {
+                filters = arrayOf<InputFilter>(InputFilter.LengthFilter(it))
+            }
 
-        wrappedEditText.apply {
             id = View.generateViewId()
             setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.body))
             isMultiline(wrappedEditText)
