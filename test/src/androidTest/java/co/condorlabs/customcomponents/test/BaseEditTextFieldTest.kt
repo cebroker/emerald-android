@@ -208,7 +208,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
 
     @SmallTest
     @Test
-    fun shouldNotTypeMoreCharacyersThanTheRegexAllow() {
+    fun shouldNotTypeMoreCharactersThanTheRegexAllow() {
         MockActivity.layout = R.layout.activity_baseedittextfield_with_hint_test
         restartActivity()
 
@@ -224,7 +224,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
         val result = formField.isValid()
 
         // Then
-        Espresso.onView(ViewMatchers.withText("123456789")).check(matches(isDisplayed()))
+        Espresso.onView(withText("123456789")).check(matches(isDisplayed()))
         Assert.assertTrue(result.isValid)
     }
 
@@ -324,7 +324,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
         editText.perform(typeText("12345"))
 
         // Then
-        Assert.assertNotNull(realEditText!!.compoundDrawables[2])
+        Assert.assertNotNull(realEditText.compoundDrawables[2])
     }
 
     @SmallTest
@@ -600,7 +600,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
 
     @SmallTest
     @Test
-    fun shoulAcceptOnlyTheSpecifiedCharacters() {
+    fun shouldAcceptOnlyTheSpecifiedCharacters() {
         MockActivity.layout = R.layout.activity_baseedittext_with_digits
         restartActivity()
 
