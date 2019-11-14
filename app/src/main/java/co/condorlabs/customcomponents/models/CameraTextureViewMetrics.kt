@@ -1,4 +1,4 @@
-package co.condorlabs.customcomponents.simplecamerax.fragment
+package co.condorlabs.customcomponents.models
 
 import android.util.Rational
 import android.util.Size

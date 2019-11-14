@@ -14,6 +14,7 @@ import android.view.*
 import androidx.camera.core.*
 import androidx.fragment.app.Fragment
 import co.condorlabs.customcomponents.R
+import co.condorlabs.customcomponents.models.CameraTextureViewMetrics
 import kotlinx.android.synthetic.main.fragment_simple_camera_x.*
 import java.io.File
 import java.util.concurrent.Executors

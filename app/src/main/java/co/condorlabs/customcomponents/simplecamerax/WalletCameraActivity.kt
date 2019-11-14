@@ -12,6 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.ImageCapture
 import co.condorlabs.customcomponents.CAMERA_TAKE_PHOTO_PARAM
 import co.condorlabs.customcomponents.R
+import co.condorlabs.customcomponents.models.CameraConfig
 import co.condorlabs.customcomponents.simplecamerax.fragment.SimpleCameraXFragment
 import kotlinx.android.synthetic.main.activity_wallet_camera.*
 import java.io.ByteArrayOutputStream
@@ -19,14 +20,25 @@ import java.io.ByteArrayOutputStream
 class WalletCameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListener {
 
     private lateinit var cameraFragment: SimpleCameraXFragment
-    private var urlToSavePhoto: String? = null
+    private lateinit var cameraConfigObj: CameraConfig
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_wallet_camera)
         cameraFragment = simpleCameraXFragment as SimpleCameraXFragment
-        urlToSavePhoto = intent.getStringExtra(URL_TO_SAVE_PHOTO_EXTRA_PARAM)
+        cameraConfigObj = intent.getParcelableExtra(CAMERA_CONFIG_OBJ_PARAM)
+            ?: throw NoSuchElementException("CameraConfig object was not provided")
+        setupScreenProperties()
+    }
+
+    private fun setupScreenProperties() {
+        with(cameraConfigObj) {
+            titleText?.let { cameraTitle?.text = it }
+            descriptionText?.let { capturePhotoDescription?.text = it }
+            cancelButtonText?.let { cancelPhoto?.text = it }
+            cropButtonText?.let { cropPhoto?.text = it }
+        }
     }
 
     override fun fragmentTextureViewLoaded() {
@@ -40,7 +52,7 @@ class WalletCameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCamera
         cameraFragment.startCamera()
         captureButton?.setOnClickListener {
             (captureButton?.drawable as? Animatable)?.start()
-            cameraFragment.takePhoto(urlToSavePhoto)
+            cameraFragment.takePhoto(cameraConfigObj.urlToSavePhoto)
         }
     }
 
@@ -129,6 +141,6 @@ class WalletCameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCamera
     }
 
     companion object {
-        const val URL_TO_SAVE_PHOTO_EXTRA_PARAM = "url_to_save_photo_extra_param"
+        const val CAMERA_CONFIG_OBJ_PARAM = "camera_config_obj_param"
     }
 }
