@@ -26,6 +26,7 @@ ext {
     mockk_version = "1.9.1"
     lottie_version = "3.0.1"
     material_library = "1.1.0-alpha06"
+    camerax_version = '1.0.0-alpha06'
 
     androidDependencies = [
             appCompat             : "androidx.appcompat:appcompat:$android_x_appCcompat_version",
@@ -42,6 +43,8 @@ ext {
             preferenceV14         : "androidx.legacy:legacy-preference-v14:$android_x_appCcompat_version",
             customTabs            : "androidx.browser:browser:$android_x_appCcompat_version",
             materialDesign        : "com.google.android.material:material:$material_library",
+            camerax               : "androidx.camera:camera-core:$camerax_version",
+            camera2_kit           : "androidx.camera:camera-camera2:$camerax_version"
     ]
 
     mainApplication = [

@@ -7,7 +7,7 @@
         <attr name="resizeCornerDrawable" format="reference"/>
         <attr name="cornerColor" format="color"/>
         <attr name="edgeColor" format="color" />
-        <attr name="strokeWidth" format="integer" />
+        <attr name="lineStrokeWidth" format="integer" />
         <attr name="outsideCropColor" format="color" />
         <attr name="cornerSize" format="dimension" />
     </declare-styleable>

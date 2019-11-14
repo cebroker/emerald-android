@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<animated-vector xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:aapt="http://schemas.android.com/aapt">
+
+    <aapt:attr name="android:drawable">
+        <vector
+            android:width="90dp"
+            android:height="90dp"
+            android:viewportWidth="512"
+            android:viewportHeight="512">
+
+            <path
+                android:pathData="M 256 64 C 362.038671968 64 448 149.961328032 448 256 C 448 362.038671968 362.038671968 448 256 448 C 149.961328032 448 64 362.038671968 64 256 C 64 149.961328032 149.961328032 64 256 64 Z"
+                android:strokeWidth="16"
+                android:strokeColor="#FFFFFF"
+                android:strokeLineCap="round"
+                android:strokeLineJoin="round" />
+
+            <group
+                android:name="scaleGroup"
+                android:pivotX="256"
+                android:pivotY="256">
+
+                <path
+                    android:pathData="M352.53,228.33v-8.48a25.11,25.11,0,0,0-25.11-25.11h-37v-7A11.68,11.68,0,0,0,278.75,176h-45.5a11.68,11.68,0,0,0-11.68,11.68v7h-37a25.11,25.11,0,0,0-25.11,25.11v91A25.11,25.11,0,0,0,184.58,336H327.42a25.11,25.11,0,0,0,25.11-25.11V288.2"
+                    android:strokeWidth="16"
+                    android:strokeColor="#FFFFFF"
+                    android:strokeLineCap="round"
+                    android:strokeLineJoin="round" />
+                <path
+                    android:fillColor="#FFFFFF"
+                    android:pathData="M 352.53 249.16 C 356.948277999 249.16 360.53 252.741722001 360.53 257.16 C 360.53 261.578277999 356.948277999 265.16 352.53 265.16 C 348.111722001 265.16 344.53 261.578277999 344.53 257.16 C 344.53 252.741722001 348.111722001 249.16 352.53 249.16 Z" />
+                <path
+                    android:pathData="M 256 224.32 C 277.914658873 224.32 295.68 242.085341127 295.68 264 C 295.68 285.914658873 277.914658873 303.68 256 303.68 C 234.085341127 303.68 216.32 285.914658873 216.32 264 C 216.32 242.085341127 234.085341127 224.32 256 224.32 Z"
+                    android:strokeWidth="16"
+                    android:strokeColor="#FFFFFF"
+                    android:strokeLineCap="round"
+                    android:strokeLineJoin="round" />
+            </group>
+        </vector>
+    </aapt:attr>
+
+    <target android:name="scaleGroup">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="400"
+                android:propertyName="scaleX"
+                android:valueFrom="1.0"
+                android:valueTo="1.3"
+                android:valueType="floatType" />
+        </aapt:attr>
+    </target>
+    <target android:name="scaleGroup">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="400"
+                android:propertyName="scaleY"
+                android:valueFrom="1.0"
+                android:valueTo="1.3"
+                android:valueType="floatType" />
+        </aapt:attr>
+    </target>
+    <target android:name="scaleGroup">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="100"
+                android:startOffset="400"
+                android:propertyName="scaleX"
+                android:valueFrom="1.3"
+                android:valueTo="1.0"
+                android:valueType="floatType" />
+        </aapt:attr>
+    </target>
+    <target android:name="scaleGroup">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="100"
+                android:startOffset="400"
+                android:propertyName="scaleY"
+                android:valueFrom="1.3"
+                android:valueTo="1.0"
+                android:valueType="floatType" />
+        </aapt:attr>
+    </target>
+    <target android:name="scaleGroup">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="100"
+                android:startOffset="500"
+                android:propertyName="scaleX"
+                android:valueFrom="1.0"
+                android:valueTo="1.3"
+                android:valueType="floatType" />
+        </aapt:attr>
+    </target>
+    <target android:name="scaleGroup">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="100"
+                android:startOffset="500"
+                android:propertyName="scaleY"
+                android:valueFrom="1.0"
+                android:valueTo="1.3"
+                android:valueType="floatType" />
+        </aapt:attr>
+    </target>
+    <target android:name="scaleGroup">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="100"
+                android:startOffset="600"
+                android:propertyName="scaleX"
+                android:valueFrom="1.3"
+                android:valueTo="1.0"
+                android:valueType="floatType" />
+        </aapt:attr>
+    </target>
+    <target android:name="scaleGroup">
+        <aapt:attr name="android:animation">
+            <objectAnimator
+                android:duration="100"
+                android:startOffset="600"
+                android:propertyName="scaleY"
+                android:valueFrom="1.3"
+                android:valueTo="1.0"
+                android:valueType="floatType" />
+        </aapt:attr>
+    </target>
+</animated-vector>

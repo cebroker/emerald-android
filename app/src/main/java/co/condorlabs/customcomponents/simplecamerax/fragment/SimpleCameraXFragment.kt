@@ -1,5 +1,4 @@
-package co.condorlabs.customcomponents.simplecamerax
-
+package co.condorlabs.customcomponents.simplecamerax.fragment
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -14,16 +13,11 @@ import android.util.Size
 import android.view.*
 import androidx.camera.core.*
 import androidx.fragment.app.Fragment
+import co.condorlabs.customcomponents.R
 import kotlinx.android.synthetic.main.fragment_simple_camera_x.*
 import java.io.File
 import java.util.concurrent.Executors
 
-
-import co.condorlabs.customcomponents.R
-
-/**
- * A simple [Fragment] subclass.
- */
 class SimpleCameraXFragment : Fragment(), TextureView.SurfaceTextureListener {
 
     private var imageCapture: ImageCapture? = null
@@ -45,7 +39,7 @@ class SimpleCameraXFragment : Fragment(), TextureView.SurfaceTextureListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        cameraTextureView.surfaceTextureListener = this
+        cameraTextureView?.surfaceTextureListener = this
     }
 
     fun startCamera() {
@@ -53,45 +47,47 @@ class SimpleCameraXFragment : Fragment(), TextureView.SurfaceTextureListener {
     }
 
     @SuppressLint("RestrictedApi")
-    private fun buildPreviewUseCase(): Preview {
-        val metrics = DisplayMetrics().also { cameraTextureView.display.getRealMetrics(it) }
-        val aspectRatio = Rational(metrics.widthPixels, metrics.heightPixels)
-        val rotation = cameraTextureView.display.rotation
-        val resolution = Size(metrics.widthPixels, metrics.heightPixels)
-
-        val preview = Preview(PreviewConfig.Builder().apply {
-            setTargetAspectRatioCustom(aspectRatio)
-            setTargetRotation(rotation)
-            setTargetResolution(resolution)
-            build()
-        }.build())
-
-        preview.setOnPreviewOutputUpdateListener {
-            val parent = cameraTextureView.parent as ViewGroup
-            parent.removeView(cameraTextureView)
-            parent.addView(cameraTextureView, 0)
-
-            cameraTextureView.surfaceTexture = it.surfaceTexture
-            updateTransform()
+    private fun buildPreviewUseCase(): Preview? {
+        return cameraTextureViewMetrics()?.let { metrics ->
+            val preview = Preview(PreviewConfig.Builder().apply {
+                setTargetAspectRatioCustom(metrics.aspectRatio)
+                setTargetRotation(metrics.rotation)
+                setTargetResolution(metrics.resolution)
+                build()
+            }.build())
+            preview.setOnPreviewOutputUpdateListener {
+                val parent = cameraTextureView.parent as ViewGroup
+                parent.removeView(cameraTextureView)
+                parent.addView(cameraTextureView, 0)
+                cameraTextureView.surfaceTexture = it.surfaceTexture
+                updateTransform()
+            }
+            preview
         }
-        return preview
     }
 
     @SuppressLint("RestrictedApi")
     private fun buildImageCaptureUseCase(): ImageCapture? {
-        val metrics = DisplayMetrics().also { cameraTextureView.display.getRealMetrics(it) }
-        val aspectRatio = Rational(metrics.widthPixels, metrics.heightPixels)
-        val rotation = cameraTextureView.display.rotation
-        val resolution = Size(metrics.widthPixels, metrics.heightPixels)
-        val captureConfig = ImageCaptureConfig.Builder()
-            .setTargetAspectRatioCustom(aspectRatio)
-            .setTargetRotation(rotation)
-            .setTargetResolution(resolution)
-            .setCaptureMode(ImageCapture.CaptureMode.MAX_QUALITY)
-            .build()
+        return cameraTextureViewMetrics()?.let { metrics ->
+            val captureConfig = ImageCaptureConfig.Builder()
+                .setTargetAspectRatioCustom(metrics.aspectRatio)
+                .setTargetRotation(metrics.rotation)
+                .setTargetResolution(metrics.resolution)
+                .setCaptureMode(ImageCapture.CaptureMode.MAX_QUALITY)
+                .build()
+            imageCapture = ImageCapture(captureConfig)
+            imageCapture
+        }
+    }
 
-        imageCapture = ImageCapture(captureConfig)
-        return imageCapture
+    private fun cameraTextureViewMetrics(): CameraTextureViewMetrics? {
+        return cameraTextureView?.let { textureView ->
+            val metrics = DisplayMetrics().also { textureView.display.getRealMetrics(it) }
+            val aspectRatio = Rational(metrics.widthPixels, metrics.heightPixels)
+            val rotation = textureView.display.rotation
+            val resolution = Size(metrics.widthPixels, metrics.heightPixels)
+            CameraTextureViewMetrics(aspectRatio, rotation, resolution)
+        }
     }
 
     fun takePhoto(filePath: String? = null) {
@@ -123,7 +119,7 @@ class SimpleCameraXFragment : Fragment(), TextureView.SurfaceTextureListener {
                         }
                     })
             } else {
-                val file = File(filePath, "camerax_${System.currentTimeMillis()}.jpg")
+                val file = File(filePath, "wallet_${System.currentTimeMillis()}.jpg")
                 imageCapture?.takePicture(
                     file,
                     executor,
@@ -152,8 +148,8 @@ class SimpleCameraXFragment : Fragment(), TextureView.SurfaceTextureListener {
 
     private fun updateTransform() {
         val matrix = Matrix()
-        val centerX = cameraTextureView.width / 2f
-        val centerY = cameraTextureView.height / 2f
+        val centerX = cameraTextureView.width / 2F
+        val centerY = cameraTextureView.height / 2F
         val rotationDegrees = when (cameraTextureView.display.rotation) {
             Surface.ROTATION_0 -> 0
             Surface.ROTATION_90 -> 90

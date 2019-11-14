@@ -1,4 +1,4 @@
-package com.example.camerax;
+package co.condorlabs.customcomponents.imagecropview;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -16,6 +16,8 @@ import android.view.View;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.AppCompatImageView;
+
+import co.condorlabs.customcomponents.R;
 
 public class AppCompatCropImageView extends AppCompatImageView {
 
@@ -35,7 +37,7 @@ public class AppCompatCropImageView extends AppCompatImageView {
     private int corner = 5;
     private boolean initialized = false;
     private int rectangleViewReferenceId = -1;
-    boolean parentDimens = true;
+    public boolean parentDimens = true;
     private Drawable resizeDrawable0, resizeDrawable1, resizeDrawable2, resizeDrawable3;
     Context context;
     private boolean cropActivated = false;
@@ -209,7 +211,7 @@ public class AppCompatCropImageView extends AppCompatImageView {
         //with default values the aspectRatio is 1.586 for standard cards' dimensions (85.60 × 53.98)mm
         minimumSideXLength = ta.getDimensionPixelSize(R.styleable.IconCropView_minimumSideX, 380);
         minimumSideYLength = ta.getDimensionPixelSize(R.styleable.IconCropView_minimumSideY, 240);
-        strokeWidth = ta.getInteger(R.styleable.IconCropView_strokeWidth, 4);
+        strokeWidth = ta.getInteger(R.styleable.IconCropView_lineStrokeWidth, 4);
         sideX = minimumSideXLength;
         sideY = minimumSideYLength;
         halfCorner = (ta.getDimensionPixelSize(R.styleable.IconCropView_cornerSize, 20)) / 2;

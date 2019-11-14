@@ -57,4 +57,15 @@
 
     <string name="hide">Hide</string>
     <string name="show">Show</string>
+
+    <!-- CAMERA -->
+    <string name="take_photo">take photo</string>
+    <string name="photo_captured">Photo captured</string>
+    <string name="title_activity_fullscreen">FullscreenActivity</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="crop_photo">Use photo</string>
+    <string name="retake_photo">Retake</string>
+    <string name="front_text">Front</string>
+    <string name="touch_to_take_photo">Touch to take photo</string>
 </resources>
