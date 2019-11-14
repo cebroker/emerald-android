@@ -73,32 +73,24 @@ public class AppCompatCropImageView extends AppCompatImageView {
     @Override
     protected void onDraw(Canvas canvas) {
         super.onDraw(canvas);
-
         if (parentDimens) {
             if (rectangleViewReferenceId != 0) {
                 View view = ((View) getParent()).findViewById(rectangleViewReferenceId);
-
                 if (view != null) {
                     points[0].x = (int) view.getX() - halfCorner;
                     points[0].y = (int) view.getY() - halfCorner;
-
                     points[1].x = view.getWidth() + (int) view.getX() - halfCorner;
                     points[1].y = (int) view.getY() - halfCorner;
-
                     points[2].x = (int) view.getX() - halfCorner;
                     points[2].y = view.getHeight() + (int) view.getY() - halfCorner;
-
                     points[3].x = view.getWidth() + (int) view.getX() - halfCorner;
                     points[3].y = view.getHeight() + (int) view.getY() - halfCorner;
-
                     sideX = points[1].x - points[0].x;
                     sideY = points[2].y - points[0].y;
-
                     parentDimens = false;
                 }
             }
         }
-
         //set paint to draw edge, stroke
         if (initialized) {
             paint.setAntiAlias(true);
@@ -118,7 +110,6 @@ public class AppCompatCropImageView extends AppCompatImageView {
             paint.setStyle(Paint.Style.FILL);
             paint.setColor(outsideColor);
             int strokeHalfWidth = strokeWidth / 2;
-
             if (cropActivated) {
                 //top rectangle
                 canvas.drawRect(0, 0, getWidth(), points[0].y + halfCorner - strokeHalfWidth, paint);
