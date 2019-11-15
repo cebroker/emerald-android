@@ -14,10 +14,10 @@ import co.condorlabs.customcomponents.CAMERA_TAKE_PHOTO_PARAM
 import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.models.CameraConfig
 import co.condorlabs.customcomponents.simplecamerax.fragment.SimpleCameraXFragment
-import kotlinx.android.synthetic.main.activity_wallet_camera.*
+import kotlinx.android.synthetic.main.activity_camera.*
 import java.io.ByteArrayOutputStream
 
-class WalletCameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListener {
+class CameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListener {
 
     private lateinit var cameraFragment: SimpleCameraXFragment
     private lateinit var cameraConfigObj: CameraConfig
@@ -25,7 +25,7 @@ class WalletCameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCamera
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
-        setContentView(R.layout.activity_wallet_camera)
+        setContentView(R.layout.activity_camera)
         cameraFragment = simpleCameraXFragment as SimpleCameraXFragment
         cameraConfigObj = intent.getParcelableExtra(CAMERA_CONFIG_OBJ_PARAM)
             ?: throw NoSuchElementException("CameraConfig object was not provided")

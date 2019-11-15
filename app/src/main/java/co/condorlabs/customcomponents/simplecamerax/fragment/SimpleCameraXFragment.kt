@@ -120,7 +120,7 @@ class SimpleCameraXFragment : Fragment(), TextureView.SurfaceTextureListener {
                         }
                     })
             } else {
-                val file = File(filePath, "wallet_${System.currentTimeMillis()}.jpg")
+                val file = File(filePath, "img_${System.currentTimeMillis()}.jpg")
                 imageCapture?.takePicture(
                     file,
                     executor,
