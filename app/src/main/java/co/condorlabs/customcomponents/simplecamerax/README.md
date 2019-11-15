@@ -4,13 +4,13 @@ Provides a custom camera to take photos
 ## Anatomy
 <img src="/Images/camera/cameraactivity.png" width="400" heigth="400"/>
 
-<a name="one">1</a>. Camera preview
-<a name="two">2</a>. Description text
-<a name="three">3</a>. Capture photo button
-<a name="four">4</a>. Camera title
-<a name="five">5</a>. Rectangle clipping tool
-<a name="six">6</a>. Retake photo button
-<a name="seven">7</a>. Crop photo button
+1. Camera preview
+2. Description text
+3. Capture photo button
+4. Camera title
+5. Rectangle clipping tool
+6. Retake photo button
+7. Crop photo button
 
 ## Basic Usage
 Create a new starActivityForResult() instruction and send a CameraConfig object to setup initial camera properties as title, description, etc.
@@ -36,10 +36,10 @@ CameraConfig(
 
 | Type | Name | Description |
 | - | - | - |
-|  String? | titleText | [1](#four) |
-|  String? | descriptionText | [2](#two) |
-|  String? | cancelButtonText | [6](#six) |
-|  String? | cropButtonText | [7](#seven) |
+|  String? | titleText | Camera title |
+|  String? | descriptionText | Description text |
+|  String? | cancelButtonText | Retake photo button |
+|  String? | cropButtonText | Crop photo button |
 |  String? | urlToSavePhoto | Provide a local or external path to save the photo on device |
 
 ## Retrieving data
