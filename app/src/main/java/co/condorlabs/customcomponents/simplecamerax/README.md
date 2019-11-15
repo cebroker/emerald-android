@@ -15,34 +15,28 @@ Provides a custom camera to take photos
 ## Basic Usage
 Create a new starActivityForResult() instruction and send a CameraConfig object to setup initial camera properties as title, description, etc.
 
-```
+```sh
 if (permissionsGranted()) {
     startActivityForResult(Intent(context, CameraActivity::class.java).putExtras(Bundle().apply {
         putParcelable(CameraActivity.CAMERA_CONFIG_OBJ_PARAM, CameraConfig())
-    }),  CAMERA_REQUEST_CODE)
+    }),  CAMERA_REQUEST_CODE) 
 }
 ```
 
-## Public methods
-| Return Type | Description |
-| -| - |
-|  Unit | *`collapse()`* <br> Collapse the view |
-|  Unit | *`startExpanded()`* <br> Init the view in expanded mode |
-|  Unit | *`setImage(imageResourceId: Int)`* <br> Add an image |
-|  Unit | *`setImageTint(colorTint: Int)`* <br> Set color tint to CollapsibleView icon |
-|  Unit | *`setContent(collapsibleContent: View)`* <br> Add view to collapse |
-|  Unit | *`setTitle(title: String?)`* <br> Set title |
-|  Unit | *`setSubtitle(subtitle: String?)`* <br> Set subtitle |
-|  Unit | *`setHideActionLabel(actionLabel: String?)`* <br> Set text when the view is collapsed |
-|  Unit | *`setShowActionLabel(actionLabel: String?)`* <br> Set text when the view is displayed |
-|  Unit | *`setActionLabelColor(actionLabelColor: Int?)`* <br> Set color to action label |
-|  Unit | *`setOnCollapseListener(collapseListener: OnCollapseListener?)`* <br> Add listener to collapse event |
-|  View? | *`getContent()`* <br> Get view |
-|  String? | *`getTitle()`* <br> Get subtitle |
-|  String? | *`getSubtitle()`* <br> Get subtitle |
-|  String? | *`getHideActionLabel()`* <br> Get hide action label |
-|  String? | *`getShowActionLabel()`* <br> Get show action label |
-|  Unit | *`visibleIndicatorArrow(isVisible: Boolean)`* <br> Set visibility to the indicator arrow |
+## Retrieving data
+```sh
+override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+    super.onActivityResult(requestCode, resultCode, data)
+    if (resultCode == Activity.RESULT_OK) {
+        if (requestCode == CAMERA_REQUEST_CODE) {
+            data?.getByteArrayExtra(CAMERA_TAKE_PHOTO_PARAM)?.let {
+                val bitmap = BitmapFactory.decodeByteArray(it, 0, it.size)
+                myImageView.setImageBitmap(bitmap)
+            }
+        }
+    }
+}
+```
 
 ## Examples
 <img src="/Images/camera/camerax_animated.gif" width="400" heigth="400"/>
