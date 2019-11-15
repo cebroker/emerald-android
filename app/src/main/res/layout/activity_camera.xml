@@ -65,7 +65,7 @@
         android:background="@android:color/transparent"
         android:scaleType="centerCrop"
         app:cornerColor="@android:color/white"
-        app:cornerSize="16dp"
+        app:cornerSize="@dimen/camera_corner_size"
         app:edgeColor="@android:color/white"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
