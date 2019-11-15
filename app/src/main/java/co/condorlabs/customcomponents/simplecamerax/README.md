@@ -15,7 +15,7 @@ Provides a custom camera to take photos
 ## Basic Usage
 Create a new starActivityForResult() instruction and send a CameraConfig object to setup initial camera properties as title, description, etc.
 
-```sh
+```kotlin
 if (permissionsGranted()) {
     startActivityForResult(Intent(context, CameraActivity::class.java).putExtras(Bundle().apply {
         putParcelable(CameraActivity.CAMERA_CONFIG_OBJ_PARAM, CameraConfig())
@@ -24,7 +24,7 @@ if (permissionsGranted()) {
 ```
 
 ## Retrieving data
-```sh
+```kotlin
 override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
     super.onActivityResult(requestCode, resultCode, data)
     if (resultCode == Activity.RESULT_OK) {
