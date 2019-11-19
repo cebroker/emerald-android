@@ -95,9 +95,7 @@ class CameraActivityTest {
             val fabCaptureButton = ruleActivity.activity.findViewById<FloatingActionButton>(R.id.fabCaptureButton)
 
             // When
-            ruleActivity.runOnUiThread {
-                fabCaptureButton.performClick()
-            }
+            ruleActivity.runOnUiThread { fabCaptureButton.performClick() }
             Thread.sleep(2000)
 
             // Then
@@ -126,9 +124,7 @@ class CameraActivityTest {
             Thread.sleep(2000)
 
             // When
-            ruleActivity.runOnUiThread {
-                cancelButton.performClick()
-            }
+            ruleActivity.runOnUiThread { cancelButton.performClick() }
 
             // Then
             Assert.assertEquals(View.GONE, tvDescription.visibility)
@@ -146,15 +142,12 @@ class CameraActivityTest {
         ) {
             // Given
             val cropButton = ruleActivity.activity.findViewById<CustomButton>(R.id.btnCropPhoto)
-            val fabCaptureButton =
-                ruleActivity.activity.findViewById<FloatingActionButton>(R.id.fabCaptureButton)
+            val fabCaptureButton = ruleActivity.activity.findViewById<FloatingActionButton>(R.id.fabCaptureButton)
             ruleActivity.runOnUiThread { fabCaptureButton.performClick() }
             Thread.sleep(2000)
 
             // When
-            ruleActivity.runOnUiThread {
-                cropButton.performClick()
-            }
+            ruleActivity.runOnUiThread { cropButton.performClick() }
         }
     }
 }
