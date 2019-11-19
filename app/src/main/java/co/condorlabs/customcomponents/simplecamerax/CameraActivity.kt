@@ -34,8 +34,18 @@ class CameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListe
 
     private fun setupScreenProperties() {
         with(cameraConfigObj) {
-            titleText?.let { cameraTitle?.text = it }
-            descriptionText?.let { capturePhotoDescription?.text = it }
+            titleText?.let {
+                cameraTitle?.run {
+                    visibility = View.VISIBLE
+                    text = it
+                }
+            }
+            descriptionText?.let {
+                capturePhotoDescription?.run {
+                    visibility = View.VISIBLE
+                    text = it
+                }
+            }
             cancelButtonText?.let { cancelPhoto?.text = it }
             cropButtonText?.let { cropPhoto?.text = it }
         }
@@ -108,7 +118,9 @@ class CameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListe
         }
         cancelPhoto?.visibility = View.VISIBLE
         captureButton?.visibility = View.INVISIBLE
-        capturePhotoDescription?.visibility = View.INVISIBLE
+        if (cameraConfigObj.descriptionText != null) {
+            capturePhotoDescription?.visibility = View.INVISIBLE
+        }
     }
 
     override fun onError(
@@ -131,7 +143,12 @@ class CameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListe
         photoCaptured?.setImageBitmap(null)
         cancelPhoto?.visibility = View.INVISIBLE
         cropPhoto?.visibility = View.INVISIBLE
-        capturePhotoDescription?.visibility = View.VISIBLE
+        cameraConfigObj.descriptionText?.let {
+            capturePhotoDescription?.run {
+                visibility = View.VISIBLE
+                text = it
+            }
+        }
         captureButton?.visibility = View.VISIBLE
         photoCaptured?.run {
             parentDimens = true

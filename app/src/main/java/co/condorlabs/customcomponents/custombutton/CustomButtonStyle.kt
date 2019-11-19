@@ -58,6 +58,12 @@ sealed class CustomButtonStyle(
         R.color.white,
         R.color.white)
 
+    object ShapeButtonStyle : CustomButtonStyle(
+        R.color.transparent,
+        R.color.white,
+        R.color.transparent,
+        R.color.transparent)
+
     fun getBackground(context: Context): StateListDrawable {
         val rippleDrawable = getRippleDrawable(context)
         return StateListDrawable().apply {

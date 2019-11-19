@@ -17,6 +17,7 @@ class CustomButtonStyleFactory {
             BUTTON_OVERLAY_TYPE -> CustomButtonStyle.OverlayButtonStyle
             BUTTON_FLAT_PRIMARY_TYPE -> CustomButtonStyle.FlatPrimaryButtonStyle
             BUTTON_SHAPE_WHITE_TYPE -> CustomButtonStyle.ShapeWhiteButtonStyle
+            BUTTON_SHAPE_TYPE -> CustomButtonStyle.ShapeButtonStyle
             else -> CustomButtonStyle.DefaultButtonStyle
         }
     }

@@ -284,7 +284,7 @@ public class AppCompatCropImageView extends AppCompatImageView {
         for (int i = 0; i < points.length; i++) {
             float dx = x - points[i].x;
             float dy = y - points[i].y;
-            int max = halfCorner * 2;
+            int max = halfCorner * 8;
             if (dx <= max && dx >= 0 && dy <= max && dy >= 0) {
                 return i;
             }

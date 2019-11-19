@@ -67,7 +67,7 @@
     <!-- WALLET CAMERA -->
     <dimen name="camera_corner_size">16dp</dimen>
     <dimen name="camera_buttons_min_width">140dp</dimen>
-    <dimen name="camera_buttons_text_size">24sp</dimen>
+    <dimen name="camera_buttons_text_size">16sp</dimen>
     <dimen name="camera_take_photo_button_size">90dp</dimen>
     <dimen name="camera_default_text_size">18sp</dimen>
     <dimen name="camera_footer_default_padding">10dp</dimen>

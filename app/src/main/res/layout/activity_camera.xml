@@ -36,7 +36,8 @@
         style="@style/camera_title_style"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        tools:visibility="visible"/>
 
     <View
         android:id="@+id/vRectangle"
@@ -64,9 +65,9 @@
         android:adjustViewBounds="true"
         android:background="@android:color/transparent"
         android:scaleType="centerCrop"
-        app:cornerColor="@android:color/white"
+        app:cornerColor="@color/overlayRippleColor"
         app:cornerSize="@dimen/camera_corner_size"
-        app:edgeColor="@android:color/white"
+        app:edgeColor="@color/overlayRippleColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -79,6 +80,7 @@
         android:layout_width="@dimen/zero"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
+        android:background="@color/background_black_with_with_40_percent_transparency"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -86,7 +88,6 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="@dimen/zero"
             android:layout_height="wrap_content"
-            android:background="@color/background_black_with_with_40_percent_transparency"
             android:padding="@dimen/camera_footer_default_padding"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -99,7 +100,8 @@
                 app:layout_constraintBottom_toBottomOf="@id/descriptionAuxBarrier"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+                tools:visibility="visible"/>
 
             <androidx.constraintlayout.widget.Barrier
                 android:id="@+id/descriptionAuxBarrier"
@@ -116,10 +118,10 @@
                 app:layout_constraintEnd_toStartOf="@id/cropPhoto"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:type="shapeWhite"
+                app:type="shape"
                 tools:visibility="visible" />
 
-            <androidx.appcompat.widget.AppCompatImageButton
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/captureButton"
                 style="@style/camera_take_photo_button_style"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -135,7 +137,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/cancelPhoto"
                 app:layout_constraintTop_toTopOf="parent"
-                app:type="shapeWhite"
+                app:type="shape"
                 tools:visibility="visible" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>

@@ -15,7 +15,6 @@ Emerald UI for Android Apps
 - Kotlin 1.3.21+
 
 ### Documentation
-
 - [Custom EditText](/app/src/main/java/co/condorlabs/customcomponents/customedittext)
 - [Custom Date Picker](/app/src/main/java/co/condorlabs/customcomponents/customdatepicker)
 - [Custom Button](/app/src/main/java/co/condorlabs/customcomponents/custombutton)
@@ -26,6 +25,7 @@ Emerald UI for Android Apps
 - [Skeleton View](/app/src/main/java/co/condorlabs/customcomponents/skeletonview) 
 - [Custom TextView](/app/src/main/java/co/condorlabs/customcomponents/customtextview)
 - [Custom CollapsibleView](/app/src/main/java/co/condorlabs/customcomponents/customcollapsibleview)
+- [Simple CameraX](/app/src/main/java/co/condorlabs/customcomponents/simplecamerax)
 
 ## Contribute
 - If you've __found a bug__, open an issue;

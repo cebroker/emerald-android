@@ -70,18 +70,19 @@
         <item name="android:visibility">invisible</item>
     </style>
     <style name="camera_take_photo_button_style">
-        <item name="android:layout_width">@dimen/camera_take_photo_button_size</item>
-        <item name="android:layout_height">@dimen/camera_take_photo_button_size</item>
-        <item name="android:background">@null</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:backgroundTint">@android:color/darker_gray</item>
         <item name="android:src">@drawable/ic_take_photo_animated</item>
-        <item name="android:layout_marginBottom">2dp</item>
+        <item name="android:layout_marginBottom">4dp</item>
     </style>
     <style name="camera_take_photo_description_style">
         <item name="android:layout_width">@dimen/zero</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginBottom">12dp</item>
         <item name="android:text">@string/touch_to_take_photo</item>
         <item name="android:textAlignment">center</item>
+        <item name="android:visibility">gone</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:textSize">@dimen/camera_default_text_size</item>
     </style>
@@ -90,7 +91,11 @@
         <item name="android:layout_height">wrap_content</item>
         <item name="android:background">@color/background_black_with_with_40_percent_transparency</item>
         <item name="android:elevation">1dp</item>
-        <item name="android:padding">4dp</item>
+        <item name="android:visibility">invisible</item>
+        <item name="android:paddingStart">4dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingEnd">4dp</item>
+        <item name="android:paddingBottom">16dp</item>
         <item name="android:text">@string/front_text</item>
         <item name="android:textAlignment">center</item>
         <item name="android:textColor">@android:color/white</item>
