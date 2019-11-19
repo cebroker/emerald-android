@@ -32,6 +32,7 @@ Emerald provides this component to be used as EditText
 | app:max_lines | Maximum number of lines|
 | app:min_lines | Minimum number of lines|
 | app:multiline | Will the field display more than one line|
+| app:max_characters | Maximum number of characters|
 
 ## Public methods
 | Return Type | Description |

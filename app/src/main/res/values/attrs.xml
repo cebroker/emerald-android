@@ -36,6 +36,7 @@
         <attr name="placeholder" format="string" />
         <attr name="show_validation_icon" format="boolean"/>
         <attr name="digits" format="string" />
+        <attr name="max_characters" format="integer" />
     </declare-styleable>
 
     <declare-styleable name="SpinnerFormField">

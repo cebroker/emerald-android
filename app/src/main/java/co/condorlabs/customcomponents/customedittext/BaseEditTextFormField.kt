@@ -23,6 +23,7 @@ import android.text.InputType
 import android.text.method.DigitsKeyListener
 import android.util.AttributeSet
 import android.util.TypedValue
+import android.view.Gravity
 import android.view.LayoutInflater
 import android.view.View
 import android.widget.EditText
@@ -69,6 +70,7 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
     )
     private var showValidationIcon: Boolean = false
     private var textWatcher: DefaultTextWatcher? = null
+    private var maxCharacters: Int? = null
     protected val regexListToMatch = HashSet<String>()
 
     init {
@@ -99,7 +101,8 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
         placeholder = typedArray.getString(R.styleable.BaseEditTextFormField_placeholder)
         showValidationIcon =
             typedArray.getBoolean(R.styleable.BaseEditTextFormField_show_validation_icon, false)
-
+        maxCharacters =
+            typedArray.getString(R.styleable.BaseEditTextFormField_max_characters)?.toInt()
         typedArray.recycle()
 
         regex?.let {
@@ -137,10 +140,14 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
         val wrappedTextInputLayout = textInputLayout ?: return
         val wrappedEditText = editText?.let { it } ?: return
 
-        wrappedEditText.onFocusChangeListener = this
-        wrappedTextInputLayout.hint = this@BaseEditTextFormField.hint
+        wrappedEditText.run {
+            onFocusChangeListener = this@BaseEditTextFormField
+            hint = this@BaseEditTextFormField.hint
+            gravity = Gravity.TOP
+            maxCharacters?.let {
+                filters = arrayOf<InputFilter>(InputFilter.LengthFilter(it))
+            }
 
-        wrappedEditText.apply {
             id = View.generateViewId()
             setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.body))
             isMultiline(wrappedEditText)
@@ -271,6 +278,8 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
         textInputLayout?.editText?.postDelayed({
             textInputLayout?.editText?.hint = placeholder ?: EMPTY
         }, MILLISECONDS_TO_SHOW_PLACE_HOLDER)
+        textInputLayout?.hint = this@BaseEditTextFormField.hint
+        textInputLayout?.editText?.hint = null
     }
 
     private fun hidePlaceholder() {

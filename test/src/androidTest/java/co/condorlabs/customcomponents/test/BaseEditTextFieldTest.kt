@@ -143,7 +143,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
 
     @SmallTest
     @Test
-    fun shouldOnlyAllowToTypeUntilMaxLength() {
+    fun shouldOnlyAllowToTypeUntilMaxLengthByCode() {
         MockActivity.layout = R.layout.activity_baseedittext_with_hint_and_regex_test
         restartActivity()
 
@@ -154,6 +154,29 @@ class BaseEditTextFieldTest : MockActivityTest() {
         val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
         formField.setIsRequired(true)
         formField.setMaxLength(5)
+
+        // When
+        editText.perform(typeText("123456"))
+        val result = formField.isValid()
+
+        // Then
+        Espresso.onView(ViewMatchers.withText("12345")).check(matches(isDisplayed()))
+        Assert.assertEquals("Zip", (formField)?.hint)
+        Assert.assertTrue(result.isValid)
+    }
+
+    @SmallTest
+    @Test
+    fun shouldOnlyAllowToTypeUntilMaxLengthByXml() {
+        MockActivity.layout = R.layout.activity_baseedittext_with_max_character
+        restartActivity()
+
+        // Given
+        val base = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
+        val realEditText = base.textInputLayout!!.editText!!
+        val editText = Espresso.onView(withId(realEditText.id))
+        val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
+        formField.setIsRequired(true)
 
         // When
         editText.perform(typeText("123456"))
@@ -185,7 +208,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
 
     @SmallTest
     @Test
-    fun shouldNotTypeMoreCharacyersThanTheRegexAllow() {
+    fun shouldNotTypeMoreCharactersThanTheRegexAllow() {
         MockActivity.layout = R.layout.activity_baseedittextfield_with_hint_test
         restartActivity()
 
@@ -201,7 +224,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
         val result = formField.isValid()
 
         // Then
-        Espresso.onView(ViewMatchers.withText("123456789")).check(matches(isDisplayed()))
+        Espresso.onView(withText("123456789")).check(matches(isDisplayed()))
         Assert.assertTrue(result.isValid)
     }
 
@@ -282,7 +305,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
         Thread.sleep(210)
 
         // then
-       Assert.assertEquals(baseView.textInputLayout!!.editText!!.hint, "Hola")
+        Assert.assertEquals(baseView.textInputLayout!!.editText!!.hint, "Hola")
     }
 
     @SmallTest
@@ -301,7 +324,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
         editText.perform(typeText("12345"))
 
         // Then
-        Assert.assertNotNull(realEditText!!.compoundDrawables[2])
+        Assert.assertNotNull(realEditText.compoundDrawables[2])
     }
 
     @SmallTest
@@ -433,7 +456,8 @@ class BaseEditTextFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.etPasswordField)
+        val formField =
+            ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.etPasswordField)
 
         // When
         val result = formField.getInputType()
@@ -465,7 +489,8 @@ class BaseEditTextFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.etNumberDecimalField)
+        val formField =
+            ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.etNumberDecimalField)
 
         // When
         val result = formField.getInputType()
@@ -481,7 +506,8 @@ class BaseEditTextFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.etNumberField)
+        val formField =
+            ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.etNumberField)
 
         // When
         val result = formField.getInputType()
@@ -497,7 +523,8 @@ class BaseEditTextFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.etTextCapCharactersField)
+        val formField =
+            ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.etTextCapCharactersField)
 
         // When
         val result = formField.getInputType()
@@ -561,7 +588,8 @@ class BaseEditTextFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBaseWithInputType)
+        val formField =
+            ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBaseWithInputType)
 
         // When
         val digits = formField.getDigits()
@@ -572,12 +600,13 @@ class BaseEditTextFieldTest : MockActivityTest() {
 
     @SmallTest
     @Test
-    fun shoulAcceptOnlyTheSpecifiedCharacters() {
+    fun shouldAcceptOnlyTheSpecifiedCharacters() {
         MockActivity.layout = R.layout.activity_baseedittext_with_digits
         restartActivity()
 
         // Given
-        val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBaseWithInputType)
+        val formField =
+            ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBaseWithInputType)
 
         // When
         Espresso.onView(withId(formField.textInputLayout!!.editText!!.id))
