@@ -30,7 +30,7 @@ CameraConfig(
     descriptionText = "Camera description",
     cancelButtonText = "Cancel button text",
     cropButtonText = "Crop button text",
-    urlToSavePhoto = "route/to/save/photo/captured.jpg"
+    savePhotoPath = "route/to/save/photo/captured.jpg"
 )
 ```
 
@@ -40,7 +40,7 @@ CameraConfig(
 |  String? | descriptionText | Description text |
 |  String? | cancelButtonText | Retake photo button |
 |  String? | cropButtonText | Crop photo button |
-|  String? | urlToSavePhoto | Provide a local or external path to save the photo on device |
+|  String? | savePhotoPath | Provide a local or external path to save the photo on device |
 
 ## Retrieving data
 ```kotlin
@@ -56,6 +56,3 @@ override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) 
     }
 }
 ```
-
-## Examples
-<img src="/Images/camera/camerax_animated.gif" width="400" heigth="400"/>
