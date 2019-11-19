@@ -80,7 +80,7 @@
         android:layout_width="@dimen/zero"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
-        android:background="@color/background_black_with_with_40_percent_transparency"
+        android:background="@color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -111,18 +111,18 @@
                 app:constraint_referenced_ids="capturePhotoDescription" />
 
             <co.condorlabs.customcomponents.custombutton.CustomButton
-                android:id="@+id/cancelPhoto"
+                android:id="@+id/btnCancelPhoto"
                 style="@style/camera_operation_button_style"
                 android:text="@string/retake_photo"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toStartOf="@id/cropPhoto"
+                app:layout_constraintEnd_toStartOf="@id/btnCropPhoto"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 app:type="shape"
                 tools:visibility="visible" />
 
             <com.google.android.material.floatingactionbutton.FloatingActionButton
-                android:id="@+id/captureButton"
+                android:id="@+id/fabCaptureButton"
                 style="@style/camera_take_photo_button_style"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -130,12 +130,12 @@
                 app:layout_constraintTop_toBottomOf="@id/descriptionAuxBarrier" />
 
             <co.condorlabs.customcomponents.custombutton.CustomButton
-                android:id="@+id/cropPhoto"
+                android:id="@+id/btnCropPhoto"
                 style="@style/camera_operation_button_style"
                 android:text="@string/crop_photo"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@id/cancelPhoto"
+                app:layout_constraintStart_toEndOf="@id/btnCancelPhoto"
                 app:layout_constraintTop_toTopOf="parent"
                 app:type="shape"
                 tools:visibility="visible" />

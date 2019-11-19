@@ -20,20 +20,20 @@ import java.io.ByteArrayOutputStream
 class CameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListener {
 
     private lateinit var cameraFragment: SimpleCameraXFragment
-    private lateinit var cameraConfigObj: CameraConfig
+    private lateinit var cameraConfig: CameraConfig
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_camera)
         cameraFragment = simpleCameraXFragment as SimpleCameraXFragment
-        cameraConfigObj = intent.getParcelableExtra(CAMERA_CONFIG_OBJ_PARAM)
+        cameraConfig = intent.getParcelableExtra(CAMERA_CONFIG_OBJ_PARAM)
             ?: throw NoSuchElementException("CameraConfig object was not provided")
         setupScreenProperties()
     }
 
     private fun setupScreenProperties() {
-        with(cameraConfigObj) {
+        with(cameraConfig) {
             titleText?.let {
                 cameraTitle?.run {
                     visibility = View.VISIBLE
@@ -46,62 +46,43 @@ class CameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListe
                     text = it
                 }
             }
-            cancelButtonText?.let { cancelPhoto?.text = it }
-            cropButtonText?.let { cropPhoto?.text = it }
+            cancelButtonText?.let { btnCancelPhoto?.text = it }
+            cropButtonText?.let { btnCropPhoto?.text = it }
         }
     }
 
     override fun fragmentTextureViewLoaded() {
         initCameraX()
-        cancelPhoto?.setOnClickListener {
+        btnCancelPhoto?.setOnClickListener {
             resetLayout()
         }
     }
 
     private fun initCameraX() {
         cameraFragment.startCamera()
-        captureButton?.setOnClickListener {
-            (captureButton?.drawable as? Animatable)?.start()
-            cameraFragment.takePhoto(cameraConfigObj.urlToSavePhoto)
+        fabCaptureButton?.setOnClickListener {
+            (fabCaptureButton?.drawable as? Animatable)?.start()
+            cameraFragment.takePhoto(cameraConfig.savePhotoPath)
         }
     }
 
-    override fun onCaptureSuccess(bitmap: Bitmap) {
-        showImageBitmap(bitmap)
+    override fun onImageCaptured(bitmap: Bitmap) {
+        showImage(bitmap)
     }
 
     override fun onImageSaved(bitmap: Bitmap) {
-        showImageBitmap(bitmap)
+        showImage(bitmap)
     }
 
-    private fun showImageBitmap(bitmap: Bitmap) {
-        val bitmapHeight = bitmap.height
-        val bitmapWidth = bitmap.width
-
-        if (bitmapWidth > bitmapHeight) {
-            val matrix = Matrix()
-            matrix.postRotate(90f)
-            val scaledBitmap = Bitmap.createScaledBitmap(
-                bitmap,
-                bitmapWidth,
-                bitmapHeight,
-                true
-            )
-            val rotatedBitmap = Bitmap.createBitmap(
-                scaledBitmap,
-                0,
-                0,
-                scaledBitmap.width,
-                scaledBitmap.height,
-                matrix,
-                true
-            )
+    private fun showImage(bitmap: Bitmap) {
+        if (bitmap.width > bitmap.height) {
+            val rotatedBitmap = rotateImage(bitmap)
             photoCaptured?.setImageBitmap(rotatedBitmap)
         } else {
             photoCaptured?.setImageBitmap(bitmap)
         }
 
-        cropPhoto?.run {
+        btnCropPhoto?.run {
             visibility = View.VISIBLE
             setOnClickListener {
                 photoCaptured?.cropImage()?.let { bitmapResult ->
@@ -116,11 +97,33 @@ class CameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListe
                 }
             }
         }
-        cancelPhoto?.visibility = View.VISIBLE
-        captureButton?.visibility = View.INVISIBLE
-        if (cameraConfigObj.descriptionText != null) {
+        btnCancelPhoto?.visibility = View.VISIBLE
+        fabCaptureButton?.visibility = View.INVISIBLE
+        if (cameraConfig.descriptionText != null) {
             capturePhotoDescription?.visibility = View.INVISIBLE
         }
+    }
+
+    private fun rotateImage(bitmap: Bitmap): Bitmap {
+        val bitmapWidth = bitmap.width
+        val bitmapHeight = bitmap.height
+        val matrix = Matrix()
+        matrix.postRotate(90f)
+        val scaledBitmap = Bitmap.createScaledBitmap(
+            bitmap,
+            bitmapWidth,
+            bitmapHeight,
+            true
+        )
+        return Bitmap.createBitmap(
+            scaledBitmap,
+            0,
+            0,
+            scaledBitmap.width,
+            scaledBitmap.height,
+            matrix,
+            true
+        )
     }
 
     override fun onError(
@@ -132,7 +135,7 @@ class CameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListe
     }
 
     override fun onBackPressed() {
-        if (captureButton?.visibility == View.INVISIBLE) {
+        if (fabCaptureButton?.visibility == View.INVISIBLE) {
             resetLayout()
         } else {
             super.onBackPressed()
@@ -141,15 +144,15 @@ class CameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListe
 
     private fun resetLayout() {
         photoCaptured?.setImageBitmap(null)
-        cancelPhoto?.visibility = View.INVISIBLE
-        cropPhoto?.visibility = View.INVISIBLE
-        cameraConfigObj.descriptionText?.let {
+        btnCancelPhoto?.visibility = View.INVISIBLE
+        btnCropPhoto?.visibility = View.INVISIBLE
+        cameraConfig.descriptionText?.let {
             capturePhotoDescription?.run {
                 visibility = View.VISIBLE
                 text = it
             }
         }
-        captureButton?.visibility = View.VISIBLE
+        fabCaptureButton?.visibility = View.VISIBLE
         photoCaptured?.run {
             parentDimens = true
             setCropActivated(false)

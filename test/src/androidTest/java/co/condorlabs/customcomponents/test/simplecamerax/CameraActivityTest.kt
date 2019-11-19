@@ -6,7 +6,6 @@ import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
-import androidx.appcompat.widget.AppCompatImageButton
 import androidx.test.InstrumentationRegistry.getTargetContext
 import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
@@ -15,6 +14,7 @@ import co.condorlabs.customcomponents.custombutton.CustomButton
 import co.condorlabs.customcomponents.models.CameraConfig
 import co.condorlabs.customcomponents.simplecamerax.CameraActivity
 import co.condorlabs.customcomponents.test.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
@@ -54,33 +54,26 @@ class CameraActivityTest {
             CameraConfig()
         ) {
             // Given
-            val tvTitle = ruleActivity.activity.findViewById<TextView>(R.id.cameraTitle)
-            val tvDescription =
-                ruleActivity.activity.findViewById<TextView>(R.id.capturePhotoDescription)
-            val cancelButton = ruleActivity.activity.findViewById<CustomButton>(R.id.cancelPhoto)
-            val cropButton = ruleActivity.activity.findViewById<CustomButton>(R.id.cropPhoto)
-            val captureButton =
-                ruleActivity.activity.findViewById<AppCompatImageButton>(R.id.captureButton)
+            val tvDescription = ruleActivity.activity.findViewById<TextView>(R.id.capturePhotoDescription)
+            val cancelButton = ruleActivity.activity.findViewById<CustomButton>(R.id.btnCancelPhoto)
+            val cropButton = ruleActivity.activity.findViewById<CustomButton>(R.id.btnCropPhoto)
+            val fabCaptureButton = ruleActivity.activity.findViewById<FloatingActionButton>(R.id.fabCaptureButton)
 
             // When
-            val titleText = tvTitle.text
-            val descriptionText = tvDescription.text
             val cancelButtonText = cancelButton.text
             val cropButtonText = cropButton.text
             val btnCancelVisibility = cancelButton.visibility
             val btnCropCancelVisibility = cropButton.visibility
-            val btnCaptureVisibility = captureButton.visibility
+            val btnCaptureVisibility = fabCaptureButton.visibility
             val descriptionVisibility = tvDescription.visibility
 
             // Then
-            Assert.assertEquals("Front", titleText)
-            Assert.assertEquals("Touch to take photo", descriptionText)
             Assert.assertEquals("Retake", cancelButtonText)
             Assert.assertEquals("Use photo", cropButtonText)
             Assert.assertEquals(View.INVISIBLE, btnCancelVisibility)
             Assert.assertEquals(View.INVISIBLE, btnCropCancelVisibility)
             Assert.assertEquals(View.VISIBLE, btnCaptureVisibility)
-            Assert.assertEquals(View.VISIBLE, descriptionVisibility)
+            Assert.assertEquals(View.GONE, descriptionVisibility)
         }
     }
 
@@ -96,16 +89,14 @@ class CameraActivityTest {
         ) {
             // Given
             val tvTitle = ruleActivity.activity.findViewById<TextView>(R.id.cameraTitle)
-            val tvDescription =
-                ruleActivity.activity.findViewById<TextView>(R.id.capturePhotoDescription)
-            val cancelButton = ruleActivity.activity.findViewById<CustomButton>(R.id.cancelPhoto)
-            val cropButton = ruleActivity.activity.findViewById<CustomButton>(R.id.cropPhoto)
-            val captureButton =
-                ruleActivity.activity.findViewById<AppCompatImageButton>(R.id.captureButton)
+            val tvDescription = ruleActivity.activity.findViewById<TextView>(R.id.capturePhotoDescription)
+            val cancelButton = ruleActivity.activity.findViewById<CustomButton>(R.id.btnCancelPhoto)
+            val cropButton = ruleActivity.activity.findViewById<CustomButton>(R.id.btnCropPhoto)
+            val fabCaptureButton = ruleActivity.activity.findViewById<FloatingActionButton>(R.id.fabCaptureButton)
 
             // When
             ruleActivity.runOnUiThread {
-                captureButton.performClick()
+                fabCaptureButton.performClick()
             }
             Thread.sleep(2000)
 
@@ -115,8 +106,8 @@ class CameraActivityTest {
             Assert.assertEquals("Front title", tvTitle.text)
             Assert.assertEquals(View.VISIBLE, cancelButton.visibility)
             Assert.assertEquals(View.VISIBLE, cropButton.visibility)
-            Assert.assertEquals(View.INVISIBLE, captureButton.visibility)
-            Assert.assertEquals(View.INVISIBLE, tvDescription.visibility)
+            Assert.assertEquals(View.INVISIBLE, fabCaptureButton.visibility)
+            Assert.assertEquals(View.GONE, tvDescription.visibility)
         }
     }
 
@@ -127,14 +118,11 @@ class CameraActivityTest {
             CameraConfig()
         ) {
             // Given
-            val tvTitle = ruleActivity.activity.findViewById<TextView>(R.id.cameraTitle)
-            val tvDescription =
-                ruleActivity.activity.findViewById<TextView>(R.id.capturePhotoDescription)
-            val cancelButton = ruleActivity.activity.findViewById<CustomButton>(R.id.cancelPhoto)
-            val cropButton = ruleActivity.activity.findViewById<CustomButton>(R.id.cropPhoto)
-            val captureButton =
-                ruleActivity.activity.findViewById<AppCompatImageButton>(R.id.captureButton)
-            ruleActivity.runOnUiThread { captureButton.performClick() }
+            val tvDescription = ruleActivity.activity.findViewById<TextView>(R.id.capturePhotoDescription)
+            val cancelButton = ruleActivity.activity.findViewById<CustomButton>(R.id.btnCancelPhoto)
+            val cropButton = ruleActivity.activity.findViewById<CustomButton>(R.id.btnCropPhoto)
+            val fabCaptureButton = ruleActivity.activity.findViewById<FloatingActionButton>(R.id.fabCaptureButton)
+            ruleActivity.runOnUiThread { fabCaptureButton.performClick() }
             Thread.sleep(2000)
 
             // When
@@ -143,12 +131,10 @@ class CameraActivityTest {
             }
 
             // Then
-            Assert.assertEquals("Front", tvTitle.text)
-            Assert.assertEquals("Touch to take photo", tvDescription.text)
-            Assert.assertEquals(View.VISIBLE, tvDescription.visibility)
+            Assert.assertEquals(View.GONE, tvDescription.visibility)
             Assert.assertEquals(View.INVISIBLE, cancelButton.visibility)
             Assert.assertEquals(View.INVISIBLE, cropButton.visibility)
-            Assert.assertEquals(View.VISIBLE, captureButton.visibility)
+            Assert.assertEquals(View.VISIBLE, fabCaptureButton.visibility)
         }
     }
 
@@ -159,10 +145,10 @@ class CameraActivityTest {
             CameraConfig()
         ) {
             // Given
-            val cropButton = ruleActivity.activity.findViewById<CustomButton>(R.id.cropPhoto)
-            val captureButton =
-                ruleActivity.activity.findViewById<AppCompatImageButton>(R.id.captureButton)
-            ruleActivity.runOnUiThread { captureButton.performClick() }
+            val cropButton = ruleActivity.activity.findViewById<CustomButton>(R.id.btnCropPhoto)
+            val fabCaptureButton =
+                ruleActivity.activity.findViewById<FloatingActionButton>(R.id.fabCaptureButton)
+            ruleActivity.runOnUiThread { fabCaptureButton.performClick() }
             Thread.sleep(2000)
 
             // When

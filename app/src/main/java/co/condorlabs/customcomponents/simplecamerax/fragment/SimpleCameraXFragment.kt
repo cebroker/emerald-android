@@ -104,7 +104,7 @@ class SimpleCameraXFragment : Fragment(), TextureView.SurfaceTextureListener {
                                 val bytes = ByteArray(buffer.capacity())
                                 buffer.get(bytes)
                                 BitmapFactory.decodeByteArray(bytes, 0, bytes.size, null)?.let {
-                                    onCameraXListener?.onCaptureSuccess(it)
+                                    onCameraXListener?.onImageCaptured(it)
                                 }
                                 image.close()
                                 imageCaptured.close()
@@ -178,7 +178,7 @@ class SimpleCameraXFragment : Fragment(), TextureView.SurfaceTextureListener {
 
         fun fragmentTextureViewLoaded()
 
-        fun onCaptureSuccess(bitmap: Bitmap)
+        fun onImageCaptured(bitmap: Bitmap)
 
         fun onImageSaved(bitmap: Bitmap)
 

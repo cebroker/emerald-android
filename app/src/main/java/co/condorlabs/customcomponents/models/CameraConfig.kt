@@ -14,5 +14,5 @@ data class CameraConfig(
     val descriptionText: String? = null,
     val cancelButtonText: String? = null,
     val cropButtonText: String? = null,
-    val urlToSavePhoto: String? = null
+    val savePhotoPath: String? = null
 ) : Parcelable

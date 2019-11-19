@@ -89,7 +89,7 @@
     <style name="camera_title_style">
         <item name="android:layout_width">@dimen/zero</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:background">@color/background_black_with_with_40_percent_transparency</item>
+        <item name="android:background">@color/black</item>
         <item name="android:elevation">1dp</item>
         <item name="android:visibility">invisible</item>
         <item name="android:paddingStart">4dp</item>
