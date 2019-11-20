@@ -51,6 +51,7 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
     var text: String? = EMPTY
         set(value) {
             field = value; textInputLayout?.editText?.setText(value)
+            showPlaceholder()
         }
         get() = textInputLayout?.editText?.text?.toString() ?: field
     var textInputLayout: TextInputLayout? = null
