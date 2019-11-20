@@ -21,6 +21,16 @@ import co.condorlabs.customcomponents.R;
 
 public class AppCompatCropImageView extends AppCompatImageView {
 
+    /* POINTS ...
+              0                       1
+                ◉ ================= ◉
+                ║       /     /     ║
+                ║      /     /      ║
+                ║     /     /       ║
+                ◉ ================= ◉
+              2                       3
+    */
+
     private Paint paint;
     private Point[] points;
     private Point start;
@@ -333,6 +343,11 @@ public class AppCompatCropImageView extends AppCompatImageView {
     }
 
     private Bitmap getBitmap() {
-        return ((BitmapDrawable) getDrawable()).getBitmap();
+        return Bitmap.createScaledBitmap(
+                ((BitmapDrawable) getDrawable()).getBitmap(),
+                getWidth(),
+                getHeight(),
+                true
+        );
     }
 }
