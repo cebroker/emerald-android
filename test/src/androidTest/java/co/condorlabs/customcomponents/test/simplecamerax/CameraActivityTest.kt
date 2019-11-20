@@ -96,7 +96,7 @@ class CameraActivityTest {
 
             // When
             ruleActivity.runOnUiThread { fabCaptureButton.performClick() }
-            Thread.sleep(2000)
+            Thread.sleep(3000)
 
             // Then
             Assert.assertEquals("Cancel", cancelButton.text)
@@ -121,7 +121,7 @@ class CameraActivityTest {
             val cropButton = ruleActivity.activity.findViewById<CustomButton>(R.id.btnCropPhoto)
             val fabCaptureButton = ruleActivity.activity.findViewById<FloatingActionButton>(R.id.fabCaptureButton)
             ruleActivity.runOnUiThread { fabCaptureButton.performClick() }
-            Thread.sleep(2000)
+            Thread.sleep(3000)
 
             // When
             ruleActivity.runOnUiThread { cancelButton.performClick() }
@@ -144,7 +144,7 @@ class CameraActivityTest {
             val cropButton = ruleActivity.activity.findViewById<CustomButton>(R.id.btnCropPhoto)
             val fabCaptureButton = ruleActivity.activity.findViewById<FloatingActionButton>(R.id.fabCaptureButton)
             ruleActivity.runOnUiThread { fabCaptureButton.performClick() }
-            Thread.sleep(2000)
+            Thread.sleep(3000)
 
             // When
             ruleActivity.runOnUiThread { cropButton.performClick() }
