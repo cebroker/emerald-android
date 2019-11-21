@@ -15,7 +15,6 @@ import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
 import co.condorlabs.customcomponents.CAMERA_TAKE_PHOTO_PARAM
 import co.condorlabs.customcomponents.custombutton.CustomButton
-import co.condorlabs.customcomponents.imagecropview.AppCompatCropImageView
 import co.condorlabs.customcomponents.models.CameraConfig
 import co.condorlabs.customcomponents.simplecamerax.CameraActivity
 import co.condorlabs.customcomponents.test.R
@@ -88,7 +87,7 @@ class CameraActivityTest {
 
     @Test
     @LargeTest
-    fun shouldTakeAPhotoAndReturnBitmap() {
+    fun shouldReturnBitmapOnActivityResult() {
         launchActivity(
             CameraConfig(
                 titleText = "Front title",
@@ -97,24 +96,18 @@ class CameraActivityTest {
             )
         ) {
             // Given
-            val fabCaptureButton =
-                ruleActivity.activity.findViewById<FloatingActionButton>(R.id.fabCaptureButton)
+            val fabCaptureButton = ruleActivity.activity.findViewById<FloatingActionButton>(R.id.fabCaptureButton)
             val cropButton = ruleActivity.activity.findViewById<CustomButton>(R.id.btnCropPhoto)
             ruleActivity.runOnUiThread { fabCaptureButton.performClick() }
             Thread.sleep(3000)
-            val photoCaptured =
-                ruleActivity.activity.findViewById<AppCompatCropImageView>(R.id.photoCaptured)
-            val bitmapResult = photoCaptured.cropImage()
 
             // When
             ruleActivity.runOnUiThread { cropButton.performClick() }
 
             // Then
-            val byteArray =
-                ruleActivity.activityResult.resultData.getByteArrayExtra(CAMERA_TAKE_PHOTO_PARAM)
+            val byteArray = ruleActivity.activityResult.resultData.getByteArrayExtra(CAMERA_TAKE_PHOTO_PARAM)
             val bitmap: Bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
-            Assert.assertEquals(bitmapResult.width, bitmap.width)
-            Assert.assertEquals(bitmapResult.height, bitmap.height)
+            Assert.assertNotNull(bitmap)
         }
     }
 
