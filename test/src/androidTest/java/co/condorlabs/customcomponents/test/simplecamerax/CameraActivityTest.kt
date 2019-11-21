@@ -7,9 +7,11 @@ import android.os.Bundle
 import android.view.View
 import android.widget.TextView
 import androidx.test.InstrumentationRegistry.getTargetContext
+import androidx.test.espresso.Espresso
 import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.rule.ActivityTestRule
+import androidx.test.runner.AndroidJUnit4
 import co.condorlabs.customcomponents.custombutton.CustomButton
 import co.condorlabs.customcomponents.models.CameraConfig
 import co.condorlabs.customcomponents.simplecamerax.CameraActivity
@@ -19,12 +21,14 @@ import org.junit.Assert
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
+import org.junit.runner.RunWith
 
 /**
  * @author Alexis Duque on 2019-11-14.
  * @company Condor Labs.
  * @email eduque@condorlabs.io.
  */
+@RunWith(AndroidJUnit4::class)
 class CameraActivityTest {
 
     @Rule
