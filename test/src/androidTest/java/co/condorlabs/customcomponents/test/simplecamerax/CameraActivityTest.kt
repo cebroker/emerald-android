@@ -93,7 +93,6 @@ class CameraActivityTest {
         ) {
             // Given
             val tvTitle = ruleActivity.activity.findViewById<TextView>(R.id.cameraTitle)
-            val tvDescription = ruleActivity.activity.findViewById<TextView>(R.id.capturePhotoDescription)
             val cancelButton = ruleActivity.activity.findViewById<CustomButton>(R.id.btnCancelPhoto)
             val cropButton = ruleActivity.activity.findViewById<CustomButton>(R.id.btnCropPhoto)
             val fabCaptureButton = ruleActivity.activity.findViewById<FloatingActionButton>(R.id.fabCaptureButton)
@@ -106,10 +105,6 @@ class CameraActivityTest {
             Assert.assertEquals("Cancel", cancelButton.text)
             Assert.assertEquals("Crop", cropButton.text)
             Assert.assertEquals("Front title", tvTitle.text)
-            Assert.assertEquals(View.VISIBLE, cancelButton.visibility)
-            Assert.assertEquals(View.VISIBLE, cropButton.visibility)
-            Assert.assertEquals(View.INVISIBLE, fabCaptureButton.visibility)
-            Assert.assertEquals(View.GONE, tvDescription.visibility)
         }
     }
 
