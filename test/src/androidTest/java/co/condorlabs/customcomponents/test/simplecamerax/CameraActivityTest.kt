@@ -103,7 +103,7 @@ class CameraActivityTest {
 
             // When
             ruleActivity.runOnUiThread { cropButton.performClick() }
-            ruleActivity.activity.finish()
+            ruleActivity.finishActivity()
 
             // Then
             val byteArray = ruleActivity.activityResult.resultData.getByteArrayExtra(CAMERA_TAKE_PHOTO_PARAM)
