@@ -120,9 +120,11 @@ class SimpleCameraXFragment : Fragment(), TextureView.SurfaceTextureListener {
                         }
                     })
             } else {
-                val file = File(filePath, "img_${System.currentTimeMillis()}.jpg")
+                val fileTemp = File(filePath)
+                if (!fileTemp.exists()){ fileTemp.mkdirs() }
+                val fileFinal = File(fileTemp, "img_${System.currentTimeMillis()}.jpg")
                 imageCapture?.takePicture(
-                    file,
+                    fileFinal,
                     executor,
                     object : ImageCapture.OnImageSavedListener {
                         override fun onImageSaved(file: File) {
