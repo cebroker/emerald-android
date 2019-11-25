@@ -57,6 +57,6 @@
     <color name="emerald_disable_file_selector">#C9C9C9</color>
     <color name="emerald_enable_file_selector_icon">#5542A5F5</color>
 
-    <!-- WALLET CAMERA -->
+    <!-- CAMERA -->
     <color name="image_crop_view_outside_background_color">#66ffffff</color>
 </resources>
