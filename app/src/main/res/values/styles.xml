@@ -25,6 +25,15 @@
         <item name="editTextStyle">@style/TextFormFieldTheme</item>
     </style>
 
+    <style name="AppNoActionBarTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowTranslucentNavigation">true</item>
+    </style>
+
     <style name="DatePickerTheme" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">@color/primaryColor</item>
     </style>
@@ -48,5 +57,51 @@
     <style name="FullScreenDialogStyle" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowFullscreen">true</item>
         <item name="android:windowIsFloating">false</item>
+    </style>
+
+    <!-- CAMERA -->
+    <style name="camera_operation_button_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:minWidth">@dimen/camera_buttons_min_width</item>
+        <item name="android:textSize">@dimen/camera_buttons_text_size</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:background">@null</item>
+        <item name="android:visibility">invisible</item>
+    </style>
+    <style name="camera_take_photo_button_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:backgroundTint">@android:color/darker_gray</item>
+        <item name="android:src">@drawable/ic_take_photo_animated</item>
+        <item name="android:layout_marginBottom">4dp</item>
+    </style>
+    <style name="camera_take_photo_description_style">
+        <item name="android:layout_width">@dimen/zero</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_marginBottom">12dp</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:visibility">gone</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/camera_default_text_size</item>
+    </style>
+    <style name="camera_title_style">
+        <item name="android:layout_width">@dimen/zero</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:background">@color/black</item>
+        <item name="android:elevation">1dp</item>
+        <item name="android:visibility">invisible</item>
+        <item name="android:paddingStart">4dp</item>
+        <item name="android:paddingTop">16dp</item>
+        <item name="android:paddingEnd">4dp</item>
+        <item name="android:paddingBottom">16dp</item>
+        <item name="android:text">@string/front_text</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/camera_default_text_size</item>
+    </style>
+    <style name="camera_guide_line_style">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
     </style>
 </resources>

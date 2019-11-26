@@ -114,6 +114,7 @@ const val BUTTON_DANGER_TYPE = "danger"
 const val BUTTON_WARNING_TYPE = "warning"
 const val BUTTON_INFO_TYPE = "info"
 const val BUTTON_SHAPE_WHITE_TYPE = "shapeWhite"
+const val BUTTON_SHAPE_TYPE = "shape"
 const val BUTTON_SUCCESS_TYPE = "success"
 const val BUTTON_OVERLAY_TYPE = "overlay"
 const val BUTTON_FLAT_PRIMARY_TYPE = "flatPrimary"
@@ -257,3 +258,6 @@ const val FILE_SELECTOR_OPTION_FILE = "File"
 
 /** FILE SELECTOR VALUES **/
 const val FILE_AFTER_DOT_INDEX = 1
+
+/** CAMERA **/
+const val CAMERA_TAKE_PHOTO_PARAM = "imageCaptured"

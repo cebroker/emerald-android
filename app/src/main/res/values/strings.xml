@@ -57,4 +57,9 @@
 
     <string name="hide">Hide</string>
     <string name="show">Show</string>
+
+    <!-- CAMERA -->
+    <string name="crop_photo">Use photo</string>
+    <string name="retake_photo">Retake</string>
+    <string name="front_text">Front</string>
 </resources>
