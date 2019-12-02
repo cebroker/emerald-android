@@ -23,6 +23,7 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.SmallTest
+import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.runner.AndroidJUnit4
 import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
@@ -31,6 +32,9 @@ import org.hamcrest.CoreMatchers
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
+import androidx.test.uiautomator.UiDevice
+
+
 
 /**
  * @author Oscar Gallon on 2/26/19.
@@ -567,53 +571,35 @@ class BaseEditTextFieldTest : MockActivityTest() {
 
     @SmallTest
     @Test
-    fun shouldGetDigitsFromXml() {
+    fun shouldTextSurviveDeviceRotation() {
+        val device = UiDevice.getInstance(getInstrumentation())
         MockActivity.layout = R.layout.activity_baseedittext_with_digits
         restartActivity()
 
         // Given
-        val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
-
-        // When
-        val result = formField.getDigits()
-
-        // Then
-        Assert.assertEquals("12345ABCDE?", result)
-    }
-
-    @SmallTest
-    @Test
-    fun settingInputTypeShouldNotAffectDigits() {
-        MockActivity.layout = R.layout.activity_baseedittext_with_digits
-        restartActivity()
-
-        // Given
-        val formField =
+        val formField1 =
+            ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
+        Espresso.onView(withId(formField1.textInputLayout!!.editText!!.id))
+            .perform(typeText("111111"))
+        val formField2 =
             ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBaseWithInputType)
+        Espresso.onView(withId(formField2.textInputLayout!!.editText!!.id))
+            .perform(typeText("222222"))
 
         // When
-        val digits = formField.getDigits()
-
+        device.setOrientationLeft()
         // Then
-        Assert.assertEquals("123BAR?", digits)
-    }
-
-    @SmallTest
-    @Test
-    fun shouldAcceptOnlyTheSpecifiedCharacters() {
-        MockActivity.layout = R.layout.activity_baseedittext_with_digits
-        restartActivity()
-
-        // Given
-        val formField =
-            ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBaseWithInputType)
+        var result1 = formField1.getValue()
+        var result2 = formField2.getValue()
+        Assert.assertEquals("111111", result1)
+        Assert.assertEquals("222222", result2)
 
         // When
-        Espresso.onView(withId(formField.textInputLayout!!.editText!!.id))
-            .perform(typeText("0123456789?ABCMNOXYZ."))
-        val result = formField.getValue()
-
+        device.setOrientationNatural()
         // Then
-        Assert.assertEquals("123?AB", result)
+        result1 = formField1.getValue()
+        result2 = formField2.getValue()
+        Assert.assertEquals("111111", result1)
+        Assert.assertEquals("222222", result2)
     }
 }
