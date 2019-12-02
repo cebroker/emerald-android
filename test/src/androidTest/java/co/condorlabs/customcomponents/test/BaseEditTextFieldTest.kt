@@ -571,6 +571,58 @@ class BaseEditTextFieldTest : MockActivityTest() {
 
     @SmallTest
     @Test
+    fun shouldGetDigitsFromXml() {
+        MockActivity.layout = R.layout.activity_baseedittext_with_digits
+        restartActivity()
+
+        // Given
+        val formField = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
+
+        // When
+        val result = formField.getDigits()
+
+        // Then
+        Assert.assertEquals("12345ABCDE?", result)
+    }
+
+    @SmallTest
+    @Test
+    fun settingInputTypeShouldNotAffectDigits() {
+        MockActivity.layout = R.layout.activity_baseedittext_with_digits
+        restartActivity()
+
+        // Given
+        val formField =
+            ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBaseWithInputType)
+
+        // When
+        val digits = formField.getDigits()
+
+        // Then
+        Assert.assertEquals("123BAR?", digits)
+    }
+
+    @SmallTest
+    @Test
+    fun shouldAcceptOnlyTheSpecifiedCharacters() {
+        MockActivity.layout = R.layout.activity_baseedittext_with_digits
+        restartActivity()
+
+        // Given
+        val formField =
+            ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBaseWithInputType)
+
+        // When
+        Espresso.onView(withId(formField.textInputLayout!!.editText!!.id))
+            .perform(typeText("0123456789?ABCMNOXYZ."))
+        val result = formField.getValue()
+
+        // Then
+        Assert.assertEquals("123?AB", result)
+    }
+
+    @SmallTest
+    @Test
     fun shouldTextSurviveDeviceRotation() {
         val device = UiDevice.getInstance(getInstrumentation())
         MockActivity.layout = R.layout.activity_baseedittext_with_digits
