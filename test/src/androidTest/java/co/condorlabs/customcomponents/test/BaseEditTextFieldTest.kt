@@ -23,6 +23,7 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.SmallTest
+import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.runner.AndroidJUnit4
 import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
@@ -31,6 +32,9 @@ import org.hamcrest.CoreMatchers
 import org.junit.Assert
 import org.junit.Test
 import org.junit.runner.RunWith
+import androidx.test.uiautomator.UiDevice
+
+
 
 /**
  * @author Oscar Gallon on 2/26/19.
@@ -615,5 +619,39 @@ class BaseEditTextFieldTest : MockActivityTest() {
 
         // Then
         Assert.assertEquals("123?AB", result)
+    }
+
+    @SmallTest
+    @Test
+    fun shouldTextSurviveDeviceRotation() {
+        val device = UiDevice.getInstance(getInstrumentation())
+        MockActivity.layout = R.layout.activity_baseedittext_with_digits
+        restartActivity()
+
+        // Given
+        val formField1 =
+            ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBase)
+        Espresso.onView(withId(formField1.textInputLayout!!.editText!!.id))
+            .perform(typeText("111111"))
+        val formField2 =
+            ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlBaseWithInputType)
+        Espresso.onView(withId(formField2.textInputLayout!!.editText!!.id))
+            .perform(typeText("222222"))
+
+        // When
+        device.setOrientationLeft()
+        // Then
+        var result1 = formField1.getValue()
+        var result2 = formField2.getValue()
+        Assert.assertEquals("111111", result1)
+        Assert.assertEquals("222222", result2)
+
+        // When
+        device.setOrientationNatural()
+        // Then
+        result1 = formField1.getValue()
+        result2 = formField2.getValue()
+        Assert.assertEquals("111111", result1)
+        Assert.assertEquals("222222", result2)
     }
 }

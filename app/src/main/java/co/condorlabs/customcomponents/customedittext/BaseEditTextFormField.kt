@@ -35,6 +35,9 @@ import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import com.google.android.material.textfield.TextInputLayout
 import java.util.regex.Pattern
+import android.os.Parcel
+import android.os.Parcelable
+
 
 /**
  * @author Oscar Gallon on 2/26/19.
@@ -121,6 +124,7 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
     }
 
     override fun setup() {
+        isSaveEnabled = true
         textInputLayout = LayoutInflater.from(context)
             .inflate(R.layout.base_edit_text_form_field, null) as? TextInputLayout
         editText = textInputLayout?.editText
@@ -311,4 +315,27 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
     fun getRegex() = regexListToMatch
 
     fun getDigits() = digits ?: EMPTY
+
+    public override fun onSaveInstanceState(): Parcelable? {
+        val superState = super.onSaveInstanceState()
+        val myState = SavedState(superState)
+        myState.text = this.text
+        return myState
+    }
+
+    public override fun onRestoreInstanceState(state: Parcelable) {
+        val savedState = state as SavedState
+        super.onRestoreInstanceState(savedState.superState)
+        this.text = savedState.text
+    }
+
+    private class SavedState internal constructor(superState: Parcelable?) :
+        BaseSavedState(superState) {
+        internal var text: String? = null
+
+        override fun writeToParcel(out: Parcel, flags: Int) {
+            super.writeToParcel(out, flags)
+            out.writeString(text)
+        }
+    }
 }
