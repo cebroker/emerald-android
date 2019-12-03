@@ -84,16 +84,15 @@ class EditTextEmailFieldTest : MockActivityTest() {
         // Given
         val text = "kdfkd"
         val txtInputLayout = (ruleActivity.activity.findViewById<View>(R.id.tlEmail) as? EditTextEmailField)
-        txtInputLayout?.setIsRequired(true)
+        val editText = txtInputLayout!!.textInputLayout!!.editText!!
 
         // When
-        txtInputLayout?.setRegex(android.util.Patterns.EMAIL_ADDRESS.toString())
-        Espresso.onView(ViewMatchers.withId(R.id.etEmail)).perform(typeText(text))
+        Espresso.onView(ViewMatchers.withId(editText.id)).perform(typeText(text))
 
         // Then
         Assert.assertEquals(
             ValidationResult(false, VALIDATE_EMAIL_ERROR),
-            txtInputLayout?.isValid()
+            txtInputLayout.isValid()
         )
     }
 
@@ -104,16 +103,15 @@ class EditTextEmailFieldTest : MockActivityTest() {
         // Given
         val text = "kdfkd@"
         val txtInputLayout = (ruleActivity.activity.findViewById<View>(R.id.tlEmail) as? EditTextEmailField)
-        txtInputLayout?.setIsRequired(true)
+        val editText = txtInputLayout!!.textInputLayout!!.editText!!
 
         // When
-        txtInputLayout?.setRegex(android.util.Patterns.EMAIL_ADDRESS.toString())
-        Espresso.onView(ViewMatchers.withId(R.id.etEmail)).perform(typeText(text))
+        Espresso.onView(ViewMatchers.withId(editText.id)).perform(typeText(text))
 
         // Then
         Assert.assertEquals(
             ValidationResult(false, VALIDATE_EMAIL_ERROR),
-            txtInputLayout?.isValid()
+            txtInputLayout.isValid()
         )
     }
 
@@ -124,16 +122,15 @@ class EditTextEmailFieldTest : MockActivityTest() {
         // Given
         val text = "kdfkd@smdms"
         val txtInputLayout = (ruleActivity.activity.findViewById<View>(R.id.tlEmail) as? EditTextEmailField)
-        txtInputLayout?.setIsRequired(true)
+        val editText = txtInputLayout!!.textInputLayout!!.editText!!
 
         // When
-        txtInputLayout?.setRegex(android.util.Patterns.EMAIL_ADDRESS.toString())
-        Espresso.onView(ViewMatchers.withId(R.id.etEmail)).perform(typeText(text))
+        Espresso.onView(ViewMatchers.withId(editText.id)).perform(typeText(text))
 
         // Then
         Assert.assertEquals(
             ValidationResult(false, VALIDATE_EMAIL_ERROR),
-            txtInputLayout?.isValid()
+            txtInputLayout.isValid()
         )
     }
 
@@ -144,36 +141,34 @@ class EditTextEmailFieldTest : MockActivityTest() {
         // Given
         val text = "kdfkd@smdms."
         val txtInputLayout = (ruleActivity.activity.findViewById<View>(R.id.tlEmail) as? EditTextEmailField)
-        txtInputLayout?.setIsRequired(true)
+        val editText = txtInputLayout!!.textInputLayout!!.editText!!
 
         // When
-        txtInputLayout?.setRegex(android.util.Patterns.EMAIL_ADDRESS.toString())
-        Espresso.onView(ViewMatchers.withId(R.id.etEmail)).perform(typeText(text))
+        Espresso.onView(ViewMatchers.withId(editText.id)).perform(typeText(text))
 
         // Then
         Assert.assertEquals(
             ValidationResult(false, VALIDATE_EMAIL_ERROR),
-            txtInputLayout?.isValid()
+            txtInputLayout.isValid()
         )
     }
 
     @SmallTest
     @Test
-    fun shouldMatch() {
+    fun shouldMatchWhenTextIsAnEmail() {
         restartActivity()
         // Given
         val text = "o@gmail.co"
         val txtInputLayout = (ruleActivity.activity.findViewById<View>(R.id.tlEmail) as? EditTextEmailField)
-        txtInputLayout?.setIsRequired(true)
+        val editText = txtInputLayout!!.textInputLayout!!.editText!!
 
         // When
-        txtInputLayout?.setRegex(android.util.Patterns.EMAIL_ADDRESS.toString())
-        Espresso.onView(ViewMatchers.withId(R.id.etEmail)).perform(typeText(text))
+        Espresso.onView(ViewMatchers.withId(editText.id)).perform(typeText(text))
 
         // Then
         Assert.assertEquals(
             ValidationResult(true, EMPTY),
-            txtInputLayout?.isValid()
+            txtInputLayout.isValid()
         )
     }
 }

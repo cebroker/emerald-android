@@ -19,7 +19,7 @@ package co.condorlabs.customcomponents.customedittext
 import android.content.Context
 import android.text.InputType
 import android.util.AttributeSet
-import co.condorlabs.customcomponents.R
+import android.view.View
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.VALIDATE_EMAIL_ERROR
 
@@ -27,7 +27,7 @@ class EditTextEmailField(context: Context, attrs: AttributeSet) : BaseEditTextFo
 
     override fun setup() {
         super.setup()
-        editText?.id = R.id.etEmail
+        editText?.id = View.generateViewId()
         setInputType()
         setRegex(android.util.Patterns.EMAIL_ADDRESS.toString())
     }
