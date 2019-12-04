@@ -1,7 +1,6 @@
 package co.condorlabs.customcomponents.simplecamerax
 
 import android.app.Activity
-import android.content.Intent
 import android.graphics.Bitmap
 import android.graphics.Matrix
 import android.graphics.drawable.Animatable
@@ -10,12 +9,10 @@ import android.view.View
 import android.view.WindowManager
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.ImageCapture
-import co.condorlabs.customcomponents.CAMERA_TAKE_PHOTO_PARAM
 import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.models.CameraConfig
 import co.condorlabs.customcomponents.simplecamerax.fragment.SimpleCameraXFragment
 import kotlinx.android.synthetic.main.activity_camera.*
-import java.io.ByteArrayOutputStream
 
 class CameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListener {
 
@@ -53,9 +50,7 @@ class CameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListe
 
     override fun fragmentTextureViewLoaded() {
         initCameraX()
-        btnCancelPhoto?.setOnClickListener {
-            resetLayout()
-        }
+        btnCancelPhoto?.setOnClickListener { resetLayout() }
     }
 
     private fun initCameraX() {
@@ -86,13 +81,8 @@ class CameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListe
             visibility = View.VISIBLE
             setOnClickListener {
                 photoCaptured?.cropImage()?.let { bitmapResult ->
-                    val bStream = ByteArrayOutputStream()
-                    bitmapResult.compress(Bitmap.CompressFormat.JPEG, 100, bStream)
-                    val byteArray = bStream.toByteArray()
-
-                    val intent = Intent()
-                    intent.putExtra(CAMERA_TAKE_PHOTO_PARAM, byteArray)
-                    setResult(Activity.RESULT_OK, intent)
+                    CameraBitmapCache.setBitmap(bitmapResult)
+                    setResult(Activity.RESULT_OK)
                     finish()
                 }
             }
@@ -130,9 +120,7 @@ class CameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListe
         imageCaptureError: ImageCapture.ImageCaptureError,
         message: String,
         cause: Throwable?
-    ) {
-
-    }
+    ) {}
 
     override fun onBackPressed() {
         if (fabCaptureButton?.visibility == View.INVISIBLE) {
