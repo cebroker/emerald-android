@@ -258,6 +258,3 @@ const val FILE_SELECTOR_OPTION_FILE = "File"
 
 /** FILE SELECTOR VALUES **/
 const val FILE_AFTER_DOT_INDEX = 1
-
-/** CAMERA **/
-const val CAMERA_TAKE_PHOTO_PARAM = "imageCaptured"

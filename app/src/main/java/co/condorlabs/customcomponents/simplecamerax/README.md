@@ -48,9 +48,8 @@ override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) 
     super.onActivityResult(requestCode, resultCode, data)
     if (resultCode == Activity.RESULT_OK) {
         if (requestCode == CAMERA_REQUEST_CODE) {
-            data?.getByteArrayExtra(CAMERA_TAKE_PHOTO_PARAM)?.let {
-                val bitmap = BitmapFactory.decodeByteArray(it, 0, it.size)
-                myImageView.setImageBitmap(bitmap)
+            CameraBitmapCache.getBitmap()?.let { bitmapResult ->
+                // do something with the captured image...
             }
         }
     }
