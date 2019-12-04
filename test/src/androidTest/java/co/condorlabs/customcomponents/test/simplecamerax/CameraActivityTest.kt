@@ -99,7 +99,7 @@ class CameraActivityTest {
 
             // When
             ruleActivity.runOnUiThread { cropButton.performClick() }
-            ruleActivity.activity.finish()
+            Thread.sleep(2000)
 
             // Then
             val bitmap: Bitmap? = CameraBitmapCache.getBitmap()
