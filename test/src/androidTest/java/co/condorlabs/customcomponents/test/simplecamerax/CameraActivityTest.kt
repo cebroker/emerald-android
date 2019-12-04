@@ -3,7 +3,7 @@ package co.condorlabs.customcomponents.test.simplecamerax
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
-git statusimport android.os.Build
+import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
