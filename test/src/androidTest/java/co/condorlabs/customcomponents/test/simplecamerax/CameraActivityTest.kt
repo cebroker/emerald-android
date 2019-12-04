@@ -17,6 +17,7 @@ import co.condorlabs.customcomponents.CAMERA_TAKE_PHOTO_PARAM
 import co.condorlabs.customcomponents.custombutton.CustomButton
 import co.condorlabs.customcomponents.models.CameraConfig
 import co.condorlabs.customcomponents.simplecamerax.CameraActivity
+import co.condorlabs.customcomponents.simplecamerax.CameraBitmapCache
 import co.condorlabs.customcomponents.test.R
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.junit.*
@@ -84,8 +85,6 @@ class CameraActivityTest {
 
     @Test
     @LargeTest
-    @Ignore("For some reason, all test are passing in local but not are passing in Travis. " +
-            "I've run the all test in physical devices and emulators and all test are passing.")
     fun shouldReturnBitmapOnActivityResult() {
         launchActivity(
             CameraConfig(
@@ -98,15 +97,14 @@ class CameraActivityTest {
             val fabCaptureButton = ruleActivity.activity.findViewById<FloatingActionButton>(R.id.fabCaptureButton)
             val cropButton = ruleActivity.activity.findViewById<CustomButton>(R.id.btnCropPhoto)
             ruleActivity.runOnUiThread { fabCaptureButton.performClick() }
-            Thread.sleep(3000)
+            Thread.sleep(2000)
 
             // When
             ruleActivity.runOnUiThread { cropButton.performClick() }
             ruleActivity.activity.finish()
 
             // Then
-            val byteArray = ruleActivity.activityResult.resultData.getByteArrayExtra(CAMERA_TAKE_PHOTO_PARAM)
-            val bitmap: Bitmap = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+            val bitmap: Bitmap? = CameraBitmapCache.getBitmap()
             Assert.assertNotNull(bitmap)
         }
     }
@@ -118,14 +116,12 @@ class CameraActivityTest {
             CameraConfig()
         ) {
             // Given
-            val tvDescription =
-                ruleActivity.activity.findViewById<TextView>(R.id.capturePhotoDescription)
+            val tvDescription = ruleActivity.activity.findViewById<TextView>(R.id.capturePhotoDescription)
             val cancelButton = ruleActivity.activity.findViewById<CustomButton>(R.id.btnCancelPhoto)
             val cropButton = ruleActivity.activity.findViewById<CustomButton>(R.id.btnCropPhoto)
-            val fabCaptureButton =
-                ruleActivity.activity.findViewById<FloatingActionButton>(R.id.fabCaptureButton)
+            val fabCaptureButton = ruleActivity.activity.findViewById<FloatingActionButton>(R.id.fabCaptureButton)
             ruleActivity.runOnUiThread { fabCaptureButton.performClick() }
-            Thread.sleep(3000)
+            Thread.sleep(2000)
 
             // When
             ruleActivity.runOnUiThread { cancelButton.performClick() }
@@ -146,10 +142,9 @@ class CameraActivityTest {
         ) {
             // Given
             val cropButton = ruleActivity.activity.findViewById<CustomButton>(R.id.btnCropPhoto)
-            val fabCaptureButton =
-                ruleActivity.activity.findViewById<FloatingActionButton>(R.id.fabCaptureButton)
+            val fabCaptureButton = ruleActivity.activity.findViewById<FloatingActionButton>(R.id.fabCaptureButton)
             ruleActivity.runOnUiThread { fabCaptureButton.performClick() }
-            Thread.sleep(3000)
+            Thread.sleep(2000)
 
             // When
             ruleActivity.runOnUiThread { cropButton.performClick() }
