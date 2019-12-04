@@ -3,8 +3,7 @@ package co.condorlabs.customcomponents.test.simplecamerax
 import android.app.Activity
 import android.content.Intent
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
-import android.os.Build
+git statusimport android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.TextView
@@ -13,7 +12,6 @@ import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
-import co.condorlabs.customcomponents.CAMERA_TAKE_PHOTO_PARAM
 import co.condorlabs.customcomponents.custombutton.CustomButton
 import co.condorlabs.customcomponents.models.CameraConfig
 import co.condorlabs.customcomponents.simplecamerax.CameraActivity
