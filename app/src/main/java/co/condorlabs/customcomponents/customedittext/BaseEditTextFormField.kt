@@ -18,6 +18,8 @@ package co.condorlabs.customcomponents.customedittext
 
 import android.content.Context
 import android.graphics.Typeface
+import android.os.Parcel
+import android.os.Parcelable
 import android.text.InputFilter
 import android.text.InputType
 import android.text.method.DigitsKeyListener
@@ -35,8 +37,6 @@ import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import com.google.android.material.textfield.TextInputLayout
 import java.util.regex.Pattern
-import android.os.Parcel
-import android.os.Parcelable
 
 
 /**
@@ -53,8 +53,14 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
         }
     var text: String? = EMPTY
         set(value) {
-            field = value; textInputLayout?.editText?.setText(value)
-            showPlaceholder()
+            field = value
+            if (!value.isNullOrEmpty()) {
+                textInputLayout?.editText?.setText(value)
+                showPlaceholder()
+            } else {
+                textInputLayout?.editText?.text = null
+                resetPlaceholder()
+            }
         }
         get() = textInputLayout?.editText?.text?.toString() ?: field
     var textInputLayout: TextInputLayout? = null
@@ -285,6 +291,11 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
         }, MILLISECONDS_TO_SHOW_PLACE_HOLDER)
         textInputLayout?.hint = this@BaseEditTextFormField.hint
         textInputLayout?.editText?.hint = null
+    }
+
+    private fun resetPlaceholder(){
+        textInputLayout?.editText?.hint = this@BaseEditTextFormField.hint
+        textInputLayout?.hint = null
     }
 
     private fun hidePlaceholder() {
