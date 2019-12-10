@@ -70,8 +70,10 @@
         app:edgeColor="@color/overlayRippleColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"
         app:linkedView="@+id/vRectangle"
         app:outsideCropColor="@color/image_crop_view_outside_background_color"
         app:resizeCornerDrawable="@drawable/ic_ball" />
@@ -80,7 +82,7 @@
         android:layout_width="@dimen/zero"
         android:layout_height="wrap_content"
         android:fitsSystemWindows="true"
-        android:background="@color/black"
+        android:background="@android:color/black"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
