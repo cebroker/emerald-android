@@ -52,4 +52,4 @@
 
 
 ## Example
-<img src="/Images/custom_textview.jpg" width="400" height="400">
+<img src="/Images/custom_textview.jpg" width="400" >
