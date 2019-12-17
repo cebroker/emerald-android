@@ -58,5 +58,5 @@
     <color name="emerald_enable_file_selector_icon">#5542A5F5</color>
 
     <!-- CAMERA -->
-    <color name="image_crop_view_outside_background_color">#66ffffff</color>
+    <color name="image_crop_view_outside_background_color">#66000000</color>
 </resources>

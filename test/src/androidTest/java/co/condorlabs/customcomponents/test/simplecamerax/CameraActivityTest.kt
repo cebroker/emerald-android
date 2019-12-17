@@ -6,6 +6,7 @@ import android.graphics.Bitmap
 import android.os.Build
 import android.os.Bundle
 import android.view.View
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.test.InstrumentationRegistry.getTargetContext
 import androidx.test.filters.LargeTest
@@ -17,6 +18,7 @@ import co.condorlabs.customcomponents.models.CameraConfig
 import co.condorlabs.customcomponents.simplecamerax.CameraActivity
 import co.condorlabs.customcomponents.simplecamerax.CameraBitmapCache
 import co.condorlabs.customcomponents.test.R
+import co.condorlabs.customcomponents.test.util.isTextDisplayed
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.junit.*
 import org.junit.runner.RunWith
@@ -148,6 +150,24 @@ class CameraActivityTest {
 
             // When
             ruleActivity.runOnUiThread { cropButton.performClick() }
+        }
+    }
+
+    @Test
+    @LargeTest
+    fun shouldCancelTakeAPhotoAndFinishActivity() {
+        launchActivity(
+            CameraConfig()
+        ) {
+            // Given
+            val cancelPhoto = ruleActivity.activity.findViewById<ImageButton>(R.id.ibCancelPhoto)
+
+            // When
+            ruleActivity.runOnUiThread { cancelPhoto.performClick() }
+            Thread.sleep(2000)
+
+            // Then
+            Assert.assertTrue(ruleActivity.activity.isDestroyed)
         }
     }
 }
