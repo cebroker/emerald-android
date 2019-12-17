@@ -14,7 +14,7 @@
 
 | Name | Description |
 | - | - |
-| type_text | Should be **title**, **subtitle**, **body**, **sectionTitle**, **link** |
+| type_text | Should be **title**, **subtitle**, **body**, **sectionTitle**, **link**, **h2_title**, **h1_title**, **h3_title** |
 
 | FontType | FontSize |
 | - | - |
@@ -47,7 +47,9 @@
 |  LINK_TYPE | 4 |
 |  H2_TITLE_TYPE | 5 |
 |  SECTION_BODY_TYPE | 6 |
+|  H1_TITLE_TYPE | 7 |
+|  H3_TITLE_TYPE | 8 |
 
 
 ## Example
-<img src="/Images/custom_textview.jpg" width="400" heigth="400">
+<img src="/Images/custom_textview.jpg" width="400" >

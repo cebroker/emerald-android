@@ -213,6 +213,46 @@ class CustomTextViewTest : MockActivityTest() {
 
     @SmallTest
     @Test
+    fun shouldShowTextTypeTitleH1() {
+        // Given
+        MockActivity.layout = R.layout.activity_custom_text_view_h1_title
+
+        // When
+        restartActivity()
+
+        // Then
+        onView(withId(R.id.tvTitle)).check(matches(hasTextColor(R.color.textColor)))
+        onView(withId(R.id.tvTitle)).check(
+            matches(
+                withFontSize(30f)
+            )
+        )
+    }
+
+    @SmallTest
+    @Test
+    fun shouldShowTextTypeH1TitleProgrammatically() {
+        // Given
+        MockActivity.layout = R.layout.activity_custom_text_view_default_text
+        restartActivity()
+        val formField = ruleActivity.activity.findViewById<CustomTextView>(R.id.tvDefault)
+
+        // When
+        ruleActivity.runOnUiThread {
+            formField.setCustomTextViewType(H1_TITLE_TYPE)
+        }
+
+        // Then
+        onView(withId(R.id.tvDefault)).check(matches(hasTextColor(R.color.textColor)))
+        onView(withId(R.id.tvDefault)).check(
+            matches(
+                withFontSize(30f)
+            )
+        )
+    }
+
+    @SmallTest
+    @Test
     fun shouldShowTextTypeTitleH2() {
         // Given
         MockActivity.layout = R.layout.activity_custom_text_view_h2_title
@@ -231,7 +271,7 @@ class CustomTextViewTest : MockActivityTest() {
 
     @SmallTest
     @Test
-    fun shouldShowTextTypeh2TitleProgrammatically() {
+    fun shouldShowTextTypeH2TitleProgrammatically() {
         // Given
         MockActivity.layout = R.layout.activity_custom_text_view_default_text
         restartActivity()
@@ -247,6 +287,46 @@ class CustomTextViewTest : MockActivityTest() {
         onView(withId(R.id.tvDefault)).check(
             matches(
                 withFontSize(24f)
+            )
+        )
+    }
+
+    @SmallTest
+    @Test
+    fun shouldShowTextTypeTitleH3() {
+        // Given
+        MockActivity.layout = R.layout.activity_custom_text_view_h3_title
+
+        // When
+        restartActivity()
+
+        // Then
+        onView(withId(R.id.tvTitle)).check(matches(hasTextColor(R.color.textColor)))
+        onView(withId(R.id.tvTitle)).check(
+            matches(
+                withFontSize(18f)
+            )
+        )
+    }
+
+    @SmallTest
+    @Test
+    fun shouldShowTextTypeH3TitleProgrammatically() {
+        // Given
+        MockActivity.layout = R.layout.activity_custom_text_view_default_text
+        restartActivity()
+        val formField = ruleActivity.activity.findViewById<CustomTextView>(R.id.tvDefault)
+
+        // When
+        ruleActivity.runOnUiThread {
+            formField.setCustomTextViewType(H3_TITLE_TYPE)
+        }
+
+        // Then
+        onView(withId(R.id.tvDefault)).check(matches(hasTextColor(R.color.textColor)))
+        onView(withId(R.id.tvDefault)).check(
+            matches(
+                withFontSize(18f)
             )
         )
     }
@@ -313,6 +393,21 @@ class CustomTextViewTest : MockActivityTest() {
 
     @SmallTest
     @Test
+    fun shouldGetTexTypeH1Title() {
+        // Given
+        MockActivity.layout = R.layout.activity_custom_text_view_h1_title
+        restartActivity()
+        val formField = ruleActivity.activity.findViewById<CustomTextView>(R.id.tvTitle)
+
+        // When
+        val result = formField.getTextType()
+
+        // Then
+        Assert.assertEquals(H1_TITLE_TYPE, result)
+    }
+
+    @SmallTest
+    @Test
     fun shouldGetTexTypeH2Title() {
         // Given
         MockActivity.layout = R.layout.activity_custom_text_view_h2_title
@@ -324,6 +419,21 @@ class CustomTextViewTest : MockActivityTest() {
 
         // Then
         Assert.assertEquals(H2_TITLE_TYPE, result)
+    }
+
+    @SmallTest
+    @Test
+    fun shouldGetTexTypeH3Title() {
+        // Given
+        MockActivity.layout = R.layout.activity_custom_text_view_h3_title
+        restartActivity()
+        val formField = ruleActivity.activity.findViewById<CustomTextView>(R.id.tvTitle)
+
+        // When
+        val result = formField.getTextType()
+
+        // Then
+        Assert.assertEquals(H3_TITLE_TYPE, result)
     }
 
     @SmallTest
