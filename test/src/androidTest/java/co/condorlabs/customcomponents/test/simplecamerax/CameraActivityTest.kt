@@ -164,7 +164,7 @@ class CameraActivityTest {
 
             // When
             ruleActivity.runOnUiThread { cancelPhoto.performClick() }
-            Thread.sleep(1000)
+            Thread.sleep(2000)
 
             // Then
             Assert.assertTrue(ruleActivity.activity.isDestroyed)
