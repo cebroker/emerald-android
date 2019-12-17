@@ -65,6 +65,8 @@
     <dimen name="bottom_content_skeleton_margin_bottom">32dp</dimen>
 
     <!-- CAMERA -->
+    <dimen name="title_elevation">1dp</dimen>
+    <dimen name="cancel_button_margin">16dp</dimen>
     <dimen name="camera_corner_size">16dp</dimen>
     <dimen name="camera_buttons_min_width">140dp</dimen>
     <dimen name="camera_buttons_text_size">16sp</dimen>

@@ -46,6 +46,7 @@ class CameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListe
             cancelButtonText?.let { btnCancelPhoto?.text = it }
             cropButtonText?.let { btnCropPhoto?.text = it }
         }
+        ibCancelPhoto?.setOnClickListener { finish() }
     }
 
     override fun fragmentTextureViewLoaded() {

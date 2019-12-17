@@ -62,4 +62,5 @@
     <string name="crop_photo">Use photo</string>
     <string name="retake_photo">Retake</string>
     <string name="front_text">Front</string>
+    <string name="cancel_button_content_description">Cancel photo</string>
 </resources>

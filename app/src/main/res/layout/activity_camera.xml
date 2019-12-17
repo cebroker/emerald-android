@@ -35,9 +35,23 @@
         android:id="@+id/cameraTitle"
         style="@style/camera_title_style"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        tools:visibility="visible"/>
+        tools:visibility="visible" />
+
+    <ImageButton
+        android:id="@+id/ibCancelPhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@null"
+        android:contentDescription="@string/cancel_button_content_description"
+        android:elevation="@dimen/title_elevation"
+        android:padding="@dimen/cancel_button_margin"
+        android:src="@drawable/close_x_white"
+        app:layout_constraintBottom_toBottomOf="@id/cameraTitle"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@id/cameraTitle" />
 
     <View
         android:id="@+id/vRectangle"
@@ -81,8 +95,8 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="@dimen/zero"
         android:layout_height="wrap_content"
-        android:fitsSystemWindows="true"
         android:background="@android:color/black"
+        android:fitsSystemWindows="true"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent">
@@ -103,7 +117,7 @@
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                tools:visibility="visible"/>
+                tools:visibility="visible" />
 
             <androidx.constraintlayout.widget.Barrier
                 android:id="@+id/descriptionAuxBarrier"
