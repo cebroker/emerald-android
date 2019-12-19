@@ -16,8 +16,11 @@
 
 package co.condorlabs.customcomponents.test
 
+import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import co.condorlabs.customcomponents.models.CameraConfig
+import co.condorlabs.customcomponents.simplecamerax.CameraActivity
 
 /**
  * @author Oscar Gallon on 2/21/19.
@@ -27,6 +30,10 @@ class MockActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout)
+
+        startActivityForResult(Intent(this, CameraActivity::class.java).putExtras(Bundle().apply {
+            putParcelable(CameraActivity.CAMERA_CONFIG_OBJ_PARAM, CameraConfig())
+        }), 202)
     }
 
     companion object {

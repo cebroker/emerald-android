@@ -90,7 +90,8 @@
         app:layout_constraintVertical_bias="0.0"
         app:linkedView="@+id/vRectangle"
         app:outsideCropColor="@color/image_crop_view_outside_background_color"
-        app:resizeCornerDrawable="@drawable/ic_ball" />
+        app:resizeCornerDrawable="@drawable/ic_ball"
+        app:keepAspectRatio="true"/>
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="@dimen/zero"
