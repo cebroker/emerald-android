@@ -140,12 +140,7 @@ public class AppCompatCropImageView extends AppCompatImageView {
                 resizeDrawable2.draw(canvas);
                 resizeDrawable3.draw(canvas);
             }
-            // Calculate initial aspectRatio
-            if (aspectRatio == 0F) {
-                int initialSideX = points[1].x - points[0].x;
-                int initialSideY = points[2].y - points[0].y;
-                aspectRatio = (float) initialSideX / (float) initialSideY;
-            }
+            calculateInitialAspectRatio();
         }
     }
 
@@ -240,6 +235,14 @@ public class AppCompatCropImageView extends AppCompatImageView {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
     }
 
+    private void calculateInitialAspectRatio() {
+        if (aspectRatio == 0F) {
+            int initialSideX = points[1].x - points[0].x;
+            int initialSideY = points[2].y - points[0].y;
+            aspectRatio = (float) initialSideX / (float) initialSideY;
+        }
+    }
+
     private void init(@Nullable AttributeSet attrs) {
         paint = new Paint();
         start = new Point();
@@ -287,7 +290,6 @@ public class AppCompatCropImageView extends AppCompatImageView {
         resizeDrawable1.setTint(cornerColor);
         resizeDrawable2.setTint(cornerColor);
         resizeDrawable3.setTint(cornerColor);
-        // keep aspect ratio
         keepAspectRatio = ta.getBoolean(R.styleable.IconCropView_keepAspectRatio, false);
         //recycle attributes
         ta.recycle();
