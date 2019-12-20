@@ -51,6 +51,8 @@ public class AppCompatCropImageView extends AppCompatImageView {
     private Drawable resizeDrawable0, resizeDrawable1, resizeDrawable2, resizeDrawable3;
     Context context;
     private boolean cropActivated = false;
+    private boolean keepAspectRatio = false;
+    private float aspectRatio = 0F;
 
     public AppCompatCropImageView(Context context) {
         super(context);
@@ -68,10 +70,6 @@ public class AppCompatCropImageView extends AppCompatImageView {
         super(context, attrs, defStyleAttr);
         this.context = context;
         init(attrs);
-    }
-
-    public void setCropActivated(Boolean cropActivated) {
-        this.cropActivated = cropActivated;
     }
 
     @Override
@@ -142,6 +140,7 @@ public class AppCompatCropImageView extends AppCompatImageView {
                 resizeDrawable2.draw(canvas);
                 resizeDrawable3.draw(canvas);
             }
+            calculateInitialAspectRatio();
         }
     }
 
@@ -162,35 +161,68 @@ public class AppCompatCropImageView extends AppCompatImageView {
             }
             case MotionEvent.ACTION_MOVE: {
                 if (cropActivated) {
-                    if (corner == 0) {
-                        movePointOneOnY(event);
-                        points[0].y = points[1].y;
-                        movePointTwoOnX(event);
-                        points[0].x = points[2].x;
+                    if (keepAspectRatio) {
+                        if (corner == 0) {
+                            movePointTwoOnX(event);
+                            points[0].x = points[2].x;
+                            int sideXFinal = points[1].x - points[0].x;
+                            int sideYFinal = (int)(sideXFinal / aspectRatio);
+                            points[0].y = points[1].y = start.y = points[2].y - sideYFinal;
+                            sideY = sideYFinal;
+                        } else if (corner == 1) {
+                            movePointOneOnX(event);
+                            points[3].x = points[1].x;
+                            int sideXFinal = points[1].x - points[0].x;
+                            int sideYFinal = (int)(sideXFinal / aspectRatio);
+                            points[0].y = points[1].y = start.y = points[3].y - sideYFinal;
+                            sideY = sideYFinal;
+                        } else if (corner == 2) {
+                            movePointTwoOnX(event);
+                            points[0].x = points[2].x;
+                            int sideXFinal = points[3].x - points[2].x;
+                            int sideYFinal = (int)(sideXFinal / aspectRatio);
+                            points[2].y = points[3].y = start.y = points[0].y + sideYFinal;
+                            sideY = sideYFinal;
+                        } else if (corner == 3) {
+                            movePointOneOnX(event);
+                            points[3].x = points[1].x;
+                            int sideXFinal = points[3].x - points[2].x;
+                            int sideYFinal = (int)(sideXFinal / aspectRatio);
+                            points[2].y = points[3].y = start.y = points[1].y + sideYFinal;
+                            sideY = sideYFinal;
+                        } else if (isCenterFrame) {
+                            moveAllPoints(event);
+                        }
                         invalidate();
-                    } else if (corner == 1) {
-                        movePointOneOnX(event);
-                        points[3].x = points[1].x;
-                        movePointOneOnY(event);
-                        points[0].y = points[1].y;
+                        break;
+                    } else {
+                        if (corner == 0) {
+                            movePointOneOnY(event);
+                            points[0].y = points[1].y;
+                            movePointTwoOnX(event);
+                            points[0].x = points[2].x;
+                            invalidate();
+                        } else if (corner == 1) {
+                            movePointOneOnX(event);
+                            points[3].x = points[1].x;
+                            movePointOneOnY(event);
+                            points[0].y = points[1].y;
+                        } else if (corner == 2) {
+                            movePointTwoOnY(event);
+                            points[3].y = points[2].y;
+                            movePointTwoOnX(event);
+                            points[0].x = points[2].x;
+                        } else if (corner == 3) {
+                            movePointOneOnX(event);
+                            points[3].x = points[1].x;
+                            movePointTwoOnY(event);
+                            points[3].y = points[2].y;
+                        } else if (isCenterFrame) {
+                            moveAllPoints(event);
+                        }
                         invalidate();
-                    } else if (corner == 2) {
-                        movePointTwoOnY(event);
-                        points[3].y = points[2].y;
-                        movePointTwoOnX(event);
-                        points[0].x = points[2].x;
-                        invalidate();
-                    } else if (corner == 3) {
-                        movePointOneOnX(event);
-                        points[3].x = points[1].x;
-                        movePointTwoOnY(event);
-                        points[3].y = points[2].y;
-                        invalidate();
-                    } else if (isCenterFrame) {
-                        moveAllPoints(event);
-                        invalidate();
+                        break;
                     }
-                    break;
                 }
             }
         }
@@ -201,6 +233,14 @@ public class AppCompatCropImageView extends AppCompatImageView {
     @Override
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    }
+
+    private void calculateInitialAspectRatio() {
+        if (aspectRatio == 0F) {
+            int initialSideX = points[1].x - points[0].x;
+            int initialSideY = points[2].y - points[0].y;
+            aspectRatio = (float) initialSideX / (float) initialSideY;
+        }
     }
 
     private void init(@Nullable AttributeSet attrs) {
@@ -250,6 +290,7 @@ public class AppCompatCropImageView extends AppCompatImageView {
         resizeDrawable1.setTint(cornerColor);
         resizeDrawable2.setTint(cornerColor);
         resizeDrawable3.setTint(cornerColor);
+        keepAspectRatio = ta.getBoolean(R.styleable.IconCropView_keepAspectRatio, false);
         //recycle attributes
         ta.recycle();
         //set initialized to true
@@ -314,6 +355,15 @@ public class AppCompatCropImageView extends AppCompatImageView {
         return offset;
     }
 
+    private Bitmap getBitmap() {
+        return Bitmap.createScaledBitmap(
+                ((BitmapDrawable) getDrawable()).getBitmap(),
+                getWidth(),
+                getHeight(),
+                true
+        );
+    }
+
     public Bitmap cropImage() {
         Bitmap source = getBitmap();
         if (source != null) {
@@ -342,12 +392,11 @@ public class AppCompatCropImageView extends AppCompatImageView {
         }
     }
 
-    private Bitmap getBitmap() {
-        return Bitmap.createScaledBitmap(
-                ((BitmapDrawable) getDrawable()).getBitmap(),
-                getWidth(),
-                getHeight(),
-                true
-        );
+    public void setCropActivated(Boolean cropActivated) {
+        this.cropActivated = cropActivated;
+    }
+
+    public void setKeepAspectRatio(Boolean keepAspectRatio) {
+        this.keepAspectRatio = keepAspectRatio;
     }
 }
