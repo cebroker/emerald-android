@@ -14,5 +14,6 @@ data class CameraConfig(
     val descriptionText: String? = null,
     val cancelButtonText: String? = null,
     val cropButtonText: String? = null,
+    val keepAspectRatio: Boolean = false,
     val savePhotoPath: String? = null
 ) : Parcelable

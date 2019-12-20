@@ -72,10 +72,6 @@ public class AppCompatCropImageView extends AppCompatImageView {
         init(attrs);
     }
 
-    public void setCropActivated(Boolean cropActivated) {
-        this.cropActivated = cropActivated;
-    }
-
     @Override
     public void setImageBitmap(Bitmap bm) {
         super.setImageBitmap(bm);
@@ -357,6 +353,15 @@ public class AppCompatCropImageView extends AppCompatImageView {
         return offset;
     }
 
+    private Bitmap getBitmap() {
+        return Bitmap.createScaledBitmap(
+                ((BitmapDrawable) getDrawable()).getBitmap(),
+                getWidth(),
+                getHeight(),
+                true
+        );
+    }
+
     public Bitmap cropImage() {
         Bitmap source = getBitmap();
         if (source != null) {
@@ -385,12 +390,11 @@ public class AppCompatCropImageView extends AppCompatImageView {
         }
     }
 
-    private Bitmap getBitmap() {
-        return Bitmap.createScaledBitmap(
-                ((BitmapDrawable) getDrawable()).getBitmap(),
-                getWidth(),
-                getHeight(),
-                true
-        );
+    public void setCropActivated(Boolean cropActivated) {
+        this.cropActivated = cropActivated;
+    }
+
+    public void setKeepAspectRatio(Boolean keepAspectRatio) {
+        this.keepAspectRatio = keepAspectRatio;
     }
 }

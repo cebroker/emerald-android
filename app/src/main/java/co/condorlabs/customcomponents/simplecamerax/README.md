@@ -30,16 +30,24 @@ CameraConfig(
     descriptionText = "Camera description",
     cancelButtonText = "Cancel button text",
     cropButtonText = "Crop button text",
+    keepAspectRatio = false,
     savePhotoPath = "route/to/save/photo/captured.jpg"
 )
 ```
 
+## Public methods
+| Return Type | Description |
+| -| - |
+|  Unit | *`setKeepAspectRatio(keepAspectRatio: Boolean)`* <br> Set if the aspect ratio should be maintained when cropping |
+
+## Attributes
 | Type | Name | Description |
 | - | - | - |
 |  String? | titleText | Camera title |
 |  String? | descriptionText | Description text |
 |  String? | cancelButtonText | Retake photo button |
 |  String? | cropButtonText | Crop photo button |
+|  Boolean | keepAspectRatio | Keep aspect ratio when cropping |
 |  String? | savePhotoPath | Provide a local or external path to save the photo on device |
 
 ## Retrieving data

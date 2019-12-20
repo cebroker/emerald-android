@@ -45,6 +45,7 @@ class CameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListe
             }
             cancelButtonText?.let { btnCancelPhoto?.text = it }
             cropButtonText?.let { btnCropPhoto?.text = it }
+            photoCaptured?.setKeepAspectRatio(keepAspectRatio)
         }
         ibCancelPhoto?.setOnClickListener { finish() }
     }
