@@ -256,6 +256,10 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
         textInputLayout?.isEnabled = isEnable
     }
 
+    fun setSelection(position: Int) {
+        editText?.setSelection(position)
+    }
+
     private fun setFont(fontName: String) {
         val font = Typeface.createFromAsset(context.assets, fontName)
         textInputLayout?.typeface = font
@@ -293,7 +297,7 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
         textInputLayout?.editText?.hint = null
     }
 
-    private fun resetPlaceholder(){
+    private fun resetPlaceholder() {
         textInputLayout?.editText?.hint = this@BaseEditTextFormField.hint
         textInputLayout?.hint = null
     }
