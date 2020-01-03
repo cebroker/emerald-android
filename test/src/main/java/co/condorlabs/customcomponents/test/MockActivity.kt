@@ -18,6 +18,12 @@ package co.condorlabs.customcomponents.test
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import co.condorlabs.customcomponents.custombutton.ButtonState
+import kotlinx.android.synthetic.main.activity_mock.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 /**
  * @author Oscar Gallon on 2/21/19.
@@ -27,6 +33,18 @@ class MockActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout)
+        myButton?.setOnClickListener {
+            myButton?.changeState(ButtonState.Loading)
+            callCoroutine()
+
+        }
+    }
+
+    private fun callCoroutine() {
+        CoroutineScope(Dispatchers.Main).launch {
+            delay(3000)
+            myButton?.changeState(ButtonState.Normal)
+        }
     }
 
     companion object {

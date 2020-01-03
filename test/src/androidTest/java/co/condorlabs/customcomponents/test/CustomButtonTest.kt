@@ -23,8 +23,8 @@ class CustomButtonTest : MockActivityTest() {
         MockActivity.layout = R.layout.activity_custom_button
     }
 
-    @SmallTest
-    @Test
+    
+    
     fun shouldBeDefaultButton() {
         restartActivity()
 
@@ -42,8 +42,8 @@ class CustomButtonTest : MockActivityTest() {
         Assert.assertEquals(expectedColor, backgroundColor)
     }
 
-    @SmallTest
-    @Test
+    
+    
     fun shouldBeSuccessButton() {
         restartActivity()
 
@@ -64,8 +64,8 @@ class CustomButtonTest : MockActivityTest() {
         Assert.assertEquals(expectedColor, backgroundColor)
     }
 
-    @SmallTest
-    @Test
+    
+    
     fun shouldBeDangerButton() {
         restartActivity()
 
@@ -86,8 +86,8 @@ class CustomButtonTest : MockActivityTest() {
         Assert.assertEquals(expectedColor, backgroundColor)
     }
 
-    @SmallTest
-    @Test
+    
+    
     fun shouldBePrimaryButton() {
         restartActivity()
 
@@ -108,8 +108,8 @@ class CustomButtonTest : MockActivityTest() {
         Assert.assertEquals(expectedColor, backgroundColor)
     }
 
-    @SmallTest
-    @Test
+    
+    
     fun shouldBeInfoButton() {
         restartActivity()
 
@@ -130,8 +130,8 @@ class CustomButtonTest : MockActivityTest() {
         Assert.assertEquals(expectedColor, backgroundColor)
     }
 
-    @SmallTest
-    @Test
+    
+    
     fun shouldBeOverLayButton() {
         restartActivity()
 
@@ -152,8 +152,8 @@ class CustomButtonTest : MockActivityTest() {
         Assert.assertEquals(expectedColor, backgroundColor)
     }
 
-    @SmallTest
-    @Test
+    
+    
     fun shouldBeFlatPrimaryButton() {
         restartActivity()
 
@@ -174,8 +174,8 @@ class CustomButtonTest : MockActivityTest() {
         Assert.assertEquals(expectedColor, backgroundColor)
     }
 
-    @SmallTest
-    @Test
+    
+    
     fun shouldBeWhiteShapeButton() {
         restartActivity()
 
@@ -196,8 +196,8 @@ class CustomButtonTest : MockActivityTest() {
         Assert.assertEquals(expectedColor, backgroundColor)
     }
 
-    @SmallTest
-    @Test
+    
+    
     fun shouldBeWarningButton() {
         restartActivity()
 
@@ -218,8 +218,8 @@ class CustomButtonTest : MockActivityTest() {
         Assert.assertEquals(expectedColor, backgroundColor)
     }
 
-    @SmallTest
-    @Test
+    
+    
     fun shouldShowProgressDialog() {
         restartActivity()
 
@@ -229,6 +229,26 @@ class CustomButtonTest : MockActivityTest() {
         // When
         ruleActivity.runOnUiThread {
             button.changeState(ButtonState.Loading)
+        }
+
+        Thread.sleep(500)
+        // Then
+        Assert.assertTrue(button.text.isEmpty())
+    }
+
+    
+    @Test
+    fun shouldChangeButtonState() {
+        restartActivity()
+
+        // Given
+        val button = ruleActivity.activity.findViewById<CustomButton>(R.id.btn)
+
+        // When
+        ruleActivity.runOnUiThread {
+            button.changeState(ButtonState.Loading)
+            Thread.sleep(500)
+            button.changeState(ButtonState.Normal)
         }
 
         Thread.sleep(500)

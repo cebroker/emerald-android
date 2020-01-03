@@ -45,8 +45,13 @@ class CustomButton(context: Context, attrs: AttributeSet) : Button(context, attr
 
     override fun draw(canvas: Canvas?) {
         super.draw(canvas)
+        //makeDraw()
+    }
+
+    fun makeDraw() {
         when (state) {
             ButtonState.Loading -> {
+                println("felo: loading")
                 background = loadingStateBackground
                 if (normalStateText == null) {
                     normalStateText = text.toString()
@@ -54,6 +59,7 @@ class CustomButton(context: Context, attrs: AttributeSet) : Button(context, attr
                 text = EMPTY
             }
             else -> {
+                println("felo: normal")
                 background = normalStateBackground
                 if (normalStateText != null) {
                     text = normalStateText
@@ -71,7 +77,7 @@ class CustomButton(context: Context, attrs: AttributeSet) : Button(context, attr
 
     fun changeState(state: ButtonState) {
         this.state = state
-        invalidate()
+        makeDraw()
     }
 
     private fun setup() {
@@ -82,7 +88,7 @@ class CustomButton(context: Context, attrs: AttributeSet) : Button(context, attr
     override fun invalidateDrawable(drawable: Drawable) {
         super.invalidateDrawable(drawable)
         if (state is ButtonState.Loading) {
-            invalidate()
+            //makeDraw()
         }
     }
 
