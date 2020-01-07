@@ -34,7 +34,7 @@ class CustomDatePickerTest : MockActivityTest() {
     }
 
     @SmallTest
-    
+    @Test
     fun shouldFormatOnTextChanged() {
         // When
         onView(editTextRef).perform(ViewActions.typeText("0"))
@@ -63,7 +63,7 @@ class CustomDatePickerTest : MockActivityTest() {
     }
 
     @SmallTest
-    
+    @Test
     fun shouldNotAllowMonthGreaterThan12() {
         // When
         onView(editTextRef).perform(ViewActions.typeText("99/2001"))
@@ -72,7 +72,7 @@ class CustomDatePickerTest : MockActivityTest() {
     }
 
     @SmallTest
-    
+    @Test
     fun shouldNotAllowMonthEqualsToZero() {
         // When
         onView(editTextRef).perform(ViewActions.typeText("00/2001"))
@@ -81,7 +81,7 @@ class CustomDatePickerTest : MockActivityTest() {
     }
 
     @SmallTest
-    
+    @Test
     fun shouldNotAllowYearLessThanMinYear() {
         // When
         onView(editTextRef).perform(ViewActions.typeText("01/0000"))
@@ -90,7 +90,7 @@ class CustomDatePickerTest : MockActivityTest() {
     }
 
     @SmallTest
-    
+    @Test
     fun shouldNotAllowYearGreaterThanMaxYear() {
         // When
         onView(editTextRef).perform(ViewActions.typeText("01/5000"))
@@ -99,7 +99,7 @@ class CustomDatePickerTest : MockActivityTest() {
     }
 
     @SmallTest
-    
+    @Test
     fun shouldNotAllowTypeText() {
         // When
         onView(editTextRef).perform(ViewActions.typeText("a"))
@@ -108,7 +108,7 @@ class CustomDatePickerTest : MockActivityTest() {
     }
 
     @SmallTest
-    
+    @Test
     fun shouldReturnIsValid() {
         // When
         onView(editTextRef).perform(ViewActions.typeText("01/2008"))
@@ -117,7 +117,7 @@ class CustomDatePickerTest : MockActivityTest() {
     }
 
     @SmallTest
-    
+    @Test
     fun shouldNotAllowMoreThan4DigitsYear() {
         // When
         onView(editTextRef).perform(ViewActions.typeText("01/20080"))
@@ -127,7 +127,7 @@ class CustomDatePickerTest : MockActivityTest() {
     }
 
     @SmallTest
-    
+    @Test
     fun shouldNotAllowMoreThan2DigitsMonth() {
         // When
         onView(editTextRef).perform(ViewActions.typeText("021/2008"))
@@ -137,7 +137,7 @@ class CustomDatePickerTest : MockActivityTest() {
     }
 
     @SmallTest
-    
+    @Test
     fun shouldReturnIsNotValidIfFieldIsEmptyAndIsRequired() {
         // Given
         editText?.isRequired = true
@@ -147,7 +147,7 @@ class CustomDatePickerTest : MockActivityTest() {
         Assert.assertEquals(false, editText?.isValid()?.isValid)
     }
 
-    
+    @Test
     fun shouldReturnIsValidIfFieldIsEmptyAndIsNotRequired() {
         // Given
         editText?.isRequired = false
@@ -157,7 +157,7 @@ class CustomDatePickerTest : MockActivityTest() {
         Assert.assertEquals(true, editText?.isValid()?.isValid)
     }
 
-    
+    @Test
     fun shouldNotAllowYearGreaterThanUpperLimit() {
         // Given
         editText?.upperLimit = Calendar.getInstance().apply {
@@ -171,7 +171,7 @@ class CustomDatePickerTest : MockActivityTest() {
         Assert.assertEquals("The Enter some text must be before 7/2007", result?.error)
     }
 
-    
+    @Test
     fun shouldNotAllowMonthGreaterThanUpperLimit() {
         // Given
         editText?.upperLimit = Calendar.getInstance().apply {
@@ -185,7 +185,7 @@ class CustomDatePickerTest : MockActivityTest() {
         Assert.assertEquals("The Enter some text must be before 7/2007", result?.error)
     }
 
-    
+    @Test
     fun shouldAllowDateEqualsThanUpperLimit() {
         // Given
         editText?.upperLimit = Calendar.getInstance().apply {
@@ -197,7 +197,7 @@ class CustomDatePickerTest : MockActivityTest() {
         Assert.assertEquals(true, editText?.isValid()?.isValid)
     }
 
-    
+    @Test
     fun shouldAllowDateLessThanUpperLimit() {
         // Given
         editText?.upperLimit = Calendar.getInstance().apply {
@@ -209,7 +209,7 @@ class CustomDatePickerTest : MockActivityTest() {
         Assert.assertEquals(true, editText?.isValid()?.isValid)
     }
 
-    
+    @Test
     fun shouldGetRightMonthAndYear() {
         // When
         onView(editTextRef).perform(ViewActions.typeText("12/2006"))
@@ -233,7 +233,7 @@ class CustomDatePickerTest : MockActivityTest() {
         Assert.assertEquals(2008, editText?.getYear())
     }
 
-    
+    @Test
     fun shouldAllowDateWithoutLimits() {
         // Given
         editText?.isRequired = true
@@ -245,7 +245,7 @@ class CustomDatePickerTest : MockActivityTest() {
         Assert.assertEquals(EMPTY, result?.error)
     }
 
-    
+    @Test
     fun shouldAllowDateEqualsThanLowerLimit() {
         // Given
         editText?.lowerLimit = Calendar.getInstance().apply {
@@ -257,7 +257,7 @@ class CustomDatePickerTest : MockActivityTest() {
         Assert.assertEquals(true, editText?.isValid()?.isValid)
     }
 
-    
+    @Test
     fun shouldNotAllowDateLessThanLowerLimit() {
         // Given
         editText?.lowerLimit = Calendar.getInstance().apply {
@@ -269,7 +269,7 @@ class CustomDatePickerTest : MockActivityTest() {
         Assert.assertEquals(false, editText?.isValid()?.isValid)
     }
 
-    
+    @Test
     fun shouldAllowDateGreaterThanLowerLimit() {
         // Given
         editText?.lowerLimit = Calendar.getInstance().apply {
@@ -281,6 +281,7 @@ class CustomDatePickerTest : MockActivityTest() {
         Assert.assertEquals(true, editText?.isValid()?.isValid)
     }
 
+    @Test(expected = PropertyNotImplementedException::class)
     fun shouldThrowPropertyNotImplementedExceptionWhenHasUpperLimitAndLowerLimit() {
         // Given
         editText?.lowerLimit = Calendar.getInstance().apply {

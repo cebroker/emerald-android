@@ -24,7 +24,6 @@ import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.runner.AndroidJUnit4
 import android.view.KeyEvent
-import android.view.View
 import androidx.test.filters.SmallTest
 import co.condorlabs.customcomponents.customedittext.EditTextCurrencyField
 import co.condorlabs.customcomponents.formfield.ValidationResult
@@ -46,7 +45,7 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
     fun setup() {
         MockActivity.layout = R.layout.activity_currencyedittextfield_test
         restartActivity()
-        editText = ruleActivity.activity.findViewById<EditTextCurrencyField>(R.id.tlCurrency)
+        editText = ruleActivity.activity.findViewById(R.id.tlCurrency)
     }
 
     @SmallTest

@@ -20,7 +20,6 @@ import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
-import android.view.View
 import androidx.test.filters.SmallTest
 import co.condorlabs.customcomponents.customedittext.EditTextPhoneField
 import co.condorlabs.customcomponents.formfield.ValidationResult

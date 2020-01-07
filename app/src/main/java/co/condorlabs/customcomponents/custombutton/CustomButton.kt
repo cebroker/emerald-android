@@ -1,7 +1,6 @@
 package co.condorlabs.customcomponents.custombutton
 
 import android.content.Context
-import android.graphics.Canvas
 import android.graphics.Typeface
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
@@ -43,15 +42,9 @@ class CustomButton(context: Context, attrs: AttributeSet) : Button(context, attr
         renderStyle()
     }
 
-    override fun draw(canvas: Canvas?) {
-        super.draw(canvas)
-        //makeDraw()
-    }
-
-    fun makeDraw() {
+    private fun drawState() {
         when (state) {
             ButtonState.Loading -> {
-                println("felo: loading")
                 background = loadingStateBackground
                 if (normalStateText == null) {
                     normalStateText = text.toString()
@@ -59,7 +52,6 @@ class CustomButton(context: Context, attrs: AttributeSet) : Button(context, attr
                 text = EMPTY
             }
             else -> {
-                println("felo: normal")
                 background = normalStateBackground
                 if (normalStateText != null) {
                     text = normalStateText
@@ -77,19 +69,12 @@ class CustomButton(context: Context, attrs: AttributeSet) : Button(context, attr
 
     fun changeState(state: ButtonState) {
         this.state = state
-        makeDraw()
+        drawState()
     }
 
     private fun setup() {
         renderStyle()
         setFont()
-    }
-
-    override fun invalidateDrawable(drawable: Drawable) {
-        super.invalidateDrawable(drawable)
-        if (state is ButtonState.Loading) {
-            //makeDraw()
-        }
     }
 
     private fun renderStyle() {

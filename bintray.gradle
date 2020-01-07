@@ -23,7 +23,7 @@ android {
 }
 
 ext {
-    libraryVersion = '0.90.warriorsnapshot'
+    libraryVersion = '0.90.0'
 
     bintrayRepo = 'CustomComponents'
     bintrayName = 'CustomComponents'

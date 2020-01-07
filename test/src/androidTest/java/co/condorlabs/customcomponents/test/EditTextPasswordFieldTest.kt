@@ -17,7 +17,6 @@
 package co.condorlabs.customcomponents.test
 
 import android.graphics.drawable.Drawable
-import android.view.View
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.matcher.ViewMatchers
@@ -80,7 +79,7 @@ class EditTextPasswordFieldTest : MockActivityTest() {
     fun eyeIconIsDisplay() {
         restartActivity()
         // Given
-        val view = (ruleActivity.activity.findViewById<View>(R.id.tlPassword) as? EditTextPasswordField)
+        val view = ruleActivity.activity.findViewById<EditTextPasswordField>(R.id.tlPassword)
         val textInpuntLayout = view?.textInputLayout ?: throw NullPointerException()
         var drawable: Drawable? = null
 
@@ -98,15 +97,15 @@ class EditTextPasswordFieldTest : MockActivityTest() {
     fun tapEyeToSeePassword() {
         restartActivity()
         // Given
-        val view = (ruleActivity.activity.findViewById<View>(R.id.tlPassword) as? EditTextPasswordField)
-        val textInpuntLayout = view?.textInputLayout ?: throw NullPointerException()
+        val view = ruleActivity.activity.findViewById<EditTextPasswordField>(R.id.tlPassword)
+        val textInputLayout = view?.textInputLayout ?: throw NullPointerException()
         val editTextView = Espresso.onView(ViewMatchers.withId(R.id.etPassword))
 
         // When
         editTextView.perform(ViewActions.typeText("1234567890"))
 
         ruleActivity.runOnUiThread {
-            textInpuntLayout.editText!!.transformationMethod = null
+            textInputLayout.editText!!.transformationMethod = null
         }
 
         // Then
