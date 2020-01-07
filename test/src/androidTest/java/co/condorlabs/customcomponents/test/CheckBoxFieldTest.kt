@@ -188,7 +188,7 @@ class CheckBoxFieldTest : MockActivityTest() {
     }
 
     @SmallTest
-    @Test
+    
     fun shouldReturnEmptyListWithNoSelectables() {
         restartActivity()
 

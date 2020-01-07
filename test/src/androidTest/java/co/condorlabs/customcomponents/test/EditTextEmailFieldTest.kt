@@ -66,7 +66,7 @@ class EditTextEmailFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        (ruleActivity.activity.findViewById<View>(R.id.tlEmail) as? EditTextEmailField)?.setIsRequired(true)
+        ruleActivity.activity.findViewById<EditTextEmailField>(R.id.tlEmail)?.setIsRequired(true)
 
         // When
         val result = (ruleActivity.activity.findViewById<View>(R.id.tlEmail) as? BaseEditTextFormField)?.isValid()
@@ -83,7 +83,7 @@ class EditTextEmailFieldTest : MockActivityTest() {
         restartActivity()
         // Given
         val text = "kdfkd"
-        val txtInputLayout = (ruleActivity.activity.findViewById<View>(R.id.tlEmail) as? EditTextEmailField)
+        val txtInputLayout = ruleActivity.activity.findViewById<EditTextEmailField>(R.id.tlEmail)
         val editText = txtInputLayout!!.textInputLayout!!.editText!!
 
         // When
@@ -102,7 +102,7 @@ class EditTextEmailFieldTest : MockActivityTest() {
         restartActivity()
         // Given
         val text = "kdfkd@"
-        val txtInputLayout = (ruleActivity.activity.findViewById<View>(R.id.tlEmail) as? EditTextEmailField)
+        val txtInputLayout = ruleActivity.activity.findViewById<EditTextEmailField>(R.id.tlEmail)
         val editText = txtInputLayout!!.textInputLayout!!.editText!!
 
         // When
@@ -121,7 +121,7 @@ class EditTextEmailFieldTest : MockActivityTest() {
         restartActivity()
         // Given
         val text = "kdfkd@smdms"
-        val txtInputLayout = (ruleActivity.activity.findViewById<View>(R.id.tlEmail) as? EditTextEmailField)
+        val txtInputLayout = ruleActivity.activity.findViewById<EditTextEmailField>(R.id.tlEmail)
         val editText = txtInputLayout!!.textInputLayout!!.editText!!
 
         // When
@@ -140,7 +140,7 @@ class EditTextEmailFieldTest : MockActivityTest() {
         restartActivity()
         // Given
         val text = "kdfkd@smdms."
-        val txtInputLayout = (ruleActivity.activity.findViewById<View>(R.id.tlEmail) as? EditTextEmailField)
+        val txtInputLayout = ruleActivity.activity.findViewById<EditTextEmailField>(R.id.tlEmail)
         val editText = txtInputLayout!!.textInputLayout!!.editText!!
 
         // When
@@ -159,7 +159,7 @@ class EditTextEmailFieldTest : MockActivityTest() {
         restartActivity()
         // Given
         val text = "o@gmail.co"
-        val txtInputLayout = (ruleActivity.activity.findViewById<View>(R.id.tlEmail) as? EditTextEmailField)
+        val txtInputLayout = ruleActivity.activity.findViewById<EditTextEmailField>(R.id.tlEmail)
         val editText = txtInputLayout!!.textInputLayout!!.editText!!
 
         // When

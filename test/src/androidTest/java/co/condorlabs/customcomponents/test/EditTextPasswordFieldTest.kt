@@ -47,7 +47,7 @@ class EditTextPasswordFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val view = (ruleActivity.activity.findViewById<View>(R.id.tlPassword) as? EditTextPasswordField)
+        val view = ruleActivity.activity.findViewById<EditTextPasswordField>(R.id.tlPassword)
         view?.setIsRequired(true)
 
         // When

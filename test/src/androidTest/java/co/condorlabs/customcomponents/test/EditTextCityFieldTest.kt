@@ -66,7 +66,7 @@ class EditTextCityFieldTest : MockActivityTest() {
     fun shouldDisplayACustomHint() {
         restartActivity()
 
-        val base = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlCity)
+        val base = ruleActivity.activity.findViewById<EditTextCityField>(R.id.tlCity)
         ruleActivity.runOnUiThread {
             base.hint = "Custom Hint"
         }

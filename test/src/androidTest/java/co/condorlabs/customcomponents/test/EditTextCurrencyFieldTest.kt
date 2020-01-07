@@ -46,7 +46,7 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
     fun setup() {
         MockActivity.layout = R.layout.activity_currencyedittextfield_test
         restartActivity()
-        editText = ruleActivity.activity.findViewById<View>(R.id.tlCurrency) as? EditTextCurrencyField
+        editText = ruleActivity.activity.findViewById<EditTextCurrencyField>(R.id.tlCurrency)
     }
 
     @SmallTest
