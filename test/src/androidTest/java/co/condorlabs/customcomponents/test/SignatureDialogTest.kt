@@ -8,6 +8,7 @@ import androidx.test.espresso.action.ViewActions.swipeDown
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.withId
 import androidx.test.espresso.matcher.ViewMatchers.withText
+import co.condorlabs.customcomponents.THREE_SECONDS
 import co.condorlabs.customcomponents.customsignature.SignatureDialog
 import junit.framework.Assert.assertNotNull
 import org.junit.Assert
@@ -58,7 +59,7 @@ class SignatureDialogTest {
             }
             onView(withId(R.id.signatureView)).perform(swipeDown())
             onView(withId(R.id.btnDoneSigning)).perform(click())
-            Thread.sleep(3000)
+            Thread.sleep(THREE_SECONDS)
             assertNotNull(bitmapResult)
         }
     }

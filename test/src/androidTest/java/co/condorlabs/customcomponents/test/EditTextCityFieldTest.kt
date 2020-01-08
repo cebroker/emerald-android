@@ -16,7 +16,6 @@
 
 package co.condorlabs.customcomponents.test
 
-import android.view.View
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.typeText
@@ -26,7 +25,6 @@ import androidx.test.runner.AndroidJUnit4
 import co.condorlabs.customcomponents.EMPTY
 import co.condorlabs.customcomponents.VALIDATE_CITY_ERROR
 import co.condorlabs.customcomponents.VALIDATE_EMPTY_ERROR
-import co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
 import co.condorlabs.customcomponents.customedittext.EditTextCityField
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import org.junit.Assert
@@ -66,7 +64,7 @@ class EditTextCityFieldTest : MockActivityTest() {
     fun shouldDisplayACustomHint() {
         restartActivity()
 
-        val base = ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.tlCity)
+        val base = ruleActivity.activity.findViewById<EditTextCityField>(R.id.tlCity)
         ruleActivity.runOnUiThread {
             base.hint = "Custom Hint"
         }
@@ -89,7 +87,7 @@ class EditTextCityFieldTest : MockActivityTest() {
 
         // Given
         val view = Espresso.onView(ViewMatchers.withId(R.id.etCity))
-        val editTextCityField = (ruleActivity.activity.findViewById<View>(R.id.tlCity) as? EditTextCityField)
+        val editTextCityField = ruleActivity.activity.findViewById<EditTextCityField>(R.id.tlCity)
         editTextCityField?.setIsRequired(true)
 
         // When
@@ -107,7 +105,7 @@ class EditTextCityFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val editTextCityField = (ruleActivity.activity.findViewById<View>(R.id.tlCity) as? EditTextCityField)
+        val editTextCityField = ruleActivity.activity.findViewById<EditTextCityField>(R.id.tlCity)
         editTextCityField?.setIsRequired(true)
 
         // When
@@ -123,7 +121,7 @@ class EditTextCityFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val editTextCityField = (ruleActivity.activity.findViewById<View>(R.id.tlCity) as? EditTextCityField)
+        val editTextCityField = ruleActivity.activity.findViewById<EditTextCityField>(R.id.tlCity)
 
         // When
         val result = editTextCityField?.isValid()
@@ -139,7 +137,7 @@ class EditTextCityFieldTest : MockActivityTest() {
 
         // Given
         val view = Espresso.onView(ViewMatchers.withId(R.id.etCity))
-        val editTextCityField = (ruleActivity.activity.findViewById<View>(R.id.tlCity) as? EditTextCityField)
+        val editTextCityField = ruleActivity.activity.findViewById<EditTextCityField>(R.id.tlCity)
         editTextCityField?.setIsRequired(true)
 
         // When

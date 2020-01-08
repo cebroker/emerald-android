@@ -20,7 +20,6 @@ import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
-import android.view.View
 import androidx.test.filters.SmallTest
 import co.condorlabs.customcomponents.customedittext.EditTextPhoneField
 import co.condorlabs.customcomponents.formfield.ValidationResult
@@ -77,7 +76,7 @@ class EditTextPhoneNumberFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val txtInputLayout = (ruleActivity.activity.findViewById<View>(R.id.tlPhone) as? EditTextPhoneField)
+        val txtInputLayout = ruleActivity.activity.findViewById<EditTextPhoneField>(R.id.tlPhone)
         val resultIsValid: ValidationResult?
         txtInputLayout?.setIsRequired(true)
 
@@ -98,7 +97,7 @@ class EditTextPhoneNumberFieldTest : MockActivityTest() {
         restartActivity()
         // Given
         val phone = "123456"
-        val txtInputLayout = (ruleActivity.activity.findViewById<View>(R.id.tlPhone) as? EditTextPhoneField)
+        val txtInputLayout = ruleActivity.activity.findViewById<EditTextPhoneField>(R.id.tlPhone)
         txtInputLayout?.setIsRequired(true)
 
         // When
@@ -118,7 +117,7 @@ class EditTextPhoneNumberFieldTest : MockActivityTest() {
         restartActivity()
         // Given
         val phone = "123"
-        val txtInputLayout = (ruleActivity.activity.findViewById<View>(R.id.tlPhone) as? EditTextPhoneField)
+        val txtInputLayout = ruleActivity.activity.findViewById<EditTextPhoneField>(R.id.tlPhone)
         txtInputLayout?.setIsRequired(false)
         txtInputLayout?.setRegex(PHONE_NUMBER_REGEX)
 
@@ -138,7 +137,7 @@ class EditTextPhoneNumberFieldTest : MockActivityTest() {
         restartActivity()
         // Given
         val phone = "1234567890"
-        val txtInputLayout = (ruleActivity.activity.findViewById<View>(R.id.tlPhone) as EditTextPhoneField)
+        val txtInputLayout = ruleActivity.activity.findViewById<EditTextPhoneField>(R.id.tlPhone)
         txtInputLayout.setIsRequired(false)
         txtInputLayout.setRegex(PHONE_NUMBER_REGEX)
 

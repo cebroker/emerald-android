@@ -6,10 +6,7 @@ import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.SmallTest
 import android.view.View
-import co.condorlabs.customcomponents.DATE_PICKER_MAX_YEAR
-import co.condorlabs.customcomponents.DATE_PICKER_MIN_YEAR
-import co.condorlabs.customcomponents.EMPTY
-import co.condorlabs.customcomponents.PropertyNotImplementedException
+import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.customedittext.EditTextMonthYearField
 import co.condorlabs.customcomponents.test.util.clickDrawable
 import co.condorlabs.customcomponents.test.util.setNumberPickerValue
@@ -222,6 +219,7 @@ class CustomDatePickerTest : MockActivityTest() {
     fun shouldOpenDialog() {
         // When
         onView(editTextRef).perform(clickDrawable())
+        Thread.sleep(ONE_SECOND)
         onView(dpMonthRef).perform(setNumberPickerValue(11))
         onView(dpYearRef).perform(setNumberPickerValue(2008))
         onView(withSubstring("OK"))
