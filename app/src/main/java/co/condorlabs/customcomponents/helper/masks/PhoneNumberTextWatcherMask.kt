@@ -19,57 +19,57 @@ package co.condorlabs.customcomponents.helper.masks
 import android.text.Editable
 import android.widget.EditText
 import co.condorlabs.customcomponents.*
-import co.condorlabs.customcomponents.helper.*
+import co.condorlabs.customcomponents.helper.TextWatcherAdapter
 
-class PhoneNumberTextWatcherMask(private val mReceiver: EditText) : TextWatcherAdapter() {
+class PhoneNumberTextWatcherMask(
+    private val receiver: EditText
+) : TextWatcherAdapter() {
 
     override fun afterTextChanged(s: Editable?) {
         s?.let { text ->
-            mReceiver.removeTextChangedListener(this)
-            var resultadog = text.toString().replace(PHONE_NUMBER_SEPARATOR_TOKEN, "")
-            var resultadod = resultadog.replace("(", "")
-            var resultado = resultadod.replace(")", "")
+            receiver.removeTextChangedListener(this)
+            val hadPer = text.toString().firstOrNull() == '('
+            var mask = 0
+            var result = text.toString()
+                .replace(PHONE_NUMBER_SEPARATOR_TOKEN, "")
+                .replace("(", "")
+                .replace(")", "")
 
-            when (resultado.length) {
+            when (result.length) {
                 in PHONE_NUMBER_REGEX_FIRST_GROUP_RANGE_BOTTOM..PHONE_NUMBER_REGEX_FIRST_GROUP_RANGE_TOP -> {
-                    resultado = resultado.replaceFirst(
+                    result = result.replaceFirst(
                         PHONE_NUMBER_REGEX_FIRST_AND_SECOND_GROUP_MATCHER.toRegex(),
                         PHONE_NUMBER_REGEX_FIRST_GROUP_REPLACEMENT_MATCHER
                     )
+                    mask = 1
                 }
                 in PHONE_NUMBER_REGEX_SECOND_GROUP_RANGE_BOTTOM..PHONE_NUMBER_REGEX_SECOND_GROUP_RANGE_TOP -> {
-                    resultado = resultado.replaceFirst(
+                    result = result.replaceFirst(
                         "$PHONE_NUMBER_REGEX_FIRST_AND_SECOND_GROUP_MATCHER$PHONE_NUMBER_REGEX_SECOND_GROUP_MATCHER".toRegex(),
                         PHONE_NUMBER_REGEX_SECOND_GROUP_REPLACEMENT_MATCHER
                     )
+                    mask = 2
                 }
                 in PHONE_NUMBER_REGEX_THIRD_GROUP_RANGE_BOTTOM..PHONE_NUMBER_REGEX_THIRD_GROUP_RANGE_TOP -> {
-                    resultado = resultado.replaceFirst(
+                    result = result.replaceFirst(
                         (
                                 "$PHONE_NUMBER_REGEX_FIRST_AND_SECOND_GROUP_MATCHER" + "$PHONE_NUMBER_REGEX_SECOND_GROUP_MATCHER" +
                                         "$PHONE_NUMBER_REGEX_THIRD_GROUP_MATCHER").toRegex(),
                         PHONE_NUMBER_REGEX_THIRD_GROUP_REPLACEMENT_MATCHER
                     )
+                    mask = 3
                 }
             }
 
-            text.replace(FIRST_EDITTEXT_SELECTION_CHARACTER, text.length, resultado)
+            text.replace(FIRST_EDITTEXT_SELECTION_CHARACTER, text.length, result)
 
-            mReceiver.addTextChangedListener(this)
-        }
-    }
-
-    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
-
-        s?.let {
-            if (it.length == 3 && count == 1) {
-                val result = "($s)"
-                mReceiver.setText(result)
-                mReceiver.setSelection(5)
-            } else if (
-                it.length == PHONE_NUMBER_FORMAT_SECOND_HYPHEN_INDEX
-            ) {
-                mReceiver.append(HYPHEN)
+            receiver.addTextChangedListener(this)
+            if (hadPer and (mask == 1)) {
+                try {
+                    receiver.setSelection(4)
+                } catch (t: Throwable) {
+                    receiver.setSelection(result.length)
+                }
             }
         }
     }
