@@ -26,7 +26,9 @@ class PhoneNumberTextWatcherMask(private val mReceiver: EditText) : TextWatcherA
     override fun afterTextChanged(s: Editable?) {
         s?.let { text ->
             mReceiver.removeTextChangedListener(this)
-            var resultado = text.toString().replace(PHONE_NUMBER_SEPARATOR_TOKEN, "")
+            var resultadog = text.toString().replace(PHONE_NUMBER_SEPARATOR_TOKEN, "")
+            var resultadod = resultadog.replace("(", "")
+            var resultado = resultadod.replace(")", "")
 
             when (resultado.length) {
                 in PHONE_NUMBER_REGEX_FIRST_GROUP_RANGE_BOTTOM..PHONE_NUMBER_REGEX_FIRST_GROUP_RANGE_TOP -> {
@@ -37,15 +39,15 @@ class PhoneNumberTextWatcherMask(private val mReceiver: EditText) : TextWatcherA
                 }
                 in PHONE_NUMBER_REGEX_SECOND_GROUP_RANGE_BOTTOM..PHONE_NUMBER_REGEX_SECOND_GROUP_RANGE_TOP -> {
                     resultado = resultado.replaceFirst(
-                        "$PHONE_NUMBER_REGEX_FIRST_AND_SECOND_GROUP_MATCHER$PHONE_NUMBER_REGEX_FIRST_AND_SECOND_GROUP_MATCHER".toRegex(),
+                        "$PHONE_NUMBER_REGEX_FIRST_AND_SECOND_GROUP_MATCHER$PHONE_NUMBER_REGEX_SECOND_GROUP_MATCHER".toRegex(),
                         PHONE_NUMBER_REGEX_SECOND_GROUP_REPLACEMENT_MATCHER
                     )
                 }
                 in PHONE_NUMBER_REGEX_THIRD_GROUP_RANGE_BOTTOM..PHONE_NUMBER_REGEX_THIRD_GROUP_RANGE_TOP -> {
                     resultado = resultado.replaceFirst(
-                        ("$PHONE_NUMBER_REGEX_FIRST_AND_SECOND_GROUP_MATCHER" +
-                                "$PHONE_NUMBER_REGEX_FIRST_AND_SECOND_GROUP_MATCHER" +
-                                "$PHONE_NUMBER_REGEX_THIRD_GROUP_MATCHER").toRegex(),
+                        (
+                                "$PHONE_NUMBER_REGEX_FIRST_AND_SECOND_GROUP_MATCHER" + "$PHONE_NUMBER_REGEX_SECOND_GROUP_MATCHER" +
+                                        "$PHONE_NUMBER_REGEX_THIRD_GROUP_MATCHER").toRegex(),
                         PHONE_NUMBER_REGEX_THIRD_GROUP_REPLACEMENT_MATCHER
                     )
                 }
@@ -60,8 +62,12 @@ class PhoneNumberTextWatcherMask(private val mReceiver: EditText) : TextWatcherA
     override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
 
         s?.let {
-            if ((it.length == PHONE_NUMBER_FORMAT_FIRST_HYPHEN_INDEX ||
-                        it.length == PHONE_NUMBER_FORMAT_SECOND_HYPHEN_INDEX)
+            if (it.length == 3 && count == 1) {
+                val result = "($s)"
+                mReceiver.setText(result)
+                mReceiver.setSelection(5)
+            } else if (
+                it.length == PHONE_NUMBER_FORMAT_SECOND_HYPHEN_INDEX
             ) {
                 mReceiver.append(HYPHEN)
             }
