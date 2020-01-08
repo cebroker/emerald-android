@@ -3,6 +3,8 @@ package co.condorlabs.customcomponents.test
 import androidx.core.content.ContextCompat
 import androidx.test.filters.SmallTest
 import androidx.test.runner.AndroidJUnit4
+import co.condorlabs.customcomponents.HALF_SECOND
+import co.condorlabs.customcomponents.ONE_SECOND
 import co.condorlabs.customcomponents.custombutton.ButtonState
 import co.condorlabs.customcomponents.custombutton.CustomButton
 import co.condorlabs.customcomponents.custombutton.CustomButtonStyleFactory
@@ -235,7 +237,7 @@ class CustomButtonTest : MockActivityTest() {
             button.changeState(ButtonState.Loading)
         }
 
-        Thread.sleep(500)
+        Thread.sleep(HALF_SECOND)
         // Then
         Assert.assertTrue(button.text.isEmpty())
     }
@@ -254,10 +256,10 @@ class CustomButtonTest : MockActivityTest() {
             button.changeState(ButtonState.Loading)
         }
         CoroutineScope(Dispatchers.Main).launch {
-            delay(500)
+            delay(HALF_SECOND)
             button.changeState(ButtonState.Normal)
         }
-        Thread.sleep(1000)
+        Thread.sleep(ONE_SECOND)
 
         // Then
         Assert.assertEquals(buttonText, button.text)
