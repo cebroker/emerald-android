@@ -28,12 +28,12 @@ class PhoneNumberTextWatcherMask(
     override fun afterTextChanged(s: Editable?) {
         s?.let { text ->
             receiver.removeTextChangedListener(this)
-            val hadPer = text.toString().firstOrNull() == '('
+            val hadParenthesis = text.toString().firstOrNull() == CHAR_OPENING_PARENTHESIS
             var mask = 0
             var result = text.toString()
                 .replace(PHONE_NUMBER_SEPARATOR_TOKEN, "")
-                .replace("(", "")
-                .replace(")", "")
+                .replace(OPENING_PARENTHESIS, "")
+                .replace(CLOSING_PARENTHESIS, "")
 
             when (result.length) {
                 in PHONE_NUMBER_REGEX_FIRST_GROUP_RANGE_BOTTOM..PHONE_NUMBER_REGEX_FIRST_GROUP_RANGE_TOP -> {
@@ -52,9 +52,7 @@ class PhoneNumberTextWatcherMask(
                 }
                 in PHONE_NUMBER_REGEX_THIRD_GROUP_RANGE_BOTTOM..PHONE_NUMBER_REGEX_THIRD_GROUP_RANGE_TOP -> {
                     result = result.replaceFirst(
-                        (
-                                "$PHONE_NUMBER_REGEX_FIRST_AND_SECOND_GROUP_MATCHER" + "$PHONE_NUMBER_REGEX_SECOND_GROUP_MATCHER" +
-                                        "$PHONE_NUMBER_REGEX_THIRD_GROUP_MATCHER").toRegex(),
+                        ("$PHONE_NUMBER_REGEX_FIRST_AND_SECOND_GROUP_MATCHER$PHONE_NUMBER_REGEX_SECOND_GROUP_MATCHER$PHONE_NUMBER_REGEX_THIRD_GROUP_MATCHER").toRegex(),
                         PHONE_NUMBER_REGEX_THIRD_GROUP_REPLACEMENT_MATCHER
                     )
                     mask = 3
@@ -64,9 +62,9 @@ class PhoneNumberTextWatcherMask(
             text.replace(FIRST_EDITTEXT_SELECTION_CHARACTER, text.length, result)
 
             receiver.addTextChangedListener(this)
-            if (hadPer and (mask == 1)) {
+            if (hadParenthesis and (mask == 1)) {
                 try {
-                    receiver.setSelection(4)
+                    receiver.setSelection(AFTER_CLOSING_PARENTHESIS)
                 } catch (t: Throwable) {
                     receiver.setSelection(result.length)
                 }

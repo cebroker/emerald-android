@@ -38,7 +38,6 @@ import co.condorlabs.customcomponents.formfield.ValidationResult
 import com.google.android.material.textfield.TextInputLayout
 import java.util.regex.Pattern
 
-
 /**
  * @author Oscar Gallon on 2/26/19.
  */

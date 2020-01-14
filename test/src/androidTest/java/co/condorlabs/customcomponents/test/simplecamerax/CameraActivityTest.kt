@@ -18,7 +18,6 @@ import co.condorlabs.customcomponents.models.CameraConfig
 import co.condorlabs.customcomponents.simplecamerax.CameraActivity
 import co.condorlabs.customcomponents.simplecamerax.CameraBitmapCache
 import co.condorlabs.customcomponents.test.R
-import co.condorlabs.customcomponents.test.util.isTextDisplayed
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import org.junit.*
 import org.junit.runner.RunWith

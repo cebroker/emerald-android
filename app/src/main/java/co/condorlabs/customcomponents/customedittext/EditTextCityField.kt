@@ -22,7 +22,6 @@ import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.EMPTY
 import co.condorlabs.customcomponents.VALIDATE_CITY_ERROR
-import co.condorlabs.customcomponents.ZERO
 
 /**
  * @author Oscar Gallon on 2/25/19.
@@ -43,7 +42,7 @@ class EditTextCityField(context: Context, attrs: AttributeSet) : BaseEditTextFor
             return emptyValidation
         }
 
-        //TODO uncomment on release 4.0 author Oscar T. by courtney and genevieve requirement
+        // TODO uncomment on release 4.0 author Oscar T. by courtney and genevieve requirement
         /*if (mCities?.filter {
                 it.toLowerCase() == editText?.text?.toString()?.toLowerCase() ?: EMPTY
             }?.count() ?: ZERO <= ZERO) {

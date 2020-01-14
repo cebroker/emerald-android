@@ -33,7 +33,7 @@ class CustomBaseInstantAutoCompleteTextView(context: Context, attrs: AttributeSe
             performFiltering(text, 0)
             showDropDown()
         }
-        if(event?.action == MotionEvent.ACTION_DOWN) {
+        if (event?.action == MotionEvent.ACTION_DOWN) {
             hideKeyBoard()
         }
         return super.onTouchEvent(event)

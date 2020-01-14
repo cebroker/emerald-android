@@ -33,10 +33,10 @@ class EditTextPhoneField(context: Context, attrs: AttributeSet) : BaseEditTextFo
     override fun setup() {
         super.setup()
         editText?.id = R.id.etPhone
-        //setInputType()
+        setInputType()
         setMaxLength()
         setPhoneMask()
-        //setDigits()
+        setDigits()
     }
 
     private fun setDigits() {
