@@ -29,7 +29,7 @@ Create a new instance in your layout
 | Return Type | Description |
 | -| - |
 |  Unit | *`fun setIsRequired(required: Boolean)`* <br> make the field required|
-|  Unit | *`fun setData(data: List<SpinnerData>)`* <br> set the spinner data|
+|  Unit | *`fun setData(data: List<SpinnerData>, isAlphabeticSorted: Boolean )`* <br> set the spinner data, *isAlphabeticSorted* is **true** by default|
 |  Unit | *`fun setItemSelectedById(id: String)`* <br> Select an item by his id|
 |  Unit | *`fun clearField()`* <br> Clear the actual selection|
 |  Unit | *`fun setSpinnerFormFieldListener(spinnerFormFieldListener: SpinnerFormFieldListener)`* <br> Set a listener to get notify when the item is cleared|
