@@ -13,6 +13,7 @@ import androidx.test.filters.LargeTest
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.rule.ActivityTestRule
 import androidx.test.runner.AndroidJUnit4
+import co.condorlabs.customcomponents.TWO_SECONDS
 import co.condorlabs.customcomponents.custombutton.CustomButton
 import co.condorlabs.customcomponents.models.CameraConfig
 import co.condorlabs.customcomponents.simplecamerax.CameraActivity
@@ -98,11 +99,11 @@ class CameraActivityTest {
             val fabCaptureButton = ruleActivity.activity.findViewById<FloatingActionButton>(R.id.fabCaptureButton)
             val cropButton = ruleActivity.activity.findViewById<CustomButton>(R.id.btnCropPhoto)
             ruleActivity.runOnUiThread { fabCaptureButton.performClick() }
-            Thread.sleep(2000)
+            Thread.sleep(TWO_SECONDS)
 
             // When
             ruleActivity.runOnUiThread { cropButton.performClick() }
-            Thread.sleep(2000)
+            Thread.sleep(TWO_SECONDS)
 
             // Then
             val bitmap: Bitmap? = CameraBitmapCache.getBitmap()
@@ -122,7 +123,7 @@ class CameraActivityTest {
             val cropButton = ruleActivity.activity.findViewById<CustomButton>(R.id.btnCropPhoto)
             val fabCaptureButton = ruleActivity.activity.findViewById<FloatingActionButton>(R.id.fabCaptureButton)
             ruleActivity.runOnUiThread { fabCaptureButton.performClick() }
-            Thread.sleep(2000)
+            Thread.sleep(TWO_SECONDS)
 
             // When
             ruleActivity.runOnUiThread { cancelButton.performClick() }
@@ -145,7 +146,7 @@ class CameraActivityTest {
             val cropButton = ruleActivity.activity.findViewById<CustomButton>(R.id.btnCropPhoto)
             val fabCaptureButton = ruleActivity.activity.findViewById<FloatingActionButton>(R.id.fabCaptureButton)
             ruleActivity.runOnUiThread { fabCaptureButton.performClick() }
-            Thread.sleep(2000)
+            Thread.sleep(TWO_SECONDS)
 
             // When
             ruleActivity.runOnUiThread { cropButton.performClick() }
@@ -163,7 +164,7 @@ class CameraActivityTest {
 
             // When
             ruleActivity.runOnUiThread { cancelPhoto.performClick() }
-            Thread.sleep(2000)
+            Thread.sleep(TWO_SECONDS)
 
             // Then
             Assert.assertTrue(ruleActivity.activity.isDestroyed)

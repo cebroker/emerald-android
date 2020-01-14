@@ -226,7 +226,9 @@ class FileSelectorFieldTest : MockActivityTest() {
         // Given
         val fileSelectorField =
             ruleActivity.activity.findViewById<FileSelectorField>(R.id.myCustomLayoutSelector)
-        ruleActivity.activity.runOnUiThread { fileSelectorField.setEnable(false) }
+        ruleActivity.activity.runOnUiThread {
+            fileSelectorField.setEnable(false)
+        }
 
         val view = onView(withId(R.id.myCustomLayoutSelector))
 

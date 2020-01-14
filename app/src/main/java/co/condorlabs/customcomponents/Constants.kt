@@ -265,3 +265,9 @@ const val FILE_SELECTOR_OPTION_FILE = "File"
 
 /** FILE SELECTOR VALUES **/
 const val FILE_AFTER_DOT_INDEX = 1
+
+/** TIME */
+const val HALF_SECOND = 500L
+const val ONE_SECOND = 1000L
+const val TWO_SECONDS = 2000L
+const val THREE_SECONDS = 3000L
