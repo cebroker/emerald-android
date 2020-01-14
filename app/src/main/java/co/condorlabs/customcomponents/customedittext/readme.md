@@ -50,3 +50,23 @@ Emerald provides this component to be used as EditText
 
 ## Example
 <img src="/Images/edit_text_field.png" width="400" heigth="400">
+
+
+# Custom EditTextPhoneField
+## Basic Usage
+
+```xml
+    <co.condorlabs.customcomponents.customedittext.EditTextPhoneField
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"/>
+```
+
+## Attributes
+
+| Description |
+| - |
+| Allow apply default regex (XXX)XXX-XXXX |
+
+
+## Example
+<img src="/Images/edit_text_phone.png" width="400" heigth="400">
