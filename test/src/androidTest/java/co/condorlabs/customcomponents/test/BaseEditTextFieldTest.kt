@@ -34,8 +34,6 @@ import org.junit.Test
 import org.junit.runner.RunWith
 import androidx.test.uiautomator.UiDevice
 
-
-
 /**
  * @author Oscar Gallon on 2/26/19.
  */
