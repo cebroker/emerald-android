@@ -457,7 +457,6 @@ class FileSelectorFieldTest : MockActivityTest() {
         val fileSelectorField =
             ruleActivity.activity.findViewById<FileSelectorField>(R.id.fileSelectorOptionFile)
 
-
         // When
         ruleActivity.activity.runOnUiThread {
             fileSelectorField.setFileValue(

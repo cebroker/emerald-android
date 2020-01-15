@@ -67,7 +67,6 @@ class EditTextEmailFieldTest : MockActivityTest() {
         val emailField = ruleActivity.activity.findViewById<EditTextEmailField>(R.id.tlEmail)
         emailField.setIsRequired(true)
 
-
         // When
         val result = emailField.isValid()
 

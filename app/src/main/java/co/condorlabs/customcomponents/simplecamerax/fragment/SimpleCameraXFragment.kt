@@ -32,7 +32,8 @@ class SimpleCameraXFragment : Fragment(), TextureView.SurfaceTextureListener {
     }
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
         return inflater.inflate(R.layout.fragment_simple_camera_x, container, false)
@@ -121,7 +122,7 @@ class SimpleCameraXFragment : Fragment(), TextureView.SurfaceTextureListener {
                     })
             } else {
                 val fileTemp = File(filePath)
-                if (!fileTemp.exists()){ fileTemp.mkdirs() }
+                if (!fileTemp.exists()) { fileTemp.mkdirs() }
                 val fileFinal = File(fileTemp, "img_${System.currentTimeMillis()}.jpg")
                 imageCapture?.takePicture(
                     fileFinal,

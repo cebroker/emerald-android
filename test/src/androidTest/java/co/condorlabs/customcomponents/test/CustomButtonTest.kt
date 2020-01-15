@@ -242,7 +242,6 @@ class CustomButtonTest : MockActivityTest() {
         Assert.assertTrue(button.text.isEmpty())
     }
 
-    
     @Test
     fun shouldChangeToStateLoadingAndReturnToStateNormal() {
         restartActivity()
