@@ -30,7 +30,8 @@ import co.condorlabs.customcomponents.formfield.ValidationResult
 class SpinnerFormField(
     context: Context,
     attrs: AttributeSet
-) : BaseSpinnerFormField(context, attrs), ItemSelectedListenerAdapter, AdapterView.OnItemClickListener {
+) : BaseSpinnerFormField(context, attrs), ItemSelectedListenerAdapter,
+    AdapterView.OnItemClickListener {
 
     override var isRequired: Boolean = false
     private var firstEvaluation: Boolean = true
@@ -105,7 +106,8 @@ class SpinnerFormField(
 
         val wrappedSelectedItem = selectedItem ?: return getErrorValidateResult()
 
-        val adapter = (autoCompleteTextView?.adapter as? SpinnerFormFieldAdapter) ?: return getErrorValidateResult()
+        val adapter = (autoCompleteTextView?.adapter as? SpinnerFormFieldAdapter)
+            ?: return getErrorValidateResult()
 
         val selectedItemPosition = adapter.getPosition(wrappedSelectedItem)
 
@@ -136,8 +138,12 @@ class SpinnerFormField(
         autoCompleteTextView?.performClick()
     }
 
-    fun setData(data: List<SpinnerData>) {
-        (autoCompleteTextView?.adapter as? SpinnerFormFieldAdapter)?.replaceStates(data.sortedBy { it.label })
+    fun setData(data: List<SpinnerData>, isAlphabeticSorted: Boolean = true) {
+        (autoCompleteTextView?.adapter as? SpinnerFormFieldAdapter)?.replaceStates(
+            data.sortedBy {
+                it.takeIf { isAlphabeticSorted }?.label
+            }
+        )
     }
 
     fun clearField() {
@@ -148,7 +154,9 @@ class SpinnerFormField(
     }
 
     fun setItemSelectedById(id: String) {
-        val data = (autoCompleteTextView?.adapter as? SpinnerFormFieldAdapter)?.getData()?.let { it } ?: return
+        val data =
+            (autoCompleteTextView?.adapter as? SpinnerFormFieldAdapter)?.getData()?.let { it }
+                ?: return
         val item = data.find { it.id == id }?.let { it } ?: return
         autoCompleteTextView?.setText(item.label, false)
         selectedItem = item
@@ -159,7 +167,12 @@ class SpinnerFormField(
         textInputLayout?.isEnabled = isEnable
         (autoCompleteTextView as? CustomBaseInstantAutoCompleteTextView)?.setEnable(isEnable)
         if (isEnable) {
-            autoCompleteTextView?.setCompoundDrawablesWithIntrinsicBounds(ZERO, ZERO, R.drawable.ic_down_arrow, ZERO)
+            autoCompleteTextView?.setCompoundDrawablesWithIntrinsicBounds(
+                ZERO,
+                ZERO,
+                R.drawable.ic_down_arrow,
+                ZERO
+            )
         } else {
             autoCompleteTextView?.setCompoundDrawablesWithIntrinsicBounds(
                 ZERO,

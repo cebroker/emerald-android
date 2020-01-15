@@ -53,7 +53,8 @@ class SpinnerFormFieldTest : MockActivityTest() {
     lateinit var data: SpinnerData
     lateinit var data1: SpinnerData
     lateinit var data2: SpinnerData
-    lateinit var spinnerDataList: ArrayList<SpinnerData>
+    private lateinit var spinnerDataList: ArrayList<SpinnerData>
+    private lateinit var spinnerDataListNotSorted: ArrayList<SpinnerData>
 
     @Before
     fun setup() {
@@ -66,6 +67,7 @@ class SpinnerFormFieldTest : MockActivityTest() {
         data1 = SpinnerData("2", "Cundinamarca")
         data2 = SpinnerData("3", "Atlantico")
         spinnerDataList = arrayListOf(data, data1, data2)
+        spinnerDataListNotSorted = arrayListOf(data1, data, data2)
     }
 
     @SmallTest
@@ -197,6 +199,29 @@ class SpinnerFormFieldTest : MockActivityTest() {
         // Then
         Espresso.onView(withText("Cundinamarca")).check(matches(isDisplayed()))
         Assert.assertEquals(data1, (realEditText as AutoCompleteTextView).adapter.getItem(3))
+    }
+
+    @SmallTest
+    @Test
+    fun shouldShowStatesNotSorted() {
+        restartActivity()
+
+        // Given
+        val formField = ruleActivity.activity.findViewById<SpinnerFormField>(R.id.tlState)
+        val realEditText = formField.textInputLayout!!.editText!!
+        val view = Espresso.onView(withId(realEditText.id))
+
+        // When
+        ruleActivity.runOnUiThread {
+            formField.setData(spinnerDataListNotSorted, false)
+        }
+        view.perform(click())
+        onData(allOf(`is`(instanceOf(SpinnerData::class.java)), `is`(data1))).inRoot(RootMatchers.isPlatformPopup())
+            .perform(click())
+
+        // Then
+        Espresso.onView(withText("Cundinamarca")).check(matches(isDisplayed()))
+        Assert.assertEquals(data1, (realEditText as AutoCompleteTextView).adapter.getItem(1))
     }
 
     @SmallTest
