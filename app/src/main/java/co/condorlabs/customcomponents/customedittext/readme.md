@@ -53,6 +53,8 @@ Emerald provides this component to be used as EditText
 
 
 # Custom EditTextPhoneField
+Allow apply default regex (XXX)XXX-XXXX
+
 ## Basic Usage
 
 ```xml
@@ -60,13 +62,5 @@ Emerald provides this component to be used as EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"/>
 ```
-
-## Attributes
-
-| Description |
-| - |
-| Allow apply default regex (XXX)XXX-XXXX |
-
-
 ## Example
 <img src="/Images/edit_text_phone.png" width="400" heigth="400">

@@ -29,7 +29,7 @@ class PhoneNumberTextWatcherMask(
         s?.let { text ->
             receiver.removeTextChangedListener(this)
             val hadParenthesis = text.toString().firstOrNull() == CHAR_OPENING_PARENTHESIS
-            var mask = 0
+            var firstGroupMask = false
             var result = text.toString()
                 .replace(PHONE_NUMBER_SEPARATOR_TOKEN, "")
                 .replace(OPENING_PARENTHESIS, "")
@@ -41,28 +41,26 @@ class PhoneNumberTextWatcherMask(
                         PHONE_NUMBER_REGEX_FIRST_AND_SECOND_GROUP_MATCHER.toRegex(),
                         PHONE_NUMBER_REGEX_FIRST_GROUP_REPLACEMENT_MATCHER
                     )
-                    mask = 1
+                    firstGroupMask = true
                 }
                 in PHONE_NUMBER_REGEX_SECOND_GROUP_RANGE_BOTTOM..PHONE_NUMBER_REGEX_SECOND_GROUP_RANGE_TOP -> {
                     result = result.replaceFirst(
                         "$PHONE_NUMBER_REGEX_FIRST_AND_SECOND_GROUP_MATCHER$PHONE_NUMBER_REGEX_SECOND_GROUP_MATCHER".toRegex(),
                         PHONE_NUMBER_REGEX_SECOND_GROUP_REPLACEMENT_MATCHER
                     )
-                    mask = 2
                 }
                 in PHONE_NUMBER_REGEX_THIRD_GROUP_RANGE_BOTTOM..PHONE_NUMBER_REGEX_THIRD_GROUP_RANGE_TOP -> {
                     result = result.replaceFirst(
                         ("$PHONE_NUMBER_REGEX_FIRST_AND_SECOND_GROUP_MATCHER$PHONE_NUMBER_REGEX_SECOND_GROUP_MATCHER$PHONE_NUMBER_REGEX_THIRD_GROUP_MATCHER").toRegex(),
                         PHONE_NUMBER_REGEX_THIRD_GROUP_REPLACEMENT_MATCHER
                     )
-                    mask = 3
                 }
             }
 
             text.replace(FIRST_EDITTEXT_SELECTION_CHARACTER, text.length, result)
 
             receiver.addTextChangedListener(this)
-            if (hadParenthesis and (mask == 1)) {
+            if (hadParenthesis and (firstGroupMask)) {
                 try {
                     receiver.setSelection(AFTER_CLOSING_PARENTHESIS)
                 } catch (t: Throwable) {
