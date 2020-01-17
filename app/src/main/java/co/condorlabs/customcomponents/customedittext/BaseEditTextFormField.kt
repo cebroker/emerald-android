@@ -50,7 +50,7 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
         set(value) {
             field = value; textInputLayout?.hint = field
         }
-    var text: String? = EMPTY
+    open var text: String? = EMPTY
         set(value) {
             field = value
             if (!value.isNullOrEmpty()) {

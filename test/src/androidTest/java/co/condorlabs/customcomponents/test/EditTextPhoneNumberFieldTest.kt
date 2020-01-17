@@ -21,11 +21,12 @@ import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.filters.SmallTest
-import co.condorlabs.customcomponents.customedittext.EditTextPhoneField
-import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.PHONE_NUMBER_REGEX
 import co.condorlabs.customcomponents.VALIDATE_EMPTY_ERROR
 import co.condorlabs.customcomponents.VALIDATE_LENGTH_ERROR
+import co.condorlabs.customcomponents.customedittext.EditTextPhoneField
+import co.condorlabs.customcomponents.formfield.ValidationResult
+import co.condorlabs.customcomponents.test.util.isTextDisplayed
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -67,7 +68,29 @@ class EditTextPhoneNumberFieldTest : MockActivityTest() {
         view.perform(ViewActions.typeText("1234567890"))
 
         // Then
-        view.check(ViewAssertions.matches(ViewMatchers.withText("123-456-7890")))
+        view.check(ViewAssertions.matches(ViewMatchers.withText("(123)456-7890")))
+    }
+
+    @SmallTest
+    @Test
+    fun shouldNotFormatPhoneNumberIfStringIsNotAPhone() {
+        restartActivity()
+
+        // Given
+        val txtInputLayout = ruleActivity.activity.findViewById<EditTextPhoneField>(R.id.tlPhone)
+        val resultIsValid: ValidationResult?
+        txtInputLayout?.setIsRequired(true)
+
+        // When
+        txtInputLayout?.setRegex(PHONE_NUMBER_REGEX)
+        txtInputLayout?.text = "123e67c890"
+        resultIsValid = txtInputLayout?.isValid()
+
+        // Then
+        Assert.assertEquals(
+            ValidationResult(false, String.format(VALIDATE_EMPTY_ERROR, "Enter some text")),
+            resultIsValid
+        )
     }
 
     @SmallTest
@@ -86,8 +109,8 @@ class EditTextPhoneNumberFieldTest : MockActivityTest() {
         // Then
         txtInputLayout?.setRegex(PHONE_NUMBER_REGEX)
         Assert.assertEquals(
-            ValidationResult(false, String.format(VALIDATE_EMPTY_ERROR, "Enter some text")), resultIsValid
-
+            ValidationResult(false, String.format(VALIDATE_EMPTY_ERROR, "Enter some text")),
+            resultIsValid
         )
     }
 
@@ -146,6 +169,7 @@ class EditTextPhoneNumberFieldTest : MockActivityTest() {
 
         // Then
         Assert.assertTrue(txtInputLayout.isValid().isValid)
-        Assert.assertEquals("123-456-7890", txtInputLayout.getValue())
+        Assert.assertEquals("1234567890", txtInputLayout.getValue())
+        isTextDisplayed("(123)456-7890")
     }
 }

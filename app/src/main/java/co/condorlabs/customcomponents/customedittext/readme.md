@@ -1,3 +1,4 @@
+
 # Custom EditText
 Emerald provides this component to be used as EditText
 
@@ -36,17 +37,35 @@ Emerald provides this component to be used as EditText
 
 ## Public methods
 | Return Type | Description |
-| -| - |
+| - | - |
 |  Unit | *`fun setMinLines(minLines: Int)`* <br> Minimum number of lines|
-|  Unit | *`fun setMaxLiines(maxLines: Int)`* <br> Maximum number of lines|
+|  Unit | *`fun setMaxLines(maxLines: Int)`* <br> Maximum number of lines|
 |  Unit | *`fun setPlaceholder(placeholder: String)`* <br> Set the text placeholder|
 |  Unit | *`fun setBackgroundAlpha(backgroundAlpha: Int)`* <br> Set alpha background to the EditText|
 |  Unit | *`fun setIsRequired(isRequired: String)`* <br> is the field required?|
 |  Unit | *`fun setRegex(regex:String)`* <br> Set the field regex|
-|  String | *`fun getValue()`* <br> Get the current value of the field|
+|  String | *`fun getValue()`* <br> Get the current value of the field, if the field is an **EditTextPhoneField** it returns the phone number without special characters(**()-**)|
 |  Unit | *`fun setEnable(isEnable: Boolean)`* <br> Show the component enable or disable| 
 |  Unit | *`fun setRegex(regex: List<String>))`* <br> Add multiple regex to be checked against to| 
 
 
 ## Example
 <img src="/Images/edit_text_field.png" width="400" heigth="400">
+
+# Custom EditTextPhoneField	
+Allow apply default regex (XXX)XXX-XXXX	
+
+## Basic Usage	
+
+ ```xml	
+    <co.condorlabs.customcomponents.customedittext.EditTextPhoneField	
+            android:layout_width="match_parent"	
+            android:layout_height="wrap_content"/>	
+```	
+
+## Important Note
+`EditTextPhoneField?.text` shall receive a *10 digits* number to show, otherwise, appear as empty
+
+## Example	
+<img src="/Images/edit_text_phone.png" width="400" height="400">
+

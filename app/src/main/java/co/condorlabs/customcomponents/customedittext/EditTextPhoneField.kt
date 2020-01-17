@@ -21,15 +21,23 @@ import android.text.InputFilter
 import android.text.InputType
 import android.text.method.DigitsKeyListener
 import android.util.AttributeSet
-import co.condorlabs.customcomponents.DIGITS_PHONE
-import co.condorlabs.customcomponents.PHONE_FIELD_MAX_LENGTH
-import co.condorlabs.customcomponents.R
-import co.condorlabs.customcomponents.VALIDATE_LENGTH_ERROR
+import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.masks.PhoneNumberTextWatcherMask
 
 class EditTextPhoneField(context: Context, attrs: AttributeSet) :
     BaseEditTextFormField(context, attrs) {
+
+    override var text: String? = EMPTY
+        set(value) {
+            field = value
+            if (value?.toIntOrNull() is Int && value.length in 0..10) {
+                textInputLayout?.editText?.setText(value)
+            } else {
+                textInputLayout?.editText?.text = null
+            }
+        }
+        get() = getValue()
 
     override fun setup() {
         super.setup()
@@ -62,5 +70,10 @@ class EditTextPhoneField(context: Context, attrs: AttributeSet) :
 
     override fun getErrorValidateResult(): ValidationResult {
         return ValidationResult(false, VALIDATE_LENGTH_ERROR)
+    }
+
+    override fun getValue(): String {
+        return this.editText?.text.toString()
+            .filterNot { character -> PHONE_STRING_NON_DIGITS.contains(character) }
     }
 }
