@@ -34,6 +34,7 @@ Emerald provides this component to be used as EditText
 | app:min_lines | Minimum number of lines|
 | app:multiline | Will the field display more than one line|
 | app:max_characters | Maximum number of characters|
+| app:phone_mask | Format used to display the phone number  ***(Only for EditTextPhoneField)*** |
 
 ## Public methods
 | Return Type | Description |
@@ -43,8 +44,9 @@ Emerald provides this component to be used as EditText
 |  Unit | *`fun setPlaceholder(placeholder: String)`* <br> Set the text placeholder|
 |  Unit | *`fun setBackgroundAlpha(backgroundAlpha: Int)`* <br> Set alpha background to the EditText|
 |  Unit | *`fun setIsRequired(isRequired: String)`* <br> is the field required?|
-|  Unit | *`fun setRegex(regex:String)`* <br> Set the field regex|
+|  Unit | *`fun setRegex(regex: String)`* <br> Set the field regex|
 |  String | *`fun getValue()`* <br> Get the current value of the field, if the field is an **EditTextPhoneField** it returns the phone number without special characters(**()-**)|
+|  String | *`fun getPhoneMask()`* <br> Get the current mask of the field, by default is **"(###) ###-####"**|
 |  Unit | *`fun setEnable(isEnable: Boolean)`* <br> Show the component enable or disable| 
 |  Unit | *`fun setRegex(regex: List<String>))`* <br> Add multiple regex to be checked against to| 
 
@@ -53,7 +55,7 @@ Emerald provides this component to be used as EditText
 <img src="/Images/edit_text_field.png" width="400" heigth="400">
 
 # Custom EditTextPhoneField	
-Allow apply default regex (XXX)XXX-XXXX	
+Allow apply default regex (XXX) XXX-XXXX	
 
 ## Basic Usage	
 

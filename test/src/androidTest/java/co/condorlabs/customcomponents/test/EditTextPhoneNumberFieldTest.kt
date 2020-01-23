@@ -68,7 +68,7 @@ class EditTextPhoneNumberFieldTest : MockActivityTest() {
         view.perform(ViewActions.typeText("1234567890"))
 
         // Then
-        view.check(ViewAssertions.matches(ViewMatchers.withText("(123)456-7890")))
+        view.check(ViewAssertions.matches(ViewMatchers.withText("(123) 456-7890")))
     }
 
     @SmallTest
@@ -118,6 +118,7 @@ class EditTextPhoneNumberFieldTest : MockActivityTest() {
     @Test
     fun shouldShowAndErrorWithLessDigits() {
         restartActivity()
+
         // Given
         val phone = "123456"
         val txtInputLayout = ruleActivity.activity.findViewById<EditTextPhoneField>(R.id.tlPhone)
@@ -138,6 +139,7 @@ class EditTextPhoneNumberFieldTest : MockActivityTest() {
     @Test
     fun shouldNotBeValidIfNotRequiredAndRegexNotMatch() {
         restartActivity()
+
         // Given
         val phone = "123"
         val txtInputLayout = ruleActivity.activity.findViewById<EditTextPhoneField>(R.id.tlPhone)
@@ -170,6 +172,6 @@ class EditTextPhoneNumberFieldTest : MockActivityTest() {
         // Then
         Assert.assertTrue(txtInputLayout.isValid().isValid)
         Assert.assertEquals("1234567890", txtInputLayout.getValue())
-        isTextDisplayed("(123)456-7890")
+        isTextDisplayed("(123) 456-7890")
     }
 }

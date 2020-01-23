@@ -28,6 +28,8 @@ import co.condorlabs.customcomponents.helper.masks.PhoneNumberTextWatcherMask
 class EditTextPhoneField(context: Context, attrs: AttributeSet) :
     BaseEditTextFormField(context, attrs) {
 
+    private var mask: String = DEFAULT_PHONE_MASK
+
     override var text: String? = EMPTY
         set(value) {
             field = value
@@ -39,6 +41,22 @@ class EditTextPhoneField(context: Context, attrs: AttributeSet) :
         }
         get() = getValue()
 
+    init {
+        context.theme.obtainStyledAttributes(
+            attrs,
+            R.styleable.EditTextPhoneField,
+            DEFAULT_STYLE_ATTR, DEFAULT_STYLE_RES
+        ).apply {
+            try {
+                getString(R.styleable.EditTextPhoneField_phone_mask)?.let { mask_value ->
+                    mask = mask_value
+                }
+            } finally {
+                recycle()
+            }
+        }
+    }
+
     override fun setup() {
         super.setup()
         editText?.id = R.id.etPhone
@@ -49,7 +67,7 @@ class EditTextPhoneField(context: Context, attrs: AttributeSet) :
     }
 
     private fun setDigits() {
-        this.editText?.keyListener = DigitsKeyListener.getInstance(DIGITS_PHONE)
+        this.editText?.keyListener = DigitsKeyListener.getInstance(PHONE_DIGITS)
     }
 
     private fun setInputType() {
@@ -58,13 +76,15 @@ class EditTextPhoneField(context: Context, attrs: AttributeSet) :
 
     private fun setPhoneMask() {
         this.editText?.apply {
-            addTextChangedListener(PhoneNumberTextWatcherMask(this))
+            addTextChangedListener(PhoneNumberTextWatcherMask(mask) { setSelection(it) })
         }
     }
 
+    fun getPhoneMask() = mask
+
     private fun setMaxLength() {
-        val filterArray = arrayOfNulls<InputFilter>(1)
-        filterArray[0] = InputFilter.LengthFilter(PHONE_FIELD_MAX_LENGTH)
+        val filterArray = arrayOfNulls<InputFilter>(ONE)
+        filterArray[ZERO] = InputFilter.LengthFilter(PHONE_FIELD_MAX_LENGTH)
         editText?.filters = filterArray
     }
 

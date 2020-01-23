@@ -24,6 +24,10 @@
         <attr name="picker_icon" format="integer" />
     </declare-styleable>
 
+    <declare-styleable name="EditTextPhoneField">
+        <attr name="phone_mask" format="string" />
+    </declare-styleable>
+
     <declare-styleable name="BaseEditTextFormField">
         <attr name="input_type" format="string" />
         <attr name="regex" format="string" />
