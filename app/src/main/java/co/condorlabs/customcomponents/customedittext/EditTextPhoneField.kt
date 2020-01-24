@@ -17,7 +17,6 @@
 package co.condorlabs.customcomponents.customedittext
 
 import android.content.Context
-import android.text.InputFilter
 import android.text.InputType
 import android.text.method.DigitsKeyListener
 import android.util.AttributeSet
@@ -33,8 +32,10 @@ class EditTextPhoneField(context: Context, attrs: AttributeSet) :
     override var text: String? = EMPTY
         set(value) {
             field = value
-            if (value?.toIntOrNull() is Int && value.length in 0..10) {
-                textInputLayout?.editText?.setText(value)
+            val phoneHasNumbers = value!!.any { it.isDigit() }
+
+            if (phoneHasNumbers) {
+                textInputLayout?.editText?.setText(value.filter { it.isDigit() })
             } else {
                 textInputLayout?.editText?.text = null
             }
@@ -61,7 +62,6 @@ class EditTextPhoneField(context: Context, attrs: AttributeSet) :
         super.setup()
         editText?.id = R.id.etPhone
         setInputType()
-        setMaxLength()
         setPhoneMask()
         setDigits()
     }
@@ -76,17 +76,17 @@ class EditTextPhoneField(context: Context, attrs: AttributeSet) :
 
     private fun setPhoneMask() {
         this.editText?.apply {
-            addTextChangedListener(PhoneNumberTextWatcherMask(mask) { setSelection(it) })
+            addTextChangedListener(PhoneNumberTextWatcherMask(mask) {
+                try {
+                    setSelection(it)
+                } catch (t: Exception) {
+                    throw PhoneDigitPositionException()
+                }
+            })
         }
     }
 
     fun getPhoneMask() = mask
-
-    private fun setMaxLength() {
-        val filterArray = arrayOfNulls<InputFilter>(ONE)
-        filterArray[ZERO] = InputFilter.LengthFilter(PHONE_FIELD_MAX_LENGTH)
-        editText?.filters = filterArray
-    }
 
     override fun getErrorValidateResult(): ValidationResult {
         return ValidationResult(false, VALIDATE_LENGTH_ERROR)

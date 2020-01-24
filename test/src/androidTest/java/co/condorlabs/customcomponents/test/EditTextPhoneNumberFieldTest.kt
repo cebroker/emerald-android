@@ -73,7 +73,7 @@ class EditTextPhoneNumberFieldTest : MockActivityTest() {
 
     @SmallTest
     @Test
-    fun shouldNotFormatPhoneNumberIfStringIsNotAPhone() {
+    fun shouldFormatPhoneNumberIfStringIsPhoneWithLetterCharacters() {
         restartActivity()
 
         // Given
