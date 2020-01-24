@@ -83,12 +83,14 @@ class EditTextPhoneNumberFieldTest : MockActivityTest() {
 
         // When
         txtInputLayout?.setRegex(PHONE_NUMBER_REGEX)
-        txtInputLayout?.text = "123e67c890"
+        ruleActivity.runOnUiThread {
+            txtInputLayout?.text = "123ed33c890"
+        }
         resultIsValid = txtInputLayout?.isValid()
 
         // Then
         Assert.assertEquals(
-            ValidationResult(false, String.format(VALIDATE_EMPTY_ERROR, "Enter some text")),
+            ValidationResult(false, String.format(VALIDATE_LENGTH_ERROR, "Enter some text")),
             resultIsValid
         )
     }
