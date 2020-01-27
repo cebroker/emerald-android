@@ -36,8 +36,10 @@ class EditTextPhoneField(context: Context, attrs: AttributeSet) :
 
             if (phoneHasNumbers) {
                 textInputLayout?.editText?.setText(value.filter { it.isDigit() })
+                showPlaceholder()
             } else {
                 textInputLayout?.editText?.text = null
+                resetPlaceholder()
             }
         }
         get() = getValue()
