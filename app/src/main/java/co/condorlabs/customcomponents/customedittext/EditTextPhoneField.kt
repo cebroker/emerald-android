@@ -32,9 +32,9 @@ class EditTextPhoneField(context: Context, attrs: AttributeSet) :
     override var text: String? = EMPTY
         set(value) {
             field = value
-            val phoneHasNumbers = value!!.any { it.isDigit() }
+            val phoneHasNumbers = value?.any { it.isDigit() } ?: false
 
-            if (phoneHasNumbers) {
+            if (!value.isNullOrEmpty() && phoneHasNumbers) {
                 textInputLayout?.editText?.setText(value.filter { it.isDigit() })
                 showPlaceholder()
             } else {
