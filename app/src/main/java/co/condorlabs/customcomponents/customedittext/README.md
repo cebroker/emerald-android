@@ -46,7 +46,6 @@ Emerald provides this component to be used as EditText
 |  Unit | *`fun setIsRequired(isRequired: String)`* <br> is the field required?|
 |  Unit | *`fun setRegex(regex: String)`* <br> Set the field regex|
 |  String | *`fun getValue()`* <br> Get the current value of the field, if the field is an **EditTextPhoneField** it returns the phone number without special characters(**()-**)|
-|  String | *`fun getPhoneMask()`* <br> Get the current mask of the field, by default is **"(###) ###-####"**|
 |  Unit | *`fun setEnable(isEnable: Boolean)`* <br> Show the component enable or disable| 
 |  Unit | *`fun setRegex(regex: List<String>))`* <br> Add multiple regex to be checked against to| 
 

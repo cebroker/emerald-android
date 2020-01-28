@@ -50,13 +50,10 @@ class EditTextPhoneField(context: Context, attrs: AttributeSet) :
             R.styleable.EditTextPhoneField,
             DEFAULT_STYLE_ATTR, DEFAULT_STYLE_RES
         ).apply {
-            try {
-                getString(R.styleable.EditTextPhoneField_phone_mask)?.let { mask_value ->
-                    mask = mask_value
-                }
-            } finally {
-                recycle()
+            getString(R.styleable.EditTextPhoneField_phone_mask)?.let { mask_value ->
+                mask = mask_value
             }
+            recycle()
         }
     }
 
@@ -81,14 +78,12 @@ class EditTextPhoneField(context: Context, attrs: AttributeSet) :
             addTextChangedListener(PhoneNumberTextWatcherMask(mask) {
                 try {
                     setSelection(it)
-                } catch (t: Exception) {
+                } catch (t: IndexOutOfBoundsException) {
                     throw PhoneDigitPositionException()
                 }
             })
         }
     }
-
-    fun getPhoneMask() = mask
 
     override fun getErrorValidateResult(): ValidationResult {
         return ValidationResult(false, VALIDATE_LENGTH_ERROR)

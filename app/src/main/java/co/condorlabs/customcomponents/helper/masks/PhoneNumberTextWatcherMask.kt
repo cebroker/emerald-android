@@ -29,7 +29,7 @@ import co.condorlabs.customcomponents.ZERO
  */
 class PhoneNumberTextWatcherMask(
     private val mask: String,
-    val cursorPos: (Int) -> Unit
+    val cursorPosition: (Int) -> Unit
 ) : TextWatcher {
     private var isRunning = false
     private var isDeleting = false
@@ -93,9 +93,9 @@ class PhoneNumberTextWatcherMask(
         isRunning = false
 
         if (isDeleting) {
-            cursorPos(start)
+            cursorPosition(start)
         } else {
-            cursorPos(finalSelection - after)
+            cursorPosition(finalSelection - after)
         }
     }
 
