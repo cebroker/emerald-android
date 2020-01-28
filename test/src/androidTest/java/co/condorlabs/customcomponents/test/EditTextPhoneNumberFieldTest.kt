@@ -82,7 +82,6 @@ class EditTextPhoneNumberFieldTest : MockActivityTest() {
         txtInputLayout?.setIsRequired(true)
 
         // When
-        txtInputLayout?.setRegex(PHONE_NUMBER_REGEX)
         ruleActivity.runOnUiThread {
             txtInputLayout?.text = "123ed33c890"
         }
@@ -109,7 +108,6 @@ class EditTextPhoneNumberFieldTest : MockActivityTest() {
         resultIsValid = txtInputLayout?.isValid()
 
         // Then
-        txtInputLayout?.setRegex(PHONE_NUMBER_REGEX)
         Assert.assertEquals(
             ValidationResult(false, String.format(VALIDATE_EMPTY_ERROR, "Enter some text")),
             resultIsValid
@@ -127,7 +125,6 @@ class EditTextPhoneNumberFieldTest : MockActivityTest() {
         txtInputLayout?.setIsRequired(true)
 
         // When
-        txtInputLayout?.setRegex(PHONE_NUMBER_REGEX)
         Espresso.onView(ViewMatchers.withId(R.id.etPhone)).perform(ViewActions.typeText(phone))
 
         // Then
@@ -146,7 +143,6 @@ class EditTextPhoneNumberFieldTest : MockActivityTest() {
         val phone = "123"
         val txtInputLayout = ruleActivity.activity.findViewById<EditTextPhoneField>(R.id.tlPhone)
         txtInputLayout?.setIsRequired(false)
-        txtInputLayout?.setRegex(PHONE_NUMBER_REGEX)
 
         // When
         Espresso.onView(ViewMatchers.withId(R.id.etPhone)).perform(ViewActions.typeText(phone))

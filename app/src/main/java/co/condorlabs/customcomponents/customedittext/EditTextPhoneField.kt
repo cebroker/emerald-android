@@ -55,6 +55,8 @@ class EditTextPhoneField(context: Context, attrs: AttributeSet) :
             }
             recycle()
         }
+
+        regexListToMatch.add(PHONE_NUMBER_REGEX)
     }
 
     override fun setup() {
