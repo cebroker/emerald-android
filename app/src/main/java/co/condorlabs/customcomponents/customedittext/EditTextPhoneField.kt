@@ -78,11 +78,7 @@ class EditTextPhoneField(context: Context, attrs: AttributeSet) :
     private fun setPhoneMask() {
         this.editText?.apply {
             addTextChangedListener(PhoneNumberTextWatcherMask(mask) {
-                try {
-                    setSelection(it)
-                } catch (t: IndexOutOfBoundsException) {
-                    throw PhoneDigitPositionException()
-                }
+                setSelection(it)
             })
         }
     }
