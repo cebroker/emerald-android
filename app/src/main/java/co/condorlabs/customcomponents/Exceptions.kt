@@ -30,5 +30,3 @@ class SkeletonTypeNotSupportedException : RuntimeException("You should provide a
 class StyleNotFoundForType(type: Int) : RuntimeException("We could not found a style for $type")
 
 class FileSelectorViewOptionsNotFound : RuntimeException("You should provide options to open camera or gallery")
-
-class PhoneDigitPositionException : IndexOutOfBoundsException()
