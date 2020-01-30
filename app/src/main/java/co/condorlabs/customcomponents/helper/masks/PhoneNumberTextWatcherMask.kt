@@ -17,54 +17,95 @@
 package co.condorlabs.customcomponents.helper.masks
 
 import android.text.Editable
-import android.widget.EditText
-import co.condorlabs.customcomponents.*
-import co.condorlabs.customcomponents.helper.TextWatcherAdapter
+import android.text.TextWatcher
+import co.condorlabs.customcomponents.CHAR_TO_DESCRIBE_A_NUMBER
+import co.condorlabs.customcomponents.EMPTY
+import co.condorlabs.customcomponents.ZERO
 
-class PhoneNumberTextWatcherMask(private val receiver: EditText) : TextWatcherAdapter() {
+/**
+ * @author Alexis Duque on 2020-01-22.
+ * @company Condor Labs.
+ * @email eduque@condorlabs.io.
+ */
+class PhoneNumberTextWatcherMask(
+    private val mask: String,
+    val onCursorPositionChangeRequired: (Int) -> Unit
+) : TextWatcher {
+    private var isRunning = false
+    private var isDeleting = false
+    private var specialCharacters = EMPTY
+    private val charToDescribeANumber = CHAR_TO_DESCRIBE_A_NUMBER
+    private var maskPos = ZERO
+    private var numPos = ZERO
+    private var start = ZERO
+    private var after = ZERO
 
-    override fun afterTextChanged(s: Editable?) {
-        s?.let { text ->
-            receiver.removeTextChangedListener(this)
-            var result = text.toString().replace(PHONE_NUMBER_SEPARATOR_TOKEN, "")
+    init {
+        specialCharacters = mask.replace(charToDescribeANumber.toString(), EMPTY)
+    }
 
-            when (result.length) {
-                in PHONE_NUMBER_REGEX_FIRST_GROUP_RANGE_BOTTOM..PHONE_NUMBER_REGEX_FIRST_GROUP_RANGE_TOP -> {
-                    result = result.replaceFirst(
-                        PHONE_NUMBER_REGEX_FIRST_AND_SECOND_GROUP_MATCHER.toRegex(),
-                        PHONE_NUMBER_REGEX_FIRST_GROUP_REPLACEMENT_MATCHER
-                    )
-                }
-                in PHONE_NUMBER_REGEX_SECOND_GROUP_RANGE_BOTTOM..PHONE_NUMBER_REGEX_SECOND_GROUP_RANGE_TOP -> {
-                    result = result.replaceFirst(
-                        "$PHONE_NUMBER_REGEX_FIRST_AND_SECOND_GROUP_MATCHER$PHONE_NUMBER_REGEX_FIRST_AND_SECOND_GROUP_MATCHER".toRegex(),
-                        PHONE_NUMBER_REGEX_SECOND_GROUP_REPLACEMENT_MATCHER
-                    )
-                }
-                in PHONE_NUMBER_REGEX_THIRD_GROUP_RANGE_BOTTOM..PHONE_NUMBER_REGEX_THIRD_GROUP_RANGE_TOP -> {
-                    result = result.replaceFirst(
-                        ("$PHONE_NUMBER_REGEX_FIRST_AND_SECOND_GROUP_MATCHER" +
-                                "$PHONE_NUMBER_REGEX_FIRST_AND_SECOND_GROUP_MATCHER" +
-                                "$PHONE_NUMBER_REGEX_THIRD_GROUP_MATCHER").toRegex(),
-                        PHONE_NUMBER_REGEX_THIRD_GROUP_REPLACEMENT_MATCHER
-                    )
-                }
-            }
-
-            text.replace(FIRST_EDITTEXT_SELECTION_CHARACTER, text.length, result)
-
-            receiver.addTextChangedListener(this)
+    override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+        if (!isRunning) {
+            maskPos = ZERO
+            numPos = ZERO
+            this.start = start
+            this.after = after
+            isDeleting = count > after
         }
     }
 
-    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+    override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {}
 
-        s?.let {
-            if ((it.length == PHONE_NUMBER_FORMAT_FIRST_HYPHEN_INDEX ||
-                        it.length == PHONE_NUMBER_FORMAT_SECOND_HYPHEN_INDEX)
-            ) {
-                receiver.append(HYPHEN)
-            }
+    override fun afterTextChanged(editable: Editable?) {
+        if (isRunning) return
+
+        val text = editable?.toString() ?: return
+        val numbers = textWithoutSpecialCharacters(text, specialCharacters)
+        val finalText = StringBuilder()
+        var finalSelection = after
+
+        if (numbers.isEmpty()) {
+            isRunning = true
+            editable.clear()
+            isRunning = false
+            return
         }
+
+        while (maskPos < mask.length) {
+            if (mask[maskPos] == charToDescribeANumber) {
+                if (numPos < numbers.length) {
+                    finalText.append(numbers[numPos])
+                    numPos++
+                    finalSelection++
+                } else {
+                    break
+                }
+            } else {
+                finalText.append(mask[maskPos])
+                finalSelection++
+            }
+            maskPos++
+        }
+
+        isRunning = true
+        editable.clear()
+        editable.append(finalText)
+        isRunning = false
+
+        if (isDeleting) {
+            onCursorPositionChangeRequired(start)
+        } else {
+            onCursorPositionChangeRequired(finalSelection - after)
+        }
+    }
+
+    private fun textWithoutSpecialCharacters(original: String, characters: String): String {
+        var stringFinal = original
+
+        characters.indices.forEach { i ->
+            stringFinal = stringFinal.replace(characters[i].toString(), EMPTY)
+        }
+
+        return stringFinal
     }
 }

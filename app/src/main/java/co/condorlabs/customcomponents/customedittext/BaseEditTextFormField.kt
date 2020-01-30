@@ -50,7 +50,7 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
         set(value) {
             field = value; textInputLayout?.hint = field
         }
-    var text: String? = EMPTY
+    open var text: String? = EMPTY
         set(value) {
             field = value
             if (!value.isNullOrEmpty()) {
@@ -288,7 +288,7 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
         }
     }
 
-    private fun showPlaceholder() {
+    protected fun showPlaceholder() {
         textInputLayout?.editText?.postDelayed({
             textInputLayout?.editText?.hint = placeholder ?: EMPTY
         }, MILLISECONDS_TO_SHOW_PLACE_HOLDER)
@@ -296,7 +296,7 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
         textInputLayout?.editText?.hint = null
     }
 
-    private fun resetPlaceholder() {
+    protected fun resetPlaceholder() {
         textInputLayout?.editText?.hint = this@BaseEditTextFormField.hint
         textInputLayout?.hint = null
     }

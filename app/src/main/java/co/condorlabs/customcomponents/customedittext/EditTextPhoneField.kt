@@ -17,31 +17,58 @@
 package co.condorlabs.customcomponents.customedittext
 
 import android.content.Context
-import android.text.InputFilter
 import android.text.InputType
 import android.text.method.DigitsKeyListener
 import android.util.AttributeSet
-import co.condorlabs.customcomponents.DIGITS_PHONE
-import co.condorlabs.customcomponents.PHONE_FIELD_MAX_LENGTH
-import co.condorlabs.customcomponents.R
-import co.condorlabs.customcomponents.VALIDATE_LENGTH_ERROR
+import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.masks.PhoneNumberTextWatcherMask
 
 class EditTextPhoneField(context: Context, attrs: AttributeSet) :
     BaseEditTextFormField(context, attrs) {
 
+    private var mask: String = DEFAULT_PHONE_MASK
+
+    override var text: String? = EMPTY
+        set(value) {
+            field = value
+            val phoneHasNumbers = value?.any { it.isDigit() } ?: false
+
+            if (!value.isNullOrEmpty() && phoneHasNumbers) {
+                textInputLayout?.editText?.setText(value.filter { it.isDigit() })
+                showPlaceholder()
+            } else {
+                textInputLayout?.editText?.text = null
+                resetPlaceholder()
+            }
+        }
+        get() = getValue()
+
+    init {
+        context.theme.obtainStyledAttributes(
+            attrs,
+            R.styleable.EditTextPhoneField,
+            DEFAULT_STYLE_ATTR, DEFAULT_STYLE_RES
+        ).apply {
+            getString(R.styleable.EditTextPhoneField_phone_mask)?.let { mask_value ->
+                mask = mask_value
+            }
+            recycle()
+        }
+
+        regexListToMatch.add(PHONE_NUMBER_REGEX)
+    }
+
     override fun setup() {
         super.setup()
         editText?.id = R.id.etPhone
         setInputType()
-        setMaxLength()
         setPhoneMask()
         setDigits()
     }
 
     private fun setDigits() {
-        this.editText?.keyListener = DigitsKeyListener.getInstance(DIGITS_PHONE)
+        this.editText?.keyListener = DigitsKeyListener.getInstance(PHONE_DIGITS)
     }
 
     private fun setInputType() {
@@ -50,17 +77,18 @@ class EditTextPhoneField(context: Context, attrs: AttributeSet) :
 
     private fun setPhoneMask() {
         this.editText?.apply {
-            addTextChangedListener(PhoneNumberTextWatcherMask(this))
+            addTextChangedListener(PhoneNumberTextWatcherMask(mask) {
+                setSelection(it)
+            })
         }
-    }
-
-    private fun setMaxLength() {
-        val filterArray = arrayOfNulls<InputFilter>(1)
-        filterArray[0] = InputFilter.LengthFilter(PHONE_FIELD_MAX_LENGTH)
-        editText?.filters = filterArray
     }
 
     override fun getErrorValidateResult(): ValidationResult {
         return ValidationResult(false, VALIDATE_LENGTH_ERROR)
+    }
+
+    override fun getValue(): String {
+        return this.editText?.text.toString()
+            .filterNot { character -> PHONE_STRING_NON_DIGITS.contains(character) }
     }
 }
