@@ -54,7 +54,7 @@ Emerald provides this component to be used as EditText
 <img src="/Images/edit_text_field.png" width="400" heigth="400">
 
 # Custom EditTextPhoneField	
-Allow apply default regex (XXX) XXX-XXXX	
+Allow to apply default phone regex (XXX) XXX-XXXX	
 
 ## Basic Usage	
 
@@ -68,5 +68,5 @@ Allow apply default regex (XXX) XXX-XXXX
 `EditTextPhoneField?.text` shall receive a *10 digits* number to show, otherwise, appear as empty
 
 ## Example	
-<img src="/Images/edit_text_phone.png" width="400" height="400">
+<img src="/Images/edit_text_phone.png" width="400">
 
