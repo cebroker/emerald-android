@@ -36,5 +36,5 @@ interface FormField<ReturnValueType> {
 
     fun setValueChangeListener(valueChangeListener: ValueChangeListener<ReturnValueType>)
 
-    fun setIsRequired(required: Boolean)
+    fun setIsRequired(isRequired: Boolean)
 }
