@@ -16,18 +16,17 @@
 
 package co.condorlabs.customcomponents.test
 
-import androidx.test.espresso.Espresso
+import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions.matches
-import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.espresso.matcher.ViewMatchers.withId
+import androidx.test.espresso.matcher.ViewMatchers.*
 import androidx.test.filters.SmallTest
+import co.condorlabs.customcomponents.EMPTY
+import co.condorlabs.customcomponents.MESSAGE_FORMAT_ERROR
 import co.condorlabs.customcomponents.customcheckbox.CheckboxFormField
 import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.formfield.Selectable
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.EMPTY
-import co.condorlabs.customcomponents.MESSAGE_FORMAT_ERROR
 import org.junit.Assert
 import org.junit.Before
 import org.junit.Test
@@ -36,7 +35,7 @@ class CheckBoxFieldTest : MockActivityTest() {
 
     @Before
     fun setup() {
-        MockActivity.layout = R.layout.activity_basechecbox_test
+        MockActivity.layout = R.layout.activity_basecheckbox_test
     }
 
     @SmallTest
@@ -45,7 +44,7 @@ class CheckBoxFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilChecbox)
+        val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilCheckBox)
         formField.setIsRequired(true)
 
         // When
@@ -60,7 +59,7 @@ class CheckBoxFieldTest : MockActivityTest() {
     @SmallTest
     @Test
     fun shouldShowMessageIfNoSelectedWhenIsRequired2() {
-        MockActivity.layout = R.layout.activity_basechecbox_is_required_test
+        MockActivity.layout = R.layout.activity_basecheckbox_is_required_test
         restartActivity()
 
         // Given
@@ -81,7 +80,7 @@ class CheckBoxFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilChecbox)
+        val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilCheckBox)
         formField.setIsRequired(true)
 
         // When
@@ -90,7 +89,7 @@ class CheckBoxFieldTest : MockActivityTest() {
         }
 
         // Then
-        Espresso.onView(withId(R.id.tilChecbox))
+        onView(withId(R.id.tilCheckBox))
             .check(
                 matches(
                     hasTextInputLayoutErrorText(
@@ -109,7 +108,7 @@ class CheckBoxFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilChecbox)
+        val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilCheckBox)
         formField.setIsRequired(true)
         ruleActivity.runOnUiThread {
             formField.setSelectables(
@@ -137,7 +136,7 @@ class CheckBoxFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilChecbox)
+        val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilCheckBox)
 
         formField.setIsRequired(false)
         // When
@@ -155,7 +154,7 @@ class CheckBoxFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilChecbox)
+        val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilCheckBox)
         ruleActivity.runOnUiThread {
             formField.setSelectables(
                 arrayListOf(
@@ -171,9 +170,9 @@ class CheckBoxFieldTest : MockActivityTest() {
 
         // When
         val result = formField.getValue()
-        Espresso.onView(ViewMatchers.withSubstring("Item 2"))
+        onView(withSubstring("Item 2"))
             .perform(ViewActions.click())
-        Espresso.onView(ViewMatchers.withSubstring("Item 3"))
+        onView(withSubstring("Item 3"))
             .perform(ViewActions.click())
 
         // Then
@@ -193,7 +192,7 @@ class CheckBoxFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilChecbox)
+        val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilCheckBox)
 
         formField.setIsRequired(false)
         // When
@@ -211,7 +210,7 @@ class CheckBoxFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilChecbox)
+        val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilCheckBox)
         ruleActivity.runOnUiThread {
             formField.setSelectables(
                 arrayListOf(
@@ -230,7 +229,7 @@ class CheckBoxFieldTest : MockActivityTest() {
         })
 
         // When
-        Espresso.onView(ViewMatchers.withText("Item 1")).perform(ViewActions.click())
+        onView(withText("Item 1")).perform(ViewActions.click())
 
         // Then
         Assert.assertEquals(
@@ -249,7 +248,7 @@ class CheckBoxFieldTest : MockActivityTest() {
         restartActivity()
 
         // Given
-        val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilChecbox)
+        val formField = ruleActivity.activity.findViewById<CheckboxFormField>(R.id.tilCheckBox)
         formField.setIsRequired(true)
 
         ruleActivity.runOnUiThread {
@@ -264,10 +263,10 @@ class CheckBoxFieldTest : MockActivityTest() {
         }
 
         // When
-        Espresso.onView(ViewMatchers.withText("Item 1")).perform(ViewActions.click())
+        onView(withText("Item 1")).perform(ViewActions.click())
 
         // Then
-        Espresso.onView(withId(R.id.tilChecbox))
+        onView(withId(R.id.tilCheckBox))
             .check(
                 matches(
                     hasTextInputLayoutErrorText(

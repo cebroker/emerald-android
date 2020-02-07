@@ -6,7 +6,7 @@
     android:orientation="vertical">
 
     <co.condorlabs.customcomponents.customcheckbox.CheckboxFormField
-        android:id="@+id/tilChecbox"
+        android:id="@+id/tilCheckBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:title="Custom check"/>

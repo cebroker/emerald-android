@@ -19,35 +19,35 @@ package co.condorlabs.customcomponents.customcheckbox
 import android.content.Context
 import android.content.res.ColorStateList
 import android.graphics.Typeface
-import com.google.android.material.textfield.TextInputLayout
-import androidx.core.content.ContextCompat
 import android.util.AttributeSet
 import android.view.Gravity
-import android.widget.CheckBox
 import android.widget.CompoundButton
-import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.widget.AppCompatCheckBox
+import androidx.core.content.ContextCompat
 import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.Selectable
 import co.condorlabs.customcomponents.formfield.ValidationResult
+import com.google.android.material.textfield.TextInputLayout
 
 abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
-    TextInputLayout(context, attrs), FormField<List<Selectable>>, CompoundButton.OnCheckedChangeListener {
+    TextInputLayout(context, attrs), FormField<List<Selectable>>,
+    CompoundButton.OnCheckedChangeListener {
 
-    protected var mValueChangeListener: ValueChangeListener<List<Selectable>>? = null
+    private var checkboxValueChangeListener: ValueChangeListener<List<Selectable>>? = null
 
-    private var mSelectables: List<Selectable>? = null
-    private var mLabelText: String? = EMPTY
+    private var selectables: List<Selectable>? = null
+    private var labelText: String? = EMPTY
 
-    private val mTVLabel = TextView(context, attrs).apply {
+    private val txtViewLabel = TextView(context, attrs).apply {
         id = R.id.tvLabel
     }
 
-    private val mLayoutParams = LinearLayout.LayoutParams(
-        LinearLayout.LayoutParams.MATCH_PARENT,
-        LinearLayout.LayoutParams.WRAP_CONTENT
+    private val layoutParams = LayoutParams(
+        LayoutParams.MATCH_PARENT,
+        LayoutParams.WRAP_CONTENT
     )
 
     init {
@@ -57,7 +57,7 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
             DEFAULT_STYLE_ATTR, DEFAULT_STYLE_RES
         )
         isRequired = typedArray.getBoolean(R.styleable.BaseCheckboxFormField_is_required, false)
-        mLabelText = typedArray.getString(R.styleable.BaseCheckboxFormField_title)
+        labelText = typedArray.getString(R.styleable.BaseCheckboxFormField_title)
 
         typedArray.recycle()
     }
@@ -68,13 +68,13 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
     }
 
     override fun getErrorValidateResult(): ValidationResult {
-        return ValidationResult(false, String.format(MESSAGE_FORMAT_ERROR, mLabelText))
+        return ValidationResult(false, String.format(MESSAGE_FORMAT_ERROR, labelText))
     }
 
     override fun isValid(): ValidationResult {
         when {
             isRequired -> {
-                if (mSelectables?.filter { !it.value }?.size ?: ZERO == mSelectables?.size ?: ZERO) {
+                if (selectables?.filter { !it.value }?.size ?: ZERO == selectables?.size ?: ZERO) {
                     return getErrorValidateResult()
                 } else {
                     clearError()
@@ -95,19 +95,19 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
     }
 
     override fun setup() {
-        mLabelText?.let {
-            mTVLabel.text = it
+        labelText?.let {
+            txtViewLabel.text = it
         }
     }
 
     override fun getValue(): List<Selectable> {
-        return mSelectables ?: arrayListOf()
+        return selectables ?: arrayListOf()
     }
 
     override fun onCheckedChanged(buttonView: CompoundButton?, isChecked: Boolean) {
         val checkbox = buttonView?.let { it } ?: return
 
-        val selectableChecked = mSelectables?.find {
+        val selectableChecked = selectables?.find {
             it.label == checkbox.text
         }?.let { it } ?: return
 
@@ -121,17 +121,17 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
             clearError()
         }
 
-        val selectables = mSelectables?.let { it } ?: return
+        val selectables = selectables?.let { it } ?: return
 
-        mValueChangeListener?.onValueChange(selectables)
+        checkboxValueChangeListener?.onValueChange(selectables)
     }
 
     override fun setValueChangeListener(valueChangeListener: ValueChangeListener<List<Selectable>>) {
-        mValueChangeListener = valueChangeListener
+        checkboxValueChangeListener = valueChangeListener
     }
 
     fun setSelectables(selectables: List<Selectable>) {
-        mSelectables = selectables
+        this.selectables = selectables
         addCheckboxes()
     }
 
@@ -146,26 +146,12 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
         typeface = font
     }
 
-    private fun setStyleCheckBox(): ColorStateList {
-        val states = arrayOf(
-            intArrayOf(-android.R.attr.state_checked),
-            intArrayOf(android.R.attr.state_checked)
-        )
-
-        val colors = intArrayOf(
-            ContextCompat.getColor(context, R.color.defaultButtonBorderColor),
-            ContextCompat.getColor(context, R.color.primaryColor)
-        )
-
-        return ColorStateList(states, colors)
-    }
-
     private fun addCheckboxes() {
         removeAllViews()
         setFont()
-        addView(mTVLabel, mLayoutParams)
-        mSelectables?.forEachIndexed { index, selectable ->
-            addView(CheckBox(context).apply {
+        addView(txtViewLabel, layoutParams)
+        selectables?.forEachIndexed { index, selectable ->
+            addView(AppCompatCheckBox(context).apply {
                 id = index
                 text = selectable.label
                 isChecked = selectable.value
@@ -175,9 +161,30 @@ abstract class BaseCheckboxFormField(context: Context, attrs: AttributeSet) :
                     DEFAULT_PADDING,
                     DEFAULT_PADDING
                 )
-                buttonTintList = setStyleCheckBox()
+                setStyleCheckBox(this, R.color.primaryColor)
                 setOnCheckedChangeListener(this@BaseCheckboxFormField)
-            }, mLayoutParams)
+            }, layoutParams)
+        }
+    }
+
+    private fun setStyleCheckBox(
+        checkBox: AppCompatCheckBox,
+        buttonTintColor: Int
+    ) {
+        with(checkBox) {
+            val colorStateList = ColorStateList(
+                arrayOf(
+                    intArrayOf(-android.R.attr.state_checked),
+                    intArrayOf(-android.R.attr.state_enabled),
+                    intArrayOf(android.R.attr.state_checked)
+                ),
+                intArrayOf(
+                    ContextCompat.getColor(context, R.color.gray_color_with_alpha),
+                    ContextCompat.getColor(context, R.color.gray_color_with_alpha),
+                    ContextCompat.getColor(context, buttonTintColor)
+                )
+            )
+            this.buttonTintList = colorStateList
         }
     }
 }
