@@ -17,6 +17,7 @@
 package co.condorlabs.customcomponents.customspinner
 
 import android.content.Context
+import android.graphics.Rect
 import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
@@ -161,6 +162,13 @@ class SpinnerFormField(
         autoCompleteTextView?.setText(item.label, false)
         selectedItem = item
         mValueChangeListener?.onValueChange(selectedItem)
+    }
+
+    override fun onFocusChanged(focused: Boolean, direction: Int, previouslyFocusedRect: Rect?) {
+        super.onFocusChanged(focused, direction, previouslyFocusedRect)
+        if (!focused) {
+            (autoCompleteTextView as? CustomBaseInstantAutoCompleteTextView)?.dismissDropDown()
+        }
     }
 
     fun setEnable(isEnable: Boolean) {
