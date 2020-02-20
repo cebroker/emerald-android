@@ -51,8 +51,6 @@ class PriceTextWatcherMask(private val receiver: EditText) : TextWatcherAdapter(
 
         receiver.removeTextChangedListener(this)
 
-
-
         if (text.isEmpty()) {
             receiver.setText(DOLLAR_SYMBOL)
             setSelectionAndListener()
@@ -113,7 +111,7 @@ class PriceTextWatcherMask(private val receiver: EditText) : TextWatcherAdapter(
                 return
             }
 
-            if (text.last() == ZERO_CHARACTER && text != ZERO_CHARACTER.toString()) {
+            if (isZeroLastDecimal(text) && text != ZERO_CHARACTER.toString()) {
                 when {
                     text[text.lastIndex - 1] == DOT_CHARACTER || isZeroLastDecimal(text) -> receiver.setText(
                         text

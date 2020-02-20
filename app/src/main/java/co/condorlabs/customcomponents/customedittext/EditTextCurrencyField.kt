@@ -40,7 +40,7 @@ class EditTextCurrencyField(context: Context, attrs: AttributeSet) :
 
     override fun isValid(): ValidationResult {
         return when {
-            isFieldEmpty(editText?.text.toString()) && isRequired -> ValidationResult(
+            isNotFilledWithDigits(editText?.text.toString()) && isRequired -> ValidationResult(
                 false,
                 String.format(VALIDATE_EMPTY_ERROR, hint)
             )
@@ -58,7 +58,7 @@ class EditTextCurrencyField(context: Context, attrs: AttributeSet) :
         }
     }
 
-    private fun isFieldEmpty(text: String?): Boolean {
+    private fun isNotFilledWithDigits(text: String?): Boolean {
         return text == DOLLAR_SYMBOL || text == EMPTY
     }
 }
