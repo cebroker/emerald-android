@@ -19,7 +19,10 @@ package co.condorlabs.customcomponents.helper.masks
 import android.text.Editable
 import android.widget.EditText
 import co.condorlabs.customcomponents.*
-import co.condorlabs.customcomponents.helper.*
+import co.condorlabs.customcomponents.helper.TextWatcherAdapter
+import co.condorlabs.customcomponents.helper.equalThan
+import co.condorlabs.customcomponents.helper.lessThan
+import co.condorlabs.customcomponents.helper.toDollarAmount
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -38,6 +41,9 @@ class PriceTextWatcherMask(private val receiver: EditText) : TextWatcherAdapter(
     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
         super.beforeTextChanged(s, start, count, after)
         previousText = s.toString()
+        receiver.removeTextChangedListener(this)
+        receiver.setText(DOLLAR_SYMBOL)
+        setSelectionAndListener()
     }
 
     override fun afterTextChanged(s: Editable?) {
@@ -56,8 +62,25 @@ class PriceTextWatcherMask(private val receiver: EditText) : TextWatcherAdapter(
             return
         }
 
+        if (text == "$DOLLAR_SYMBOL$DOT_STRING") {
+            receiver.setText(previousText)
+            setSelectionAndListener()
+            return
+        }
+
         try {
             val currentlyAmount = getPriceFromCurrency(text)
+
+            if (previousText == EMPTY) {
+                if (isAllowedAmount(currentlyAmount)) {
+                    receiver.setText(currentlyAmount.toDollarAmount())
+                    setSelectionAndListener()
+                    return
+                }
+                receiver.setText(maxAmount.toDollarAmount())
+                setSelectionAndListener()
+                return
+            }
 
             if (!isAllowedAmount(currentlyAmount)) {
                 receiver.setText(previousText)
@@ -88,10 +111,9 @@ class PriceTextWatcherMask(private val receiver: EditText) : TextWatcherAdapter(
                 return
             }
 
-            if (text.last() == ZERO_CHARACTER) {
+            if (text.last() == ZERO_CHARACTER && text != ZERO_CHARACTER.toString()) {
                 when {
-                    previousText.last() == DOT_CHARACTER -> receiver.setText(text)
-                    isZeroLastDecimal(text) -> receiver.setText(text)
+                    text[text.lastIndex - 1] == DOT_CHARACTER || isZeroLastDecimal(text) -> receiver.setText(text)
                     else -> {
                         receiver.setText(currentlyAmount.toDollarAmount())
                     }
@@ -111,10 +133,12 @@ class PriceTextWatcherMask(private val receiver: EditText) : TextWatcherAdapter(
     private fun getPriceFromCurrency(text: String): BigDecimal {
         val decimalFormat = DecimalFormat(MONEY_TWO_DECIMALS)
         decimalFormat.roundingMode = RoundingMode.FLOOR
-        val amount = formatter.parse(text.replace(
-            NON_NUMERICAL_SYMBOLS.toRegex(),
-            EMPTY
-        ))
+        val amount = formatter.parse(
+            text.replace(
+                NON_NUMERICAL_SYMBOLS.toRegex(),
+                EMPTY
+            )
+        )
 
         return decimalFormat.format(amount).replace(COMMA_AS_DECIMAL, ".").toBigDecimal()
     }
@@ -144,6 +168,10 @@ class PriceTextWatcherMask(private val receiver: EditText) : TextWatcherAdapter(
     }
 
     private fun isZeroLastDecimal(newText: String): Boolean {
-        return newText.substringAfter(DOT_STRING).matches(ZERO_AFTER_DIGIT.toRegex())
+        return if (newText.contains(DOT_CHARACTER)) {
+            newText.last() == ZERO_CHARACTER
+        } else {
+            false
+        }
     }
 }

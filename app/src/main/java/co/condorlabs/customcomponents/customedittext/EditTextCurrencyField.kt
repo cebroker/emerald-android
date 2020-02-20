@@ -17,12 +17,14 @@
 package co.condorlabs.customcomponents.customedittext
 
 import android.content.Context
+import android.graphics.Rect
 import android.util.AttributeSet
 import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.masks.PriceTextWatcherMask
 
-class EditTextCurrencyField(context: Context, attrs: AttributeSet) : BaseEditTextFormField(context, attrs) {
+class EditTextCurrencyField(context: Context, attrs: AttributeSet) :
+    BaseEditTextFormField(context, attrs) {
 
     override fun getErrorValidateResult(): ValidationResult {
         return ValidationResult(false, VALIDATE_CURRENCY_ERROR)
@@ -34,12 +36,11 @@ class EditTextCurrencyField(context: Context, attrs: AttributeSet) : BaseEditTex
         val _editText = editText?.let { it } ?: return
         _editText.id = R.id.etCurrency
         _editText.addTextChangedListener(PriceTextWatcherMask(_editText))
-        _editText.setText(DOLLAR_SYMBOL)
     }
 
     override fun isValid(): ValidationResult {
         return when {
-            isFieldEmpty(editText?.text.toString()) && isRequired -> ValidationResult(
+            isNotFilledWithDigits(editText?.text.toString()) && isRequired -> ValidationResult(
                 false,
                 String.format(VALIDATE_EMPTY_ERROR, hint)
             )
@@ -48,7 +49,16 @@ class EditTextCurrencyField(context: Context, attrs: AttributeSet) : BaseEditTex
         }
     }
 
-    private fun isFieldEmpty(text: String?): Boolean {
-        return text == DOLLAR_SYMBOL
+    override fun onFocusChanged(focused: Boolean, direction: Int, previouslyFocusedRect: Rect?) {
+        super.onFocusChanged(focused, direction, previouslyFocusedRect)
+        if (focused) {
+            if (editText?.text.isNullOrEmpty()) {
+                editText?.setText(DOLLAR_SYMBOL)
+            }
+        }
+    }
+
+    private fun isNotFilledWithDigits(text: String?): Boolean {
+        return text == DOLLAR_SYMBOL || text == EMPTY
     }
 }

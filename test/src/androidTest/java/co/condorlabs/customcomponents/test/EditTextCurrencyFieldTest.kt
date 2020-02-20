@@ -16,19 +16,19 @@
 
 package co.condorlabs.customcomponents.test
 
+import android.view.KeyEvent
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
 import androidx.test.espresso.action.ViewActions.pressKey
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.runner.AndroidJUnit4
-import android.view.KeyEvent
 import androidx.test.filters.SmallTest
+import androidx.test.runner.AndroidJUnit4
+import co.condorlabs.customcomponents.EMPTY
+import co.condorlabs.customcomponents.VALIDATE_EMPTY_ERROR
 import co.condorlabs.customcomponents.customedittext.EditTextCurrencyField
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.DOLLAR_SYMBOL
-import co.condorlabs.customcomponents.VALIDATE_EMPTY_ERROR
 import co.condorlabs.customcomponents.test.util.text
 import org.junit.Assert
 import org.junit.Before
@@ -166,7 +166,7 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
         // When
         onView(editTextRef).perform(ViewActions.replaceText("1000000000001"))
         // Then
-        Assert.assertEquals(DOLLAR_SYMBOL, editText?.text())
+        Assert.assertEquals("$1,000,000,000,000", editText?.text())
     }
 
     @SmallTest
@@ -212,9 +212,9 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
 
     @SmallTest
     @Test
-    fun shouldShowDollarSymbolOnStart() {
+    fun shouldShowEmptyOnStart() {
         // Then
-        Assert.assertEquals(DOLLAR_SYMBOL, editText?.text())
+        Assert.assertEquals(EMPTY, editText?.text())
     }
 
     @SmallTest
