@@ -92,7 +92,6 @@ const val DOT_CHARACTER = '.'
 const val DOT_STRING = "."
 const val ZERO_CHARACTER = '0'
 const val THREE_DIGITS = "\\d{3}"
-const val ZERO_AFTER_DIGIT = "\\d[0]"
 
 const val BUTTON_DEFAULT_TYPE = "default"
 const val BUTTON_PRIMARY_TYPE = "primary"

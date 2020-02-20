@@ -111,11 +111,9 @@ class PriceTextWatcherMask(private val receiver: EditText) : TextWatcherAdapter(
                 return
             }
 
-            if (isZeroLastDecimal(text) && text != ZERO_CHARACTER.toString()) {
+            if (text.last() == ZERO_CHARACTER && text != ZERO_CHARACTER.toString()) {
                 when {
-                    text[text.lastIndex - 1] == DOT_CHARACTER || isZeroLastDecimal(text) -> receiver.setText(
-                        text
-                    )
+                    text[text.lastIndex - 1] == DOT_CHARACTER || isZeroLastDecimal(text) -> receiver.setText(text)
                     else -> {
                         receiver.setText(currentlyAmount.toDollarAmount())
                     }
@@ -170,6 +168,10 @@ class PriceTextWatcherMask(private val receiver: EditText) : TextWatcherAdapter(
     }
 
     private fun isZeroLastDecimal(newText: String): Boolean {
-        return newText.substringAfter(DOT_STRING).matches(ZERO_AFTER_DIGIT.toRegex())
+        return if (newText.contains(DOT_CHARACTER)) {
+            newText.last() == ZERO_CHARACTER
+        } else {
+            false
+        }
     }
 }
