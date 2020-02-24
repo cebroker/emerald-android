@@ -296,6 +296,13 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
         textInputLayout?.editText?.hint = null
     }
 
+    override fun setVisibility(visibility: Int) {
+        super.setVisibility(visibility)
+        if(visibility == View.VISIBLE){
+            showPlaceholder()
+        }
+    }
+
     protected fun resetPlaceholder() {
         textInputLayout?.editText?.hint = this@BaseEditTextFormField.hint
         textInputLayout?.hint = null
