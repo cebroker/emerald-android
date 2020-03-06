@@ -18,6 +18,7 @@ package co.condorlabs.customcomponents.test
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import kotlinx.android.synthetic.main.activity_mock.*
 
 /**
  * @author Oscar Gallon on 2/21/19.
@@ -27,6 +28,14 @@ class MockActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout)
+
+        button?.setOnClickListener {
+            if (ssn?.isValid()?.isValid == false) {
+                ssn?.showError("Invalid")
+            } else {
+                ssn?.clearError()
+            }
+        }
     }
 
     companion object {

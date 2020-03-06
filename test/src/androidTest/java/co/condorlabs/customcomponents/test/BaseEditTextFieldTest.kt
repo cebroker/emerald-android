@@ -22,6 +22,7 @@ import androidx.test.espresso.action.ViewActions.typeText
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.espresso.matcher.ViewMatchers.*
+import androidx.test.filters.MediumTest
 import androidx.test.filters.SmallTest
 import androidx.test.platform.app.InstrumentationRegistry.getInstrumentation
 import androidx.test.runner.AndroidJUnit4
@@ -651,5 +652,91 @@ class BaseEditTextFieldTest : MockActivityTest() {
         result2 = formField2.getValue()
         Assert.assertEquals("111111", result1)
         Assert.assertEquals("222222", result2)
+    }
+
+    @MediumTest
+    @Test
+    fun shouldValidateAMaskWithDashes() {
+        MockActivity.layout = R.layout.activity_baseedittext_mask_with_dashes
+        restartActivity()
+
+        // given
+        val formField =
+            ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.etWithMask)
+        val realEditText = formField.textInputLayout!!.editText!!
+        val editText = Espresso.onView(withId(realEditText.id))
+
+        // when
+        editText.perform(typeText("123456789"))
+        val result = formField.isValid()
+
+        // then
+        Assert.assertTrue(result.isValid)
+        Assert.assertEquals("123-45-6789", formField.getValue())
+    }
+
+    @MediumTest
+    @Test
+    fun shouldShowAnErrorATextWithMaskWithDashesButIncorrectRegexToValidate() {
+        MockActivity.layout = R.layout.activity_baseedittext_mask_with_dashes_show_error
+        restartActivity()
+
+        // given
+        val formField =
+            ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.etWithErrorMask)
+        val realEditText = formField.textInputLayout!!.editText!!
+        val editText = Espresso.onView(withId(realEditText.id))
+
+        // when
+        editText.perform(typeText("123456789"))
+        val result = formField.isValid()
+
+        // then
+        Assert.assertFalse(result.isValid)
+        Assert.assertEquals(result.error, "Field My text is not valid.")
+        Assert.assertEquals("123-45-67", formField.getValue())
+    }
+
+    @MediumTest
+    @Test
+    fun shouldValidateAMaskWithDashesAndPoints() {
+        MockActivity.layout = R.layout.activity_baseedittext_mask_with_dashes_and_points
+        restartActivity()
+
+        // given
+        val formField =
+            ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.etWithMaskAndPoints)
+        val realEditText = formField.textInputLayout!!.editText!!
+        val editText = Espresso.onView(withId(realEditText.id))
+
+        // when
+        editText.perform(typeText("121456789."))
+        val result = formField.isValid()
+
+        // then
+        Assert.assertTrue(result.isValid)
+        Assert.assertEquals("12145-6789.", formField.getValue())
+    }
+
+    @MediumTest
+    @Test
+    fun shouldShowAnErrorATextWithIncorrectMaskWithDashesAndPointsAndCorrectRegex() {
+        MockActivity.layout = R.layout.activity_baseedittext_mask_with_dashes_and_points_show_error
+        restartActivity()
+
+        // given
+        val formField =
+            ruleActivity.activity.findViewById<BaseEditTextFormField>(R.id.etWithMaskAndPointsError)
+        val realEditText = formField.textInputLayout!!.editText!!
+        val editText = Espresso.onView(withId(realEditText.id))
+
+        // when
+        editText.perform(typeText("123454567"))
+        val result = formField.isValid()
+
+        // then
+        Assert.assertFalse(result.isValid)
+        Assert.assertEquals(result.error, "Field My text is not valid.")
+        Assert.assertEquals("12345-45-67", formField.getValue())
     }
 }
