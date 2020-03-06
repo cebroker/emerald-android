@@ -35,6 +35,7 @@ import co.condorlabs.customcomponents.customedittext.textwatchers.DefaultTextWat
 import co.condorlabs.customcomponents.customedittext.textwatchers.IconValidationTextWatcher
 import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
+import co.condorlabs.customcomponents.helper.masks.TextWatcherMask
 import com.google.android.material.textfield.TextInputLayout
 import java.util.regex.Pattern
 
@@ -81,6 +82,7 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
     private var textWatcher: DefaultTextWatcher? = null
     private var maxCharacters: Int? = null
     protected val regexListToMatch = HashSet<String>()
+    private var mask: String? = null
 
     init {
         val typedArray = context.obtainStyledAttributes(
@@ -112,6 +114,7 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
             typedArray.getBoolean(R.styleable.BaseEditTextFormField_show_validation_icon, false)
         maxCharacters =
             typedArray.getString(R.styleable.BaseEditTextFormField_max_characters)?.toInt()
+        mask = typedArray.getString(R.styleable.BaseEditTextFormField_mask)
         typedArray.recycle()
 
         regex?.let {
@@ -175,6 +178,9 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
 
         invalidate()
         addView(wrappedTextInputLayout, layoutParams)
+        mask?.let {
+            setMask(it)
+        }
     }
 
     private fun isMultiline(editText: EditText) {
@@ -215,6 +221,14 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
     fun setMaxLength(length: Int) {
         val filter = InputFilter.LengthFilter(length)
         editText?.filters = arrayOf(filter)
+    }
+
+    private fun setMask(mask: String) {
+        editText?.apply {
+            addTextChangedListener(TextWatcherMask(mask) {
+                setSelection(it)
+            })
+        }
     }
 
     fun setRegex(regex: String) {
@@ -298,7 +312,7 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
 
     override fun setVisibility(visibility: Int) {
         super.setVisibility(visibility)
-        if(visibility == View.VISIBLE){
+        if (visibility == View.VISIBLE) {
             showPlaceholder()
         }
     }

@@ -22,7 +22,7 @@ import android.text.method.DigitsKeyListener
 import android.util.AttributeSet
 import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.formfield.ValidationResult
-import co.condorlabs.customcomponents.helper.masks.PhoneNumberTextWatcherMask
+import co.condorlabs.customcomponents.helper.masks.TextWatcherMask
 
 class EditTextPhoneField(context: Context, attrs: AttributeSet) :
     BaseEditTextFormField(context, attrs) {
@@ -77,7 +77,7 @@ class EditTextPhoneField(context: Context, attrs: AttributeSet) :
 
     private fun setPhoneMask() {
         this.editText?.apply {
-            addTextChangedListener(PhoneNumberTextWatcherMask(mask) {
+            addTextChangedListener(TextWatcherMask(mask) {
                 setSelection(it)
             })
         }

@@ -27,7 +27,7 @@ import co.condorlabs.customcomponents.ZERO
  * @company Condor Labs.
  * @email eduque@condorlabs.io.
  */
-class PhoneNumberTextWatcherMask(
+class TextWatcherMask(
     private val mask: String,
     val onCursorPositionChangeRequired: (Int) -> Unit
 ) : TextWatcher {
