@@ -18,7 +18,6 @@ package co.condorlabs.customcomponents.test
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import kotlinx.android.synthetic.main.activity_mock.*
 
 /**
  * @author Oscar Gallon on 2/21/19.
