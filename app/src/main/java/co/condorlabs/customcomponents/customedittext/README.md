@@ -67,6 +67,36 @@ Allow to apply default phone regex (XXX) XXX-XXXX
 ## Important Note
 `EditTextPhoneField?.text` shall receive a *10 digits* number to show, otherwise, appear as empty
 
-## Example	
+## Example
 <img src="/Images/edit_text_phone.png" width="400">
+
+# Adding integer mask to BaseEditTextFormField
+Allow add a integer mask, it is necessary specific the following attributes:
+
+| Attribute | Value |
+| - | - |
+|  digits | String |
+|  input_type | String |
+|  mask | String |
+|  regex | String |
+|  max_characters | String |
+
+## Basic Usage
+
+```xml
+   <co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
+            android:id="@+id/etWithMaskAndPoints"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:regex="\\d{5}-\\d{4}\\."
+            app:mask="#####-####."
+            app:input_type="number"
+            app:digits="0123456789-."
+            app:max_characters="11"
+            />
+```
+
+## Example
+<img src="/Images/edit_text_whit_mask.png" width="400">
+
 

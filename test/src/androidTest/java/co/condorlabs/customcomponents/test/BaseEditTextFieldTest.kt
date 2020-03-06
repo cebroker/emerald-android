@@ -710,7 +710,7 @@ class BaseEditTextFieldTest : MockActivityTest() {
         val editText = Espresso.onView(withId(realEditText.id))
 
         // when
-        editText.perform(typeText("121456789."))
+        editText.perform(typeText("121456789"))
         val result = formField.isValid()
 
         // then
