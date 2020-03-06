@@ -737,6 +737,6 @@ class BaseEditTextFieldTest : MockActivityTest() {
         // then
         Assert.assertFalse(result.isValid)
         Assert.assertEquals(result.error, "Field My text is not valid.")
-        Assert.assertEquals("12345-45-67", formField.getValue())
+        Assert.assertNotEquals("12345-4567", formField.getValue())
     }
 }

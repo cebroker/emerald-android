@@ -28,14 +28,6 @@ class MockActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout)
-
-        button?.setOnClickListener {
-            if (ssn?.isValid()?.isValid == false) {
-                ssn?.showError("Invalid")
-            } else {
-                ssn?.clearError()
-            }
-        }
     }
 
     companion object {

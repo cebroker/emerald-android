@@ -17,23 +17,6 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
         android:orientation="vertical">
-
-    <co.condorlabs.customcomponents.customedittext.BaseEditTextFormField
-            android:id="@+id/ssn"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:regex="\\d{3}-\\d{2}-\\d{4}"
-            app:mask="###-##-####"
-            app:input_type="number"
-            app:digits="0123456789-"
-            />
-
-    <co.condorlabs.customcomponents.custombutton.CustomButton
-            android:id="@+id/button"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="validame!!!"/>
 
 </LinearLayout>
