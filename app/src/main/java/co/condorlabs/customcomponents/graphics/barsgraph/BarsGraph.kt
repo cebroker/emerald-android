@@ -146,10 +146,9 @@ class BarsGraph @JvmOverloads constructor(
         setupConfig(barsGraphConfigOfExample)
     }
 
-
-    fun setupConfig(chartConfig: BarsGraphConfig) {
-        with(chartConfig) {
-            this@BarsGraph.barsGraphConfig = chartConfig
+    fun setupConfig(barsGraphConfig: BarsGraphConfig) {
+        with(barsGraphConfig) {
+            this@BarsGraph.barsGraphConfig = barsGraphConfig
 
             numberOfBars = bars.size
             numberOfHorizontalLines =

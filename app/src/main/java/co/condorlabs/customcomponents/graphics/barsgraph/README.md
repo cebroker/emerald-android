@@ -34,6 +34,11 @@
 | barsGraphBarsStrokeWidth              | Set the stroke width of the bars                      |
 | barsGraphBarsMargin                   | Set start and end margins between bars and canvas     |
 
+#### Public methods
+| Return type   | method                                    | Description                                                                                                                                       |
+|       -       |                    -                      |                                                                       -                                                                           |
+| Unit          | setupConfig(chartConfig: BarsGraphConfig) | Setup the data to paint on the graph. There is a default setting that is used only to see the graph design when adding it to an xml container.    |
+
 #### StackedBarsGraph attributes <img src="/Images/graph/graph2.png" width="50" heigth="50"/>
 | Name                                          | Description                                       |
 |               -                               |                       -                           |
@@ -45,6 +50,11 @@
 | stackedBarsGraphHorizontalLinesColor          | Set the background color of the horizontal lines  |
 | stackedBarsGraphBarsStrokeWidth               | Set the stroke width of the bars                  |
 | stackedBarsGraphBarsMargin                    | Set start and end margins between bars and canvas |
+
+#### Public methods
+| Return type   | method                                                        | Description                                                                                                                                       |
+|       -       |                                -                              |                                                                       -                                                                           |
+| Unit          | setupConfig(stackedBarsGraphConfig: StackedBarsGraphConfig)   | Setup the data to paint on the graph. There is a default setting that is used only to see the graph design when adding it to an xml container.    |
 
 ## Examples
 <img src="/Images/graph/graphics_types.png" width="400" heigth="400"/>

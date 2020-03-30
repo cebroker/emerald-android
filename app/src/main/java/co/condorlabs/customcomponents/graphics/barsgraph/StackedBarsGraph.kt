@@ -155,9 +155,9 @@ class StackedBarsGraph @JvmOverloads constructor(
         setupConfig(stackedBarsGraphConfigOfExample)
     }
 
-    fun setupConfig(chartConfig: StackedBarsGraphConfig) {
-        with(chartConfig) {
-            this@StackedBarsGraph.stackedBarsGraphConfig = chartConfig
+    fun setupConfig(stackedBarsGraphConfig: StackedBarsGraphConfig) {
+        with(stackedBarsGraphConfig) {
+            this@StackedBarsGraph.stackedBarsGraphConfig = stackedBarsGraphConfig
             val maxValueOfTheSumOfBarsValues =
                 stackedBars.map { bar -> bar.data.sumBy { it.value }.toFloat() }.max() ?: 0F
             numberOfHorizontalLines =
