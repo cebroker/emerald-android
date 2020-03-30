@@ -110,4 +110,26 @@
             <enum name="h3_title" value="8" />
         </attr>
     </declare-styleable>
+
+    <declare-styleable name="StackedBarsGraph">
+        <attr name="stackedBarsGraphNumbersTextSize" format="dimension" />
+        <attr name="stackedBarsGraphNumbersColor" format="color" />
+        <attr name="stackedBarsGraphLabelsTextSize" format="dimension" />
+        <attr name="stackedBarsGraphLabelsColor" format="color" />
+        <attr name="stackedBarsGraphHorizontalLinesStrokeWidth" format="dimension" />
+        <attr name="stackedBarsGraphHorizontalLinesColor" format="color" />
+        <attr name="stackedBarsGraphBarsStrokeWidth" format="dimension" />
+        <attr name="stackedBarsGraphBarsMargin" format="dimension" />
+    </declare-styleable>
+
+    <declare-styleable name="BarsGraph">
+        <attr name="barsGraphNumbersTextSize" format="dimension" />
+        <attr name="barsGraphNumbersBold" format="boolean" />
+        <attr name="barsGraphLabelsTextSize" format="dimension" />
+        <attr name="barsGraphLabelsColor" format="color" />
+        <attr name="barsGraphHorizontalLinesStrokeWidth" format="dimension" />
+        <attr name="barsGraphHorizontalLinesColor" format="color" />
+        <attr name="barsGraphBarsStrokeWidth" format="dimension" />
+        <attr name="barsGraphBarsMargin" format="dimension" />
+    </declare-styleable>
 </resources>
