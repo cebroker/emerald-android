@@ -1,7 +1,7 @@
 # Custom bar charts
 
 ## BarsGraph anatomy
-<img src="/Images/graph/stacked_bars_graph.png" width="400" heigth="400"/>
+<img src="/Images/graph/bars_graph.png" width="400" heigth="400"/>
 
 ## StackedBarsGraph anatomy
 <img src="/Images/graph/stacked_bars_graph.png" width="400" heigth="400"/>
@@ -22,7 +22,7 @@
     android:layout_height="200dp" />
 ```
 
-#### BarsGraph attributes <img src="/Images/graph/graph1.png" width="100" heigth="100"/>
+#### BarsGraph attributes <img src="/Images/graph/graph1.png" width="50" heigth="50"/>
 | Name                                  | Description                                           |
 |               -                       |                           -                           |
 | barsGraphNumbersTextSize              | Set the size of the numbers                           |
@@ -34,7 +34,7 @@
 | barsGraphBarsStrokeWidth              | Set the stroke width of the bars                      |
 | barsGraphBarsMargin                   | Set start and end margins between bars and canvas     |
 
-#### StackedBarsGraph attributes <img src="/Images/graph/graph2.png" width="100" heigth="100"/>
+#### StackedBarsGraph attributes <img src="/Images/graph/graph2.png" width="50" heigth="50"/>
 | Name                                          | Description                                       |
 |               -                               |                       -                           |
 | stackedBarsGraphNumbersTextSize               | Set the size of the numbers                       |
