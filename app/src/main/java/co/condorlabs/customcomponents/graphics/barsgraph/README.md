@@ -58,3 +58,5 @@
 
 ## Examples
 <img src="/Images/graph/graphics_types.png" width="400" heigth="400"/>
+
+> The tests for classes BarsGraph and StackedBarsGraph were not fully covered because it's not possible to verify the texts and colors properties of the objects that have been drawn using canvas.
