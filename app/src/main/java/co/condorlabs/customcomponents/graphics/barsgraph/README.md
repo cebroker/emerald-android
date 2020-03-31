@@ -1,10 +1,10 @@
 # Custom bar charts
 
 ## BarsGraph anatomy
-<img src="/Images/graph/bars_graph.png" width="400" heigth="400"/>
+<p align="center"><img src="/Images/graph/bars_graph.png" align="middle" width="55%"/></p>
 
 ## StackedBarsGraph anatomy
-<img src="/Images/graph/stacked_bars_graph.png" width="400" heigth="400"/>
+<p align="center"><img src="/Images/graph/stacked_bars_graph.png" align="middle" width="55%"/></p>
 
 #### BarsGraph basic Usage
 ```html

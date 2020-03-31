@@ -123,9 +123,15 @@ class StackedBarsGraph @JvmOverloads constructor(
             DEFAULT_STYLE_RES
         )
         numbersTextSize =
-            typedArray.getDimension(R.styleable.StackedBarsGraph_stackedBarsGraphNumbersTextSize, defaultTextSize)
+            typedArray.getDimension(
+                R.styleable.StackedBarsGraph_stackedBarsGraphNumbersTextSize,
+                defaultTextSize
+            )
         labelsTextSize =
-            typedArray.getDimension(R.styleable.StackedBarsGraph_stackedBarsGraphLabelsTextSize, defaultTextSize)
+            typedArray.getDimension(
+                R.styleable.StackedBarsGraph_stackedBarsGraphLabelsTextSize,
+                defaultTextSize
+            )
         horizontalLinesStrokeWidth = typedArray.getDimension(
             R.styleable.StackedBarsGraph_stackedBarsGraphHorizontalLinesStrokeWidth,
             defaultHorizontalLinesStrokeWidth
@@ -135,11 +141,20 @@ class StackedBarsGraph @JvmOverloads constructor(
             defaultBarsStrokeWidth
         )
         barsMargin =
-            typedArray.getDimension(R.styleable.StackedBarsGraph_stackedBarsGraphBarsMargin, defaultBarsMargin)
+            typedArray.getDimension(
+                R.styleable.StackedBarsGraph_stackedBarsGraphBarsMargin,
+                defaultBarsMargin
+            )
         val numbersColor =
-            typedArray.getColor(R.styleable.StackedBarsGraph_stackedBarsGraphNumbersColor, defaultTextColor)
+            typedArray.getColor(
+                R.styleable.StackedBarsGraph_stackedBarsGraphNumbersColor,
+                defaultTextColor
+            )
         val labelsColor =
-            typedArray.getColor(R.styleable.StackedBarsGraph_stackedBarsGraphLabelsColor, defaultTextColor)
+            typedArray.getColor(
+                R.styleable.StackedBarsGraph_stackedBarsGraphLabelsColor,
+                defaultTextColor
+            )
         val horizontalLinesColor = typedArray.getColor(
             R.styleable.StackedBarsGraph_stackedBarsGraphHorizontalLinesColor,
             defaultHorizontalLinesColor
@@ -161,7 +176,15 @@ class StackedBarsGraph @JvmOverloads constructor(
             val maxValueOfTheSumOfBarsValues =
                 stackedBars.map { bar -> bar.data.sumBy { it.value }.toFloat() }.max() ?: 0F
             numberOfHorizontalLines =
-                if (horizontalLines < 0) 0 else if (horizontalLines > 10) 10 else horizontalLines
+                if (horizontalLines < 0) {
+                    0
+                } else {
+                    if (horizontalLines > 10) {
+                        10
+                    } else {
+                        horizontalLines
+                    }
+                }
             numberOfBars = stackedBars.size
             horizontalLinesSpacingInNumbers =
                 kotlin.math.ceil((maxValueOfTheSumOfBarsValues / (numberOfHorizontalLines))).toInt()
@@ -173,14 +196,40 @@ class StackedBarsGraph @JvmOverloads constructor(
     override fun onDraw(canvas: Canvas) {
         val viewMeasuredWidth = this.measuredWidth
         val viewMeasuredHeight = this.measuredHeight
-
-        // DRAW HORIZONTAL LINES
-        var horizontalLinePositionY =
+        val horizontalLinePositionY =
             getPixelsValueWithPercentage(viewMeasuredHeight, widthPercentageToDrawLinesAndBars)
         val horizontalLinesMarginWithParenTop =
             getPixelsValueWithPercentage(viewMeasuredHeight, 10F)
         val horizontalLinesSpacingInPixels =
             (horizontalLinePositionY - horizontalLinesMarginWithParenTop) / numberOfHorizontalLines
+
+        drawHorizontalLines(
+            viewMeasuredWidth,
+            horizontalLinePositionY,
+            horizontalLinesSpacingInPixels,
+            canvas
+        )
+
+        stackedBarsGraphConfig?.let { stackedBarsGraphConfig ->
+            drawBars(
+                viewMeasuredWidth,
+                viewMeasuredHeight,
+                horizontalLinesSpacingInPixels,
+                stackedBarsGraphConfig,
+                canvas
+            )
+        }
+
+        super.onDraw(canvas)
+    }
+
+    private fun drawHorizontalLines(
+        viewMeasuredWidth: Int,
+        startY: Float,
+        horizontalLinesSpacingInPixels: Float,
+        canvas: Canvas
+    ) {
+        var horizontalLinePositionY = startY
         val horizontalLineStartPositionX = getPixelsValueWithPercentage(viewMeasuredWidth, 10F)
         val horizontalLineEndPositionX = getPixelsValueWithPercentage(viewMeasuredWidth, 90F)
         val numberToDrawPositionX = getPixelsValueWithPercentage(viewMeasuredWidth, 8F)
@@ -205,59 +254,63 @@ class StackedBarsGraph @JvmOverloads constructor(
             numberToDraw += horizontalLinesSpacingInNumbers
             horizontalLinesCount++
         } while (horizontalLinesCount <= numberOfHorizontalLines)
+    }
 
-        // DRAW BARS
-        stackedBarsGraphConfig?.let { chartConfig ->
-            val pixelRangeToDrawBars = horizontalLinesSpacingInPixels * (numberOfHorizontalLines)
-            val strokeWidthPercentageValueOfBars =
-                ((barsStrokeWidth + barsMargin) * 100) / viewMeasuredWidth
-            val barsSpacingInPixels = getPixelsValueWithPercentage(
-                viewMeasuredWidth,
-                widthPercentageToDrawLinesAndBars - strokeWidthPercentageValueOfBars
-            ) / (numberOfBars - 1)
-            var barPositionX = getPixelsValueWithPercentage(viewMeasuredWidth, 10F)
-            val barMarginOffset = (barsStrokeWidth + barsMargin) / 2
-            val labelsPositionY = getPixelsValueWithPercentage(viewMeasuredHeight, 90F)
-            val barStartPositionX =
-                getPixelsValueWithPercentage(viewMeasuredHeight, widthPercentageToDrawLinesAndBars)
+    private fun drawBars(
+        viewMeasuredWidth: Int,
+        viewMeasuredHeight: Int,
+        horizontalLinesSpacingInPixels: Float,
+        stackedBarsGraphConfig: StackedBarsGraphConfig,
+        canvas: Canvas
+    ) {
+        val pixelRangeToDrawBars = horizontalLinesSpacingInPixels * (numberOfHorizontalLines)
+        val strokeWidthPercentageValueOfBars =
+            ((barsStrokeWidth + barsMargin) * 100) / viewMeasuredWidth
+        val barsSpacingInPixels = getPixelsValueWithPercentage(
+            viewMeasuredWidth,
+            widthPercentageToDrawLinesAndBars - strokeWidthPercentageValueOfBars
+        ) / (numberOfBars - 1)
+        var barPositionX = getPixelsValueWithPercentage(viewMeasuredWidth, 10F)
+        val barMarginOffset = (barsStrokeWidth + barsMargin) / 2
+        val labelsPositionY = getPixelsValueWithPercentage(viewMeasuredHeight, 90F)
+        val barStartPositionX =
+            getPixelsValueWithPercentage(viewMeasuredHeight, widthPercentageToDrawLinesAndBars)
 
-            chartConfig.stackedBars.forEach { bar ->
-                val totalSumOfBarSections = bar.data.sumBy { it.value }
-                var incrementalSumOfBarSections = 0
-                val barPositionXWithOffset = barPositionX + barMarginOffset
+        stackedBarsGraphConfig.stackedBars.forEach { bar ->
+            val totalSumOfBarSections = bar.data.sumBy { it.value }
+            var incrementalSumOfBarSections = 0
+            val barPositionXWithOffset = barPositionX + barMarginOffset
 
-                bar.data.forEach { barSection ->
-                    val barPercentageToDraw =
-                        getBarHeightPercentage(totalSumOfBarSections.toFloat() - incrementalSumOfBarSections)
-                    val pixelsToSubtractFromY = getPixelsValueWithPercentage(
-                        pixelRangeToDrawBars.toInt(),
-                        barPercentageToDraw
-                    )
-                    val barStartPositionY = barStartPositionX - pixelsToSubtractFromY
+            bar.data.forEach { barSection ->
+                val barPercentageToDraw =
+                    getBarHeightPercentage(totalSumOfBarSections.toFloat() - incrementalSumOfBarSections)
+                val pixelsToSubtractFromY = getPixelsValueWithPercentage(
+                    pixelRangeToDrawBars.toInt(),
+                    barPercentageToDraw
+                )
+                val barStartPositionY = barStartPositionX - pixelsToSubtractFromY
 
-                    canvas.drawLine(
-                        barPositionXWithOffset,
-                        barStartPositionX,
-                        barPositionXWithOffset,
-                        barStartPositionY,
-                        barsPaint.apply { color = barSection.color }
-                    )
-
-                    incrementalSumOfBarSections += barSection.value
-                }
-
-                canvas.drawText(
-                    bar.label ?: "",
+                canvas.drawLine(
                     barPositionXWithOffset,
-                    labelsPositionY,
-                    labelsPaint
+                    barStartPositionX,
+                    barPositionXWithOffset,
+                    barStartPositionY,
+                    barsPaint.apply { color = barSection.color }
                 )
 
-                barPositionX += barsSpacingInPixels
+                incrementalSumOfBarSections += barSection.value
             }
+
+            canvas.drawText(
+                bar.label ?: "",
+                barPositionXWithOffset,
+                labelsPositionY,
+                labelsPaint
+            )
+
+            barPositionX += barsSpacingInPixels
         }
 
-        super.onDraw(canvas)
     }
 
     private fun getBarHeightPercentage(barValue: Float): Float {

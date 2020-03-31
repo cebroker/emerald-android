@@ -1,6 +1,5 @@
 package co.condorlabs.customcomponents.graphics.barsgraph
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
@@ -152,7 +151,15 @@ class BarsGraph @JvmOverloads constructor(
 
             numberOfBars = bars.size
             numberOfHorizontalLines =
-                if (horizontalLines < 0) 0 else if (horizontalLines > 10) 10 else horizontalLines
+                if (horizontalLines < 0) {
+                    0
+                } else {
+                    if (horizontalLines > 10) {
+                        10
+                    } else {
+                        horizontalLines
+                    }
+                }
             val valueOfTheMostBigBar = bars.maxBy { it.value }?.value?.toFloat() ?: 0F
             val horizontalLinesSpacingInNumbers =
                 kotlin.math.ceil((valueOfTheMostBigBar / (numberOfHorizontalLines))).toInt()
@@ -161,99 +168,110 @@ class BarsGraph @JvmOverloads constructor(
         invalidate()
     }
 
-    @SuppressLint("DrawAllocation")
     override fun onDraw(canvas: Canvas) {
         val viewMeasuredWidth = this.measuredWidth
         val viewMeasuredHeight = this.measuredHeight
-
-        // DRAW HORIZONTAL LINE
         val horizontalLinePositionY = getPixelsValueWithPercentage(viewMeasuredHeight, 50F)
+
+        drawHorizontalLine(horizontalLinePositionY, viewMeasuredWidth, canvas)
+
+        barsGraphConfig?.let { barsGraphConfig ->
+            drawBars(
+                viewMeasuredWidth,
+                viewMeasuredHeight,
+                horizontalLinePositionY,
+                barsGraphConfig,
+                canvas
+            )
+        }
+
+        super.onDraw(canvas)
+    }
+
+    private fun drawHorizontalLine(startY: Float, viewMeasuredWidth: Int, canvas: Canvas) {
+        val startX = getPixelsValueWithPercentage(viewMeasuredWidth, 10F)
+        val endX = getPixelsValueWithPercentage(viewMeasuredWidth, 90F)
+        canvas.drawLine(startX, startY, endX, startY, horizontalLinesPaint)
+    }
+
+    private fun drawBars(
+        viewMeasuredWidth: Int,
+        viewMeasuredHeight: Int,
+        horizontalLinePositionY: Float,
+        barsGraphConfig: BarsGraphConfig,
+        canvas: Canvas
+    ) {
         val horizontalLinesMarginWithParenTop =
             getPixelsValueWithPercentage(viewMeasuredHeight, 10F)
         val horizontalLinesSpacingInPixels =
             (horizontalLinePositionY - horizontalLinesMarginWithParenTop) / numberOfHorizontalLines
-        val horizontalLineStartPositionX = getPixelsValueWithPercentage(viewMeasuredWidth, 10F)
-        val horizontalLineEndPositionX = getPixelsValueWithPercentage(viewMeasuredWidth, 90F)
 
-        canvas.drawLine(
-            horizontalLineStartPositionX,
-            horizontalLinePositionY,
-            horizontalLineEndPositionX,
-            horizontalLinePositionY,
-            horizontalLinesPaint
-        )
+        barsStrokeWidthMiddle = barsStrokeWidth / 2
+        val pixelRangeToDrawBars = horizontalLinesSpacingInPixels * (numberOfHorizontalLines)
+        val strokeWidthPercentageValueOfBars =
+            ((barsStrokeWidth + barsMargin) * 100) / viewMeasuredWidth
+        val barsSpacingInPixels = getPixelsValueWithPercentage(
+            viewMeasuredWidth,
+            widthPercentageToDrawLinesAndBars - strokeWidthPercentageValueOfBars
+        ) / (numberOfBars - 1)
+        var barPositionX = getPixelsValueWithPercentage(viewMeasuredWidth, 10F)
+        val barMarginOffset = (barsStrokeWidth + barsMargin) / 2
+        val labelsPositionY = getPixelsValueWithPercentage(viewMeasuredHeight, 60F)
+        val countLabelsPositionY = getPixelsValueWithPercentage(viewMeasuredHeight, 85F)
+        val barStartPositionX = getPixelsValueWithPercentage(viewMeasuredHeight, 50F)
 
-        // DRAW BARS
-        barsGraphConfig?.let { chartConfig ->
-            barsStrokeWidthMiddle = barsStrokeWidth / 2
-            val pixelRangeToDrawBars = horizontalLinesSpacingInPixels * (numberOfHorizontalLines)
-            val strokeWidthPercentageValueOfBars =
-                ((barsStrokeWidth + barsMargin) * 100) / viewMeasuredWidth
-            val barsSpacingInPixels = getPixelsValueWithPercentage(
-                viewMeasuredWidth,
-                widthPercentageToDrawLinesAndBars - strokeWidthPercentageValueOfBars
-            ) / (numberOfBars - 1)
-            var barPositionX = getPixelsValueWithPercentage(viewMeasuredWidth, 10F)
-            val barMarginOffset = (barsStrokeWidth + barsMargin) / 2
-            val labelsPositionY = getPixelsValueWithPercentage(viewMeasuredHeight, 60F)
-            val countLabelsPositionY = getPixelsValueWithPercentage(viewMeasuredHeight, 85F)
-            val barStartPositionX = getPixelsValueWithPercentage(viewMeasuredHeight, 50F)
+        barsGraphConfig.bars.forEach { bar ->
+            val totalSumOfBarSections = bar.value
+            val barPositionXWithOffset = barPositionX + barMarginOffset
+            val barPercentageToDraw = getBarHeightPercentage(totalSumOfBarSections.toFloat())
+            val pixelsToSubtractFromY =
+                getPixelsValueWithPercentage(pixelRangeToDrawBars.toInt(), barPercentageToDraw)
+            val barStartPositionY = barStartPositionX - pixelsToSubtractFromY
 
-            chartConfig.bars.forEach { bar ->
-                val totalSumOfBarSections = bar.value
-                val barPositionXWithOffset = barPositionX + barMarginOffset
-                val barPercentageToDraw = getBarHeightPercentage(totalSumOfBarSections.toFloat())
-                val pixelsToSubtractFromY =
-                    getPixelsValueWithPercentage(pixelRangeToDrawBars.toInt(), barPercentageToDraw)
-                val barStartPositionY = barStartPositionX - pixelsToSubtractFromY
+            canvas.drawPath(
+                Path().apply {
+                    addRoundRect(
+                        RectF(
+                            barPositionXWithOffset - barsStrokeWidthMiddle,
+                            barStartPositionY,
+                            barPositionXWithOffset + barsStrokeWidthMiddle,
+                            barStartPositionX
+                        ), corners, Path.Direction.CW
+                    )
+                },
+                barsPaint.apply { color = bar.strokeColor }
+            )
 
-                canvas.drawPath(
-                    Path().apply {
-                        addRoundRect(
-                            RectF(
-                                barPositionXWithOffset - barsStrokeWidthMiddle,
-                                barStartPositionY,
-                                barPositionXWithOffset + barsStrokeWidthMiddle,
-                                barStartPositionX
-                            ), corners, Path.Direction.CW
-                        )
-                    },
-                    barsPaint.apply { color = bar.strokeColor }
-                )
+            canvas.drawPath(
+                Path().apply {
+                    addRoundRect(
+                        RectF(
+                            barPositionXWithOffset - barsStrokeWidthMiddle + barsBorderStrokeWith,
+                            barStartPositionY + barsBorderStrokeWith,
+                            barPositionXWithOffset + barsStrokeWidthMiddle - barsBorderStrokeWith,
+                            barStartPositionX
+                        ), cornersTwo, Path.Direction.CW
+                    )
+                },
+                barsPaint.apply { color = bar.fillColor }
+            )
 
-                canvas.drawPath(
-                    Path().apply {
-                        addRoundRect(
-                            RectF(
-                                barPositionXWithOffset - barsStrokeWidthMiddle + barsBorderStrokeWith,
-                                barStartPositionY + barsBorderStrokeWith,
-                                barPositionXWithOffset + barsStrokeWidthMiddle - barsBorderStrokeWith,
-                                barStartPositionX
-                            ), cornersTwo, Path.Direction.CW
-                        )
-                    },
-                    barsPaint.apply { color = bar.fillColor }
-                )
+            canvas.drawText(
+                bar.label ?: "",
+                barPositionXWithOffset,
+                labelsPositionY,
+                labelsPaint
+            )
 
-                canvas.drawText(
-                    bar.label ?: "",
-                    barPositionXWithOffset,
-                    labelsPositionY,
-                    labelsPaint
-                )
+            canvas.drawText(
+                bar.value.toString(),
+                barPositionXWithOffset,
+                countLabelsPositionY,
+                countLabelsPaint.apply { color = bar.strokeColor }
+            )
 
-                canvas.drawText(
-                    bar.value.toString(),
-                    barPositionXWithOffset,
-                    countLabelsPositionY,
-                    countLabelsPaint.apply { color = bar.strokeColor }
-                )
-
-                barPositionX += barsSpacingInPixels
-            }
+            barPositionX += barsSpacingInPixels
         }
-
-        super.onDraw(canvas)
     }
 
     private fun getBarHeightPercentage(barValue: Float): Float {
