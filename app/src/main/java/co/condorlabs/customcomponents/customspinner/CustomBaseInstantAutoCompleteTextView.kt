@@ -22,6 +22,8 @@ class CustomBaseInstantAutoCompleteTextView(context: Context, attrs: AttributeSe
         isCursorVisible = false
         keyListener = null
         setTextSize(TypedValue.COMPLEX_UNIT_PX, context.resources.getDimension(R.dimen.body))
+        dismissDropDown()
+        clearFocus()
     }
 
     override fun enoughToFilter(): Boolean {
