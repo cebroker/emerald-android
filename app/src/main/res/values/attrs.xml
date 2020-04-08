@@ -120,6 +120,8 @@
         <attr name="stackedBarsGraphHorizontalLinesColor" format="color" />
         <attr name="stackedBarsGraphBarsStrokeWidth" format="dimension" />
         <attr name="stackedBarsGraphBarsMargin" format="dimension" />
+        <attr name="stackedBarsWithTheSameColor" format="boolean" />
+        <attr name="stackedBarsColor" format="color" />
     </declare-styleable>
 
     <declare-styleable name="BarsGraph">
@@ -131,5 +133,8 @@
         <attr name="barsGraphHorizontalLinesColor" format="color" />
         <attr name="barsGraphBarsStrokeWidth" format="dimension" />
         <attr name="barsGraphBarsMargin" format="dimension" />
+        <attr name="barsWithTheSameColor" format="boolean" />
+        <attr name="barsColor" format="color" />
+        <attr name="barsStrokeWidthColor" format="color" />
     </declare-styleable>
 </resources>
