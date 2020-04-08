@@ -9,8 +9,7 @@ import android.view.View
 import co.condorlabs.customcomponents.DEFAULT_STYLE_ATTR
 import co.condorlabs.customcomponents.DEFAULT_STYLE_RES
 import co.condorlabs.customcomponents.R
-import co.condorlabs.customcomponents.graphics.barsgraph.models.stackedbarsgraph.BarSection
-import co.condorlabs.customcomponents.graphics.barsgraph.models.stackedbarsgraph.StackedBar
+import co.condorlabs.customcomponents.graphics.barsgraph.defaultgraphobjs.defaultStackedBarsGraphConfigObj
 import co.condorlabs.customcomponents.graphics.barsgraph.models.stackedbarsgraph.StackedBarsGraphConfig
 
 /**
@@ -36,6 +35,8 @@ class StackedBarsGraph @JvmOverloads constructor(
     private var numberOfBars = 0
     private var rangeValue = 0
     private val widthPercentageToDrawLinesAndBars = 80F
+    private var barsWithTheSameColor = false
+    private var barsColor = NO_ID
     private var horizontalLinesPaint = Paint().apply {
         style = Paint.Style.STROKE
         strokeCap = Paint.Cap.ROUND
@@ -73,43 +74,8 @@ class StackedBarsGraph @JvmOverloads constructor(
     private val defaultHorizontalLinesStrokeWidth = 1F
     private val defaultBarsStrokeWidth = 50F
     private val defaultBarsMargin = 50F
-    private val stackedBarsGraphConfigOfExample =
-        StackedBarsGraphConfig(
-            2, listOf(
-                StackedBar(
-                    "ONE", listOf(
-                        BarSection(
-                            3,
-                            Color.GRAY
-                        ),
-                        BarSection(
-                            12,
-                            Color.BLUE
-                        )
-                    )
-                ),
-                StackedBar(
-                    "TWO", listOf(
-                        BarSection(
-                            38,
-                            Color.DKGRAY
-                        )
-                    )
-                ),
-                StackedBar(
-                    "THREE", listOf(
-                        BarSection(
-                            7,
-                            Color.RED
-                        ),
-                        BarSection(
-                            2,
-                            Color.BLACK
-                        )
-                    )
-                )
-            )
-        )
+    private val defaultBarsColor = Color.GRAY
+    private val stackedBarsGraphConfigOfExample = defaultStackedBarsGraphConfigObj
 
     init {
         attrs?.let { setupAttrs(it) }
@@ -145,6 +111,10 @@ class StackedBarsGraph @JvmOverloads constructor(
                 R.styleable.StackedBarsGraph_stackedBarsGraphBarsMargin,
                 defaultBarsMargin
             )
+        barsWithTheSameColor =
+            typedArray.getBoolean(R.styleable.StackedBarsGraph_stackedBarsWithTheSameColor, false)
+        barsColor =
+            typedArray.getColor(R.styleable.StackedBarsGraph_stackedBarsColor, defaultBarsColor)
         val numbersColor =
             typedArray.getColor(
                 R.styleable.StackedBarsGraph_stackedBarsGraphNumbersColor,
@@ -174,7 +144,11 @@ class StackedBarsGraph @JvmOverloads constructor(
         with(stackedBarsGraphConfig) {
             this@StackedBarsGraph.stackedBarsGraphConfig = stackedBarsGraphConfig
             val maxValueOfTheSumOfBarsValues =
-                stackedBars.map { bar -> bar.data.sumBy { it.value }.toFloat() }.max() ?: 0F
+                stackedBars.map { bar ->
+                    bar.data.sumBy { it.value }
+                        .toFloat()
+                }
+                    .max() ?: 0F
             numberOfHorizontalLines =
                 if (horizontalLines < 0) {
                     0
@@ -187,7 +161,8 @@ class StackedBarsGraph @JvmOverloads constructor(
                 }
             numberOfBars = stackedBars.size
             horizontalLinesSpacingInNumbers =
-                kotlin.math.ceil((maxValueOfTheSumOfBarsValues / (numberOfHorizontalLines))).toInt()
+                kotlin.math.ceil((maxValueOfTheSumOfBarsValues / (numberOfHorizontalLines)))
+                    .toInt()
             rangeValue = horizontalLinesSpacingInNumbers * (numberOfHorizontalLines)
         }
         invalidate()
@@ -283,7 +258,9 @@ class StackedBarsGraph @JvmOverloads constructor(
 
             bar.data.forEach { barSection ->
                 val barPercentageToDraw =
-                    getBarHeightPercentage(totalSumOfBarSections.toFloat() - incrementalSumOfBarSections)
+                    getBarHeightPercentage(
+                        totalSumOfBarSections.toFloat() - incrementalSumOfBarSections
+                    )
                 val pixelsToSubtractFromY = getPixelsValueWithPercentage(
                     pixelRangeToDrawBars.toInt(),
                     barPercentageToDraw
@@ -295,7 +272,9 @@ class StackedBarsGraph @JvmOverloads constructor(
                     barStartPositionX,
                     barPositionXWithOffset,
                     barStartPositionY,
-                    barsPaint.apply { color = barSection.color }
+                    barsPaint.apply {
+                        color = if (barsWithTheSameColor) barsColor else barSection.color
+                    }
                 )
 
                 incrementalSumOfBarSections += barSection.value
@@ -317,7 +296,10 @@ class StackedBarsGraph @JvmOverloads constructor(
         return (barValue * 100F) / rangeValue
     }
 
-    private fun getPixelsValueWithPercentage(valor: Int, percentage: Float): Float {
+    private fun getPixelsValueWithPercentage(
+        valor: Int,
+        percentage: Float
+    ): Float {
         return (valor * percentage) / 100
     }
 }

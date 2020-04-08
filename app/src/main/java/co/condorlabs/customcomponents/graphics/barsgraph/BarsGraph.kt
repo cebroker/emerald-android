@@ -7,7 +7,7 @@ import android.view.View
 import co.condorlabs.customcomponents.DEFAULT_STYLE_ATTR
 import co.condorlabs.customcomponents.DEFAULT_STYLE_RES
 import co.condorlabs.customcomponents.R
-import co.condorlabs.customcomponents.graphics.barsgraph.models.barsgraph.Bar
+import co.condorlabs.customcomponents.graphics.barsgraph.defaultgraphobjs.defaultBarsGraphConfigObj
 import co.condorlabs.customcomponents.graphics.barsgraph.models.barsgraph.BarsGraphConfig
 
 /**
@@ -29,6 +29,9 @@ class BarsGraph @JvmOverloads constructor(
     private var barsStrokeWidth = 0F
     private var barsMargin = 0F
     private var barsStrokeWidthMiddle = 0F
+    private var barsWithTheSameColor = false
+    private var barsColor = NO_ID
+    private var barsStrokeWidthColor = NO_ID
     private var horizontalLinesPaint = Paint().apply {
         strokeWidth = horizontalLinesStrokeWidth
         style = Paint.Style.STROKE
@@ -86,13 +89,9 @@ class BarsGraph @JvmOverloads constructor(
     private val defaultHorizontalLinesStrokeWidth = 2F
     private val defaultBarsStrokeWidth = 200F
     private val defaultBarsMargin = 50F
-    private val barsGraphConfigOfExample = BarsGraphConfig(
-        1,
-        listOf(
-            Bar("ONE", 38, Color.GRAY, Color.DKGRAY),
-            Bar("TWO", 10, Color.DKGRAY, Color.BLUE)
-        )
-    )
+    private val defaultBarsColor = Color.GRAY
+    private val defaultBarsStrokeWidthColor = Color.DKGRAY
+    private val barsGraphConfigOfExample = defaultBarsGraphConfigObj
 
     init {
         attrs?.let { setupAttrs(it) }
@@ -125,6 +124,15 @@ class BarsGraph @JvmOverloads constructor(
         )
         barsMargin =
             typedArray.getDimension(R.styleable.BarsGraph_barsGraphBarsMargin, defaultBarsMargin)
+        barsWithTheSameColor =
+            typedArray.getBoolean(R.styleable.BarsGraph_barsWithTheSameColor, false)
+        barsColor =
+            typedArray.getColor(R.styleable.BarsGraph_barsColor, defaultBarsColor)
+        barsStrokeWidthColor =
+            typedArray.getColor(
+                R.styleable.BarsGraph_barsStrokeWidthColor,
+                defaultBarsStrokeWidthColor
+            )
         if (typedArray.getBoolean(R.styleable.BarsGraph_barsGraphNumbersBold, false)) {
             countLabelsPaint.typeface = Typeface.create(Typeface.DEFAULT, Typeface.BOLD)
         }
@@ -239,7 +247,10 @@ class BarsGraph @JvmOverloads constructor(
                         ), corners, Path.Direction.CW
                     )
                 },
-                barsPaint.apply { color = bar.strokeColor }
+                barsPaint.apply {
+                    color =
+                        if (barsWithTheSameColor) barsStrokeWidthColor else bar.strokeColor
+                }
             )
 
             canvas.drawPath(
@@ -253,7 +264,7 @@ class BarsGraph @JvmOverloads constructor(
                         ), cornersTwo, Path.Direction.CW
                     )
                 },
-                barsPaint.apply { color = bar.fillColor }
+                barsPaint.apply { color = if (barsWithTheSameColor) barsColor else bar.fillColor }
             )
 
             canvas.drawText(
@@ -267,7 +278,9 @@ class BarsGraph @JvmOverloads constructor(
                 bar.value.toString(),
                 barPositionXWithOffset,
                 countLabelsPositionY,
-                countLabelsPaint.apply { color = bar.strokeColor }
+                countLabelsPaint.apply {
+                    color = if (barsWithTheSameColor) barsStrokeWidthColor else bar.strokeColor
+                }
             )
 
             barPositionX += barsSpacingInPixels
