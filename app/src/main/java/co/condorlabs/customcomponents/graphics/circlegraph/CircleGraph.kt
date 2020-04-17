@@ -8,6 +8,9 @@ import android.graphics.RectF
 import android.util.AttributeSet
 import android.view.View
 import androidx.core.content.ContextCompat
+import co.condorlabs.customcomponents.DEFAULT_STYLE_ATTR
+import co.condorlabs.customcomponents.DEFAULT_STYLE_RES
+import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.graphics.circlegraph.model.CircleGraphConfig
 
 /**
@@ -23,7 +26,7 @@ class CircleGraph @JvmOverloads constructor(
 ) : View(context, attrs, defStyleAttr, defStyleRes) {
 
     private val displayDensity = resources.displayMetrics.density
-    private val borderLineStrokeWidth = 1 * displayDensity
+    private var borderLineStrokeWidth = 0F
     private val circleGraphPaint = Paint().apply { isAntiAlias = true }
     private var startAngle = 0F
     private var sectionValuesSum = 0
@@ -31,6 +34,27 @@ class CircleGraph @JvmOverloads constructor(
     private val borderRectF = RectF()
     private val fillRectF = RectF()
     private var circleGraphConfig: CircleGraphConfig? = null
+    private val defaultCircleGraphStrokeWidth = 1F * displayDensity
+
+    init {
+        attrs?.let { setupAttrs(it) }
+    }
+
+    private fun setupAttrs(attrs: AttributeSet) {
+        val typedArray = context.obtainStyledAttributes(
+            attrs,
+            R.styleable.CircleGraph,
+            DEFAULT_STYLE_ATTR,
+            DEFAULT_STYLE_RES
+        )
+
+        borderLineStrokeWidth = typedArray.getDimension(
+            R.styleable.CircleGraph_circleGraphStrokeWidth,
+            defaultCircleGraphStrokeWidth
+        )
+
+        typedArray.recycle()
+    }
 
     fun setCircleGraphConfig(circleGraphConfig: CircleGraphConfig) {
         this.circleGraphConfig = circleGraphConfig

@@ -27,6 +27,7 @@ Emerald UI for Android Apps
 - [Custom CollapsibleView](/app/src/main/java/co/condorlabs/customcomponents/customcollapsibleview)
 - [Simple CameraX](/app/src/main/java/co/condorlabs/customcomponents/simplecamerax)
 - [Bars graphics](/app/src/main/java/co/condorlabs/customcomponents/graphics/barsgraph)
+- [Circle Graph](/app/src/main/java/co/condorlabs/customcomponents/graphics/circlegraph)
 
 ## Contribute
 - If you've __found a bug__, open an issue;

@@ -137,4 +137,8 @@
         <attr name="barsColor" format="color" />
         <attr name="barsStrokeWidthColor" format="color" />
     </declare-styleable>
+
+    <declare-styleable name="CircleGraph">
+        <attr name="circleGraphStrokeWidth" format="dimension" />
+    </declare-styleable>
 </resources>

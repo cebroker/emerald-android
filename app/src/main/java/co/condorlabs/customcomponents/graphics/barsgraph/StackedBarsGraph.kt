@@ -24,6 +24,7 @@ class StackedBarsGraph @JvmOverloads constructor(
     defStyleRes: Int = 0
 ) : View(context, attrs, defStyleAttr, defStyleRes) {
 
+    private val density = resources.displayMetrics.density
     private var stackedBarsGraphConfig: StackedBarsGraphConfig? = null
     private var numbersTextSize = 0F
     private var labelsTextSize = 0F
@@ -69,11 +70,11 @@ class StackedBarsGraph @JvmOverloads constructor(
 
     // DEFAULT ATTRIBUTES
     private val defaultTextColor = Color.parseColor("#AFAFAF")
-    private val defaultHorizontalLinesColor = Color.parseColor("#99c9c9c9")
-    private val defaultTextSize = 32F
-    private val defaultHorizontalLinesStrokeWidth = 1F
-    private val defaultBarsStrokeWidth = 50F
-    private val defaultBarsMargin = 50F
+    private val defaultHorizontalLinesColor = Color.parseColor("#EAECEC")
+    private val defaultTextSize = 12F * density
+    private val defaultHorizontalLinesStrokeWidth = 1F * density
+    private val defaultBarsStrokeWidth = 20F * density
+    private val defaultBarsMargin = 16F * density
     private val defaultBarsColor = Color.GRAY
     private val stackedBarsGraphConfigOfExample = defaultStackedBarsGraphConfigObj
 
