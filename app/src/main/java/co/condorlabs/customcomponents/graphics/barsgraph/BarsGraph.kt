@@ -22,6 +22,7 @@ class BarsGraph @JvmOverloads constructor(
     defStyleRes: Int = 0
 ) : View(context, attrs, defStyleAttr, defStyleRes) {
 
+    private val density = resources.displayMetrics.density
     private var barsGraphConfig: BarsGraphConfig? = null
     private var numbersTextSize = 0F
     private var labelsTextSize = 0F
@@ -65,9 +66,9 @@ class BarsGraph @JvmOverloads constructor(
     private var numberOfHorizontalLines = 1
     private var numberOfBars = 0
     private var rangeValue = 0
-    private val widthPercentageToDrawLinesAndBars = 80F
-    private val barsBorderStrokeWith = 8F
-    private val barsBorderCornerRadius = 20F
+    private val widthPercentageToDrawLinesAndBars = 100F
+    private val barsBorderStrokeWith = 2F * density
+    private val barsBorderCornerRadius = 5F * density
     private val internalBarsBorderCornerRadius = barsBorderCornerRadius - barsBorderStrokeWith
     private val corners = floatArrayOf(
         barsBorderCornerRadius, barsBorderCornerRadius,
@@ -83,12 +84,12 @@ class BarsGraph @JvmOverloads constructor(
     )
 
     // DEFAULT ATTRIBUTES
-    private val defaultHorizontalLinesColor = Color.parseColor("#99c9c9c9")
-    private val defaultLabelTextSize = 42F
-    private val defaultCountTextSize = 92F
-    private val defaultHorizontalLinesStrokeWidth = 2F
-    private val defaultBarsStrokeWidth = 200F
-    private val defaultBarsMargin = 50F
+    private val defaultHorizontalLinesColor = Color.parseColor("#EAECEC")
+    private val defaultLabelTextSize = 18F * density
+    private val defaultCountTextSize = 38F * density
+    private val defaultHorizontalLinesStrokeWidth = 1F * density
+    private val defaultBarsStrokeWidth = 80F * density
+    private val defaultBarsMargin = 16F * density
     private val defaultBarsColor = Color.GRAY
     private val defaultBarsStrokeWidthColor = Color.DKGRAY
     private val barsGraphConfigOfExample = defaultBarsGraphConfigObj
@@ -197,8 +198,8 @@ class BarsGraph @JvmOverloads constructor(
     }
 
     private fun drawHorizontalLine(startY: Float, viewMeasuredWidth: Int, canvas: Canvas) {
-        val startX = getPixelsValueWithPercentage(viewMeasuredWidth, 10F)
-        val endX = getPixelsValueWithPercentage(viewMeasuredWidth, 90F)
+        val startX = getPixelsValueWithPercentage(viewMeasuredWidth, 0F)
+        val endX = getPixelsValueWithPercentage(viewMeasuredWidth, 100F)
         canvas.drawLine(startX, startY, endX, startY, horizontalLinesPaint)
     }
 
@@ -210,7 +211,7 @@ class BarsGraph @JvmOverloads constructor(
         canvas: Canvas
     ) {
         val horizontalLinesMarginWithParenTop =
-            getPixelsValueWithPercentage(viewMeasuredHeight, 10F)
+            getPixelsValueWithPercentage(viewMeasuredHeight, 0F)
         val horizontalLinesSpacingInPixels =
             (horizontalLinePositionY - horizontalLinesMarginWithParenTop) / numberOfHorizontalLines
 
@@ -222,7 +223,7 @@ class BarsGraph @JvmOverloads constructor(
             viewMeasuredWidth,
             widthPercentageToDrawLinesAndBars - strokeWidthPercentageValueOfBars
         ) / (numberOfBars - 1)
-        var barPositionX = getPixelsValueWithPercentage(viewMeasuredWidth, 10F)
+        var barPositionX = getPixelsValueWithPercentage(viewMeasuredWidth, 0F)
         val barMarginOffset = (barsStrokeWidth + barsMargin) / 2
         val labelsPositionY = getPixelsValueWithPercentage(viewMeasuredHeight, 60F)
         val countLabelsPositionY = getPixelsValueWithPercentage(viewMeasuredHeight, 85F)

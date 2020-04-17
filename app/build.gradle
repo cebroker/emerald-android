@@ -69,8 +69,8 @@ dependencies {
     implementation androidDependencies.materialDesign
 
     // Camera
-    implementation androidDependencies.camerax
-    implementation androidDependencies.camera2_kit
+    api androidDependencies.camerax
+    api androidDependencies.camera2_kit
 
     //Coroutines
     implementation applicationDependencies.kotlinCoroutines
@@ -91,5 +91,4 @@ dependencies {
     androidTestImplementation acceptanceTesting.uiAutomator
     androidTestImplementation testDependencies.mockitoCore
     androidTestImplementation testDependencies.mockk
-
 }
