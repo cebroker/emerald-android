@@ -302,7 +302,7 @@ class BarsGraph @JvmOverloads constructor(
         return (value * percentage) / 100F
     }
 
-    fun setOnBarClicked(callback: (bar: Bar) -> Unit) {
+    fun setOnBarClickListener(callback: (bar: Bar) -> Unit) {
         setOnTouchListener { _, motionEvent ->
             if (motionEvent.action == MotionEvent.ACTION_DOWN) {
                 barsGraphConfig?.bars?.firstOrNull {

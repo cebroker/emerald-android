@@ -48,7 +48,7 @@ class BarsGraphTest : MockActivityTest() {
                 setupConfig(
                     BarsGraphConfig(2, barsCollection)
                 )
-                setOnBarClicked {
+                setOnBarClickListener {
                     result = it.label.orEmpty()
                 }
             }
