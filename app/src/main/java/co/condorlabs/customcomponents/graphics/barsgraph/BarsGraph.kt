@@ -3,11 +3,13 @@ package co.condorlabs.customcomponents.graphics.barsgraph
 import android.content.Context
 import android.graphics.*
 import android.util.AttributeSet
+import android.view.MotionEvent
 import android.view.View
 import co.condorlabs.customcomponents.DEFAULT_STYLE_ATTR
 import co.condorlabs.customcomponents.DEFAULT_STYLE_RES
 import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.graphics.barsgraph.defaultgraphobjs.defaultBarsGraphConfigObj
+import co.condorlabs.customcomponents.graphics.barsgraph.models.barsgraph.Bar
 import co.condorlabs.customcomponents.graphics.barsgraph.models.barsgraph.BarsGraphConfig
 
 /**
@@ -237,6 +239,10 @@ class BarsGraph @JvmOverloads constructor(
                 getPixelsValueWithPercentage(pixelRangeToDrawBars.toInt(), barPercentageToDraw)
             val barStartPositionY = barStartPositionX - pixelsToSubtractFromY
 
+            bar.left = barPositionXWithOffset - barsStrokeWidthMiddle
+            bar.top = barStartPositionY
+            bar.right = barPositionXWithOffset + barsStrokeWidthMiddle
+            bar.bottom = countLabelsPositionY
             canvas.drawPath(
                 Path().apply {
                     addRoundRect(
@@ -292,7 +298,21 @@ class BarsGraph @JvmOverloads constructor(
         return (barValue * 100F) / rangeValue
     }
 
-    private fun getPixelsValueWithPercentage(valor: Int, percentage: Float): Float {
-        return (valor * percentage) / 100F
+    private fun getPixelsValueWithPercentage(value: Int, percentage: Float): Float {
+        return (value * percentage) / 100F
+    }
+
+    fun setOnBarClickListener(callback: (bar: Bar) -> Unit) {
+        setOnTouchListener { _, motionEvent ->
+            if (motionEvent.action == MotionEvent.ACTION_DOWN) {
+                barsGraphConfig?.bars?.firstOrNull {
+                    it.contains(
+                        motionEvent.x,
+                        motionEvent.y
+                    )
+                }?.let(callback)
+            }
+            true
+        }
     }
 }
