@@ -55,6 +55,12 @@ class AppCompactTouchImageView @JvmOverloads constructor(
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        setupInitialValues()
+    }
+
+    private fun setupInitialValues() {
+        if (drawable == null) return
+
         drawableWidth = drawable.intrinsicWidth
         drawableHeight = drawable.intrinsicHeight
         viewWidth = measuredWidth
