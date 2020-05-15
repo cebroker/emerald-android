@@ -19,9 +19,8 @@ import kotlin.math.min
  */
 class AppCompactTouchImageView @JvmOverloads constructor(
     context: Context,
-    attrs: AttributeSet? = null,
-    defStyleAttr: Int = 0
-) : AppCompatImageView(context, attrs, defStyleAttr) {
+    attrs: AttributeSet? = null
+) : AppCompatImageView(context, attrs) {
 
     private var currentScale = 1F
     private var defaultScale = 1F
@@ -124,48 +123,9 @@ class AppCompactTouchImageView @JvmOverloads constructor(
                     val currentDrawableHeight = drawableHeight * currentScale
 
                     if (drawableWidth <= drawableHeight) {
-                        currentTranslationOnY = if (currentDrawableHeight <= viewHeight) {
-                            (viewHeight - currentDrawableHeight) / 2
-                        } else {
-                            min(
-                                0F,
-                                max(
-                                    viewHeight - currentDrawableHeight,
-                                    savedTranslationOnY + event.y - eventStartPoint.y
-                                )
-                            )
-                        }
-                        if (currentDrawableWidth > viewWidth) {
-                            currentTranslationOnX = min(
-                                0F,
-                                max(
-                                    viewWidth - currentDrawableWidth,
-                                    savedTranslationOnX + event.x - eventStartPoint.x
-                                )
-                            )
-                        }
+                        movePortraitMode(currentDrawableWidth, currentDrawableHeight, event)
                     } else {
-                        currentTranslationOnX = if (currentDrawableWidth <= viewWidth) {
-                            (viewWidth - currentDrawableWidth) / 2
-                        } else {
-                            min(
-                                0F,
-                                max(
-                                    viewWidth - currentDrawableWidth,
-                                    savedTranslationOnX + event.x - eventStartPoint.x
-                                )
-                            )
-                        }
-
-                        if (currentDrawableHeight > viewHeight) {
-                            currentTranslationOnY = min(
-                                0F,
-                                max(
-                                    viewHeight - currentDrawableHeight,
-                                    savedTranslationOnY + event.y - eventStartPoint.y
-                                )
-                            )
-                        }
+                        moveLandscapeMode(currentDrawableWidth, currentDrawableHeight, event)
                     }
 
                     updateImageMatrix()
@@ -174,6 +134,61 @@ class AppCompactTouchImageView @JvmOverloads constructor(
         }
 
         return true
+    }
+
+    private fun moveLandscapeMode(
+        currentDrawableWidth: Float,
+        currentDrawableHeight: Float,
+        event: MotionEvent
+    ) {
+        currentTranslationOnX = if (currentDrawableWidth <= viewWidth) {
+            (viewWidth - currentDrawableWidth) / 2
+        } else {
+            min(
+                0F,
+                max(
+                    viewWidth - currentDrawableWidth,
+                    savedTranslationOnX + event.x - eventStartPoint.x
+                )
+            )
+        }
+
+        if (currentDrawableHeight > viewHeight) {
+            currentTranslationOnY = min(
+                0F,
+                max(
+                    viewHeight - currentDrawableHeight,
+                    savedTranslationOnY + event.y - eventStartPoint.y
+                )
+            )
+        }
+    }
+
+    private fun movePortraitMode(
+        currentDrawableWidth: Float,
+        currentDrawableHeight: Float,
+        event: MotionEvent
+    ) {
+        currentTranslationOnY = if (currentDrawableHeight <= viewHeight) {
+            (viewHeight - currentDrawableHeight) / 2
+        } else {
+            min(
+                0F,
+                max(
+                    viewHeight - currentDrawableHeight,
+                    savedTranslationOnY + event.y - eventStartPoint.y
+                )
+            )
+        }
+        if (currentDrawableWidth > viewWidth) {
+            currentTranslationOnX = min(
+                0F,
+                max(
+                    viewWidth - currentDrawableWidth,
+                    savedTranslationOnX + event.x - eventStartPoint.x
+                )
+            )
+        }
     }
 
     private fun onClick(event: MotionEvent): Boolean {
