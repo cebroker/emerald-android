@@ -28,6 +28,7 @@ Emerald UI for Android Apps
 - [Simple CameraX](/app/src/main/java/co/condorlabs/customcomponents/simplecamerax)
 - [Bars graphics](/app/src/main/java/co/condorlabs/customcomponents/graphics/barsgraph)
 - [Circle Graph](/app/src/main/java/co/condorlabs/customcomponents/graphics/circlegraph)
+- [Custom TouchImageView](/app/src/main/java/co/condorlabs/customcomponents/customimageview)
 
 ## Contribute
 - If you've __found a bug__, open an issue;

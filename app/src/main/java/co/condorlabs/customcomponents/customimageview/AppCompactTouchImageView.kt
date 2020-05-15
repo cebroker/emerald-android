@@ -3,6 +3,7 @@ package co.condorlabs.customcomponents.customimageview
 import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.PointF
+import android.graphics.drawable.Drawable
 import android.util.AttributeSet
 import android.view.MotionEvent
 import android.view.ScaleGestureDetector
@@ -55,6 +56,11 @@ class AppCompactTouchImageView @JvmOverloads constructor(
     }
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
+        setupInitialValues()
+    }
+
+    override fun setImageDrawable(drawable: Drawable?) {
+        super.setImageDrawable(drawable)
         setupInitialValues()
     }
 
