@@ -19,7 +19,6 @@ package co.condorlabs.customcomponents.customedittext
 import android.app.DatePickerDialog
 import android.content.Context
 import android.graphics.drawable.Drawable
-import androidx.core.content.ContextCompat
 import android.text.InputType
 import android.text.TextUtils
 import android.util.AttributeSet
@@ -27,6 +26,7 @@ import android.view.MotionEvent
 import android.view.View
 import android.widget.DatePicker
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.masks.DateTextWatcherMask
@@ -194,15 +194,16 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
         val drawable = mIconDrawable?.let { it } ?: ContextCompat.getDrawable(context, R.drawable.ic_date)?.let { it }
         ?: throw RuntimeException(context.getString(R.string.dateformfield_no_icon_error_message))
 
-        receiver.setCompoundDrawablesWithIntrinsicBounds(
-            null,
-            null,
-            drawable,
-            null
-        )
-
-        receiver.inputType = InputType.TYPE_CLASS_NUMBER
-        receiver.maxEms = DATE_MASK_MAX_EMS
+        receiver.run {
+            setCompoundDrawablesWithIntrinsicBounds(
+                null,
+                null,
+                drawable,
+                null
+            )
+           inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
+           maxEms = DATE_MASK_MAX_EMS
+        }
 
         val showDateFormat = context.getString(R.string.show_date_format)
 

@@ -73,6 +73,26 @@ class EditTextDateFieldTest : MockActivityTest() {
 
     @SmallTest
     @Test
+    fun whenTypeSpecialCharactersThenShouldNotAllowWhenSpecialCharacterIsTyped() {
+        MockActivity.layout = R.layout.activity_edittextdatefield_test
+        restartActivity()
+
+        // Given
+        val field = (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)
+        val realEditText = field!!.textInputLayout!!.editText!!
+        val view = Espresso.onView(ViewMatchers.withId(realEditText.id))
+
+        // When
+        view.perform(ViewActions.typeText(".12/01/,2009"))
+
+        // Then
+        Assert.assertEquals(
+            realEditText.text.toString(), "12/01/2009"
+        )
+    }
+
+    @SmallTest
+    @Test
     fun shouldShowErrorWitheDateIncorrectPart2() {
         MockActivity.layout = R.layout.activity_baseedittextdate_with_out_is_required
         restartActivity()
