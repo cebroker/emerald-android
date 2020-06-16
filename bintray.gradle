@@ -23,7 +23,7 @@ android {
 }
 
 ext {
-    libraryVersion = '1.2.0'
+    libraryVersion = '1.1.4'
 
     bintrayRepo = 'CustomComponents'
     bintrayName = 'CustomComponents'
