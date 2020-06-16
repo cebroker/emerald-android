@@ -194,17 +194,16 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
         val drawable = mIconDrawable?.let { it } ?: ContextCompat.getDrawable(context, R.drawable.ic_date)?.let { it }
         ?: throw RuntimeException(context.getString(R.string.dateformfield_no_icon_error_message))
 
-        receiver.setCompoundDrawablesWithIntrinsicBounds(
-            null,
-            null,
-            drawable,
-            null
-        )
-
-        receiver.setInputType(InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL)
-
-
-        receiver.maxEms = DATE_MASK_MAX_EMS
+        receiver.run {
+            setCompoundDrawablesWithIntrinsicBounds(
+                null,
+                null,
+                drawable,
+                null
+            )
+           inputType = InputType.TYPE_CLASS_NUMBER or InputType.TYPE_NUMBER_FLAG_DECIMAL
+           maxEms = DATE_MASK_MAX_EMS
+        }
 
         val showDateFormat = context.getString(R.string.show_date_format)
 
