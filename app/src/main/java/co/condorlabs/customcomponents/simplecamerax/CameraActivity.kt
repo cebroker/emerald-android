@@ -90,7 +90,7 @@ class CameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListe
             }
         }
         btnCancelPhoto?.visibility = View.VISIBLE
-        fabCaptureButton?.visibility = View.INVISIBLE
+        fabCaptureButton?.hide()
         if (cameraConfig.descriptionText != null) {
             capturePhotoDescription?.visibility = View.INVISIBLE
         }
@@ -142,7 +142,7 @@ class CameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListe
                 text = it
             }
         }
-        fabCaptureButton?.visibility = View.VISIBLE
+        fabCaptureButton?.show()
         photoCaptured?.run {
             parentDimens = true
             setCropActivated(false)

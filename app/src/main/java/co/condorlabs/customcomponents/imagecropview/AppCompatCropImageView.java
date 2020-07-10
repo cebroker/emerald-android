@@ -255,7 +255,7 @@ public class AppCompatCropImageView extends AppCompatImageView {
         strokeWidth = ta.getInteger(R.styleable.IconCropView_lineStrokeWidth, 4);
         sideX = minimumSideXLength;
         sideY = minimumSideYLength;
-        halfCorner = (ta.getDimensionPixelSize(R.styleable.IconCropView_cornerSize, 20)) / 2;
+        halfCorner = (ta.getDimensionPixelSize(R.styleable.IconCropView_imageCornerSize, 20)) / 2;
         //colors
         int cornerColor = ta.getColor(R.styleable.IconCropView_cornerColor, Color.BLACK);
         edgeColor = ta.getColor(R.styleable.IconCropView_edgeColor, Color.WHITE);

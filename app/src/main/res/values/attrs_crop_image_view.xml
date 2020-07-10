@@ -9,7 +9,7 @@
         <attr name="edgeColor" format="color" />
         <attr name="lineStrokeWidth" format="integer" />
         <attr name="outsideCropColor" format="color" />
-        <attr name="cornerSize" format="dimension" />
+        <attr name="imageCornerSize" format="dimension" />
         <attr name="keepAspectRatio" format="boolean" />
     </declare-styleable>
 </resources>

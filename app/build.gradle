@@ -17,9 +17,8 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply from: '../bintray.gradle'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply from: '../bintray.gradle'
 
 androidExtensions {
     experimental = true
@@ -50,45 +49,39 @@ android {
 }
 
 dependencies {
-    def acceptanceTesting = rootProject.ext.acceptanceTesting
-    def applicationDependencies = rootProject.ext.mainApplication
-    def testDependencies = rootProject.ext.unitTesting
-    def androidDependencies = rootProject.ext.androidDependencies
-
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
     //Kotlin
-    implementation applicationDependencies.kotlinJDK
+    implementation kotlinJDK
 
     //Android and support
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation applicationDependencies.kotlinJDK
-    implementation androidDependencies.appCompat
-    implementation androidDependencies.constraintLayout
-    implementation androidDependencies.appCompatV4
-    implementation androidDependencies.materialDesign
+    implementation appCompat
+    implementation constraintLayout
+    implementation appCompatV4
+    implementation materialDesign
 
     // Camera
-    api androidDependencies.camerax
-    api androidDependencies.camera2_kit
+    api camerax
+    api camera2_kit
 
     //Coroutines
-    implementation applicationDependencies.kotlinCoroutines
-    implementation applicationDependencies.kotlinCoroutinesAndroid
+    implementation kotlinCoroutines
+    implementation kotlinCoroutinesAndroid
 
     //Mix
-    implementation applicationDependencies.lottie
-    implementation applicationDependencies.picasso
-    implementation applicationDependencies.skeleton
+    implementation lottie
+    implementation picasso
+    implementation skeleton
 
     //Tests
-    androidTestImplementation acceptanceTesting.androidAnnotations
-    androidTestImplementation acceptanceTesting.testRunner
-    androidTestImplementation acceptanceTesting.testRules
-    androidTestImplementation acceptanceTesting.espressoCore
-    androidTestImplementation acceptanceTesting.espressoContrib
-    androidTestImplementation acceptanceTesting.espressoIntents
-    androidTestImplementation acceptanceTesting.uiAutomator
-    androidTestImplementation testDependencies.mockitoCore
-    androidTestImplementation testDependencies.mockk
+    androidTestImplementation androidAnnotations
+    androidTestImplementation testRunner
+    androidTestImplementation testRules
+    androidTestImplementation espressoCore
+    androidTestImplementation espressoContrib
+    androidTestImplementation espressoIntents
+    androidTestImplementation uiAutomator
+    androidTestImplementation mockitoCore
+    androidTestImplementation mockk
 }

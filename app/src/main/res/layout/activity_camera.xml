@@ -80,7 +80,7 @@
         android:background="@android:color/transparent"
         android:scaleType="centerCrop"
         app:cornerColor="@color/overlayRippleColor"
-        app:cornerSize="@dimen/camera_corner_size"
+        app:imageCornerSize="@dimen/camera_corner_size"
         app:edgeColor="@color/overlayRippleColor"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
