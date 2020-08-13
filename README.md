@@ -1,8 +1,8 @@
 <p align="center"><img src="https://github.com/cebroker/emerald-ios/blob/develop/emerald.svg" align="middle" width="25%" /></p>
 
 # Emerald Android
-![Platform](https://img.shields.io/badge/platform-Android-green.svg)
-![Kotlin version](https://img.shields.io/badge/Kotlin_version-1.3.21-orange.svg)
+![Platform](https://img.shields.io/static/v1?style=flat-square&label=Platform&message=Android&color=3DDC84) 
+![https://kotlinlang.org/](https://img.shields.io/static/v1?style=flat-square&label=Kotlin&message=1.3.72&color=007EC6)
 
 Emerald UI for Android Apps
 
@@ -10,9 +10,9 @@ Emerald UI for Android Apps
 
 - Android API 21+
 
-- Android Studio 3.4+
+- Android Studio 4.0+
 
-- Kotlin 1.3.21+
+- Kotlin 1.3.72+
 
 ### Documentation
 - [Custom EditText](/app/src/main/java/co/condorlabs/customcomponents/customedittext)
