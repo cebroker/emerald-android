@@ -30,8 +30,6 @@ pipeline {
     }
     stage ('Publishing report') {
         steps {
-            //publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: true, reportDir: "wallet/build/reports/gordonDemo", reportFiles: "test-report.html", reportName: 'UI test report', reportTitles: 'Tests Results'
-                ])
             script {
                 if ( currentBuild.currentResult == "SUCCESS" ) {
                     slackSend color: '#00A950', channel: 'jenkins-android', message: "Custom Components UI ${branchName} ${size} tests were successful :celebrate: "
