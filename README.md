@@ -31,6 +31,6 @@ Emerald UI for Android Apps
 - [Custom TouchImageView](/app/src/main/java/co/condorlabs/customcomponents/customimageview)
 
 ## Contribute
-- If you've __found a bug__, open an issue;
-- If you have a __feature request__, open an issue;
-- If you __want to contribute__, submit a pull request;
+- If you've __found a bug__, open an issue.
+- If you have a __feature request__, open an issue.
+- If you __want to contribute__, submit a pull request.
