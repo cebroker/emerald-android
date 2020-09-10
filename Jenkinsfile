@@ -2,7 +2,7 @@ pipeline {
   agent any
       stages {
         stage('Turn on emulator') {
-            step {
+            steps {
               catchError(message: "No emulator detected - It's ok", buildResult: 'SUCCESS') {
                   sh "adb devices | grep emulator | cut -f1 | while read line; do adb -s $line emu kill; done"
               }
@@ -12,24 +12,24 @@ pipeline {
             }
         }
         stage('clean') {
-            step {
+            steps {
                 sh './gradlew clean --stacktrace'
             }
         }
         stage('Validate') {
-            step {
+            steps {
                 sh './gradlew compileDebugKotlin --stacktrace'
             }
         }
         stage('Unit Test Wallet') {
-            step {
+            steps {
                 catchError(message: "Build should continue if there are failed tests - It's ok", stageResult: 'UNSTABLE') {
                    sh './gradlew connectedAndroidTest --stacktrace'
                 }
             }
         }
         stage ('Publishing report') {
-            step{
+            steps {
 
                 script {
                     def now = new Date()
