@@ -32,16 +32,16 @@ pipeline {
         steps {
             script {
                 if ( currentBuild.currentResult == "SUCCESS" ) {
-                    slackSend color: '#00A950', channel: 'jenkins-android', message: "Custom Components UI ${branchName} ${size} tests were successful :celebrate: "
+                    slackSend color: '#00A950', channel: 'jenkins-android', message: "Custom Components UI tests were successful :celebrate: "
                 }
                 else if( currentBuild.currentResult == "FAILURE" ) {
-                    slackSend color: '#DE350B', channel: 'jenkins-android', message: "Custom Components UI ${branchName} ${size} tests failed :ahhhhhhh: "
+                    slackSend color: '#DE350B', channel: 'jenkins-android', message: "Custom Components UI tests failed :ahhhhhhh: "
                 }
                 else if( currentBuild.currentResult == "UNSTABLE" ) {
-                    slackSend color: '#FFAA00', channel: 'jenkins-android', message: "Custom Components UI ${branchName} ${size} tests are unstable :manzanillo-high:"
+                    slackSend color: '#FFAA00', channel: 'jenkins-android', message: "Custom Components UI tests are unstable :manzanillo-high:"
                 }
                 else {
-                    slackSend color: "#607B7B", channel: 'jenkins-android', message: "Custom Components UI ${branchName} ${size} tests are unclear :mag:"
+                    slackSend color: "#607B7B", channel: 'jenkins-android', message: "Custom Components UI tests are unclear :mag:"
                 }
 
                 catchError(message: "No emulator detected - It's ok", buildResult: 'SUCCESS') {
