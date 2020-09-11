@@ -34,16 +34,16 @@ pipeline {
                 def PULL_REQUEST = env.CHANGE_ID
 
                 if ( currentBuild.currentResult == "SUCCESS" ) {
-                    slackSend color: '#00A950', channel: 'jenkins-android', message: ":emerald_ui: Emerald Android UI tests were successful :stableparrot: (<${REPORT_URL}/blue/organizations/jenkins/Emerald%20Android/detail/${PULL_REQUEST}/${currentBuild.number}/pipeline|Open Report>)"
+                    slackSend color: '#00A950', channel: 'jenkins-android', message: ":emerald-ui: Emerald Android UI tests were successful :stableparrot: (<${REPORT_URL}/blue/organizations/jenkins/Emerald%20Android/detail/PR-${PULL_REQUEST}/${currentBuild.number}/pipeline|Open Report>)"
                 }
                 else if( currentBuild.currentResult == "FAILURE" ) {
-                    slackSend color: '#DE350B', channel: 'jenkins-android', message: ":emerald_ui: Emerald Android UI tests failed :ahhhhhhh: (<${REPORT_URL}/blue/organizations/jenkins/Emerald%20Android/detail/${PULL_REQUEST}/${currentBuild.number}/pipeline|Open Report>)"
+                    slackSend color: '#DE350B', channel: 'jenkins-android', message: ":emerald-ui: Emerald Android UI tests failed :ahhhhhhh: (<${REPORT_URL}/blue/organizations/jenkins/Emerald%20Android/detail/PR-${PULL_REQUEST}/${currentBuild.number}/pipeline|Open Report>)"
                 }
                 else if( currentBuild.currentResult == "UNSTABLE" ) {
-                    slackSend color: '#FFAA00', channel: 'jenkins-android', message: ":emerald_ui: Emerald Android UI tests are unstable :sleepyparrot:"
+                    slackSend color: '#FFAA00', channel: 'jenkins-android', message: ":emerald-ui: Emerald Android UI tests are unstable :sleepyparrot:"
                 }
                 else {
-                    slackSend color: "#607B7B", channel: 'jenkins-android', message: ":emerald_ui: Emerald Android UI tests are unclear :this_is_fine:"
+                    slackSend color: "#607B7B", channel: 'jenkins-android', message: ":emerald-ui: Emerald Android UI tests are unclear :this_is_fine:"
                 }
 
                 catchError(message: "No emulator detected - It's ok", buildResult: 'SUCCESS') {
