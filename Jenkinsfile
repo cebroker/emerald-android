@@ -21,7 +21,7 @@ pipeline {
             sh './gradlew compileDebugKotlin --stacktrace'
         }
     }
-    stage('Emerald UI Test') {
+    stage('Emerald UI Tests') {
         steps {
             catchError(message: "Build should continue if there are failed tests - It's ok", stageResult: 'UNSTABLE') {
                sh './gradlew connectedAndroidTest --stacktrace'
