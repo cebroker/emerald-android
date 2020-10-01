@@ -22,6 +22,7 @@
 
     <declare-styleable name="EditTextDateField">
         <attr name="picker_icon" format="integer" />
+        <attr name="datePickerTheme" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="EditTextPhoneField">
@@ -38,10 +39,10 @@
         <attr name="background_alpha" format="integer" />
         <attr name="multiline" format="boolean" />
         <attr name="placeholder" format="string" />
-        <attr name="show_validation_icon" format="boolean"/>
+        <attr name="show_validation_icon" format="boolean" />
         <attr name="digits" format="string" />
         <attr name="max_characters" format="integer" />
-        <attr name="mask" format="string"/>
+        <attr name="mask" format="string" />
     </declare-styleable>
 
     <declare-styleable name="SpinnerFormField">

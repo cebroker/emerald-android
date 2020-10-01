@@ -43,6 +43,7 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
     private var mUpperLimit: Long? = null
     private var mSimpleDateFormat: SimpleDateFormat? = null
     private var mDateFormat = DEFAULT_DATE_FORMAT
+    private var datePickerTheme: Int
 
     init {
         context.theme.obtainStyledAttributes(
@@ -50,6 +51,8 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
             R.styleable.EditTextDateField,
             DEFAULT_STYLE_ATTR, DEFAULT_STYLE_RES
         ).apply {
+            datePickerTheme = getResourceId(R.styleable.EditTextDateField_datePickerTheme, R.style.DatePickerTheme)
+
             try {
                 mIconDrawable = getDrawable(R.styleable.EditTextDateField_picker_icon)
             } finally {
@@ -75,7 +78,6 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
     }
 
     override fun onDateSet(view: DatePicker?, year: Int, monthOfYear: Int, dayOfMonth: Int) {
-
         val receiver = editText?.let { it } ?: return
         val dateTextWatcherMask = mDateTextWatcherMask?.let { it } ?: return
 
@@ -229,7 +231,7 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
                         }
 
                         val datePicker = DatePickerDialog(
-                            context, R.style.DatePickerTheme, this, calendar
+                            context, datePickerTheme, this, calendar
                                 .get(Calendar.YEAR), calendar.get(Calendar.MONTH),
                             calendar.get(Calendar.DAY_OF_MONTH)
                         )
