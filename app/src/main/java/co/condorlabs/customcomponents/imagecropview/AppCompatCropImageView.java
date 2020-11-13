@@ -166,28 +166,28 @@ public class AppCompatCropImageView extends AppCompatImageView {
                             movePointTwoOnX(event);
                             points[0].x = points[2].x;
                             int sideXFinal = points[1].x - points[0].x;
-                            int sideYFinal = (int)(sideXFinal / aspectRatio);
+                            int sideYFinal = (int) (sideXFinal / aspectRatio);
                             points[0].y = points[1].y = start.y = points[2].y - sideYFinal;
                             sideY = sideYFinal;
                         } else if (corner == 1) {
                             movePointOneOnX(event);
                             points[3].x = points[1].x;
                             int sideXFinal = points[1].x - points[0].x;
-                            int sideYFinal = (int)(sideXFinal / aspectRatio);
+                            int sideYFinal = (int) (sideXFinal / aspectRatio);
                             points[0].y = points[1].y = start.y = points[3].y - sideYFinal;
                             sideY = sideYFinal;
                         } else if (corner == 2) {
                             movePointTwoOnX(event);
                             points[0].x = points[2].x;
                             int sideXFinal = points[3].x - points[2].x;
-                            int sideYFinal = (int)(sideXFinal / aspectRatio);
+                            int sideYFinal = (int) (sideXFinal / aspectRatio);
                             points[2].y = points[3].y = start.y = points[0].y + sideYFinal;
                             sideY = sideYFinal;
                         } else if (corner == 3) {
                             movePointOneOnX(event);
                             points[3].x = points[1].x;
                             int sideXFinal = points[3].x - points[2].x;
-                            int sideYFinal = (int)(sideXFinal / aspectRatio);
+                            int sideYFinal = (int) (sideXFinal / aspectRatio);
                             points[2].y = points[3].y = start.y = points[1].y + sideYFinal;
                             sideY = sideYFinal;
                         } else if (isCenterFrame) {
@@ -298,35 +298,37 @@ public class AppCompatCropImageView extends AppCompatImageView {
     }
 
     private void moveAllPoints(MotionEvent event) {
-        points[0].x = Math.max(points[0].x + (int) Math.min(Math.floor((event.getX() - start.x - offset.x)), Math.floor(getWidth() - points[0].x - 2 * halfCorner - sideX)), 0);
-        points[1].x = Math.max(points[1].x + (int) Math.min(Math.floor((event.getX() - start.x - offset.x)), Math.floor(getWidth() - points[1].x - 2 * halfCorner)), sideX);
-        points[2].x = Math.max(points[2].x + (int) Math.min(Math.floor((event.getX() - start.x - offset.x)), Math.floor(getWidth() - points[2].x - 2 * halfCorner - sideX)), 0);
-        points[3].x = Math.max(points[3].x + (int) Math.min(Math.floor((event.getX() - start.x - offset.x)), Math.floor(getWidth() - points[3].x - 2 * halfCorner)), sideX);
-        points[0].y = Math.max(points[0].y + (int) Math.min(Math.floor((event.getY() - start.y - offset.y)), Math.floor(getHeight() - points[0].y - 2 * halfCorner - sideY)), 0);
-        points[1].y = Math.max(points[1].y + (int) Math.min(Math.floor((event.getY() - start.y - offset.y)), Math.floor(getHeight() - points[1].y - 2 * halfCorner - sideY)), 0);
-        points[2].y = Math.max(points[2].y + (int) Math.min(Math.floor((event.getY() - start.y - offset.y)), Math.floor(getHeight() - points[2].y - 2 * halfCorner)), sideY);
-        points[3].y = Math.max(points[3].y + (int) Math.min(Math.floor((event.getY() - start.y - offset.y)), Math.floor(getHeight() - points[3].y - 2 * halfCorner)), sideY);
+        points[0].x = Math.max(points[0].x + (int) Math.min(Math.floor((event.getX() - start.x - offset.x)), Math.floor(getWidth() - points[0].x - halfCorner - sideX)), -halfCorner);
+        points[1].x = Math.max(points[1].x + (int) Math.min(Math.floor((event.getX() - start.x - offset.x)), Math.floor(getWidth() - points[1].x - halfCorner)), sideX - halfCorner);
+        points[2].x = Math.max(points[2].x + (int) Math.min(Math.floor((event.getX() - start.x - offset.x)), Math.floor(getWidth() - points[2].x - halfCorner - sideX)), -halfCorner);
+        points[3].x = Math.max(points[3].x + (int) Math.min(Math.floor((event.getX() - start.x - offset.x)), Math.floor(getWidth() - points[3].x - halfCorner)), sideX - halfCorner);
+
+        points[0].y = Math.max(points[0].y + (int) Math.min(Math.floor((event.getY() - start.y - offset.y)), Math.floor(getHeight() - points[0].y - halfCorner - sideY)), -halfCorner);
+        points[1].y = Math.max(points[1].y + (int) Math.min(Math.floor((event.getY() - start.y - offset.y)), Math.floor(getHeight() - points[1].y - halfCorner - sideY)), -halfCorner);
+        points[2].y = Math.max(points[2].y + (int) Math.min(Math.floor((event.getY() - start.y - offset.y)), Math.floor(getHeight() - points[2].y - halfCorner)), sideY - halfCorner);
+        points[3].y = Math.max(points[3].y + (int) Math.min(Math.floor((event.getY() - start.y - offset.y)), Math.floor(getHeight() - points[3].y - halfCorner)), sideY - halfCorner);
+
         start.x = points[0].x;
         start.y = points[0].y;
     }
 
     private void movePointOneOnX(MotionEvent event) {
-        sideX = Math.min(Math.max(minimumSideXLength, (int) (sideX + Math.floor(event.getX()) - start.x - offset.x)), sideX + (getWidth() - points[1].x - 2 * halfCorner));
+        sideX = Math.min(Math.max(minimumSideXLength, (int) (sideX + Math.floor(event.getX()) - start.x - offset.x)), sideX + (getWidth() - points[1].x - halfCorner));
         start.x = points[1].x = points[0].x + sideX;
     }
 
     private void movePointOneOnY(MotionEvent event) {
-        sideY = points[3].y - Math.max(Math.min((int) (Math.floor(event.getY()) - offset.y), points[3].y - minimumSideYLength), 0);
+        sideY = points[3].y - Math.max(Math.min((int) (Math.floor(event.getY()) - offset.y), points[3].y - minimumSideYLength), -halfCorner);
         start.y = points[1].y = points[3].y - sideY;
     }
 
     private void movePointTwoOnY(MotionEvent event) {
-        sideY = Math.min(Math.max(minimumSideYLength, (int) (sideY + Math.floor(event.getY()) - start.y - offset.y)), sideY + (getHeight() - points[2].y - 2 * halfCorner));
+        sideY = Math.min(Math.max(minimumSideYLength, (int) (sideY + Math.floor(event.getY()) - start.y - offset.y)), sideY + (getHeight() - points[2].y - halfCorner));
         start.y = points[2].y = points[0].y + sideY;
     }
 
     private void movePointTwoOnX(MotionEvent event) {
-        sideX = points[3].x - Math.max(Math.min((int) (Math.floor(event.getX()) - offset.x), points[3].x - minimumSideXLength), 0);
+        sideX = points[3].x - Math.max(Math.min((int) (Math.floor(event.getX()) - offset.x), points[3].x - minimumSideXLength), -halfCorner);
         start.x = points[2].x = points[3].x - sideX;
     }
 
