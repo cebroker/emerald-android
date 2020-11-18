@@ -162,8 +162,9 @@ class EditTextDateFieldTest : MockActivityTest() {
         // When
         view.perform(click())
 
-        isTextDisplayed("ACEPTAR")
-        isTextDisplayed("CANCELAR")
+
+        isTextDisplayed("OK")
+        isTextDisplayed("CANCEL")
     }
 
     @SmallTest
