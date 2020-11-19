@@ -44,14 +44,16 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
     private var mSimpleDateFormat: SimpleDateFormat? = null
     private var mDateFormat = DEFAULT_DATE_FORMAT
     private var datePickerTheme: Int
+    private var openDatePickerOnTouch = false
 
     init {
         context.theme.obtainStyledAttributes(
             attrs,
             R.styleable.EditTextDateField,
             DEFAULT_STYLE_ATTR, DEFAULT_STYLE_RES
-        ).apply {
+        ).run {
             datePickerTheme = getResourceId(R.styleable.EditTextDateField_datePickerTheme, R.style.DatePickerTheme)
+            openDatePickerOnTouch = getBoolean(R.styleable.EditTextDateField_openDatePickerOnTouch, false)
 
             try {
                 mIconDrawable = getDrawable(R.styleable.EditTextDateField_picker_icon)
@@ -212,7 +214,7 @@ class EditTextDateField(context: Context, attrs: AttributeSet) : BaseEditTextFor
         this.editText?.setOnTouchListener { v, event ->
             when (event.action) {
                 MotionEvent.ACTION_UP -> {
-                    if (wasCalendarDrawableClicked(v, event)) {
+                    if (wasCalendarDrawableClicked(v, event) or openDatePickerOnTouch) {
                         val calendar = Calendar.getInstance()
 
                         val dialogCanBeOpenOnEditTextText = if (receiver.text?.isEmpty() == false) {

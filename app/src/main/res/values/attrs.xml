@@ -23,6 +23,7 @@
     <declare-styleable name="EditTextDateField">
         <attr name="picker_icon" format="integer" />
         <attr name="datePickerTheme" format="reference" />
+        <attr name="openDatePickerOnTouch" format="boolean" />
     </declare-styleable>
 
     <declare-styleable name="EditTextPhoneField">

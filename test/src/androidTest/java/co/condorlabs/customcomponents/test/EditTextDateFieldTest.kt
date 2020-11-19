@@ -28,6 +28,7 @@ import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.customedittext.EditTextDateField
 import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.formfield.ValidationResult
+import co.condorlabs.customcomponents.test.util.isTextDisplayed
 import co.condorlabs.customcomponents.test.util.isTextNotDisplayed
 import kotlinx.coroutines.runBlocking
 import org.junit.Assert
@@ -145,6 +146,25 @@ class EditTextDateFieldTest : MockActivityTest() {
             ValidationResult(true, EMPTY),
             (ruleActivity.activity.findViewById<View>(R.id.tlDate) as? EditTextDateField)?.isValid()
         )
+    }
+
+    @SmallTest
+    @Test
+    fun shouldOpenDatePickerWhenUserTouchAnywhereOnComponent() {
+        MockActivity.layout = R.layout.activity_edittextdatefield_test
+        restartActivity()
+
+        // Given
+        val field = (ruleActivity.activity.findViewById<View>(R.id.tlDateWithOpenDatePickerOnTouch) as? EditTextDateField)
+        val realEditText = field!!.textInputLayout!!.editText!!
+        val view = onView(withId(realEditText.id))
+
+        // When
+        view.perform(click())
+
+
+        isTextDisplayed("OK")
+        isTextDisplayed("CANCEL")
     }
 
     @SmallTest
