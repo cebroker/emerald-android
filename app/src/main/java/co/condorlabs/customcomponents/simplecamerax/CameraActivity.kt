@@ -8,6 +8,7 @@ import android.graphics.drawable.Animatable
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.ImageCapture
 import androidx.constraintlayout.widget.ConstraintSet
@@ -45,7 +46,9 @@ class CameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListe
 
     private fun setupScreenProperties() {
         with(cameraConfig) {
-            if (fitToScreen) setFitToScreen()
+            if (fitToScreen) {
+                setFitToScreen()
+            }
             titleText?.let {
                 cameraTitle?.run {
                     visibility = View.VISIBLE
@@ -152,6 +155,7 @@ class CameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListe
         message: String,
         cause: Throwable?
     ) {
+        Toast.makeText(this, getString(R.string.error_taking_photo_message), Toast.LENGTH_LONG).show()
     }
 
     override fun onBackPressed() {
