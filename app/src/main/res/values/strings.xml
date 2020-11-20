@@ -63,4 +63,6 @@
     <string name="retake_photo">Retake</string>
     <string name="front_text">Front</string>
     <string name="cancel_button_content_description">Cancel photo</string>
+    <string name="take_photo_content_desc">take photo button</string>
+    <string name="error_taking_photo_message">An error occurred while taking the photo. Please, try again.</string>
 </resources>

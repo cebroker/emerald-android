@@ -87,10 +87,10 @@
     </style>
     <style name="camera_title_style">
         <item name="android:layout_width">@dimen/zero</item>
-        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_height">@dimen/zero</item>
         <item name="android:background">@android:color/black</item>
         <item name="android:elevation">1dp</item>
-        <item name="android:visibility">invisible</item>
+        <item name="android:visibility">gone</item>
         <item name="android:paddingStart">50dp</item>
         <item name="android:paddingTop">16dp</item>
         <item name="android:paddingEnd">50dp</item>

@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/clActivityCameraParent"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@android:color/black"
@@ -31,13 +32,22 @@
         android:orientation="horizontal"
         app:layout_constraintGuide_percent="0.48" />
 
+    <androidx.constraintlayout.widget.Barrier
+        android:id="@+id/barrier"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:barrierDirection="bottom"
+        app:constraint_referenced_ids="cameraTitle" />
+
     <TextView
         android:id="@+id/cameraTitle"
         style="@style/camera_title_style"
+        app:layout_constraintBottom_toBottomOf="@id/ibCancelPhoto"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0"
         tools:visibility="visible" />
 
     <ImageButton
@@ -49,9 +59,8 @@
         android:elevation="@dimen/title_elevation"
         android:padding="@dimen/cancel_button_margin"
         android:src="@drawable/close_x_white"
-        app:layout_constraintBottom_toBottomOf="@id/cameraTitle"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="@id/cameraTitle" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <View
         android:id="@+id/vRectangle"
@@ -80,8 +89,8 @@
         android:background="@android:color/transparent"
         android:scaleType="centerCrop"
         app:cornerColor="@color/overlayRippleColor"
-        app:imageCornerSize="@dimen/camera_corner_size"
         app:edgeColor="@color/overlayRippleColor"
+        app:imageCornerSize="@dimen/camera_corner_size"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
@@ -93,6 +102,7 @@
         app:resizeCornerDrawable="@drawable/ic_ball" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/clButtonsContainer"
         android:layout_width="@dimen/zero"
         android:layout_height="wrap_content"
         android:background="@android:color/black"
@@ -140,6 +150,7 @@
             <com.google.android.material.floatingactionbutton.FloatingActionButton
                 android:id="@+id/fabCaptureButton"
                 style="@style/camera_take_photo_button_style"
+                android:contentDescription="@string/take_photo_content_desc"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -155,7 +166,6 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:type="shape"
                 tools:visibility="visible" />
-
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

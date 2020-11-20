@@ -1,5 +1,6 @@
 package co.condorlabs.customcomponents.simplecamerax
 
+import android.annotation.SuppressLint
 import android.app.Activity
 import android.graphics.Bitmap
 import android.graphics.Matrix
@@ -7,12 +8,25 @@ import android.graphics.drawable.Animatable
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.ImageCapture
+import androidx.constraintlayout.widget.ConstraintSet
 import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.models.CameraConfig
 import co.condorlabs.customcomponents.simplecamerax.fragment.SimpleCameraXFragment
-import kotlinx.android.synthetic.main.activity_camera.*
+import kotlinx.android.synthetic.main.activity_camera.barrier
+import kotlinx.android.synthetic.main.activity_camera.btnCancelPhoto
+import kotlinx.android.synthetic.main.activity_camera.btnCropPhoto
+import kotlinx.android.synthetic.main.activity_camera.cameraTitle
+import kotlinx.android.synthetic.main.activity_camera.capturePhotoDescription
+import kotlinx.android.synthetic.main.activity_camera.clActivityCameraParent
+import kotlinx.android.synthetic.main.activity_camera.clButtonsContainer
+import kotlinx.android.synthetic.main.activity_camera.fabCaptureButton
+import kotlinx.android.synthetic.main.activity_camera.ibCancelPhoto
+import kotlinx.android.synthetic.main.activity_camera.photoCaptured
+import kotlinx.android.synthetic.main.activity_camera.simpleCameraXFragment
+import kotlinx.android.synthetic.main.activity_camera.vRectangle
 
 class CameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListener {
 
@@ -23,6 +37,7 @@ class CameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListe
         super.onCreate(savedInstanceState)
         window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_camera)
+
         cameraFragment = simpleCameraXFragment as SimpleCameraXFragment
         cameraConfig = intent.getParcelableExtra(CAMERA_CONFIG_OBJ_PARAM)
             ?: throw NoSuchElementException("CameraConfig object was not provided")
@@ -31,6 +46,9 @@ class CameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListe
 
     private fun setupScreenProperties() {
         with(cameraConfig) {
+            if (fitToScreen) {
+                setFitToScreen()
+            }
             titleText?.let {
                 cameraTitle?.run {
                     visibility = View.VISIBLE
@@ -48,6 +66,19 @@ class CameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListe
             photoCaptured?.setKeepAspectRatio(keepAspectRatio)
         }
         ibCancelPhoto?.setOnClickListener { finish() }
+    }
+
+    private fun setFitToScreen() {
+        clActivityCameraParent?.let {
+            ConstraintSet().apply {
+                clone(it)
+                connect(vRectangle.id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
+                connect(vRectangle.id, ConstraintSet.TOP, barrier.id, ConstraintSet.TOP)
+                connect(vRectangle.id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
+                connect(vRectangle.id, ConstraintSet.BOTTOM, clButtonsContainer.id, ConstraintSet.TOP)
+                applyTo(it)
+            }
+        }
     }
 
     override fun fragmentTextureViewLoaded() {
@@ -71,6 +102,7 @@ class CameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListe
         showImage(bitmap)
     }
 
+    @SuppressLint("RestrictedApi")
     private fun showImage(bitmap: Bitmap) {
         if (bitmap.width > bitmap.height) {
             val rotatedBitmap = rotateImage(bitmap)
@@ -90,7 +122,7 @@ class CameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListe
             }
         }
         btnCancelPhoto?.visibility = View.VISIBLE
-        fabCaptureButton?.hide()
+        fabCaptureButton?.visibility = View.INVISIBLE
         if (cameraConfig.descriptionText != null) {
             capturePhotoDescription?.visibility = View.INVISIBLE
         }
@@ -122,7 +154,9 @@ class CameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListe
         imageCaptureError: ImageCapture.ImageCaptureError,
         message: String,
         cause: Throwable?
-    ) {}
+    ) {
+        Toast.makeText(this, getString(R.string.error_taking_photo_message), Toast.LENGTH_LONG).show()
+    }
 
     override fun onBackPressed() {
         if (fabCaptureButton?.visibility == View.INVISIBLE) {

@@ -31,7 +31,8 @@ CameraConfig(
     cancelButtonText = "Cancel button text",
     cropButtonText = "Crop button text",
     keepAspectRatio = false,
-    savePhotoPath = "route/to/save/photo/captured.jpg"
+    savePhotoPath = "route/to/save/photo/captured.jpg",
+    fitToScreen = false
 )
 ```
 
@@ -49,6 +50,7 @@ CameraConfig(
 |  String? | cropButtonText | Crop photo button |
 |  Boolean | keepAspectRatio | Keep aspect ratio when cropping |
 |  String? | savePhotoPath | Provide a local or external path to save the photo on device |
+|  Boolean | fitToScreen | adjust crop rectangle to screen size |
 
 ## Retrieving data
 ```kotlin
