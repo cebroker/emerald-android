@@ -18,7 +18,6 @@ package co.condorlabs.customcomponents.customedittext
 
 import android.content.Context
 import android.graphics.Typeface
-import android.os.Parcel
 import android.os.Parcelable
 import android.text.InputFilter
 import android.text.InputType
@@ -351,26 +350,26 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
 
     fun getDigits() = digits ?: EMPTY
 
-    public override fun onSaveInstanceState(): Parcelable? {
-        val superState = super.onSaveInstanceState()
-        val myState = SavedState(superState)
-        myState.text = this.text
-        return myState
+    override fun onSaveInstanceState(): Parcelable? {
+        val superState: Parcelable? = super.onSaveInstanceState()
+        superState?.let {
+            val state = SavedState(superState)
+            state.text = this.text
+            return state
+        } ?: run {
+            return superState
+        }
     }
 
-    public override fun onRestoreInstanceState(state: Parcelable) {
-        val savedState = state as SavedState
-        super.onRestoreInstanceState(savedState.superState)
-        this.text = savedState.text
-    }
-
-    private class SavedState internal constructor(superState: Parcelable?) :
-        BaseSavedState(superState) {
-        internal var text: String? = null
-
-        override fun writeToParcel(out: Parcel, flags: Int) {
-            super.writeToParcel(out, flags)
-            out.writeString(text)
+    override fun onRestoreInstanceState(state: Parcelable?) {
+        when (state) {
+            is SavedState -> {
+                super.onRestoreInstanceState(state.superState)
+                this.text = state.text
+            }
+            else -> {
+                super.onRestoreInstanceState(state)
+            }
         }
     }
 }
