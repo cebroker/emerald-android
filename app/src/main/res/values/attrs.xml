@@ -110,6 +110,7 @@
             <enum name="sectionBody" value="6" />
             <enum name="h1_title" value="7" />
             <enum name="h3_title" value="8" />
+            <enum name="bodySmall" value="9" />
         </attr>
     </declare-styleable>
 
