@@ -276,8 +276,10 @@ class EditTextMonthYearField(
     data class MonthYear(var month: Int, var year: Int)
 
     private fun getActivityFromCurrentContext(): AppCompatActivity {
-        if(currentContext is AppCompatActivity) currentContext
-        else if (currentContext is ContextWrapper) currentContext.baseContext as AppCompatActivity
-        else throw RunTimeException("Fuck we do not know how to get the activity")
+        return when (currentContext) {
+            is AppCompatActivity -> currentContext
+            is ContextWrapper -> currentContext.baseContext as AppCompatActivity
+            else -> throw RuntimeException("We do not know how to get the activity")
+        }
     }
 }
