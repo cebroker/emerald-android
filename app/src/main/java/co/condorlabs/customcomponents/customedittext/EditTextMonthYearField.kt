@@ -131,7 +131,7 @@ class EditTextMonthYearField(
                             month = calendar.get(Calendar.MONTH)
                             setListener(this@EditTextMonthYearField)
                             upperLimit = this@EditTextMonthYearField.upperLimit
-                            (currentContext as? AppCompatActivity)?.supportFragmentManager
+                            getActivityFromCurrentContext().supportFragmentManager
                                 ?.beginTransaction()
                                 ?.add(this, MonthYearPickerDialog::class.java.name)
                                 ?.commitAllowingStateLoss()
@@ -272,4 +272,10 @@ class EditTextMonthYearField(
     }
 
     data class MonthYear(var month: Int, var year: Int)
+
+    private fun getActivityFromCurrentContext(): AppCompatActivity {
+        if(currentContext is AppCompatActivity) currentContext
+        else if (currentContext is ContextWrapper) currentContext.baseContext as AppCompatActivity
+        else throw RunTimeException("Fuck we do not know how to get the activity")
+    }
 }
