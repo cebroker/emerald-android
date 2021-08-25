@@ -140,12 +140,8 @@ abstract class BaseRadioGroupFormField(
             return
         }
 
-        selectables = currentSelectableList.filterIndexed { index, _ ->
-            index != itemIndex
-        }.mapTo(arrayListOf(), {
-            it
-        }).apply {
-            add(Selectable(currentSelectableList[itemIndex].label, true))
+        selectables = currentSelectableList.mapIndexed { index, selectable ->
+            selectable.copy(value = index == itemIndex)
         }
 
         addRadioButtons()
@@ -204,6 +200,7 @@ abstract class BaseRadioGroupFormField(
 
     private fun clearPreviousSelection(radioGroup: RadioGroup) {
         if (radioGroup.childCount > 0) {
+            radioGroup.setOnCheckedChangeListener { radioGroup, i ->  }
             radioGroup.clearCheck()
         }
     }
