@@ -163,9 +163,15 @@ abstract class BaseRadioGroupFormField(
 
     @SuppressLint("ResourceType")
     private fun addRadioButtons() {
-        radioGroup?.removeAllViews()
-        selectables?.forEachIndexed { index, selectable ->
-            radioGroup?.addView(
+        val radioGroup = radioGroup ?: return
+
+        clearPreviousSelection(radioGroup)
+        radioGroup.removeAllViews()
+
+        val selectables = selectables ?: return
+
+        selectables.forEachIndexed { index, selectable ->
+            radioGroup.addView(
                 AppCompatRadioButton(context).apply {
                     isClickable = true
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -183,7 +189,7 @@ abstract class BaseRadioGroupFormField(
                         LayoutParams.MATCH_PARENT,
                         LayoutParams.WRAP_CONTENT
                     ).apply {
-                        if (index < (selectables?.size?.minus(ONE) ?: ZERO))
+                        if (index < selectables.size.minus(ONE))
                             setMargins(ZERO, ZERO, ZERO, spaceBetweenItems)
                     }
                     setRadioButtonStateProperties(
@@ -193,6 +199,12 @@ abstract class BaseRadioGroupFormField(
                     )
                 }
             )
+        }
+    }
+
+    private fun clearPreviousSelection(radioGroup: RadioGroup) {
+        if (radioGroup.childCount > 0) {
+            radioGroup.clearCheck()
         }
     }
 
