@@ -97,6 +97,12 @@ abstract class BaseRadioGroupFormField(
         radioGroup = RadioGroup(context, attrs).apply {
             id = R.id.rgBase
         }
+        setupCheckListener()
+
+        addView(radioGroup, layoutParams)
+    }
+
+    private fun setupCheckListener() {
         radioGroup?.setOnCheckedChangeListener { _, checkedId ->
             selectables?.forEach { it.value = false }
 
@@ -112,8 +118,6 @@ abstract class BaseRadioGroupFormField(
                 }
             }
         }
-
-        addView(radioGroup, layoutParams)
     }
 
     override fun getValue(): String {
@@ -201,7 +205,9 @@ abstract class BaseRadioGroupFormField(
 
     private fun clearPreviousSelection(radioGroup: RadioGroup) {
         if (radioGroup.childCount > 0) {
+            radioGroup.setOnCheckedChangeListener { radioGroup, i ->  }
             radioGroup.clearCheck()
+            setupCheckListener()
         }
     }
 
