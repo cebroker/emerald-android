@@ -125,6 +125,8 @@ abstract class BaseRadioGroupFormField(
     }
 
     fun setSelectables(selectables: List<Selectable>) {
+        val radioGroup = radioGroup ?: return
+        clearPreviousSelection(radioGroup)
         this.selectables = selectables
         addRadioButtons()
     }
@@ -161,7 +163,6 @@ abstract class BaseRadioGroupFormField(
     private fun addRadioButtons() {
         val radioGroup = radioGroup ?: return
 
-        clearPreviousSelection(radioGroup)
         radioGroup.removeAllViews()
 
         val selectables = selectables ?: return
@@ -200,7 +201,6 @@ abstract class BaseRadioGroupFormField(
 
     private fun clearPreviousSelection(radioGroup: RadioGroup) {
         if (radioGroup.childCount > 0) {
-            radioGroup.setOnCheckedChangeListener { radioGroup, i ->  }
             radioGroup.clearCheck()
         }
     }
