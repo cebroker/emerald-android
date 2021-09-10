@@ -171,7 +171,7 @@ class BarsGraph @JvmOverloads constructor(
                         horizontalLines
                     }
                 }
-            val valueOfTheMostBigBar = bars.maxBy { it.value }?.value?.toFloat() ?: 0F
+            val valueOfTheMostBigBar = bars.maxByOrNull{ it.value }?.value?.toFloat() ?: 0F
             val horizontalLinesSpacingInNumbers =
                 kotlin.math.ceil((valueOfTheMostBigBar / (numberOfHorizontalLines))).toInt()
             rangeValue = horizontalLinesSpacingInNumbers * (numberOfHorizontalLines)

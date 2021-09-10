@@ -148,8 +148,7 @@ class StackedBarsGraph @JvmOverloads constructor(
                 stackedBars.map { bar ->
                     bar.data.sumBy { it.value }
                         .toFloat()
-                }
-                    .max() ?: 0F
+                }.maxOrNull() ?: 0F
             numberOfHorizontalLines =
                 if (horizontalLines < 0) {
                     0
