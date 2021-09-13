@@ -10,17 +10,26 @@ import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Rational
 import android.util.Size
-import android.view.*
-import androidx.camera.core.*
+import android.view.LayoutInflater
+import android.view.Surface
+import android.view.TextureView
+import android.view.View
+import android.view.ViewGroup
+import androidx.camera.core.CameraX
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.ImageCaptureConfig
+import androidx.camera.core.ImageProxy
+import androidx.camera.core.Preview
+import androidx.camera.core.PreviewConfig
 import androidx.fragment.app.Fragment
-import co.condorlabs.customcomponents.R
+import co.condorlabs.customcomponents.databinding.FragmentSimpleCameraXBinding
 import co.condorlabs.customcomponents.models.CameraTextureViewMetrics
-import kotlinx.android.synthetic.main.fragment_simple_camera_x.*
 import java.io.File
 import java.util.concurrent.Executors
 
 class SimpleCameraXFragment : Fragment(), TextureView.SurfaceTextureListener {
 
+    private lateinit var binding: FragmentSimpleCameraXBinding
     private var imageCapture: ImageCapture? = null
     private var onCameraXListener: OnCameraXListener? = null
     private val executor = Executors.newSingleThreadExecutor()
@@ -36,21 +45,22 @@ class SimpleCameraXFragment : Fragment(), TextureView.SurfaceTextureListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_simple_camera_x, container, false)
+        binding = FragmentSimpleCameraXBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        cameraTextureView?.surfaceTextureListener = this
+        binding.cameraTextureView.surfaceTextureListener = this
     }
 
     fun startCamera() {
-        CameraX.bindToLifecycle(this, buildPreviewUseCase(), buildImageCaptureUseCase())
+        CameraX.bindToLifecycle(this, binding.buildPreviewUseCase(), buildImageCaptureUseCase())
     }
 
     @SuppressLint("RestrictedApi")
-    private fun buildPreviewUseCase(): Preview? {
-        return cameraTextureViewMetrics()?.let { metrics ->
+    private fun FragmentSimpleCameraXBinding.buildPreviewUseCase(): Preview {
+        return cameraTextureViewMetrics().let { metrics ->
             val preview = Preview(PreviewConfig.Builder().apply {
                 setTargetAspectRatioCustom(metrics.aspectRatio)
                 setTargetRotation(metrics.rotation)
@@ -70,7 +80,7 @@ class SimpleCameraXFragment : Fragment(), TextureView.SurfaceTextureListener {
 
     @SuppressLint("RestrictedApi")
     private fun buildImageCaptureUseCase(): ImageCapture? {
-        return cameraTextureViewMetrics()?.let { metrics ->
+        return binding.cameraTextureViewMetrics().let { metrics ->
             val captureConfig = ImageCaptureConfig.Builder()
                 .setTargetAspectRatioCustom(metrics.aspectRatio)
                 .setTargetRotation(metrics.rotation)
@@ -82,8 +92,8 @@ class SimpleCameraXFragment : Fragment(), TextureView.SurfaceTextureListener {
         }
     }
 
-    private fun cameraTextureViewMetrics(): CameraTextureViewMetrics? {
-        return cameraTextureView?.let { textureView ->
+    private fun FragmentSimpleCameraXBinding.cameraTextureViewMetrics(): CameraTextureViewMetrics {
+        return cameraTextureView.let { textureView ->
             val metrics = DisplayMetrics().also { textureView.display.getRealMetrics(it) }
             val aspectRatio = Rational(metrics.widthPixels, metrics.heightPixels)
             val rotation = textureView.display.rotation
@@ -122,7 +132,9 @@ class SimpleCameraXFragment : Fragment(), TextureView.SurfaceTextureListener {
                     })
             } else {
                 val fileTemp = File(filePath)
-                if (!fileTemp.exists()) { fileTemp.mkdirs() }
+                if (!fileTemp.exists()) {
+                    fileTemp.mkdirs()
+                }
                 val fileFinal = File(fileTemp, "img_${System.currentTimeMillis()}.jpg")
                 imageCapture?.takePicture(
                     fileFinal,
@@ -150,7 +162,7 @@ class SimpleCameraXFragment : Fragment(), TextureView.SurfaceTextureListener {
         }
     }
 
-    private fun updateTransform() {
+    private fun FragmentSimpleCameraXBinding.updateTransform() {
         val matrix = Matrix()
         val centerX = cameraTextureView.width / 2F
         val centerY = cameraTextureView.height / 2F
