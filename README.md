@@ -2,7 +2,7 @@
 
 # Emerald Android
 ![Platform](https://img.shields.io/static/v1?style=flat-square&label=Platform&message=Android&color=3DDC84) 
-![https://kotlinlang.org/](https://img.shields.io/static/v1?style=flat-square&label=Kotlin&message=1.5.+&color=007EC6)
+![https://kotlinlang.org/](https://img.shields.io/static/v1?style=flat-square&label=Kotlin&message=1.5.10&color=007EC6)
 
 Emerald UI for Android Apps
 
