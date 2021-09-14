@@ -76,5 +76,4 @@ ext {
     androidAnnotations = "androidx.annotation:annotation:$android_x_annotations_version"
     uiAutomator = "androidx.test.uiautomator:uiautomator:$android_x__ui_automator_version"
     fragmentTesting = "androidx.fragment:fragment-testing:$android_fragment_testing_version"
-
 }
