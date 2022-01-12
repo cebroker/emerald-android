@@ -24,7 +24,7 @@ ext {
 
     lottie_version = "3.0.1"
     material_library = "1.0.0"
-    camerax_version = '1.0.0-alpha06'
+    camerax_version = '1.0.2'
 
     // Testing
     mockk_version = "1.9.1"
