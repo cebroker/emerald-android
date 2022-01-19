@@ -45,9 +45,10 @@ class SimpleCameraXFragment : Fragment(), TextureView.SurfaceTextureListener {
     }
 
     fun startCamera() {
-        CameraX.bindToLifecycle(this, buildPreviewUseCase(), buildImageCaptureUseCase())
+       // CameraX.bindToLifecycle(this, buildPreviewUseCase(), buildImageCaptureUseCase())
     }
 
+    /*
     @SuppressLint("RestrictedApi")
     private fun buildPreviewUseCase(): Preview? {
         return cameraTextureViewMetrics()?.let { metrics ->
@@ -149,6 +150,7 @@ class SimpleCameraXFragment : Fragment(), TextureView.SurfaceTextureListener {
             }
         }
     }
+    */
 
     private fun updateTransform() {
         val matrix = Matrix()
