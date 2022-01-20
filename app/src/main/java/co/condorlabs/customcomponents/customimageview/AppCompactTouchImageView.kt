@@ -86,7 +86,7 @@ class AppCompactTouchImageView @JvmOverloads constructor(
         } else if (drawableWidth <= drawableHeight) {
             viewHeight.toFloat() / drawableHeight
         } else {
-            var scale = viewWidth.toFloat() / drawableWidth
+            val scale = viewWidth.toFloat() / drawableWidth
 
             if (drawableHeight * scale > viewHeight) {
                 viewHeight.toFloat() / drawableHeight

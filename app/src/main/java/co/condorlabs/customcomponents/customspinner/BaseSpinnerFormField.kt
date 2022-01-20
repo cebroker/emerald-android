@@ -32,7 +32,7 @@ import com.google.android.material.textfield.TextInputLayout
 /**
  * @author Oscar Gallon on 2/26/19.
  */
-abstract class BaseSpinnerFormField(context: Context, private val mAttrs: AttributeSet) :
+abstract class BaseSpinnerFormField(context: Context, mAttrs: AttributeSet) :
     LinearLayout(context, mAttrs),
     FormField<SpinnerData?>, View.OnClickListener {
 

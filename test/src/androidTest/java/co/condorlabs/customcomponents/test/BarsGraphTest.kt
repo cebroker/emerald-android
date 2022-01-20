@@ -59,7 +59,7 @@ class BarsGraphTest : MockActivityTest() {
         Espresso.onView(ViewMatchers.withId(R.id.barsGraphTest)).perform(
             GeneralClickAction(
                 Tap.SINGLE,
-                CoordinatesProvider {
+                {
                     val screenPos = IntArray(2)
                     it.getLocationOnScreen(screenPos)
 

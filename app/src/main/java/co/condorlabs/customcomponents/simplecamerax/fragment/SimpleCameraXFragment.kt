@@ -1,22 +1,19 @@
 package co.condorlabs.customcomponents.simplecamerax.fragment
 
-import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
-import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.graphics.SurfaceTexture
 import android.os.Bundle
-import android.util.DisplayMetrics
-import android.util.Rational
-import android.util.Size
-import android.view.*
-import androidx.camera.core.*
+import android.view.LayoutInflater
+import android.view.Surface
+import android.view.TextureView
+import android.view.View
+import android.view.ViewGroup
+import androidx.camera.core.ImageCapture
 import androidx.fragment.app.Fragment
 import co.condorlabs.customcomponents.R
-import co.condorlabs.customcomponents.models.CameraTextureViewMetrics
-import kotlinx.android.synthetic.main.fragment_simple_camera_x.*
-import java.io.File
+import kotlinx.android.synthetic.main.fragment_simple_camera_x.cameraTextureView
 import java.util.concurrent.Executors
 
 class SimpleCameraXFragment : Fragment(), TextureView.SurfaceTextureListener {

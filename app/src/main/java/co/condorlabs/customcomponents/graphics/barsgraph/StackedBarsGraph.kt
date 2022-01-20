@@ -146,10 +146,10 @@ class StackedBarsGraph @JvmOverloads constructor(
             this@StackedBarsGraph.stackedBarsGraphConfig = stackedBarsGraphConfig
             val maxValueOfTheSumOfBarsValues =
                 stackedBars.map { bar ->
-                    bar.data.sumBy { it.value }
+                    bar.data.sumOf { it.value }
                         .toFloat()
                 }
-                    .max() ?: 0F
+                    .maxOrNull() ?: 0F
             numberOfHorizontalLines =
                 if (horizontalLines < 0) {
                     0
@@ -253,7 +253,7 @@ class StackedBarsGraph @JvmOverloads constructor(
             getPixelsValueWithPercentage(viewMeasuredHeight, widthPercentageToDrawLinesAndBars)
 
         stackedBarsGraphConfig.stackedBars.forEach { bar ->
-            val totalSumOfBarSections = bar.data.sumBy { it.value }
+            val totalSumOfBarSections = bar.data.sumOf { it.value }
             var incrementalSumOfBarSections = 0
             val barPositionXWithOffset = barPositionX + barMarginOffset
 

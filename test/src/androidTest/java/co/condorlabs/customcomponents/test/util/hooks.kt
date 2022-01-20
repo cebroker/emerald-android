@@ -242,7 +242,7 @@ fun getRadioButtonAtPosition(
     (parentView.getChildAt(RADIO_GROUP_POSITION) as RadioGroup).getChildAt(position) as RadioButton
 
 fun Activity.getRootView(): View {
-    return findViewById<View>(android.R.id.content)
+    return findViewById(android.R.id.content)
 }
 
 fun Context.convertDpToPx(dp: Float): Float {

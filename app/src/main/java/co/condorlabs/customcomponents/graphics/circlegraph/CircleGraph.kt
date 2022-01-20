@@ -64,7 +64,7 @@ class CircleGraph @JvmOverloads constructor(
 
     private fun calculateCircleProperties() {
         circleGraphConfig?.let { circleGraphConfig ->
-            sectionValuesSum = circleGraphConfig.circleSections.sumBy { it.value }
+            sectionValuesSum = circleGraphConfig.circleSections.sumOf{ it.value }
             startAngle = when (circleGraphConfig.circleSections.size) {
                 1 -> 0F
                 2 -> 90F
