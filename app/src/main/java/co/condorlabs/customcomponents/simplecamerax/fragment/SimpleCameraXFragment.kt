@@ -13,7 +13,6 @@ import android.view.ViewGroup
 import androidx.camera.core.ImageCapture
 import androidx.fragment.app.Fragment
 import co.condorlabs.customcomponents.R
-import kotlinx.android.synthetic.main.fragment_simple_camera_x.cameraTextureView
 import java.util.concurrent.Executors
 
 class SimpleCameraXFragment : Fragment(), TextureView.SurfaceTextureListener {
@@ -21,6 +20,7 @@ class SimpleCameraXFragment : Fragment(), TextureView.SurfaceTextureListener {
     private var imageCapture: ImageCapture? = null
     private var onCameraXListener: OnCameraXListener? = null
     private val executor = Executors.newSingleThreadExecutor()
+    private var cameraTextureView:TextureView?=null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -38,6 +38,7 @@ class SimpleCameraXFragment : Fragment(), TextureView.SurfaceTextureListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        cameraTextureView = view.findViewById(R.id.cameraTextureView)
         cameraTextureView?.surfaceTextureListener = this
     }
 
@@ -150,18 +151,20 @@ class SimpleCameraXFragment : Fragment(), TextureView.SurfaceTextureListener {
     */
 
     private fun updateTransform() {
-        val matrix = Matrix()
-        val centerX = cameraTextureView.width / 2F
-        val centerY = cameraTextureView.height / 2F
-        val rotationDegrees = when (cameraTextureView.display.rotation) {
-            Surface.ROTATION_0 -> 0
-            Surface.ROTATION_90 -> 90
-            Surface.ROTATION_180 -> 180
-            Surface.ROTATION_270 -> 270
-            else -> return
+        cameraTextureView?.let {
+            val matrix = Matrix()
+            val centerX = it.width / 2F
+            val centerY = it.height / 2F
+            val rotationDegrees = when (it.display.rotation) {
+                Surface.ROTATION_0 -> 0
+                Surface.ROTATION_90 -> 90
+                Surface.ROTATION_180 -> 180
+                Surface.ROTATION_270 -> 270
+                else -> return
+            }
+            matrix.postRotate(-rotationDegrees.toFloat(), centerX, centerY)
+            it.setTransform(matrix)
         }
-        matrix.postRotate(-rotationDegrees.toFloat(), centerX, centerY)
-        cameraTextureView.setTransform(matrix)
     }
 
     override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture?, width: Int, height: Int) {}

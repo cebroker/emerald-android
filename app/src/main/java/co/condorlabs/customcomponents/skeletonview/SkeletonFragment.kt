@@ -4,12 +4,12 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.ViewStub
 import androidx.fragment.app.Fragment
 import co.condorlabs.customcomponents.ARGUMENT_SKELETON_TYPE
 import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.SkeletonFragmentNoArgumentsProvidedException
 import com.facebook.shimmer.ShimmerFrameLayout
-import kotlinx.android.synthetic.main.card_view_template.*
 
 open class SkeletonFragment : Fragment() {
 
@@ -41,6 +41,7 @@ open class SkeletonFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val includeLayout = view.findViewById<ViewStub>(R.id.includeLayout)
         includeLayout?.apply {
             layoutResource = layout
             inflate()

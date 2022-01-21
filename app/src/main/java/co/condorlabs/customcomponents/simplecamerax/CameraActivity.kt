@@ -8,40 +8,62 @@ import android.graphics.drawable.Animatable
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.camera.core.ImageCapture
+import androidx.constraintlayout.widget.Barrier
+import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
+import androidx.fragment.app.Fragment
 import co.condorlabs.customcomponents.R
+import co.condorlabs.customcomponents.custombutton.CustomButton
+import co.condorlabs.customcomponents.imagecropview.AppCompatCropImageView
 import co.condorlabs.customcomponents.models.CameraConfig
 import co.condorlabs.customcomponents.simplecamerax.fragment.SimpleCameraXFragment
-import kotlinx.android.synthetic.main.activity_camera.barrier
-import kotlinx.android.synthetic.main.activity_camera.btnCancelPhoto
-import kotlinx.android.synthetic.main.activity_camera.btnCropPhoto
-import kotlinx.android.synthetic.main.activity_camera.cameraTitle
-import kotlinx.android.synthetic.main.activity_camera.capturePhotoDescription
-import kotlinx.android.synthetic.main.activity_camera.clActivityCameraParent
-import kotlinx.android.synthetic.main.activity_camera.clButtonsContainer
-import kotlinx.android.synthetic.main.activity_camera.fabCaptureButton
-import kotlinx.android.synthetic.main.activity_camera.ibCancelPhoto
-import kotlinx.android.synthetic.main.activity_camera.photoCaptured
-import kotlinx.android.synthetic.main.activity_camera.simpleCameraXFragment
-import kotlinx.android.synthetic.main.activity_camera.vRectangle
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 
 class CameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListener {
 
+    private var simpleCameraXFragment: Fragment? = null
     private lateinit var cameraFragment: SimpleCameraXFragment
     private lateinit var cameraConfig: CameraConfig
+    private var btnCancelPhoto: CustomButton? = null
+    private var btnCropPhoto: CustomButton? = null
+    private var cameraTitle: TextView? = null
+    private var capturePhotoDescription: TextView? = null
+    private var clActivityCameraParent: ConstraintLayout? = null
+    private var clButtonsContainer: ConstraintLayout? = null
+    private var fabCaptureButton: FloatingActionButton? = null
+    private var ibCancelPhoto: TextView? = null
+    private var photoCaptured: AppCompatCropImageView? = null
+    private var vRectangle: Barrier? = null
+    private var barrier: Barrier? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         window.addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN)
         setContentView(R.layout.activity_camera)
-
+        simpleCameraXFragment = supportFragmentManager.findFragmentById(R.id.simpleCameraXFragment)
         cameraFragment = simpleCameraXFragment as SimpleCameraXFragment
         cameraConfig = intent.getParcelableExtra(CAMERA_CONFIG_OBJ_PARAM)
             ?: throw NoSuchElementException("CameraConfig object was not provided")
         setupScreenProperties()
+        setupView()
+    }
+
+    private fun setupView() {
+        btnCancelPhoto = findViewById(R.id.btnCancelPhoto)
+        btnCropPhoto = findViewById(R.id.btnCropPhoto)
+        cameraTitle = findViewById(R.id.cameraTitle)
+        capturePhotoDescription = findViewById(R.id.capturePhotoDescription)
+        clActivityCameraParent = findViewById(R.id.clActivityCameraParent)
+        clButtonsContainer = findViewById(R.id.clButtonsContainer)
+        fabCaptureButton = findViewById(R.id.fabCaptureButton)
+        ibCancelPhoto = findViewById(R.id.ibCancelPhoto)
+        photoCaptured = findViewById(R.id.photoCaptured)
+        vRectangle = findViewById(R.id.vRectangle)
+        barrier = findViewById(R.id.barrier)
     }
 
     private fun setupScreenProperties() {
@@ -72,10 +94,25 @@ class CameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListe
         clActivityCameraParent?.let {
             ConstraintSet().apply {
                 clone(it)
-                connect(vRectangle.id, ConstraintSet.START, ConstraintSet.PARENT_ID, ConstraintSet.START)
-                connect(vRectangle.id, ConstraintSet.TOP, barrier.id, ConstraintSet.TOP)
-                connect(vRectangle.id, ConstraintSet.END, ConstraintSet.PARENT_ID, ConstraintSet.END)
-                connect(vRectangle.id, ConstraintSet.BOTTOM, clButtonsContainer.id, ConstraintSet.TOP)
+                connect(
+                    vRectangle?.id?:0,
+                    ConstraintSet.START,
+                    ConstraintSet.PARENT_ID,
+                    ConstraintSet.START
+                )
+                connect(vRectangle?.id?:0, ConstraintSet.TOP, barrier?.id?:0, ConstraintSet.TOP)
+                connect(
+                    vRectangle?.id?:0,
+                    ConstraintSet.END,
+                    ConstraintSet.PARENT_ID,
+                    ConstraintSet.END
+                )
+                connect(
+                    vRectangle?.id?:0,
+                    ConstraintSet.BOTTOM,
+                    clButtonsContainer?.id?:0,
+                    ConstraintSet.TOP
+                )
                 applyTo(it)
             }
         }
@@ -155,7 +192,8 @@ class CameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListe
         message: String,
         cause: Throwable?
     ) {
-        Toast.makeText(this, getString(R.string.error_taking_photo_message), Toast.LENGTH_LONG).show()
+        Toast.makeText(this, getString(R.string.error_taking_photo_message), Toast.LENGTH_LONG)
+            .show()
     }
 
     override fun onBackPressed() {
