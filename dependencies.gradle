@@ -22,6 +22,7 @@ ext {
     android_x__ui_automator_version = "2.2.0"
     android_fragment_testing_version = "1.1.0"
 
+    shimmer_version = "0.5.0"
     lottie_version = "4.2.1"
     material_library = "1.0.0"
     camerax_version = '1.0.2'
@@ -55,7 +56,7 @@ ext {
     kotlinCoroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_version"
     picasso = "com.squareup.picasso:picasso:2.71828"
     lottie = "com.airbnb.android:lottie:$lottie_version"
-    skeleton = "com.facebook.shimmer:shimmer:0.4.0"
+    skeleton = "com.facebook.shimmer:shimmer:$shimmer_version"
 
 
     kotlin = "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
