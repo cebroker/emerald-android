@@ -62,7 +62,7 @@ class CollapsibleView @JvmOverloads constructor(
             val selectableItemBackground = typedArray.getResourceId(ZERO, ZERO)
             typedArray.recycle()
 
-            clCardViewContainer.foreground = context.getDrawable(selectableItemBackground)
+            clCardViewContainer.foreground = AppCompatResources.getDrawable(context,selectableItemBackground)
         }
 
         isClickable = true
