@@ -52,8 +52,6 @@ dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation appCompat
     implementation constraintLayout
-    implementation kotlinJDK
-    implementation materialDesign
 
     implementation kotlinCoroutines
     implementation kotlinCoroutinesAndroid

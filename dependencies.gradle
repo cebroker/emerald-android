@@ -48,8 +48,6 @@ ext {
     camera2_kit = "androidx.camera:camera-camera2:$camerax_version"
 
 
-    kotlinJDK = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    kotlin = "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
     kotlinCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_version"
     kotlinCoroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_version"
     picasso = "com.squareup.picasso:picasso:$picasso_version"
@@ -57,8 +55,6 @@ ext {
     skeleton = "com.facebook.shimmer:shimmer:$shimmer_version"
 
 
-    kotlin = "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    kotlinTest = "org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version"
     junit = "junit:junit:$junit_version"
     mockito = "com.nhaarman:mockito-kotlin:$mockito_version"
     kluent = "org.amshove.kluent:kluent:$kluent_version"

@@ -50,9 +50,6 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    //Kotlin
-    implementation kotlinJDK
-
     //Android and support
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation appCompat
