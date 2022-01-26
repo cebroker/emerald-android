@@ -11,7 +11,6 @@ allprojects {
 ext {
 
     kotlin_coroutines_version = "1.6.0"
-    archComponents_version = "2.1.0"
 
     android_x_appCcompat_version = "1.4.1"
     android_x_legacy_version = "1.0.0"
@@ -29,7 +28,7 @@ ext {
     camerax_version = '1.0.2'
 
     // Testing
-    mockk_version = "1.9.1"
+    mockk_version = "1.12.2"
     junit_version = "4.12"
     mockito_version = "4.0.0"
     mockito_core_version = "4.3.1"
