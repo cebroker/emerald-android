@@ -54,7 +54,6 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation appCompat
     implementation constraintLayout
-    implementation appCompatV4
     implementation materialDesign
 
     // Camera
