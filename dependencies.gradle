@@ -39,8 +39,6 @@ ext {
     cardView = "androidx.cardview:cardview:$android_x_appCcompat_version"
     recyclerView = "androidx.recyclerview:recyclerview:$android_x_appCcompat_version"
     constraintLayout = "androidx.constraintlayout:constraintlayout:$constraintlayout_version"
-    archComponents = "android.arch.lifecycle:extensions:$archComponents_version"
-    archComponentsCompiler = "android.arch.lifecycle:compiler:$archComponents_version"
     appCompatV4 = "androidx.legacy:legacy-support-v4:$android_x_legacy_version"
     appCompatV7 = "androidx.appcompat:appcompat:$android_x_appCcompat_version"
     preferenceV7 = "androidx.preference:preference:$android_x_appCcompat_version"
