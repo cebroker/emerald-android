@@ -11,6 +11,7 @@
         android:theme="@style/AppTheme">
 
         <activity
+            android:exported="false"
             android:name=".simplecamerax.CameraActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppNoActionBarTheme" />

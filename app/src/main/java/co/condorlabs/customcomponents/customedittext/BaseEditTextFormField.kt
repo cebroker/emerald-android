@@ -137,7 +137,7 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
         editText = textInputLayout?.editText
 
         if (digits != null) {
-            editText?.keyListener = DigitsKeyListener.getInstance(digits)
+            editText?.keyListener = DigitsKeyListener.getInstance(digits!!)
             editText?.setRawInputType(inputType)
         } else {
             editText?.inputType = inputType
