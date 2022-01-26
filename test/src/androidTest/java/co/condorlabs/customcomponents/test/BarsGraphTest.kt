@@ -25,7 +25,7 @@ class BarsGraphTest : MockActivityTest() {
     }
 
     @Test
-    fun `givenTheBarsGraphInflatedWhenABarIsClickedThenItShouldReturnTheBar`() {
+    fun givenTheBarsGraphInflatedWhenABarIsClickedThenItShouldReturnTheBar() {
         // Given
         val barsCollection = listOf(
             Bar(
