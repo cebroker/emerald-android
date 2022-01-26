@@ -33,7 +33,6 @@ ext {
     junit_version = "4.12"
     mockito_version = "4.0.0"
     mockito_core_version = "4.3.1"
-    kluent_version = "1.14"
 
     appCompat = "androidx.appcompat:appcompat:$android_x_appCcompat_version"
     cardView = "androidx.cardview:cardview:$android_x_appCcompat_version"
@@ -57,7 +56,6 @@ ext {
 
     junit = "junit:junit:$junit_version"
     mockito = "com.nhaarman:mockito-kotlin:$mockito_version"
-    kluent = "org.amshove.kluent:kluent:$kluent_version"
     mockitoCore = "org.mockito:mockito-core:$mockito_core_version"
     mockk = "io.mockk:mockk:$mockk_version"
 
