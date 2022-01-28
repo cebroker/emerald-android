@@ -1,18 +1,30 @@
 package co.condorlabs.customcomponents.simplecamerax.fragment
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.graphics.Bitmap
+import android.graphics.BitmapFactory
 import android.graphics.Matrix
 import android.graphics.SurfaceTexture
 import android.os.Bundle
+import android.util.DisplayMetrics
+import android.util.Rational
+import android.util.Size
 import android.view.LayoutInflater
 import android.view.Surface
 import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
+import androidx.camera.core.CameraX
 import androidx.camera.core.ImageCapture
+import androidx.camera.core.ImageCaptureConfig
+import androidx.camera.core.ImageProxy
+import androidx.camera.core.Preview
+import androidx.camera.core.PreviewConfig
 import androidx.fragment.app.Fragment
 import co.condorlabs.customcomponents.R
+import co.condorlabs.customcomponents.models.CameraTextureViewMetrics
+import java.io.File
 import java.util.concurrent.Executors
 
 class SimpleCameraXFragment : Fragment(), TextureView.SurfaceTextureListener {
@@ -43,10 +55,10 @@ class SimpleCameraXFragment : Fragment(), TextureView.SurfaceTextureListener {
     }
 
     fun startCamera() {
-       // CameraX.bindToLifecycle(this, buildPreviewUseCase(), buildImageCaptureUseCase())
+       CameraX.bindToLifecycle(this, buildPreviewUseCase(), buildImageCaptureUseCase())
     }
 
-    /*
+
     @SuppressLint("RestrictedApi")
     private fun buildPreviewUseCase(): Preview? {
         return cameraTextureViewMetrics()?.let { metrics ->
@@ -57,11 +69,13 @@ class SimpleCameraXFragment : Fragment(), TextureView.SurfaceTextureListener {
                 build()
             }.build())
             preview.setOnPreviewOutputUpdateListener {
-                val parent = cameraTextureView.parent as ViewGroup
-                parent.removeView(cameraTextureView)
-                parent.addView(cameraTextureView, 0)
-                cameraTextureView.surfaceTexture = it.surfaceTexture
-                updateTransform()
+                cameraTextureView?.let { textureView ->
+                    val parent = textureView.parent as ViewGroup
+                    parent.removeView(cameraTextureView)
+                    parent.addView(cameraTextureView, 0)
+                    textureView.setSurfaceTexture(it.surfaceTexture)
+                    updateTransform()
+                }
             }
             preview
         }
@@ -148,7 +162,7 @@ class SimpleCameraXFragment : Fragment(), TextureView.SurfaceTextureListener {
             }
         }
     }
-    */
+
 
     private fun updateTransform() {
         cameraTextureView?.let {

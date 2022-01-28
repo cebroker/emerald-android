@@ -8,6 +8,7 @@ import android.graphics.drawable.Animatable
 import android.os.Bundle
 import android.view.View
 import android.view.WindowManager
+import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -35,9 +36,9 @@ class CameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListe
     private var clActivityCameraParent: ConstraintLayout? = null
     private var clButtonsContainer: ConstraintLayout? = null
     private var fabCaptureButton: FloatingActionButton? = null
-    private var ibCancelPhoto: TextView? = null
+    private var ibCancelPhoto: ImageButton? = null
     private var photoCaptured: AppCompatCropImageView? = null
-    private var vRectangle: Barrier? = null
+    private var vRectangle: View? = null
     private var barrier: Barrier? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
