@@ -15,8 +15,15 @@
   -->
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical">
+    <co.condorlabs.customcomponents.customcollapsibleview.CollapsibleView
+        android:id="@+id/collapsibleViewTest"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
-
+        android:layout_height="wrap_content"
+        app:content="@layout/activity_collapsible_content_view_test"
+        app:subtitle="Collapsible subtitle"
+        app:collapsibleTitle="Collapsible title"/>
 </LinearLayout>

@@ -215,7 +215,7 @@ fun withTintColorInRadioButtons(expectedColor: Int): Matcher<View> {
             val viewGroup = (formField as? ViewGroup) ?: return false
             for (index in ZERO until viewGroup.childCount) {
                 with(getRadioButtonAtPosition(viewGroup, index)) {
-                    val actualColor = buttonTintList.getColorForState(
+                    val actualColor = buttonTintList?.getColorForState(
                         intArrayOf(android.R.attr.state_checked),
                         ZERO
                     )
@@ -242,7 +242,7 @@ fun getRadioButtonAtPosition(
     (parentView.getChildAt(RADIO_GROUP_POSITION) as RadioGroup).getChildAt(position) as RadioButton
 
 fun Activity.getRootView(): View {
-    return findViewById<View>(android.R.id.content)
+    return findViewById(android.R.id.content)
 }
 
 fun Context.convertDpToPx(dp: Float): Float {

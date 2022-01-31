@@ -78,14 +78,13 @@ class EditTextPhoneNumberFieldTest : MockActivityTest() {
 
         // Given
         val txtInputLayout = ruleActivity.activity.findViewById<EditTextPhoneField>(R.id.tlPhone)
-        val resultIsValid: ValidationResult?
         txtInputLayout?.setIsRequired(true)
 
         // When
         ruleActivity.runOnUiThread {
             txtInputLayout?.text = "123ed33c890"
         }
-        resultIsValid = txtInputLayout?.isValid()
+        val resultIsValid: ValidationResult? = txtInputLayout?.isValid()
 
         // Then
         Assert.assertEquals(
@@ -101,11 +100,10 @@ class EditTextPhoneNumberFieldTest : MockActivityTest() {
 
         // Given
         val txtInputLayout = ruleActivity.activity.findViewById<EditTextPhoneField>(R.id.tlPhone)
-        val resultIsValid: ValidationResult?
         txtInputLayout?.setIsRequired(true)
 
         // When
-        resultIsValid = txtInputLayout?.isValid()
+        val resultIsValid: ValidationResult? = txtInputLayout?.isValid()
 
         // Then
         Assert.assertEquals(

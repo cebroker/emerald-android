@@ -14,7 +14,6 @@ import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.formfield.FormField
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.file_selector_view.view.*
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.Job
@@ -35,6 +34,7 @@ class FileSelectorField @JvmOverloads constructor(
     private var ivIcon: AppCompatImageView? = null
     private var tvTapAction: AppCompatTextView? = null
     private var tvTitle: AppCompatTextView? = null
+    private var tvFilename: AppCompatTextView? = null
     private var tvError: AppCompatTextView? = null
     private var iconResourceId: Int? = null
     private var tapButtonText: String? = null
@@ -81,6 +81,7 @@ class FileSelectorField @JvmOverloads constructor(
         ivIcon?.tag = R.drawable.ic_cloud_upload_file
         tvTapAction = view.findViewById(R.id.tvTapAction)
         tvTitle = view.findViewById(R.id.tvTitle)
+        tvFilename = view.findViewById(R.id.tvFilename)
         tvError = view.findViewById(R.id.tvError)
 
         iconResourceId?.let {

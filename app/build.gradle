@@ -16,21 +16,15 @@
 
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
-
-androidExtensions {
-    experimental = true
-}
+apply plugin: 'kotlin-parcelize'
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion 31
 
     defaultConfig {
         minSdkVersion 21
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        targetSdkVersion 31
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
         testInstrumentationRunnerArgument 'notAnnotation', 'android.test.suitebuilder.annotation.LargeTest'
     }
@@ -56,14 +50,9 @@ android {
 dependencies {
     implementation fileTree(include: ['*.jar'], dir: 'libs')
 
-    //Kotlin
-    implementation kotlinJDK
-
     //Android and support
     implementation fileTree(dir: 'libs', include: ['*.jar'])
     implementation appCompat
-    implementation constraintLayout
-    implementation appCompatV4
     implementation materialDesign
 
     // Camera
@@ -78,6 +67,7 @@ dependencies {
     implementation lottie
     implementation picasso
     implementation skeleton
+    implementation swipeRefreshLayout
 
     //Tests
     androidTestImplementation androidAnnotations

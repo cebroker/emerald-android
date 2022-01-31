@@ -10,12 +10,20 @@ import android.os.Bundle
 import android.util.DisplayMetrics
 import android.util.Rational
 import android.util.Size
-import android.view.*
-import androidx.camera.core.*
+import android.view.LayoutInflater
+import android.view.Surface
+import android.view.TextureView
+import android.view.View
+import android.view.ViewGroup
+import androidx.camera.core.CameraX
+import androidx.camera.core.ImageCapture
+import androidx.camera.core.ImageCaptureConfig
+import androidx.camera.core.ImageProxy
+import androidx.camera.core.Preview
+import androidx.camera.core.PreviewConfig
 import androidx.fragment.app.Fragment
 import co.condorlabs.customcomponents.R
 import co.condorlabs.customcomponents.models.CameraTextureViewMetrics
-import kotlinx.android.synthetic.main.fragment_simple_camera_x.*
 import java.io.File
 import java.util.concurrent.Executors
 
@@ -24,6 +32,7 @@ class SimpleCameraXFragment : Fragment(), TextureView.SurfaceTextureListener {
     private var imageCapture: ImageCapture? = null
     private var onCameraXListener: OnCameraXListener? = null
     private val executor = Executors.newSingleThreadExecutor()
+    private var cameraTextureView:TextureView?=null
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -41,12 +50,14 @@ class SimpleCameraXFragment : Fragment(), TextureView.SurfaceTextureListener {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        cameraTextureView = view.findViewById(R.id.cameraTextureView)
         cameraTextureView?.surfaceTextureListener = this
     }
 
     fun startCamera() {
-        CameraX.bindToLifecycle(this, buildPreviewUseCase(), buildImageCaptureUseCase())
+       CameraX.bindToLifecycle(this, buildPreviewUseCase(), buildImageCaptureUseCase())
     }
+
 
     @SuppressLint("RestrictedApi")
     private fun buildPreviewUseCase(): Preview? {
@@ -58,11 +69,13 @@ class SimpleCameraXFragment : Fragment(), TextureView.SurfaceTextureListener {
                 build()
             }.build())
             preview.setOnPreviewOutputUpdateListener {
-                val parent = cameraTextureView.parent as ViewGroup
-                parent.removeView(cameraTextureView)
-                parent.addView(cameraTextureView, 0)
-                cameraTextureView.surfaceTexture = it.surfaceTexture
-                updateTransform()
+                cameraTextureView?.let { textureView ->
+                    val parent = textureView.parent as ViewGroup
+                    parent.removeView(cameraTextureView)
+                    parent.addView(cameraTextureView, 0)
+                    textureView.setSurfaceTexture(it.surfaceTexture)
+                    updateTransform()
+                }
             }
             preview
         }
@@ -150,30 +163,33 @@ class SimpleCameraXFragment : Fragment(), TextureView.SurfaceTextureListener {
         }
     }
 
+
     private fun updateTransform() {
-        val matrix = Matrix()
-        val centerX = cameraTextureView.width / 2F
-        val centerY = cameraTextureView.height / 2F
-        val rotationDegrees = when (cameraTextureView.display.rotation) {
-            Surface.ROTATION_0 -> 0
-            Surface.ROTATION_90 -> 90
-            Surface.ROTATION_180 -> 180
-            Surface.ROTATION_270 -> 270
-            else -> return
+        cameraTextureView?.let {
+            val matrix = Matrix()
+            val centerX = it.width / 2F
+            val centerY = it.height / 2F
+            val rotationDegrees = when (it.display.rotation) {
+                Surface.ROTATION_0 -> 0
+                Surface.ROTATION_90 -> 90
+                Surface.ROTATION_180 -> 180
+                Surface.ROTATION_270 -> 270
+                else -> return
+            }
+            matrix.postRotate(-rotationDegrees.toFloat(), centerX, centerY)
+            it.setTransform(matrix)
         }
-        matrix.postRotate(-rotationDegrees.toFloat(), centerX, centerY)
-        cameraTextureView.setTransform(matrix)
     }
 
-    override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture?, width: Int, height: Int) {}
+    override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture, width: Int, height: Int) {}
 
-    override fun onSurfaceTextureUpdated(surface: SurfaceTexture?) {}
+    override fun onSurfaceTextureUpdated(surface: SurfaceTexture) {}
 
-    override fun onSurfaceTextureDestroyed(surface: SurfaceTexture?): Boolean {
+    override fun onSurfaceTextureDestroyed(surface: SurfaceTexture): Boolean {
         return true
     }
 
-    override fun onSurfaceTextureAvailable(surface: SurfaceTexture?, width: Int, height: Int) {
+    override fun onSurfaceTextureAvailable(surface: SurfaceTexture, width: Int, height: Int) {
         onCameraXListener?.fragmentTextureViewLoaded()
     }
 

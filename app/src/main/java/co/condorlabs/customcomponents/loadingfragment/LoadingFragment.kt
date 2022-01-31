@@ -4,15 +4,28 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.appcompat.widget.LinearLayoutCompat
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import co.condorlabs.customcomponents.*
-import kotlinx.android.synthetic.main.fragment_loading.*
+import co.condorlabs.customcomponents.custombutton.CustomButton
+import com.airbnb.lottie.LottieAnimationView
 import kotlinx.coroutines.delay
 
 class LoadingFragment : Fragment(), LoadingItemsScreen {
 
+    private var rvItems: RecyclerView? = null
+    private var btnAction: CustomButton? = null
+    private var ivICon: ImageView? = null
+    private var lavSpinner: LottieAnimationView? = null
+    private var llStatus: LinearLayoutCompat? = null
+    private var tvStatusMessage: TextView? = null
+    private var tvStatusTitle:TextView? = null
+    private var tvTitle:TextView? = null
     private lateinit var successTitle: String
     private lateinit var errorTitle: String
     private lateinit var successMessage: String
@@ -29,13 +42,18 @@ class LoadingFragment : Fragment(), LoadingItemsScreen {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        setupView(view)
+
         val wrappedArguments = arguments ?: throw ArgumentsNotFoundException()
 
-        val title = wrappedArguments.getString(ARGUMENT_TITLE) ?: throw ArgumentNotFoundException(ARGUMENT_TITLE)
+        val title = wrappedArguments.getString(ARGUMENT_TITLE) ?: throw ArgumentNotFoundException(
+            ARGUMENT_TITLE
+        )
         setTitle(title)
 
-        val itemList = wrappedArguments.getParcelableArrayList<LoadingItem>(ARGUMENT_LOADING_ITEM_LIST)
-            ?: throw ArgumentNotFoundException(ARGUMENT_LOADING_ITEM_LIST)
+        val itemList =
+            wrappedArguments.getParcelableArrayList<LoadingItem>(ARGUMENT_LOADING_ITEM_LIST)
+                ?: throw ArgumentNotFoundException(ARGUMENT_LOADING_ITEM_LIST)
 
         if (itemList.size > LOADING_FRAGMENT_MAX_ELEMENTS) {
             throw LoadingFragmentListGreaterThatLimitException()
@@ -43,21 +61,36 @@ class LoadingFragment : Fragment(), LoadingItemsScreen {
 
         setList(itemList)
 
-        successTitle = wrappedArguments.getString(ARGUMENT_SUCCESS_TITLE) ?: throw ArgumentNotFoundException(
-            ARGUMENT_SUCCESS_TITLE
-        )
+        successTitle =
+            wrappedArguments.getString(ARGUMENT_SUCCESS_TITLE) ?: throw ArgumentNotFoundException(
+                ARGUMENT_SUCCESS_TITLE
+            )
 
         errorTitle =
-            wrappedArguments.getString(ARGUMENT_ERROR_TITLE) ?: throw ArgumentNotFoundException(ARGUMENT_ERROR_TITLE)
+            wrappedArguments.getString(ARGUMENT_ERROR_TITLE) ?: throw ArgumentNotFoundException(
+                ARGUMENT_ERROR_TITLE
+            )
 
-        successMessage = wrappedArguments.getString(ARGUMENT_SUCCESS_MESSAGE) ?: throw ArgumentNotFoundException(
-            ARGUMENT_SUCCESS_MESSAGE
-        )
+        successMessage =
+            wrappedArguments.getString(ARGUMENT_SUCCESS_MESSAGE) ?: throw ArgumentNotFoundException(
+                ARGUMENT_SUCCESS_MESSAGE
+            )
 
         errorMessage =
             wrappedArguments.getString(ARGUMENT_ERROR_MESSAGE) ?: throw ArgumentNotFoundException(
                 ARGUMENT_ERROR_MESSAGE
             )
+    }
+
+    private fun setupView(view:View) {
+        rvItems = view.findViewById(R.id.rvItems)
+        btnAction = view.findViewById(R.id.btnAction)
+        ivICon = view.findViewById(R.id.ivICon)
+        lavSpinner = view.findViewById(R.id.lavSpinner)
+        llStatus = view.findViewById(R.id.llStatus)
+        tvStatusMessage = view.findViewById(R.id.tvStatusMessage)
+        tvStatusTitle = view.findViewById(R.id.tvStatusTitle)
+        tvTitle = view.findViewById(R.id.tvTitle)
     }
 
     override suspend fun updateItemsTilPosition(
@@ -66,7 +99,8 @@ class LoadingFragment : Fragment(), LoadingItemsScreen {
         timeBetweenObjectAnimation: Long
     ) {
         val recyclerView = rvItems ?: throw RecyclerViewNotFoundException()
-        val adapter = (rvItems?.adapter as? LoadingAdapter) ?: throw LoadingAdapterNotFoundException()
+        val adapter =
+            (rvItems?.adapter as? LoadingAdapter) ?: throw LoadingAdapterNotFoundException()
         val adapterSize = adapter.itemCount
 
         if (position > adapterSize) {
@@ -120,11 +154,11 @@ class LoadingFragment : Fragment(), LoadingItemsScreen {
     }
 
     private fun setCompletionMessage(message: String) {
-        tvStatusMessage.text = message
+        tvStatusMessage?.text = message
     }
 
     private fun setCompletionTitle(title: String) {
-        tvStatusTitle.text = title
+        tvStatusTitle?.text = title
     }
 
     private fun setTitle(title: String) {

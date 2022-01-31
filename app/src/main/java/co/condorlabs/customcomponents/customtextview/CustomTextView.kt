@@ -8,7 +8,7 @@ import androidx.appcompat.widget.AppCompatTextView
 import androidx.core.content.ContextCompat
 import co.condorlabs.customcomponents.*
 
-class CustomTextView(context: Context, private val attrs: AttributeSet) : AppCompatTextView(context, attrs) {
+class CustomTextView(context: Context, attrs: AttributeSet) : AppCompatTextView(context, attrs) {
 
     private var textType: Int = ZERO
 

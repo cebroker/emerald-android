@@ -62,7 +62,7 @@ class CollapsibleView @JvmOverloads constructor(
             val selectableItemBackground = typedArray.getResourceId(ZERO, ZERO)
             typedArray.recycle()
 
-            clCardViewContainer.foreground = context.getDrawable(selectableItemBackground)
+            clCardViewContainer.foreground = AppCompatResources.getDrawable(context,selectableItemBackground)
         }
 
         isClickable = true
@@ -268,7 +268,7 @@ class CollapsibleView @JvmOverloads constructor(
                     id,
                     ConstraintSet.TOP,
                     ConstraintSet.PARENT_ID,
-                    ConstraintSet.BOTTOM
+                    ConstraintSet.TOP
                 )
                 connect(id, ConstraintSet.BOTTOM, this@CollapsibleView.id, ConstraintSet.BOTTOM)
                 connect(
