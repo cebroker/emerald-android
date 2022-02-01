@@ -49,8 +49,8 @@ class CameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListe
         cameraFragment = simpleCameraXFragment as SimpleCameraXFragment
         cameraConfig = intent.getParcelableExtra(CAMERA_CONFIG_OBJ_PARAM)
             ?: throw NoSuchElementException("CameraConfig object was not provided")
-        setupScreenProperties()
         setupView()
+        setupScreenProperties()
     }
 
     private fun setupView() {
