@@ -128,7 +128,7 @@ class CameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListe
         cameraFragment.startCamera()
         fabCaptureButton?.setOnClickListener {
             (fabCaptureButton?.drawable as? Animatable)?.start()
-            //cameraFragment.takePhoto(cameraConfig.savePhotoPath)
+            cameraFragment.takePhoto(cameraConfig.savePhotoPath)
         }
     }
 
