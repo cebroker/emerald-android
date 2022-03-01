@@ -8,11 +8,11 @@ import android.graphics.drawable.Drawable
  */
 sealed class FileSelectorValue {
 
-    class PathValue(val path: String) : FileSelectorValue()
+    data class PathValue(val path: String) : FileSelectorValue()
 
-    class DrawableValue(val drawable: Drawable) : FileSelectorValue()
+    data class DrawableValue(val drawable: Drawable) : FileSelectorValue()
 
-    class BitmapValue(val bitmap: Bitmap) : FileSelectorValue()
+    data class BitmapValue(val bitmap: Bitmap) : FileSelectorValue()
 
-    class FileValue(val filepath: String, val filename: String? = null) : FileSelectorValue()
+    data class FileValue(val filepath: String, val filename: String? = null) : FileSelectorValue()
 }
