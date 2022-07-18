@@ -17,19 +17,32 @@
 package co.condorlabs.customcomponents.test
 
 import android.os.Bundle
+import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import co.condorlabs.customcomponents.helper.masks.PriceTextWatcherMask
 
 /**
  * @author Oscar Gallon on 2/21/19.
  */
 class MockActivity : AppCompatActivity() {
 
+    private lateinit var editText: EditText
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout)
+
+        editText = findViewById(R.id.etPerIncident)
+        setupEdiText()
+
     }
 
     companion object {
         var layout: Int = R.layout.activity_mock
     }
+
+    private fun setupEdiText() {
+            editText.addTextChangedListener(PriceTextWatcherMask(editText))
+        }
 }
+

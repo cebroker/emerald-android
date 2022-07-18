@@ -83,7 +83,7 @@ const val MAXLINES_DEFAULT = 5
 
 /**MONEY FORMATS**/
 const val DOLLAR_SYMBOL = "$"
-const val MONEY_FORMAT = "$###,###.##"
+const val MONEY_FORMAT = "$###,###.00"
 const val MONEY_TWO_DECIMALS = "#.00"
 const val MONEY_MAX_AMOUNT = 1000000000000
 const val NON_NUMERICAL_SYMBOLS = "[$,]"
