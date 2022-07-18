@@ -23,6 +23,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.AutoCompleteTextView
 import android.widget.LinearLayout
+import androidx.camera.core.CameraX.init
 import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.customedittext.ValueChangeListener
 import co.condorlabs.customcomponents.formfield.FormField
@@ -32,7 +33,7 @@ import com.google.android.material.textfield.TextInputLayout
 /**
  * @author Oscar Gallon on 2/26/19.
  */
-abstract class BaseSpinnerFormField(context: Context, mAttrs: AttributeSet) :
+abstract class BaseSpinnerFormField(context: Context, mAttrs: AttributeSet?) :
     LinearLayout(context, mAttrs),
     FormField<SpinnerData?>, View.OnClickListener {
 
