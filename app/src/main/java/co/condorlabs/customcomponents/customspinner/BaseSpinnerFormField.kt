@@ -44,7 +44,7 @@ abstract class BaseSpinnerFormField(context: Context, mAttrs: AttributeSet) :
     var textInputLayout: TextInputLayout? = null
 
     protected var autoCompleteTextView: AutoCompleteTextView? = null
-    protected open var hint: String = EMPTY
+    protected var hint: String
     protected var spinnerEnable: Boolean = true
     protected var mValueChangeListener: ValueChangeListener<SpinnerData?>? = null
     protected var _spinnerFormFieldListener: SpinnerFormFieldListener? = null

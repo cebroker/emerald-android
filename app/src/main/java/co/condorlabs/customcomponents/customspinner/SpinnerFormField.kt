@@ -32,11 +32,13 @@ import co.condorlabs.customcomponents.formfield.ValidationResult
 /**
  * @author Oscar Gallon on 2/26/19.
  */
-class SpinnerFormField(context: Context, attrs: AttributeSet) : BaseSpinnerFormField(context, attrs), ItemSelectedListenerAdapter,
+class SpinnerFormField(
+    context: Context,
+    attrs: AttributeSet
+) : BaseSpinnerFormField(context, attrs), ItemSelectedListenerAdapter,
     AdapterView.OnItemClickListener {
 
     override var isRequired: Boolean = false
-    override var hint: String = EMPTY
     private var firstEvaluation: Boolean = true
     private var selectedItem: SpinnerData? = null
 
@@ -191,5 +193,9 @@ class SpinnerFormField(context: Context, attrs: AttributeSet) : BaseSpinnerFormF
                 ZERO
             )
         }
+    }
+
+    fun setHintValue(text: String) {
+        hint = text
     }
 }
