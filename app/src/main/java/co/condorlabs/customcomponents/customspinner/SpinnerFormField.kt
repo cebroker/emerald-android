@@ -22,7 +22,11 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
 import android.widget.AdapterView
-import co.condorlabs.customcomponents.*
+import co.condorlabs.customcomponents.DEFAULT_STYLE_ATTR
+import co.condorlabs.customcomponents.DEFAULT_STYLE_RES
+import co.condorlabs.customcomponents.EMPTY
+import co.condorlabs.customcomponents.R
+import co.condorlabs.customcomponents.ZERO
 import co.condorlabs.customcomponents.formfield.ValidationResult
 
 /**
@@ -30,7 +34,7 @@ import co.condorlabs.customcomponents.formfield.ValidationResult
  */
 class SpinnerFormField(
     context: Context,
-    attrs: AttributeSet? = null
+    attrs: AttributeSet
 ) : BaseSpinnerFormField(context, attrs), ItemSelectedListenerAdapter,
     AdapterView.OnItemClickListener {
 
@@ -189,5 +193,9 @@ class SpinnerFormField(
                 ZERO
             )
         }
+    }
+
+    fun setHintValue(text: String) {
+        hint = text
     }
 }
