@@ -19,6 +19,7 @@ package co.condorlabs.customcomponents.customedittext
 import android.content.Context
 import android.graphics.Rect
 import android.util.AttributeSet
+import android.view.View
 import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.masks.PriceTextWatcherMask
@@ -49,11 +50,15 @@ class EditTextCurrencyField(context: Context, attrs: AttributeSet) :
         }
     }
 
-    override fun onFocusChanged(focused: Boolean, direction: Int, previouslyFocusedRect: Rect?) {
-        super.onFocusChanged(focused, direction, previouslyFocusedRect)
-        if (focused) {
+    override fun onFocusChange(v: View?, hasFocus: Boolean) {
+        super.onFocusChange(v, hasFocus)
+        if (hasFocus) {
             if (editText?.text.isNullOrEmpty()) {
                 editText?.setText(DOLLAR_SYMBOL)
+            }
+        } else {
+            if (editText?.text?.contains('.') == false && editText?.text?.contentEquals("$") == false) {
+                editText?.text = editText?.text?.append(".00")
             }
         }
     }

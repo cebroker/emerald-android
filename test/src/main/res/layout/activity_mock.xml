@@ -28,26 +28,19 @@
         app:collapsibleTitle="Collapsible title"/>
 
     <co.condorlabs.customcomponents.customedittext.EditTextCurrencyField
+        android:id="@+id/ed1"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:textSize="14sp"
         android:inputType="numberDecimal"
         android:layout_gravity="center_horizontal"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilPerIncident"
-        android:layout_height="wrap_content"
+    <co.condorlabs.customcomponents.customedittext.EditTextCurrencyField
+        android:id="@+id/ed2"
         android:layout_width="300dp"
-        android:layout_gravity="center_horizontal"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox">
-
-    <com.google.android.material.textfield.TextInputEditText
-        android:id="@+id/etPerIncident"
-        android:layout_width = "match_parent"
         android:layout_height="wrap_content"
         android:textSize="14sp"
-        android:inputType="numberDecimal" />
-
-    </com.google.android.material.textfield.TextInputLayout>
+        android:inputType="numberDecimal"
+        android:layout_gravity="center_horizontal"/>
 
 </LinearLayout>

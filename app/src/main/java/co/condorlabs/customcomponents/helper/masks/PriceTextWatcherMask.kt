@@ -23,6 +23,7 @@ import co.condorlabs.customcomponents.helper.TextWatcherAdapter
 import co.condorlabs.customcomponents.helper.equalThan
 import co.condorlabs.customcomponents.helper.lessThan
 import co.condorlabs.customcomponents.helper.toDollarAmount
+import co.condorlabs.customcomponents.helper.toDollarAmountZero
 import java.math.BigDecimal
 import java.math.RoundingMode
 import java.text.DecimalFormat
@@ -113,7 +114,7 @@ class PriceTextWatcherMask(private val receiver: EditText) : TextWatcherAdapter(
 
             if (text.last() == ZERO_CHARACTER && text != ZERO_CHARACTER.toString()) {
                 when {
-                    text[text.lastIndex - 1] == DOT_CHARACTER || isZeroLastDecimal(text) -> receiver.setText(text)
+                    text[text.lastIndex - 1] == DOT_CHARACTER || isZeroLastDecimal(text) -> receiver.setText(currentlyAmount.toDollarAmountZero())
                     else -> {
                         receiver.setText(currentlyAmount.toDollarAmount())
                     }
@@ -132,7 +133,6 @@ class PriceTextWatcherMask(private val receiver: EditText) : TextWatcherAdapter(
 
     private fun getPriceFromCurrency(text: String): BigDecimal {
         val decimalFormat = DecimalFormat(MONEY_TWO_DECIMALS)
-        decimalFormat.roundingMode = RoundingMode.FLOOR
         val amount = formatter.parse(
             text.replace(
                 NON_NUMERICAL_SYMBOLS.toRegex(),

@@ -19,6 +19,7 @@ package co.condorlabs.customcomponents.test
 import android.os.Bundle
 import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
+import co.condorlabs.customcomponents.customedittext.EditTextCurrencyField
 import co.condorlabs.customcomponents.helper.masks.PriceTextWatcherMask
 
 /**
@@ -26,14 +27,10 @@ import co.condorlabs.customcomponents.helper.masks.PriceTextWatcherMask
  */
 class MockActivity : AppCompatActivity() {
 
-    private lateinit var editText: EditText
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout)
-
-        editText = findViewById(R.id.etPerIncident)
-        setupEdiText()
 
     }
 
@@ -41,8 +38,5 @@ class MockActivity : AppCompatActivity() {
         var layout: Int = R.layout.activity_mock
     }
 
-    private fun setupEdiText() {
-            editText.addTextChangedListener(PriceTextWatcherMask(editText))
-        }
 }
 
