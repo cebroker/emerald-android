@@ -37,14 +37,14 @@ import com.google.android.material.textfield.TextInputLayout
 /**
  * @author Oscar Gallon on 2/26/19.
  */
-abstract class BaseSpinnerFormField(context: Context, mAttrs: AttributeSet?) :
+abstract class BaseSpinnerFormField(context: Context, mAttrs: AttributeSet) :
     LinearLayout(context, mAttrs),
     FormField<SpinnerData?>, View.OnClickListener {
 
     var textInputLayout: TextInputLayout? = null
 
     protected var autoCompleteTextView: AutoCompleteTextView? = null
-    protected var hint: String
+    protected open var hint: String = EMPTY
     protected var spinnerEnable: Boolean = true
     protected var mValueChangeListener: ValueChangeListener<SpinnerData?>? = null
     protected var _spinnerFormFieldListener: SpinnerFormFieldListener? = null

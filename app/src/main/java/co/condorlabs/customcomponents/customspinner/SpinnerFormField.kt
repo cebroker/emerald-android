@@ -22,19 +22,21 @@ import android.util.AttributeSet
 import android.util.TypedValue
 import android.view.View
 import android.widget.AdapterView
-import co.condorlabs.customcomponents.*
+import co.condorlabs.customcomponents.DEFAULT_STYLE_ATTR
+import co.condorlabs.customcomponents.DEFAULT_STYLE_RES
+import co.condorlabs.customcomponents.EMPTY
+import co.condorlabs.customcomponents.R
+import co.condorlabs.customcomponents.ZERO
 import co.condorlabs.customcomponents.formfield.ValidationResult
 
 /**
  * @author Oscar Gallon on 2/26/19.
  */
-class SpinnerFormField(
-    context: Context,
-    attrs: AttributeSet? = null
-) : BaseSpinnerFormField(context, attrs), ItemSelectedListenerAdapter,
+class SpinnerFormField(context: Context, attrs: AttributeSet) : BaseSpinnerFormField(context, attrs), ItemSelectedListenerAdapter,
     AdapterView.OnItemClickListener {
 
     override var isRequired: Boolean = false
+    override var hint: String = EMPTY
     private var firstEvaluation: Boolean = true
     private var selectedItem: SpinnerData? = null
 
