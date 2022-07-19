@@ -16,38 +16,25 @@
 
 package co.condorlabs.customcomponents.helper
 
-import android.text.TextUtils
 import co.condorlabs.customcomponents.MONEY_FORMAT
 import co.condorlabs.customcomponents.MONEY_FORMAT_ZERO
-import co.condorlabs.customcomponents.MONEY_TWO_DECIMALS
 import java.math.BigDecimal
 import java.text.DecimalFormat
 import java.text.NumberFormat
-import java.util.*
-
-fun String?.isNumeric(): Boolean {
-    this?.let {
-        return TextUtils.isDigitsOnly(this)
-    }
-
-    return false
-}
+import java.util.Locale
 
 fun BigDecimal.toDollarAmount(): String {
-
-    val formatter = NumberFormat.getCurrencyInstance(Locale.US)
-    val df = formatter as DecimalFormat
-    df.applyPattern(MONEY_FORMAT)
-
-    return df.format(this)
+    return formatDollarAmount(MONEY_FORMAT)
 }
 
 fun BigDecimal.toDollarAmountZero(): String {
+    return formatDollarAmount(MONEY_FORMAT_ZERO)
+}
 
+private fun BigDecimal.formatDollarAmount(moneyFormat: String): String {
     val formatter = NumberFormat.getCurrencyInstance(Locale.US)
     val df = formatter as DecimalFormat
-    df.applyPattern(MONEY_FORMAT_ZERO)
-
+    df.applyPattern(moneyFormat)
     return df.format(this)
 }
 

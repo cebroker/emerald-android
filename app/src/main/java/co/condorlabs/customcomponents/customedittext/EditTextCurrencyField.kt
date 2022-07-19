@@ -17,7 +17,6 @@
 package co.condorlabs.customcomponents.customedittext
 
 import android.content.Context
-import android.graphics.Rect
 import android.util.AttributeSet
 import android.view.View
 import co.condorlabs.customcomponents.*
