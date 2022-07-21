@@ -34,7 +34,7 @@ import co.condorlabs.customcomponents.formfield.ValidationResult
  */
 class SpinnerFormField(
     context: Context,
-    attrs: AttributeSet
+    attrs: AttributeSet? = null
 ) : BaseSpinnerFormField(context, attrs), ItemSelectedListenerAdapter,
     AdapterView.OnItemClickListener {
 
