@@ -17,6 +17,7 @@
 package co.condorlabs.customcomponents.test
 
 import android.view.KeyEvent
+import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.action.ViewActions.click
@@ -70,9 +71,7 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
         onView(editTextRef).perform(ViewActions.typeText("1"))
         Assert.assertEquals("$1.00", editText?.text())
 
-        Thread.sleep(5_000)
         onView(editTextRef).perform(ViewActions.typeText("1"))
-        Thread.sleep(5_000)
         Assert.assertEquals("$11.00", editText?.text())
 
         onView(editTextRef).perform(ViewActions.typeText("2"))
@@ -136,6 +135,7 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
         onView(editTextRef).perform(ViewActions.typeText("0"))
         // Then
         Thread.sleep(5_000)
+        onView(editTextRef).perform(ViewActions.typeText("0"))
         Assert.assertEquals("$1,000,000,000,000.00", editText?.text())
 
         // When

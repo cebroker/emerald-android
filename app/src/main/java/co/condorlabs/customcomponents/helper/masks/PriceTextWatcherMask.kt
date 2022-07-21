@@ -69,11 +69,16 @@ class PriceTextWatcherMask(private val receiver: EditText) : TextWatcherAdapter(
             return
         }
 
+        if (text.contains("..")){
+            receiver.setText(previousText)
+            setSelectionAndListener()
+            return
+        }
+
         try {
             val format = NumberFormat.getCurrencyInstance()
             format.maximumFractionDigits = 2
             format.currency = Currency.getInstance(Locale.US)
-
             val amount = formatter.parse(
                 text.replace(
                     NON_NUMERICAL_SYMBOLS.toRegex(),
@@ -90,12 +95,11 @@ class PriceTextWatcherMask(private val receiver: EditText) : TextWatcherAdapter(
 
             val currentlyAmount = format.format(amount)
 
-//            if (!isAllowedAmount((amount as Long).toBigDecimal())) {
-//                receiver.setText(previousText)
-//                setSelectionAndListener()
-//                return
-//            }
-
+            if (!isAllowedAmount(getPriceFromCurrency(currentlyAmount))) {
+                receiver.setText(previousText)
+                setSelectionAndListener()
+                return
+            }
 
             receiver.setText(currentlyAmount)
 
@@ -103,27 +107,27 @@ class PriceTextWatcherMask(private val receiver: EditText) : TextWatcherAdapter(
                 when {
                     previousText[previousText.length - 2] == ZERO_CHARACTER && currentlyAmount[currentlyAmount.length - 2] != ZERO_CHARACTER -> {
                         receiver.setSelection(receiver.text.length - 1)
+                        receiver.addTextChangedListener(this)
                     }
                     previousText[previousText.length - 1] == ZERO_CHARACTER && currentlyAmount[currentlyAmount.length - 1] != ZERO_CHARACTER -> {
                         receiver.setSelection(receiver.text.length)
+                        receiver.addTextChangedListener(this)
                     }
                     else -> {
                         receiver.setSelection(receiver.text.length - 3)
+                        receiver.addTextChangedListener(this)
                     }
                 }
             } else {
                 receiver.setSelection(receiver.text.length - 3)
+                receiver.addTextChangedListener(this)
             }
-
-            receiver.addTextChangedListener(this)
-
 
         } catch (exception: Throwable) {
             receiver.setText(previousText)
             setSelectionAndListener()
         }
     }
-
 
 //    override fun afterTextChanged(s: Editable?) {
 //        val text = s?.toString() ?: return
@@ -259,7 +263,11 @@ class PriceTextWatcherMask(private val receiver: EditText) : TextWatcherAdapter(
         if (!newText.contains(DOT_STRING)) {
             return false
         }
-        return newText.substringAfter(DOT_STRING) < previousText.substringAfter(DOT_STRING)
+        return if (newText.substringAfter(DOT_STRING).isNotEmpty()){
+            newText.substringAfter(DOT_STRING).toInt() < previousText.substringAfter(DOT_STRING).toInt()
+        }else{
+            false
+        }
     }
 
     private fun isZeroLastDecimal(newText: String): Boolean {
