@@ -27,4 +27,12 @@
         app:subtitle="Collapsible subtitle"
         app:collapsibleTitle="Collapsible title"/>
 
+    <co.condorlabs.customcomponents.customedittext.EditTextCurrencyField
+        android:id="@+id/ed1"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:textSize="14sp"
+        android:inputType="numberDecimal"
+        android:layout_gravity="center_horizontal"/>
+
 </LinearLayout>

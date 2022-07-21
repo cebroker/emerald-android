@@ -17,10 +17,7 @@
 package co.condorlabs.customcomponents.test
 
 import android.os.Bundle
-import android.widget.EditText
 import androidx.appcompat.app.AppCompatActivity
-import co.condorlabs.customcomponents.customedittext.EditTextCurrencyField
-import co.condorlabs.customcomponents.helper.masks.PriceTextWatcherMask
 
 /**
  * @author Oscar Gallon on 2/21/19.

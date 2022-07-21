@@ -70,41 +70,16 @@ class PriceTextWatcherMask(private val receiver: EditText) : TextWatcherAdapter(
         }
 
         try {
-            val currentlyAmount = getPriceFromCurrency(text)
+            val format = NumberFormat.getCurrencyInstance()
+            format.maximumFractionDigits = 2
+            format.currency = Currency.getInstance(Locale.US)
 
-            if (previousText == EMPTY) {
-                if (isAllowedAmount(currentlyAmount)) {
-                    receiver.setText(currentlyAmount.toDollarAmount())
-                    setSelectionAndListener()
-                    return
-                }
-                receiver.setText(maxAmount.toDollarAmount())
-                setSelectionAndListener()
-                return
-            }
-
-            if (!isAllowedAmount(currentlyAmount)) {
-                receiver.setText(previousText)
-                setSelectionAndListener()
-                return
-            }
-
-            if (text.last() == DOT_CHARACTER) {
-                if (isMaxAmount(currentlyAmount)) {
-                    receiver.setText(maxAmount.toDollarAmount())
-                    setSelectionAndListener()
-                    return
-                }
-                receiver.setText(text)
-                setSelectionAndListener()
-                return
-            }
-
-            if (isTypingThirdDecimalDigit(text)) {
-                receiver.setText(previousText)
-                setSelectionAndListener()
-                return
-            }
+            val amount = formatter.parse(
+                text.replace(
+                    NON_NUMERICAL_SYMBOLS.toRegex(),
+                    EMPTY
+                )
+            )
 
             if (isDeletingDecimalPart(text)) {
                 receiver.setText(text)
@@ -112,27 +87,147 @@ class PriceTextWatcherMask(private val receiver: EditText) : TextWatcherAdapter(
                 return
             }
 
-            if (text.last() == ZERO_CHARACTER && text != ZERO_CHARACTER.toString()) {
+
+            val currentlyAmount = format.format(amount)
+
+//            if (!isAllowedAmount((amount as Long).toBigDecimal())) {
+//                receiver.setText(previousText)
+//                setSelectionAndListener()
+//                return
+//            }
+
+
+            receiver.setText(currentlyAmount)
+
+            if (previousText.length > 3) {
                 when {
-                    text[text.lastIndex - 1] == DOT_CHARACTER || isZeroLastDecimal(text) -> receiver.setText(currentlyAmount.toDollarAmountZero())
+                    previousText[previousText.length - 2] == ZERO_CHARACTER && currentlyAmount[currentlyAmount.length - 2] != ZERO_CHARACTER -> {
+                        receiver.setSelection(receiver.text.length - 1)
+                    }
+                    previousText[previousText.length - 1] == ZERO_CHARACTER && currentlyAmount[currentlyAmount.length - 1] != ZERO_CHARACTER -> {
+                        receiver.setSelection(receiver.text.length)
+                    }
                     else -> {
-                        receiver.setText(currentlyAmount.toDollarAmount())
+                        receiver.setSelection(receiver.text.length - 3)
                     }
                 }
-                setSelectionAndListener()
-                return
+            } else {
+                receiver.setSelection(receiver.text.length - 3)
             }
-            receiver.setText(currentlyAmount.toDollarAmount())
+
+            receiver.addTextChangedListener(this)
+
+
         } catch (exception: Throwable) {
             receiver.setText(previousText)
             setSelectionAndListener()
         }
-
-        setSelectionAndListener()
     }
+
+
+//    override fun afterTextChanged(s: Editable?) {
+//        val text = s?.toString() ?: return
+//
+//        receiver.removeTextChangedListener(this)
+//
+//        if (text.isEmpty()) {
+//            receiver.setText(DOLLAR_SYMBOL)
+//            setSelectionAndListener()
+//            return
+//        }
+//
+//        if (text == DOLLAR_SYMBOL) {
+//            setSelectionAndListener()
+//            return
+//        }
+//
+//        if (text == "$DOLLAR_SYMBOL$DOT_STRING") {
+//            receiver.setText(previousText)
+//            setSelectionAndListener()
+//            return
+//        }
+//
+//        try {
+//            val currentlyAmount = getPriceFromCurrency(text)
+//
+//            if (previousText == EMPTY) {
+//                if (isAllowedAmount(currentlyAmount)) {
+//                    receiver.setText(currentlyAmount.toDollarAmount())
+//                    setSelectionAndListener()
+//                    return
+//                }
+//                receiver.setText(maxAmount.toDollarAmount())
+//                setSelectionAndListener()
+//                return
+//            }
+//
+//            if (!isAllowedAmount(currentlyAmount)) {
+//                receiver.setText(previousText)
+//                setSelectionAndListener()
+//                return
+//            }
+//
+//            if (text.last() == DOT_CHARACTER) {
+//                if (isMaxAmount(currentlyAmount)) {
+//                    receiver.setText(maxAmount.toDollarAmount())
+//                    setSelectionAndListener()
+//                    return
+//                }
+//                receiver.setText(text)
+//                setSelectionAndListener()
+//                return
+//            }
+//
+//            if (isTypingThirdDecimalDigit(text)) {
+//                receiver.setText(previousText)
+//                setSelectionAndListener()
+//                return
+//            }
+//
+//            if (isDeletingDecimalPart(text)) {
+//                receiver.setText(text)
+//                setSelectionAndListener()
+//                return
+//            }
+//
+//            if (text[text.lastIndex - 1] == DOT_CHARACTER && !isZeroLastDecimal(text)) {
+//                receiver.setText(currentlyAmount.toDollarAmount().plus("0"))
+//                setSelectionAndListener()
+//                return
+//            }
+//
+//            if (text.last() == ZERO_CHARACTER && text[text.lastIndex - 1] == '$'){
+//                receiver.setText(text)
+//                setSelectionAndListener()
+//                return
+//            }
+//
+//            if (text.last() == ZERO_CHARACTER && text != ZERO_CHARACTER.toString()) {
+//                when {
+//                    text[text.lastIndex - 1] == DOT_CHARACTER && isZeroLastDecimal(text) -> receiver.setText(
+//                        currentlyAmount.toDollarAmount().plus(".0")
+//                    )
+//                    isZeroLastDecimal(text) -> receiver.setText(currentlyAmount.toDollarAmount().plus(".00"))
+//                    text[text.lastIndex - 2] == DOT_CHARACTER && text[text.lastIndex - 1] == ZERO_CHARACTER -> receiver.setText(previousText)
+//                    else -> {
+//                        receiver.setText(currentlyAmount.toDollarAmount())
+//                    }
+//                }
+//                setSelectionAndListener()
+//                return
+//            }
+//            receiver.setText(currentlyAmount.toDollarAmount())
+//        } catch (exception: Throwable) {
+//            receiver.setText(previousText)
+//            setSelectionAndListener()
+//        }
+//
+//        setSelectionAndListener()
+//    }
 
     private fun getPriceFromCurrency(text: String): BigDecimal {
         val decimalFormat = DecimalFormat(MONEY_TWO_DECIMALS)
+        decimalFormat.roundingMode = RoundingMode.FLOOR
         val amount = formatter.parse(
             text.replace(
                 NON_NUMERICAL_SYMBOLS.toRegex(),

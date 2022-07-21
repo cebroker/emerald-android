@@ -55,10 +55,6 @@ class EditTextCurrencyField(context: Context, attrs: AttributeSet) :
             if (editText?.text.isNullOrEmpty()) {
                 editText?.setText(DOLLAR_SYMBOL)
             }
-        } else {
-            if (editText?.text?.contains('.') == false && editText?.text?.contentEquals("$") == false) {
-                editText?.text = editText?.text?.append(".00")
-            }
         }
     }
 

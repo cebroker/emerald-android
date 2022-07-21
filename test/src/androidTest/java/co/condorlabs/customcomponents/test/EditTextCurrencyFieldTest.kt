@@ -67,30 +67,22 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
     @SmallTest
     @Test
     fun shouldFormatCurrency() {
-        // When
         onView(editTextRef).perform(ViewActions.typeText("1"))
-        // Then
-        Assert.assertEquals("$1", editText?.text())
+        Assert.assertEquals("$1.00", editText?.text())
 
-        // When
+        Thread.sleep(5_000)
         onView(editTextRef).perform(ViewActions.typeText("1"))
-        // Then
-        Assert.assertEquals("$11", editText?.text())
+        Thread.sleep(5_000)
+        Assert.assertEquals("$11.00", editText?.text())
 
-        // When
         onView(editTextRef).perform(ViewActions.typeText("2"))
-        // Then
-        Assert.assertEquals("$112", editText?.text())
+        Assert.assertEquals("$112.00", editText?.text())
 
-        // When
         onView(editTextRef).perform(ViewActions.typeText("2"))
-        // Then
-        Assert.assertEquals("$1,122", editText?.text())
+        Assert.assertEquals("$1,122.00", editText?.text())
 
-        // When
         onView(editTextRef).perform(ViewActions.typeText("33"))
-        // Then
-        Assert.assertEquals("$112,233", editText?.text())
+        Assert.assertEquals("$112,233.00", editText?.text())
     }
 
     @SmallTest
@@ -137,27 +129,29 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
         // When
         onView(editTextRef).perform(ViewActions.typeText("1000000000001"))
         // Then
-        Assert.assertEquals("$100,000,000,000", editText?.text())
+        Thread.sleep(5_000)
+        Assert.assertEquals("$100,000,000,000.00", editText?.text())
 
         // When
         onView(editTextRef).perform(ViewActions.typeText("0"))
         // Then
-        Assert.assertEquals("$1,000,000,000,000", editText?.text())
+        Thread.sleep(5_000)
+        Assert.assertEquals("$1,000,000,000,000.00", editText?.text())
 
         // When
         onView(editTextRef).perform(ViewActions.typeText("0"))
         // Then
-        Assert.assertEquals("$1,000,000,000,000", editText?.text())
+        Assert.assertEquals("$1,000,000,000,000.00", editText?.text())
 
         // When
         onView(editTextRef).perform(ViewActions.typeText("10000000000001"))
         // Then
-        Assert.assertEquals("$1,000,000,000,000", editText?.text())
+        Assert.assertEquals("$1,000,000,000,000.00", editText?.text())
 
         // When
         onView(editTextRef).perform(ViewActions.typeText("."))
         // Then
-        Assert.assertEquals("$1,000,000,000,000", editText?.text())
+        Assert.assertEquals("$1,000,000,000,000.00", editText?.text())
     }
 
     @SmallTest
@@ -166,7 +160,7 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
         // When
         onView(editTextRef).perform(ViewActions.replaceText("1000000000001"))
         // Then
-        Assert.assertEquals("$1,000,000,000,000", editText?.text())
+        Assert.assertEquals("$1,000,000,000,000.00", editText?.text())
     }
 
     @SmallTest
