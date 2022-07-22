@@ -33,7 +33,7 @@ class EditTextCurrencyField(context: Context, attrs: AttributeSet) :
     override fun setup() {
         super.setup()
 
-        val _editText = editText?.let { it } ?: return
+        val _editText = editText ?: return
         _editText.id = R.id.etCurrency
         _editText.addTextChangedListener(PriceTextWatcherMask(_editText))
     }
@@ -49,14 +49,14 @@ class EditTextCurrencyField(context: Context, attrs: AttributeSet) :
         }
     }
 
-    override fun onFocusChange(v: View?, hasFocus: Boolean) {
-        super.onFocusChange(v, hasFocus)
-        if (hasFocus) {
-            if (editText?.text.isNullOrEmpty()) {
-                editText?.setText(DOLLAR_SYMBOL)
-            }
-        }
-    }
+//    override fun onFocusChange(v: View?, hasFocus: Boolean) {
+//        super.onFocusChange(v, hasFocus)
+//        if (hasFocus) {
+//            if (editText?.text.isNullOrEmpty()) {
+//                editText?.setText(DOLLAR_SYMBOL)
+//            }
+//        }
+//    }
 
     private fun isNotFilledWithDigits(text: String?): Boolean {
         return text == DOLLAR_SYMBOL || text == EMPTY

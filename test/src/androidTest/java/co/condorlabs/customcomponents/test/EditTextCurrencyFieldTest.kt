@@ -28,7 +28,9 @@ import androidx.test.filters.SmallTest
 import androidx.test.runner.AndroidJUnit4
 import co.condorlabs.customcomponents.EMPTY
 import co.condorlabs.customcomponents.VALIDATE_EMPTY_ERROR
+import co.condorlabs.customcomponents.customedittext.EditTextCityField
 import co.condorlabs.customcomponents.customedittext.EditTextCurrencyField
+import co.condorlabs.customcomponents.customedittext.EditTextEmailField
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.test.util.text
 import org.junit.Assert
@@ -68,20 +70,12 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
     @SmallTest
     @Test
     fun shouldFormatCurrency() {
-        onView(editTextRef).perform(ViewActions.typeText("1"))
-        Assert.assertEquals("$1.00", editText?.text())
 
         onView(editTextRef).perform(ViewActions.typeText("1"))
-        Assert.assertEquals("$11.00", editText?.text())
-
-        onView(editTextRef).perform(ViewActions.typeText("2"))
-        Assert.assertEquals("$112.00", editText?.text())
-
-        onView(editTextRef).perform(ViewActions.typeText("2"))
-        Assert.assertEquals("$1,122.00", editText?.text())
-
-        onView(editTextRef).perform(ViewActions.typeText("33"))
-        Assert.assertEquals("$112,233.00", editText?.text())
+        onView(editTextRef).perform(ViewActions.typeText("1"))
+        onView(editTextRef).perform(ViewActions.typeText("1"))
+        onView(editTextRef).perform(ViewActions.typeText("1"))
+        Assert.assertEquals("$11.11", editText?.text())
     }
 
     @SmallTest
@@ -124,17 +118,15 @@ class EditTextCurrencyFieldTest : MockActivityTest() {
 
     @SmallTest
     @Test
-    fun shouldAllowMax1_000_000() {
+    fun shouldAllowMax1_000_000_000_000() {
         // When
-        onView(editTextRef).perform(ViewActions.typeText("1000000000001"))
+        onView(editTextRef).perform(ViewActions.typeText("100000000000"))
         // Then
-        Thread.sleep(5_000)
         Assert.assertEquals("$100,000,000,000.00", editText?.text())
 
         // When
         onView(editTextRef).perform(ViewActions.typeText("0"))
         // Then
-        Thread.sleep(5_000)
         onView(editTextRef).perform(ViewActions.typeText("0"))
         Assert.assertEquals("$1,000,000,000,000.00", editText?.text())
 

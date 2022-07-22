@@ -185,7 +185,7 @@ open class BaseEditTextFormField(context: Context, attrs: AttributeSet) :
     private fun isMultiline(editText: EditText) {
         if (isMultiline) {
             editText.apply {
-                setSingleLine(false)
+                isSingleLine = false
                 setLines(this@BaseEditTextFormField.minLines ?: LINES_DEFAULT)
                 maxLines = this@BaseEditTextFormField.maxLines ?: MAXLINES_DEFAULT
             }
