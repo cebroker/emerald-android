@@ -27,10 +27,4 @@
         app:subtitle="Collapsible subtitle"
         app:collapsibleTitle="Collapsible title"/>
 
-    <co.condorlabs.customcomponents.customedittext.EditTextCurrencyField
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:input_type="numberDecimal"
-        android:id="@+id/tlCurrencyMock" />
-
 </LinearLayout>

@@ -18,7 +18,6 @@ package co.condorlabs.customcomponents.customedittext
 
 import android.content.Context
 import android.util.AttributeSet
-import android.view.View
 import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.formfield.ValidationResult
 import co.condorlabs.customcomponents.helper.masks.PriceTextWatcherMask
@@ -48,15 +47,6 @@ class EditTextCurrencyField(context: Context, attrs: AttributeSet) :
             else -> ValidationResult(true, EMPTY)
         }
     }
-
-//    override fun onFocusChange(v: View?, hasFocus: Boolean) {
-//        super.onFocusChange(v, hasFocus)
-//        if (hasFocus) {
-//            if (editText?.text.isNullOrEmpty()) {
-//                editText?.setText(DOLLAR_SYMBOL)
-//            }
-//        }
-//    }
 
     private fun isNotFilledWithDigits(text: String?): Boolean {
         return text == DOLLAR_SYMBOL || text == EMPTY
