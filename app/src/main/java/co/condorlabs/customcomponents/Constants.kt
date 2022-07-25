@@ -85,7 +85,6 @@ const val MAXLINES_DEFAULT = 5
 const val DOLLAR_SYMBOL = "$"
 const val MONEY_MAX_AMOUNT = 100000000000000
 const val DOT_STRING = "."
-Z
 const val BUTTON_DEFAULT_TYPE = "default"
 const val BUTTON_PRIMARY_TYPE = "primary"
 const val BUTTON_DANGER_TYPE = "danger"
