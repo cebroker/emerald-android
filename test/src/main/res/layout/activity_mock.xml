@@ -26,4 +26,5 @@
         app:content="@layout/activity_collapsible_content_view_test"
         app:subtitle="Collapsible subtitle"
         app:collapsibleTitle="Collapsible title"/>
+
 </LinearLayout>

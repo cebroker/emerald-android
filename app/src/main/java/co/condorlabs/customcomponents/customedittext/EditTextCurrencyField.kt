@@ -17,7 +17,6 @@
 package co.condorlabs.customcomponents.customedittext
 
 import android.content.Context
-import android.graphics.Rect
 import android.util.AttributeSet
 import co.condorlabs.customcomponents.*
 import co.condorlabs.customcomponents.formfield.ValidationResult
@@ -33,7 +32,7 @@ class EditTextCurrencyField(context: Context, attrs: AttributeSet) :
     override fun setup() {
         super.setup()
 
-        val _editText = editText?.let { it } ?: return
+        val _editText = editText ?: return
         _editText.id = R.id.etCurrency
         _editText.addTextChangedListener(PriceTextWatcherMask(_editText))
     }
@@ -46,15 +45,6 @@ class EditTextCurrencyField(context: Context, attrs: AttributeSet) :
             )
             editText?.text.toString().isNotEmpty() && !doesTextMatchWithRegex(editText?.text.toString()) -> getErrorValidateResult()
             else -> ValidationResult(true, EMPTY)
-        }
-    }
-
-    override fun onFocusChanged(focused: Boolean, direction: Int, previouslyFocusedRect: Rect?) {
-        super.onFocusChanged(focused, direction, previouslyFocusedRect)
-        if (focused) {
-            if (editText?.text.isNullOrEmpty()) {
-                editText?.setText(DOLLAR_SYMBOL)
-            }
         }
     }
 
