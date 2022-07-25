@@ -54,7 +54,6 @@ dependencies {
 
     implementation kotlinCoroutines
     implementation kotlinCoroutinesAndroid
-    implementation androidMaterial
 
     testImplementation junit
     androidTestImplementation mockk

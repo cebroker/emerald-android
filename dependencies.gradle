@@ -14,7 +14,6 @@ allprojects {
 ext {
 
     kotlin_coroutines_version = "1.6.0"
-    android_material_version = "1.6.1"
 
     android_x_appCcompat_version = "1.4.1"
     android_x_test_runner_version = "1.4.0"
@@ -47,7 +46,6 @@ ext {
 
     kotlinCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_version"
     kotlinCoroutinesAndroid = "org.jetbrains.kotlinx:kotlinx-coroutines-android:$kotlin_coroutines_version"
-    androidMaterial = "com.google.android.material:material:$android_material_version"
     picasso = "com.squareup.picasso:picasso:$picasso_version"
     lottie = "com.airbnb.android:lottie:$lottie_version"
     skeleton = "com.facebook.shimmer:shimmer:$shimmer_version"
