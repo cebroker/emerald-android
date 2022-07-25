@@ -35,11 +35,9 @@ class PriceTextWatcherMask(private val receiver: EditText) : TextWatcher {
     private val maxAmount = MONEY_MAX_AMOUNT.toBigDecimal()
     private var current: String = ""
 
-
     override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
         previousText = s.toString()
     }
-
 
     override fun afterTextChanged(s: Editable?) {
 

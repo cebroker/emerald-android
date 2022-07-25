@@ -16,27 +16,7 @@
 
 package co.condorlabs.customcomponents.helper
 
-import co.condorlabs.customcomponents.MONEY_FORMAT
-import co.condorlabs.customcomponents.MONEY_FORMAT_ZERO
 import java.math.BigDecimal
-import java.text.DecimalFormat
-import java.text.NumberFormat
-import java.util.Locale
-
-fun BigDecimal.toDollarAmount(): String {
-    return formatDollarAmount(MONEY_FORMAT)
-}
-
-fun BigDecimal.toDollarAmountZero(): String {
-    return formatDollarAmount(MONEY_FORMAT_ZERO)
-}
-
-private fun BigDecimal.formatDollarAmount(moneyFormat: String): String {
-    val formatter = NumberFormat.getCurrencyInstance(Locale.US)
-    val df = formatter as DecimalFormat
-    df.applyPattern(moneyFormat)
-    return df.format(this)
-}
 
 fun BigDecimal.lessThan(value: BigDecimal): Boolean {
     return compareTo(value) == -1

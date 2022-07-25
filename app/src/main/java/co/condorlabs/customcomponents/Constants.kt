@@ -83,17 +83,9 @@ const val MAXLINES_DEFAULT = 5
 
 /**MONEY FORMATS**/
 const val DOLLAR_SYMBOL = "$"
-const val MONEY_FORMAT = "$###,###.##"
-const val MONEY_FORMAT_ZERO = "$###,###.00"
-const val MONEY_TWO_DECIMALS = "#.00"
 const val MONEY_MAX_AMOUNT = 100000000000000
-const val NON_NUMERICAL_SYMBOLS = "[$,]"
-const val COMMA_AS_DECIMAL = ","
-const val DOT_CHARACTER = '.'
 const val DOT_STRING = "."
-const val ZERO_CHARACTER = '0'
-const val THREE_DIGITS = "\\d{3}"
-
+Z
 const val BUTTON_DEFAULT_TYPE = "default"
 const val BUTTON_PRIMARY_TYPE = "primary"
 const val BUTTON_DANGER_TYPE = "danger"

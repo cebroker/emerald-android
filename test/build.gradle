@@ -54,7 +54,7 @@ dependencies {
 
     implementation kotlinCoroutines
     implementation kotlinCoroutinesAndroid
-    implementation 'com.google.android.material:material:1.6.1'
+    implementation androidMaterial
 
     testImplementation junit
     androidTestImplementation mockk
