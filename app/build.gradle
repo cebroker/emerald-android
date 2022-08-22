@@ -40,6 +40,10 @@ android {
         animationsDisabled = true
     }
 
+    buildFeatures {
+        viewBinding true
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -58,6 +62,9 @@ dependencies {
     // Camera
     api camerax
     api camera2_kit
+    api cameraLifecycle
+    api cameraView
+    api cameraExtensions
 
     //Coroutines
     implementation kotlinCoroutines

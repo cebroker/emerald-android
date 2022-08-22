@@ -1,38 +1,39 @@
 package co.condorlabs.customcomponents.simplecamerax.fragment
 
-import android.annotation.SuppressLint
+import android.content.ContentValues
 import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
-import android.graphics.Matrix
-import android.graphics.SurfaceTexture
+import android.graphics.ImageDecoder
+import android.os.Build
 import android.os.Bundle
-import android.util.DisplayMetrics
-import android.util.Rational
-import android.util.Size
+import android.provider.MediaStore
+import android.util.Log
 import android.view.LayoutInflater
-import android.view.Surface
-import android.view.TextureView
 import android.view.View
 import android.view.ViewGroup
-import androidx.camera.core.CameraX
+import androidx.camera.core.CameraSelector
 import androidx.camera.core.ImageCapture
-import androidx.camera.core.ImageCaptureConfig
+import androidx.camera.core.ImageCapture.CAPTURE_MODE_MAXIMIZE_QUALITY
+import androidx.camera.core.ImageCaptureException
 import androidx.camera.core.ImageProxy
 import androidx.camera.core.Preview
-import androidx.camera.core.PreviewConfig
+import androidx.camera.lifecycle.ProcessCameraProvider
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
-import co.condorlabs.customcomponents.R
-import co.condorlabs.customcomponents.models.CameraTextureViewMetrics
+import co.condorlabs.customcomponents.databinding.FragmentSimpleCameraXBinding
 import java.io.File
+import java.util.concurrent.ExecutorService
 import java.util.concurrent.Executors
 
-class SimpleCameraXFragment : Fragment(), TextureView.SurfaceTextureListener {
+class SimpleCameraXFragment : Fragment() {
 
+    private var _viewBinding: FragmentSimpleCameraXBinding? = null
     private var imageCapture: ImageCapture? = null
+    private lateinit var cameraExecutor: ExecutorService
     private var onCameraXListener: OnCameraXListener? = null
-    private val executor = Executors.newSingleThreadExecutor()
-    private var cameraTextureView:TextureView?=null
+
+    private val viewBinding get() = _viewBinding!!
 
     override fun onAttach(context: Context) {
         super.onAttach(context)
@@ -45,166 +46,151 @@ class SimpleCameraXFragment : Fragment(), TextureView.SurfaceTextureListener {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        return inflater.inflate(R.layout.fragment_simple_camera_x, container, false)
+        _viewBinding = FragmentSimpleCameraXBinding.inflate(inflater, container, false)
+        return viewBinding.root
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _viewBinding = null
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        cameraTextureView = view.findViewById(R.id.cameraTextureView)
-        cameraTextureView?.surfaceTextureListener = this
+        cameraExecutor = Executors.newSingleThreadExecutor()
     }
 
     fun startCamera() {
-       CameraX.bindToLifecycle(this, buildPreviewUseCase(), buildImageCaptureUseCase())
-    }
 
+        val cameraProviderFuture = ProcessCameraProvider.getInstance(requireContext())
 
-    @SuppressLint("RestrictedApi")
-    private fun buildPreviewUseCase(): Preview? {
-        return cameraTextureViewMetrics()?.let { metrics ->
-            val preview = Preview(PreviewConfig.Builder().apply {
-                setTargetAspectRatioCustom(metrics.aspectRatio)
-                setTargetRotation(metrics.rotation)
-                setTargetResolution(metrics.resolution)
-                build()
-            }.build())
-            preview.setOnPreviewOutputUpdateListener {
-                cameraTextureView?.let { textureView ->
-                    val parent = textureView.parent as ViewGroup
-                    parent.removeView(cameraTextureView)
-                    parent.addView(cameraTextureView, 0)
-                    textureView.setSurfaceTexture(it.surfaceTexture)
-                    updateTransform()
-                }
-            }
-            preview
-        }
-    }
-
-    @SuppressLint("RestrictedApi")
-    private fun buildImageCaptureUseCase(): ImageCapture? {
-        return cameraTextureViewMetrics()?.let { metrics ->
-            val captureConfig = ImageCaptureConfig.Builder()
-                .setTargetAspectRatioCustom(metrics.aspectRatio)
-                .setTargetRotation(metrics.rotation)
-                .setTargetResolution(metrics.resolution)
-                .setCaptureMode(ImageCapture.CaptureMode.MAX_QUALITY)
+        cameraProviderFuture.addListener({
+            val cameraProvider: ProcessCameraProvider = cameraProviderFuture.get()
+            val preview = Preview.Builder()
                 .build()
-            imageCapture = ImageCapture(captureConfig)
-            imageCapture
-        }
-    }
+                .also {
+                    it.setSurfaceProvider(viewBinding.viewFinder.surfaceProvider)
+                }
+            imageCapture = ImageCapture.Builder()
+                .setCaptureMode(CAPTURE_MODE_MAXIMIZE_QUALITY)
+                .build()
 
-    private fun cameraTextureViewMetrics(): CameraTextureViewMetrics? {
-        return cameraTextureView?.let { textureView ->
-            val metrics = DisplayMetrics().also { textureView.display.getRealMetrics(it) }
-            val aspectRatio = Rational(metrics.widthPixels, metrics.heightPixels)
-            val rotation = textureView.display.rotation
-            val resolution = Size(metrics.widthPixels, metrics.heightPixels)
-            CameraTextureViewMetrics(aspectRatio, rotation, resolution)
-        }
+            val cameraSelector = CameraSelector.DEFAULT_BACK_CAMERA
+
+            try {
+                cameraProvider.unbindAll()
+
+                cameraProvider.bindToLifecycle(
+                    this, cameraSelector, preview, imageCapture
+                )
+
+            } catch (exc: Exception) {
+                Log.e(TAG, "Use case binding failed", exc)
+            }
+
+        }, ContextCompat.getMainExecutor(requireContext()))
     }
 
     fun takePhoto(filePath: String? = null) {
-        activity?.let { activityParent ->
-            if (filePath.isNullOrEmpty()) {
-                imageCapture?.takePicture(
-                    executor,
-                    object : ImageCapture.OnImageCapturedListener() {
-                        override fun onCaptureSuccess(image: ImageProxy?, rotationDegrees: Int) {
-                            activityParent.runOnUiThread {
-                                val imageCaptured = image?.image ?: throw NullPointerException()
-                                val buffer = imageCaptured.planes.first().buffer
-                                val bytes = ByteArray(buffer.capacity())
-                                buffer.get(bytes)
-                                BitmapFactory.decodeByteArray(bytes, 0, bytes.size, null)?.let {
-                                    onCameraXListener?.onImageCaptured(it)
-                                }
-                                image.close()
-                                imageCaptured.close()
-                            }
-                        }
 
-                        override fun onError(
-                            imageCaptureError: ImageCapture.ImageCaptureError,
-                            message: String,
-                            cause: Throwable?
-                        ) {
-                            onCameraXListener?.onError(imageCaptureError, message, cause)
-                        }
-                    })
-            } else {
-                val fileTemp = File(filePath)
-                if (!fileTemp.exists()) { fileTemp.mkdirs() }
-                val fileFinal = File(fileTemp, "img_${System.currentTimeMillis()}.jpg")
-                imageCapture?.takePicture(
-                    fileFinal,
-                    executor,
-                    object : ImageCapture.OnImageSavedListener {
-                        override fun onImageSaved(file: File) {
-                            activityParent.runOnUiThread {
-                                BitmapFactory.decodeFile(file.absolutePath)?.let {
-                                    onCameraXListener?.onImageSaved(it)
-                                }
-                            }
-                        }
+        val imageCapture = imageCapture ?: return
 
-                        override fun onError(
-                            imageCaptureError: ImageCapture.ImageCaptureError,
-                            message: String,
-                            cause: Throwable?
-                        ) {
-                            activityParent.runOnUiThread {
-                                onCameraXListener?.onError(imageCaptureError, message, cause)
-                            }
+        if (filePath.isNullOrEmpty()) {
+            imageCapture.takePicture(
+                ContextCompat.getMainExecutor(requireContext()),
+                object : ImageCapture.OnImageCapturedCallback() {
+                    override fun onError(exception: ImageCaptureException) {
+                        super.onError(exception)
+                        onCameraXListener?.onError(exception, exception.message ?: "No error message", exception.cause)
+                    }
+
+                    override fun onCaptureSuccess(image: ImageProxy) {
+                        super.onCaptureSuccess(image)
+                        val buffer = image.planes.first().buffer
+                        val bytes = ByteArray(buffer.capacity())
+                        buffer.get(bytes)
+                        BitmapFactory.decodeByteArray(bytes, 0, bytes.size, null)?.let {
+                            onCameraXListener?.onImageCaptured(it)
                         }
-                    })
+                        image.close()
+                    }
+                }
+            )
+        } else {
+            val fileTemp = File(filePath)
+            if (!fileTemp.exists()) {
+                fileTemp.mkdirs()
             }
+            val name = "img_${System.currentTimeMillis()}.jpg"
+
+            val contentValues = ContentValues().apply {
+                put(MediaStore.MediaColumns.DISPLAY_NAME, name)
+                put(MediaStore.MediaColumns.MIME_TYPE, "image/jpeg")
+                if (Build.VERSION.SDK_INT > Build.VERSION_CODES.P) {
+                    put(MediaStore.Images.Media.RELATIVE_PATH, filePath)
+                }
+            }
+
+            val outputOptions = ImageCapture.OutputFileOptions
+                .Builder(
+                    requireContext().contentResolver,
+                    MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                    contentValues
+                )
+                .build()
+
+            imageCapture.takePicture(
+                outputOptions,
+                ContextCompat.getMainExecutor(requireContext()),
+                object : ImageCapture.OnImageSavedCallback {
+                    override fun onError(exc: ImageCaptureException) {
+                        Log.e(TAG, "Photo capture failed: ${exc.message}", exc)
+                        onCameraXListener?.onError(exc, exc.message ?: "No error message", exc.cause)
+                    }
+
+                    override fun
+                            onImageSaved(output: ImageCapture.OutputFileResults) {
+                        val msg = "Photo capture succeeded: ${output.savedUri}"
+
+                        if (Build.VERSION.SDK_INT < 28) {
+                            val bitmap = MediaStore.Images.Media.getBitmap(
+                                requireContext().contentResolver,
+                                output.savedUri
+                            )
+                            onCameraXListener?.onImageSaved(bitmap)
+                        } else {
+                            output.savedUri?.let {
+                                val source = ImageDecoder.createSource(requireContext().contentResolver, it)
+                                val bitmap = ImageDecoder.decodeBitmap(source)
+                                onCameraXListener?.onImageSaved(bitmap)
+                            }
+                        }
+                        Log.d(TAG, msg)
+                    }
+                }
+            )
         }
     }
 
 
-    private fun updateTransform() {
-        cameraTextureView?.let {
-            val matrix = Matrix()
-            val centerX = it.width / 2F
-            val centerY = it.height / 2F
-            val rotationDegrees = when (it.display.rotation) {
-                Surface.ROTATION_0 -> 0
-                Surface.ROTATION_90 -> 90
-                Surface.ROTATION_180 -> 180
-                Surface.ROTATION_270 -> 270
-                else -> return
-            }
-            matrix.postRotate(-rotationDegrees.toFloat(), centerX, centerY)
-            it.setTransform(matrix)
-        }
+    override fun onDestroy() {
+        super.onDestroy()
+        cameraExecutor.shutdown()
     }
 
-    override fun onSurfaceTextureSizeChanged(surface: SurfaceTexture, width: Int, height: Int) {}
-
-    override fun onSurfaceTextureUpdated(surface: SurfaceTexture) {}
-
-    override fun onSurfaceTextureDestroyed(surface: SurfaceTexture): Boolean {
-        return true
-    }
-
-    override fun onSurfaceTextureAvailable(surface: SurfaceTexture, width: Int, height: Int) {
-        onCameraXListener?.fragmentTextureViewLoaded()
-    }
 
     interface OnCameraXListener {
-
-        fun fragmentTextureViewLoaded()
 
         fun onImageCaptured(bitmap: Bitmap)
 
         fun onImageSaved(bitmap: Bitmap)
 
         fun onError(
-            imageCaptureError: ImageCapture.ImageCaptureError,
+            imageCaptureError: ImageCaptureException,
             message: String,
             cause: Throwable?
         )
     }
 }
+
+private const val TAG = "CameraXApp"

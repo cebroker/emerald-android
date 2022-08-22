@@ -27,7 +27,8 @@ ext {
     lottie_version = "4.2.1"
     material_library = "1.5.0"
     swiperefreshlayout_version = "1.1.0"
-    camerax_version = '1.0.0-alpha06'
+    camerax_version = '1.1.0'
+
 
     // Testing
     mockk_version = "1.12.2"
@@ -40,8 +41,13 @@ ext {
     recyclerView = "androidx.recyclerview:recyclerview:$android_x_appCcompat_version"
     swipeRefreshLayout = "androidx.swiperefreshlayout:swiperefreshlayout:$swiperefreshlayout_version"
     materialDesign = "com.google.android.material:material:$material_library"
+
+    //Camera
     camerax = "androidx.camera:camera-core:$camerax_version"
     camera2_kit = "androidx.camera:camera-camera2:$camerax_version"
+    cameraLifecycle = "androidx.camera:camera-lifecycle:${camerax_version}"
+    cameraView = "androidx.camera:camera-view:${camerax_version}"
+    cameraExtensions = "androidx.camera:camera-extensions:${camerax_version}"
 
 
     kotlinCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlin_coroutines_version"

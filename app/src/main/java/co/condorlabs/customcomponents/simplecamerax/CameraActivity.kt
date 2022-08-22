@@ -12,7 +12,7 @@ import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.camera.core.ImageCapture
+import androidx.camera.core.ImageCaptureException
 import androidx.constraintlayout.widget.Barrier
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.constraintlayout.widget.ConstraintSet
@@ -88,7 +88,10 @@ class CameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListe
             cropButtonText?.let { btnCropPhoto?.text = it }
             photoCaptured?.setKeepAspectRatio(keepAspectRatio)
         }
-        ibCancelPhoto?.setOnClickListener { finish() }
+        ibCancelPhoto?.setOnClickListener {
+            finish()
+        }
+        initCameraX()
     }
 
     private fun setFitToScreen() {
@@ -119,17 +122,13 @@ class CameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListe
         }
     }
 
-    override fun fragmentTextureViewLoaded() {
-        initCameraX()
-        btnCancelPhoto?.setOnClickListener { resetLayout() }
-    }
-
     private fun initCameraX() {
         cameraFragment.startCamera()
         fabCaptureButton?.setOnClickListener {
             (fabCaptureButton?.drawable as? Animatable)?.start()
             cameraFragment.takePhoto(cameraConfig.savePhotoPath)
         }
+        btnCancelPhoto?.setOnClickListener { resetLayout() }
     }
 
     override fun onImageCaptured(bitmap: Bitmap) {
@@ -189,7 +188,7 @@ class CameraActivity : AppCompatActivity(), SimpleCameraXFragment.OnCameraXListe
     }
 
     override fun onError(
-        imageCaptureError: ImageCapture.ImageCaptureError,
+        imageCaptureError: ImageCaptureException,
         message: String,
         cause: Throwable?
     ) {
