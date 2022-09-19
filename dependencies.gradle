@@ -35,6 +35,7 @@ ext {
     junit_version = "4.13.2"
     mockito_version = "4.0.0"
     mockito_core_version = "4.3.1"
+    signature_pad_compose_version= "0.0.20"
 
     appCompat = "androidx.appcompat:appcompat:$android_x_appCcompat_version"
     cardView = "androidx.cardview:cardview:$android_x_appCcompat_version"
@@ -71,5 +72,15 @@ ext {
     androidAnnotations = "androidx.annotation:annotation:$android_x_annotations_version"
     uiAutomator = "androidx.test.uiautomator:uiautomator:$android_x__ui_automator_version"
     fragmentTesting = "androidx.fragment:fragment-testing:$android_fragment_testing_version"
+
+    signaturePad = "se.warting.signature:signature-pad:$signature_pad_compose_version"
+
+    compose = [
+            activityCompose: "androidx.activity:activity-compose:1.5.0",
+            ui             : "androidx.compose.ui:ui:1.2.0",
+            material       : "androidx.compose.material:material:1.2.0",
+            tooling        :"androidx.compose.ui:ui-tooling:1.2.0",
+            viewbinding: "androidx.compose.ui:ui-viewbinding:1.1.1"
+    ]
 
 }
